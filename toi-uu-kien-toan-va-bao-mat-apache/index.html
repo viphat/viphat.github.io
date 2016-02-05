@@ -1,0 +1,333 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Tối ưu, kiện toàn và Bảo mật Apache</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/toi-uu-kien-toan-va-bao-mat-apache/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Tối ưu, kiện toàn và Bảo mật Apache">
+    <meta property="og:description" content='Bài này mình cóp nhặt từ Báo cáo "Tối ưu, kiện toàn và bảo mật Apache" của thầy Lê Thanh Thương, Lớp Linux System Admin. Trong đó, mính có lược bớt phần nói về bảo mật PHP vì mình chưa...'>
+    <meta property="og:url" content="http://localhost:2368/toi-uu-kien-toan-va-bao-mat-apache/">
+    <meta property="article:published_time" content="2015-07-12T06:33:27.724Z">
+    <meta property="article:modified_time" content="2015-07-13T23:47:34.760Z">
+    <meta property="article:tag" content="Network">
+    <meta property="article:tag" content="Mod Security">
+    <meta property="article:tag" content="Apache">
+    <meta property="article:tag" content="Basic">
+    <meta property="article:tag" content="Server">
+    <meta property="article:tag" content="Chroot">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Tối ưu, kiện toàn và Bảo mật Apache">
+    <meta name="twitter:description" content='Bài này mình cóp nhặt từ Báo cáo "Tối ưu, kiện toàn và bảo mật Apache" của thầy Lê Thanh Thương, Lớp Linux System Admin. Trong đó, mính có lược bớt phần nói về bảo mật PHP vì mình chưa...'>
+    <meta name="twitter:url" content="http://localhost:2368/toi-uu-kien-toan-va-bao-mat-apache/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Tối ưu, kiện toàn và Bảo mật Apache",
+    "url": "http://localhost:2368/toi-uu-kien-toan-va-bao-mat-apache/",
+    "datePublished": "2015-07-12T06:33:27.724Z",
+    "dateModified": "2015-07-13T23:47:34.760Z",
+    "keywords": "Network, Mod Security, Apache, Basic, Server, Chroot",
+    "description": "Bài này mình cóp nhặt từ Báo cáo &quot;Tối ưu, kiện toàn và bảo mật Apache&quot; của thầy Lê Thanh Thương, Lớp Linux System Admin. Trong đó, mính có lược bớt phần nói về bảo mật PHP vì mình chưa..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-network tag-mod-security tag-apache tag-basic tag-server tag-chroot">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-network tag-mod-security tag-apache tag-basic tag-server tag-chroot">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-07-12">12 Jul 2015</time> on <a href="../tag/network/">Network</a> | <a href="../tag/mod-security/">Mod Security</a> | <a href="../tag/apache/">Apache</a> | <a href="../tag/basic/">Basic</a> | <a href="../tag/server/">Server</a> | <a href="../tag/chroot/">Chroot</a></span>
+
+        <h1 class="post-title">Tối ưu, kiện toàn và Bảo mật Apache</h1>
+
+        <section class="post-content">
+            <p>Bài này mình cóp nhặt từ Báo cáo "Tối ưu, kiện toàn và bảo mật Apache" của thầy Lê Thanh Thương, Lớp Linux System Admin. Trong đó, mính có lược bớt phần nói về bảo mật PHP vì mình chưa quan tâm lắm.</p>
+
+<h4 id="nguyntcquantrnggimthiuccedavbomt">Nguyên tắc quan trọng để giảm thiểu các đe dọa về bảo mật</h4>
+
+<ul>
+<li>Tạo User riêng / Group riêng để chạy Apache (tương tự cho Nginx), tránh dùng nobody:nogroup, càng nên tránh chạy Process Apache bằng user root vì nếu tin tắc đột nhập thành công nhờ lỗ hổng của một Process, Họ có quyền truy dụng đến các procecss khác có cùng UID/GID. </li>
+<li>Khi tạo User cho Apache, cần lưu ý không cho User Apache có thư mục $HOME riêng như các User thường khác: <code>-d /dev/null</code>, không cho User Apache sử dụng Shell: <code>-s /sbin/nologin</code> để hạn chế tin tắc có cơ hội tiếp cận với hệ thống.</li>
+<li>Kiểm soát File Permissions của hệ thống thư mục của ứng dụng Web. Nếu ứng dụng Web không cần chức năng Upload cho người dùng thì tốt hơn là nên -w cho tất cả mọi người (Loại quyền ghi cho owner,group-owner,others). Nếu cho phép upload thì chỉ chmod quyền +w cho đúng thư mục chứa file upload mà thôi và nhớ là phải chown thư mục đó với account chạy Apache.</li>
+<li>Disable các Module không cần thiết, không dùng đến.</li>
+</ul>
+
+<h4 id="phnbitapachempmworkervapachempmprefork">Phân biệt Apache mpm worker và Apache mpm prefork</h4>
+
+<p><strong>MPM Worker</strong> (Multi-Processing Module) implements a hybrid multi-process multi-threaded server. By using threads to serve requests, it is able to serve a large number of requests with fewer system resources than a process-based server. However, it retains much of the stability of a process-based server by keeping multiple processes available, each with many threads. The most important directives used to control this MPM are ThreadsPerChild, which controls the number of threads deployed by each child process and MaxClients, which controls the maximum total number of threads that may be launched. Đọc thêm về <strong>mpm worker</strong>: <a href="http://httpd.apache.org/docs/2.2/mod/worker.html">http://httpd.apache.org/docs/2.2/mod/worker.html</a>.</p>
+
+<p><strong>MPM Prefork</strong> implements a non-threaded, pre-forking web server that handles requests in a manner similar to Apache 1.3. It is appropriate for sites that need to avoid threading for compatibility with non-thread-safe libraries. It is also the best MPM for isolating each request, so that a problem with a single request will not affect any other. This MPM is very self-regulating, so it is rarely necessary to adjust its configuration directives. Most important is that MaxClients be big enough to handle as many simultaneous requests as you expect to receive, but small enough to assure that there is enough physical RAM for all processes. Đọc thêm về <strong>mpm prefork</strong>: <a href="http://httpd.apache.org/docs/2.2/mod/prefork.html">http://httpd.apache.org/docs/2.2/mod/prefork.html</a>.</p>
+
+<p>Sự khác biệt, ưu và nhược điểm của từng loại? <br>
+<a href="http://codebucket.co.in/apache-prefork-or-worker/">http://codebucket.co.in/apache-prefork-or-worker/</a></p>
+
+<p>PHP chỉ phù hợp với mpm prefork? Bạn chỉ nên sử dụng mpm prefork khi dùng Apache + mod_php. Xem thêm phần <a href="http://php.net/manual/en/faq.installation.php#faq.installation.apache2"><strong>Why shouldn't I use Apache2 with a threaded MPM in a production environment?</strong></a></p>
+
+<h4 id="citapachebngcchbindchttccmodulekhngcnthit">Cài đặt Apache bằng cách biên dịch để tắt các Module không cần thiết</h4>
+
+<p>Các Module cần thiết trong Apache:</p>
+
+<ul>
+<li><strong>httpd_core</strong>: Module cốt lõi của Apache, <strong>required</strong>.</li>
+<li><strong>mod_access</strong>: Enables allow/deny type access controls.</li>
+<li><strong>mod_auth</strong>: Enables user authentication.</li>
+<li><strong>mod_dir</strong>: Controls formatting of directory listings.</li>
+<li><strong>mod_log_config</strong>: Enables use of custom log formats.</li>
+<li><strong>mod_mime</strong>: Provides support for MIME files.</li>
+<li><strong>mod_so</strong>: Provides runtime support for dynamic shared objects (DSOs).</li>
+<li><strong>mod_unique_id</strong>: Generates a unique request identifier for each request.</li>
+<li><strong>mod_security</strong>: Đây là một module quan trọng trong việc bảo mật, đóng vai trò Reverse Proxy và Firewall cho Apache.</li>
+<li><strong>mod_rewrite</strong>: Enables URI-to-filename mapping.</li>
+</ul>
+
+<p><a href="http://docstore.mik.ua/orelly/networking_2ndEd/tcp/ch11_03.htm">http://docstore.mik.ua/orelly/networking_2ndEd/tcp/ch11_03.htm</a></p>
+
+<p>Các Module còn lại của Apache nên được tắt nếu không có nhu cầu phải sử dụng đến. Đặc biệt là hai module nguy hiểm như <strong>mod_autoindex</strong> (Enables automatic index generation) và <strong>mod_info</strong> (Enables use of the server-info handler)</p>
+
+<p><strong>Lệnh cấu hình biên dịch Apache</strong></p>
+
+<pre><code>./configure --prefix=/usr/local/apache \
+--with-mpm=prefork \
+--enable-auth \
+--disable-cgi \
+--disable-cgid \
+--enable-dir \
+--enable-log-config \
+--enable-mime \
+--enable-rewrite \
+--disable-ssl \
+--enable-unique-id \
+--disable-suexec --enable-so \
+--disable-auth-dbm \
+--disable-auth-digest \
+--disable-autoindex \
+--disable-cern-meta \
+--disable-dav \
+--disable-dav-fs \
+--disable-env \
+--disable-expires \
+--disable-file-cache \
+--disable-headers \
+--disable-include \
+--disable-mime-magic \
+--disable-negotiation \
+--disable-setenvif \
+--disable-speling \
+--disable-usertrack \
+--disable-vhost-alias \
+--disable-auth-anon \
+--disable-charset-lite \
+--disable-disk-cache \
+--disable-mem-cache \
+--disable-cache \
+--disable-deflate \
+--disable-filter --disable-version \
+--disable-cgid \
+--disable-cgi \
+--disable-ext-filter \
+--disable-case-filter \
+--disable-case-filter-in \
+--disable-proxy \
+--disable-proxy-connect \
+--disable-proxy-ftp \
+--disable-proxy-http \
+--disable-status \
+--disable-asis \
+--disable-info \
+--disable-imap \--disable-actions \
+--disable-userdir
+</code></pre>
+
+<h4 id="cuhnhvtiuapache">Cấu hình và Tối ưu Apache</h4>
+
+<p>Hiểu từng dòng cấu hình của Apache và ảnh hưởng của nó đến hệ thống ra sao? Trong từng trường hợp cụ thể thì nên cấu hình như thế nào là tối ưu?</p>
+
+<p><a href="http://httpd.apache.org/docs/2.4/configuring.html">http://httpd.apache.org/docs/2.4/configuring.html</a></p>
+
+<p>Dưới đây là bảng cấu hình chuẩn của Apache httpd.conf trong trường hợp một Average Server và lượng truy cập bình thường (Không có dấu hiệu của một cuộc tấn công DDOS).  </p>
+
+<pre><code># Wait up to 300 seconds for slow clients
+TimeOut 300  
+# Trong trường hợp bị DDOS thì giảm TimeOut xuống dưới 60s
+# Allow connections to be reused between requests
+KeepAlive On  
+# allow a maximum of 100 requests per connection
+MaxKeepAliveRequests 100  
+# wait up to 15 seconds for the next request on an open connection
+KeepAliveTimeout 15
+
+# Số lượng Request đồng thời tối đa, vượt quá con số này thì các request sẽ đưa vào hàng đợi hoặc bị từ chối.
+MaxClients 150
+
+# 0 là Unlimited, mặc định nên để 0, khi bị DDOS thì sửa giá trị này thành một con số khác 0, ví dụ 20000, để Apache hủy Child Process này sau khi phục vụ xong số request trên và dựng lại một Child Process khác.
+MaxRequestsPerChild 0  
+d  
+# keep 5 servers (Child Process) ready to handle requests
+MinSpareServers 5  
+# do not keep more than 10 servers idle
+MaxSpareServers 10  
+# Start with 5 servers
+StartServers 5  
+</code></pre>
+
+<h4 id="tmhiuvmod_securityvchroot">Tìm hiểu về mod_security và chroot</h4>
+
+<p>ModSecurity: <a href="https://www.modsecurity.org/">https://www.modsecurity.org/</a></p>
+
+<p><strong>Chroot</strong>:
+<strong>What is a Chroot Environment?</strong>
+A chroot environment is an operating system call that will change the root location temporarily to a new folder. Typically, the operating system's conception of the root directory is the actual root located at "/". However, with chroot, you can specify another directory to serve as the top-level directory for the duration of a chroot. <br>
+Any applications that are run from within the chroot will be unable to see the rest of the operating system in principle. Similarly, a non-root user who is confined to a chroot environment will not be able to move further up the directory hierarchy.</p>
+
+<p>Đọc thêm tại: 
+<a href="https://www.digitalocean.com/community/tutorials/how-to-configure-chroot-environments-for-testing-on-an-ubuntu-12-04-vps">https://www.digitalocean.com/community/tutorials/how-to-configure-chroot-environments-for-testing-on-an-ubuntu-12-04-vps</a></p>
+
+<p>Dùng chroot chỉ gây khó khăn thêm cho những kẻ có ý định tấn công Hệ thống của bạn, Bạn không nên xem chroot là biện pháp bảo mật duy nhất. Có thể dùng <strong>Docker</strong> để thay thế chroot, Docker hỗ trợ nhiều chức năng hơn.</p>
+
+<p>Nếu sử dụng chroot, cần có thêm vài bước cấu hình để các dịch vụ sử dụng chroot như Apache, PHP, MySQL có thể nhìn thấy nhau và liên lạc với nhau.</p>
+
+<p><mark>Cần quan tâm đến Số lượng kết nối tối đa và thời gian cho mỗi kết nối của MySQL (hay Postgresql) để có cách tối ưu phù hợp với tình hình, nếu User đông và xảy ra tình trạng người này kết nối được, người kia không thì ta nên tăng số lượng kết tối đa và giảm thời lượng cho mỗi kết nối xuống một giá trị phù hợp</mark></p>
+
+<h4 id="knowyourenemy">Know your Enemy</h4>
+
+<p>Ứng dụng Web có thể phải đối mặt với các kiểu tấn công khác nhau.  Trong đó, phổ biến là:</p>
+
+<ul>
+<li><strong>XSS - Cross-site scripting</strong></li>
+<li><strong>SQL Injection</strong></li>
+<li><strong>Spoofing File Upload</strong></li>
+<li><strong>File Inclusion Vulnerability</strong></li>
+<li><strong>Eval() Vulnerability &amp; Exploitation</strong></li>
+<li><strong>Sea-surf Attack</strong> (Cross-site yêu cầu giả mạo - CSRF)</li>
+</ul>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=T%E1%BB%91i%20%C6%B0u,%20ki%E1%BB%87n%20to%C3%A0n%20v%C3%A0%20B%E1%BA%A3o%20m%E1%BA%ADt%20Apache&amp;url=http://localhost:2368/toi-uu-kien-toan-va-bao-mat-apache/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/toi-uu-kien-toan-va-bao-mat-apache/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/toi-uu-kien-toan-va-bao-mat-apache/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

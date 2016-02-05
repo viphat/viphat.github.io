@@ -1,0 +1,216 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Index trong Cơ sở dữ liệu quan hệ</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/index-trong-co-so-du-lieu-quan-he/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Index trong Cơ sở dữ liệu quan hệ">
+    <meta property="og:description" content="Bài viết được lấy từ nguồn Viblo.asia. Là một lập trình viên, chắc hẳn không ít thì nhiều, bạn đã từng phải nghe nói đến việc đánh index (chỉ mục) cho table này, table khác trong database. Dù có...">
+    <meta property="og:url" content="http://localhost:2368/index-trong-co-so-du-lieu-quan-he/">
+    <meta property="article:published_time" content="2015-11-24T23:32:00.000Z">
+    <meta property="article:modified_time" content="2015-11-25T01:08:07.296Z">
+    <meta property="article:tag" content="Index">
+    <meta property="article:tag" content="Database">
+    <meta property="article:tag" content="Today I Learned">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Index trong Cơ sở dữ liệu quan hệ">
+    <meta name="twitter:description" content="Bài viết được lấy từ nguồn Viblo.asia. Là một lập trình viên, chắc hẳn không ít thì nhiều, bạn đã từng phải nghe nói đến việc đánh index (chỉ mục) cho table này, table khác trong database. Dù có...">
+    <meta name="twitter:url" content="http://localhost:2368/index-trong-co-so-du-lieu-quan-he/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Index trong Cơ sở dữ liệu quan hệ",
+    "url": "http://localhost:2368/index-trong-co-so-du-lieu-quan-he/",
+    "datePublished": "2015-11-24T23:32:00.000Z",
+    "dateModified": "2015-11-25T01:08:07.296Z",
+    "keywords": "Index, Database, Today I Learned",
+    "description": "Bài viết được lấy từ nguồn Viblo.asia. Là một lập trình viên, chắc hẳn không ít thì nhiều, bạn đã từng phải nghe nói đến việc đánh index (chỉ mục) cho table này, table khác trong database. Dù có..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-index tag-database tag-today-i-learned">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-index tag-database tag-today-i-learned">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-11-25">25 Nov 2015</time> on <a href="../tag/index/">Index</a> | <a href="../tag/database/">Database</a> | <a href="../tag/today-i-learned/">Today I Learned</a></span>
+
+        <h1 class="post-title">Index trong Cơ sở dữ liệu quan hệ</h1>
+
+        <section class="post-content">
+            <p>Bài viết được lấy từ nguồn <a href="https://viblo.asia/sorrowseeker/posts/3wjAM7VgRmWe"><strong>Viblo.asia</strong></a>.</p>
+
+<p>Là một lập trình viên, chắc hẳn không ít thì nhiều, bạn đã từng phải nghe nói đến việc đánh index (chỉ mục) cho table này, table khác trong database. Dù có không hiểu index là gì, thì ắt hẳn bạn cũng phải biết một điều xưa như trái đất, rằng muốn truy vấn cho nhanh, thì phải đánh index. Nhưng do tính chất công việc, liệu rằng trong chúng ta, mấy ai từng được làm việc nhiều với database, để có cơ hội tìm hiểu kĩ về vấn đề này. Tôi tin rằng không ít người, kể cả những lập trình viên vài năm kinh nghiệm, khi được hỏi : index là gì, index hoạt động như thế nào, tại sao đánh index lại khiến tăng tốc độ truy vấn ... ? cũng chưa chắc đã có thể trả lời cặn kẽ. Bài viết này, vốn được tìm hiểu vội vàng trong một khoảng thời gian ngắn, hi vọng có thể giúp bạn ít nhiều hiểu rõ hơn một chút về vấn đề này.</p>
+
+<h4 id="mtkchbnkhngcindex">Một kịch bản không có index</h4>
+
+<p>Để hiểu index là gì, ta hãy thử đặt ra một kịch bản truy vấn đơn giản, giả sử ta muốn tìm trong bảng <code>users</code>, lấy ra thông tin của tất cả những user có name là DungNQ.</p>
+
+<pre><code>SELECT * FROM USER WHERE NAME = 'DungNQ';  
+</code></pre>
+
+<p>Trong tình huống này, database của chúng ta sẽ phải đọc ra từng record trong bảng <code>users</code>, so sánh giá trị của trường <code>name</code> trong record đó với giá trị cần tìm, và thực hiện từ record đầu tiên cho tới record cuối cùng của bảng. Cách làm này gọi là full table search. Dĩ nhiên, ta có thể thấy đây là cách làm chậm nhất, vì phải lọc qua tất cả dữ liệu hiện hữu trong bảng. Từ đó đặt ra vấn đề, muốn tăng tốc độc truy vấn, phải làm sao giảm thiểu số lượng bản ghi/trường cần phải đọc khi thực hiện truy vấn.</p>
+
+<h4 id="tngtctruyvnbngcchnhchmc">Tăng tốc truy vấn bằng cách đánh chỉ mục.</h4>
+
+<p>Hãy tưởng tượng, cũng trong kịch bản truy vấn trên, nhưng trong tay ta đang có sẵn một chuỗi, bao gồm tất cả các giá trị của trường <code>name</code> có trong bảng <code>users</code>, và các giá trị này đã được sắp xếp theo thứ tự tăng dần. Lúc này, để tìm ra record có giá trị <code>name = 'DungN'</code>, thay vì lôi lần lượt từ giá trị đầu tiên đến giá trị thứ n cuối cùng ra để so sánh (cần thực hiện n phép so sánh ), ta có thể thực hiện một phép tìm kiếm nhị phân. Rõ ràng việc thực hiện phép tìm kiếm ban đầu đã trở nên dễ dàng hơn và nhanh hơn rất nhiều. Không chỉ số lượng <code>record</code> ta phải đọc ít đi, mà trong mỗi <code>record</code>, ta cũng chỉ cần đọc giá trị của đúng trường <code>name</code> mà thôi. Và giả sử, ứng với mỗi một phần tử trong dãy như trên, ta có thể gán ứng với một giá trị con trỏ, trỏ đến record tương ứng trong bảng <code>users</code>, ta hoàn toàn có thể truy vấn tất cả các thông tin của user cần tìm, chứ không chỉ giá trị trường <code>name</code> được lưu trong dãy. Dạng cấu trúc dữ liệu như dãy được mô tả trên, chính là một dạng index, cũng thuộc loại phổ biến bậc nhất, <strong>B-tree index</strong>.</p>
+
+<h4 id="mtkchbnkhc">Một kịch bản khác.</h4>
+
+<p>Cũng trong kịch bản truy vấn trên, ta không có một dãy được sắp xếp theo thứ tự sẵn như trên nữa. Thay vào đó, ta có một array các cặp <code>key =&gt; value</code> dạng như <code>'DungNQ' =&gt; 0x28939</code> trong đó, <code>key</code> chính là giá trị của trường <code>name</code> trong bảng <code>users</code>, còn <code>value</code> là biến con trỏ chỉ đến record tương ứng trong bảng. Rõ ràng, trong trường hợp này, truy vấn đầu tiên, nếu được thực hiện trong array kia, sẽ nhanh chóng hơn rất nhiều so với thực hiện full table scan trên bảng users. Kiểu cấu trúc dữ liệu giống như mô tả trên cũng là một dạng index tương đối phổ biến, <strong>Hash table index</strong>.</p>
+
+<hr>
+
+<h4 id="indexlg">Index là gì?</h4>
+
+<p>Ngoài <strong>B-tree index</strong> hay <strong>Hash table index</strong> ra, còn có một số loại index tương đối kém phổ biến hơn , như <strong>R-tree index</strong> hay <strong>Bitmap index</strong>. Mỗi loại Index đều có cấu trúc riêng, có ưu và nhược điểm riêng, phù hợp cho từng kiểu truy vấn đặc thù. Ví dụ như <strong>Hash table index</strong> có lợi thế rất nhanh khi thực hiện các phép truy vấn với toán tử <code>=</code> hay <code>&lt;&gt;</code>, tuy nhiên lại bó tay trước các phép truy vấn với toán tử <code>&lt;</code> hay <code>&gt;</code>. <strong>B-tree index</strong> là loại index phổ biến nhất, và là loại index mặc định trong hầu hết các hệ quản trị cơ sở dữ liệu. Tuy index loại này rất mềm dẻo, hữu ích trong rất nhiều tình huống so với <strong>Hash table index</strong>, nhưng lại chịu chết với các phép so sánh <code>&lt;&gt;</code>. Tổng kết chung lại , ta có thể có một định nghĩa khá chung và toàn diện cho index:</p>
+
+<pre><code>Index là một dạng cấu trúc dữ liệu, trong đó chứa giá trị của một trường nhất định trong một bảng dữ liệu, đồng thời trỏ đến record dữ liệu tương ứng.  
+</code></pre>
+
+<h4 id="tngkt">Tổng kết</h4>
+
+<p>Lan man một hồi, có lẽ cũng là gọi là tạm đủ để trả lời mấy câu hỏi đặt ra lúc ban đầu : index là gì (khái niệm tự chém kia), index hoạt động như thế nào (giải thích chi tiết hai loại cơ bản nhất là đủ), tại sao đánh index lại làm truy vấn nhanh hơn(xem phần hoạt động). Tuy nhiên, nếu chỉ có nhiêu đó, thì chắc chỉ có ích cho hoạt động duy nhất, đấy là đi phỏng vấn. Nếu bạn là một lập trình viên bình thường, quần đùi chân đất, đọc xong bằng kia chữ, rốt cuộc là ta được cái gì :</p>
+
+<ul>
+<li><p>Thứ nhất là khi nào cần đánh index, và đánh index như thế nào: Qua giải thích chi tiết như trên kia, thì ta có thể thấy là index chỉ hữu ích với những truy vấn có điều kiện tìm kiếm liên quan đến cột mà ta đã đánh index cho nó. Thế thì xét xem cột nào hay dùng nhất thì đánh index vào. Ví dụ như <code>name</code> trong <code>users</code>, tối ngày cần đến nó, vì lấy ra thông tin kiểu gì chả phải lấy cho nó cái tên, rồi còn check xem có <code>name</code> này đã được sử dụng hay chưa, rồi lúc đăng nhập cũng phải truy vấn bằng <code>name</code>... Vậy thì nên tạo cho nó cái index.</p></li>
+<li><p>Index hữu dụng thế, nên trường id ở đa số các hệ quản trị cơ sở dữ liệu đều được tự động đánh Index, khỏi mất công khởi tạo. Để kiểm tra, bạn có thể dùng <code>SHOW INDEX FROM table_name FROM db_name;</code> (MyQL) để liệt kê toàn bộ chỉ mục của một table trong database.</p></li>
+<li><p>Tạo index cho một trường, là tạo ra một cấu trúc lưu dữ liệu của trường đó, kèm theo một số thứ khác nữa. Thế nên cũng đừng thấy, ví dụ bảng <code>posts</code> có trường <code>contents</code> hay được tìm kiếm, lại hăm hở đánh index cho cái trường đấy, mà biết đâu cái index to gần bằng nguyên xi cả bảng.</p></li>
+<li><p>Quan trọng nhất là , hiểu được cách hoạt động của từng loại index rồi, thì dùng sao cho hợp lý. Cụ thể hơn, các trường hợp hay gặp nhất là :</p>
+
+<ul><li><p><strong>B-tree index</strong> dựa vào việc sắp xếp các value theo thứ tự. Thế nên chẳng hạn đánh index (chỉ khai báo index không, thì database sẽ tự hiểu là mặc định, dùng B-tree index) cho trường <code>name</code>, nhưng lại thực hiện toàn các truy vấn kiểu <code>WHERE NAME NOT IN ('foo','bar')</code> hay <code>WHERE NAME &lt;&gt; 'SPARTANNNNNNNN'</code> thì index cũng bằng thừa trong các kiểu truy vấn này.</p></li>
+<li><p>Cũng về <strong>B-tree index</strong>, ở trên không nói rõ, tại mình cũng không nắm chắc 100%, nhưng có vẻ như thứ tự sắp xếp trong index là thứ tự tăng dần. Nên nếu dùng index loại này, các truy vấn kiểu như WHERE NAME LIKE 'DUNG%' hay thậm chí là WHERE NAME LIKE 'D%G%' thì index đều có tác dụng, nhưng với WHERE NAME LIKE '%UNG' thì index có cũng như không.</p></li>
+<li><p>Cuối cùng là vì đặc điểm cấu tạo của <strong>B-tree index</strong>, index dạng này có tác dụng tăng tốc với các phép truy vấn <code>ORDER BY</code>.</p></li>
+<li><p>Về <strong>Hash table index</strong>, do cấu tạo như đã nói, index dạng này chỉ có tác dụng với các truy vấn <code>=</code> và <code>&lt;&gt;</code> hay <code>NOT IN</code>, nghĩa là các truy vấn chính xác, giống hoặc không giống. Các truy vấn dạng như <code>WHERE NAME LIKE 'A%'</code>, index dạng này cũng không có tác dụng, chứ đừng nói đến các toán tử khác như <code>&gt;</code> hay <code>&lt;</code> . Bù lại thì đúng theo tinh thần chuyên môn hóa cao, các phép truy vấn như ví dụ đầu tiên <code>WHERE NAME = 'DungNQ'</code> thực hiện trên index dạng này lại có tốc độ vô đối. Vì vậy, tùy theo nhu cầu của bạn mà thiết kế cũng như đánh chỉ mục sao cho thật hợp lý.</p></li></ul></li>
+</ul>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Index%20trong%20C%C6%A1%20s%E1%BB%9F%20d%E1%BB%AF%20li%E1%BB%87u%20quan%20h%E1%BB%87&amp;url=http://localhost:2368/index-trong-co-so-du-lieu-quan-he/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/index-trong-co-so-du-lieu-quan-he/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/index-trong-co-so-du-lieu-quan-he/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

@@ -1,0 +1,289 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Tìm hiểu về JSON Web Token</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/json-web-token-p1/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Tìm hiểu về JSON Web Token">
+    <meta property="og:description" content="JSON Web Token là gì? JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JavaScript Object Notation (JSON) object that is used...">
+    <meta property="og:url" content="http://localhost:2368/json-web-token-p1/">
+    <meta property="article:published_time" content="2015-12-20T13:50:30.060Z">
+    <meta property="article:modified_time" content="2015-12-20T15:30:49.118Z">
+    <meta property="article:tag" content="Web Developer">
+    <meta property="article:tag" content="JWT">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Tìm hiểu về JSON Web Token">
+    <meta name="twitter:description" content="JSON Web Token là gì? JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JavaScript Object Notation (JSON) object that is used...">
+    <meta name="twitter:url" content="http://localhost:2368/json-web-token-p1/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Tìm hiểu về JSON Web Token",
+    "url": "http://localhost:2368/json-web-token-p1/",
+    "datePublished": "2015-12-20T13:50:30.060Z",
+    "dateModified": "2015-12-20T15:30:49.118Z",
+    "keywords": "Web Developer, JWT",
+    "description": "JSON Web Token là gì? JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JavaScript Object Notation (JSON) object that is used..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-web-developer tag-jwt">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-web-developer tag-jwt">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-12-20">20 Dec 2015</time> on <a href="../tag/web-developer/">Web Developer</a> | <a href="../tag/jwt/">JWT</a></span>
+
+        <h1 class="post-title">Tìm hiểu về JSON Web Token</h1>
+
+        <section class="post-content">
+            <h4 id="jsonwebtokenlg">JSON Web Token là gì?</h4>
+
+<p>JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JavaScript Object Notation (JSON) object that is used as the payload of a JSON Web Signature (JWS) structure or as the plaintext of a JSON Web Encryption (JWE) structure, enabling the claims to be digitally signed or MACed and/or encrypted.</p>
+
+<p>Sau khi mình đọc định nghĩa về JWT (Hay JIT) trên <a href="http://jwt.io">http://jwt.io</a> xong là ù ù cạc cạc, giống như chưa đọc vậy. Thôi thì, liều mạng tìm hiểu tiếp, xem có ngộ ra được miếng nào về JWT nữa không? Đây có phải là một cách authenticate hiệu quả trong lập trình ứng dụng API mà mình đang tìm không?</p>
+
+<p>Một ví dụ về JWT Token:</p>
+
+<pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjEzODY4OTkxMzEsImlzcyI6ImppcmE6MTU0ODk1OTUiLCJxc2giOiI4MDYzZmY0Y2ExZTQxZGY3YmM5MGM4YWI2ZDBmNjIwN2Q0OTFjZjZkYWQ3YzY2ZWE3OTdiNDYxNGI3MTkyMmU5IiwiaWF0IjoxMzg2ODk4OTUxfQ.uKqU9dTB6gKwG6jQCuXYAiMNdfNRw98Hw_IWuA5MaMo  
+</code></pre>
+
+<p>Thoạt trông phức tạp là thế nhưng nếu hiểu, cấu trúc của một JWT chỉ đơn giản như sau:</p>
+
+<pre><code>&lt;base64-encoded header&gt;.&lt;base64-encoded payload&gt;.&lt;base64-encoded signature&gt;  
+</code></pre>
+
+<p>Nói một cách khác, JWT là sự kết hợp (bởi dấu .) một Object Header dưới định dạng JSON được encode base64, một payload object dưới định dạng JSOn được encode base64 và một Signature cho URI cũng được mã hóa base64 nốt.</p>
+
+<h5 id="giithchthmv3thnhphncajwt">Giải thích thêm về 3 thành phần của JWT</h5>
+
+<p><strong>Header</strong></p>
+
+<p>Header bao gồm hai phần chính: loại token (mặc định là JWT - Thông tin này cho biết đây là một Token JWT) và thuật toán đã dùng để mã hóa (HMAC SHA256 - HS256 hoặc RSA).</p>
+
+<pre><code>{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+</code></pre>
+
+<p><strong>Payload</strong></p>
+
+<p>Payload chứa các claims. Claims là một các biểu thức về một thực thể (chẳng hạn user) và một số metadata phụ trợ. Có 3 loại claims thường gặp trong Payload: reserved, public và private claims.</p>
+
+<ul>
+<li><strong>Reserved claims</strong>: Đây là một số metadata được định nghĩa trước, trong đó một số metadata là bắt buộc, số còn lại nên tuân theo để JWT hợp lệ và đầy đủ thông tin: <strong>iss</strong> (issuer), <strong>iat</strong> (issued-at time) <strong>exp</strong> (expiration time), <strong>sub</strong> (subject), <strong>aud</strong> (audience), <strong>jti</strong> (Unique Identifier cho JWT, Can be used to prevent the JWT from being replayed. This is helpful for a one time use token.) ...</li>
+</ul>
+
+<p>Ví dụ:</p>
+
+<pre><code>{
+    "iss": "jira:1314039",
+    "iat": 1300819370,
+    "exp": 1300819380,
+    "qsh": "8063ff4ca1e41df7bc90c8ab6d0f6207d491cf6dad7c66ea797b4614b71922e9",
+    "sub": "batman",
+    "context": {
+        "user": {
+            "userKey": "batman",
+            "username": "bwayne",
+            "displayName": "Bruce Wayne"
+        }
+    }
+}
+</code></pre>
+
+<pre><code>{
+  "iss": "scotch.io",
+  "exp": 1300819380,
+  "name": "Chris Sevilleja",
+  "admin": true
+}
+</code></pre>
+
+<ul>
+<li><p><strong>Public Claims</strong> - Claims được cộng đồng công nhận và sử dụng rộng rãi.</p></li>
+<li><p><strong>Private Claims</strong> - Claims tự định nghĩa (không được trùng với Reserved Claims và Public Claims), được tạo ra để chia sẻ thông tin giữa 2 parties đã thỏa thuận và thống nhất trước đó. </p></li>
+</ul>
+
+<p><strong>Signature</strong></p>
+
+<p>Chữ ký Signature trong JWT là một chuỗi được mã hóa bởi header, payload cùng với một chuỗi bí mật theo nguyên tắc sau:</p>
+
+<pre><code>HMACSHA256(  
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret)
+</code></pre>
+
+<p>Do bản thân Signature đã bao gồm cả header và payload nên Signature có thể dùng để kiểm tra tính toàn vẹn của dữ liệu khi truyền tải.</p>
+
+<h5 id="whenshouldyouusejsonwebtokens">When should you use JSON Web Tokens?</h5>
+
+<p>Một trong những tình huống ứng dụng JWT thường gặp, đó là:</p>
+
+<ul>
+<li><p><strong>Authentication</strong>: Tình huống thường gặp nhất, khi user logged in, mỗi request tiếp đó đều kèm theo chuỗi token JWT, cho phép người dùng có thể truy cập đường dẫn, dịch vụ và tài nguyên được phép ứng với token đó. <strong>Single Sign On</strong> cũng là một chức năng có sử dụng JWT một cách rộng rãi, bởi vì chuỗi JWT có kích thước đủ nhỏ để đính kèm trong request và sử dụng ở nhiều hệ thống thuộc các domain khác nhau.</p></li>
+<li><p><strong>Information Exchange</strong>: JSON Web Token cũng là một cách hữu hiệu và bảo mật để trao đổi thông tin giữa nhiều ứng dụng, bởi vì JWT phải được ký (bằng cặp public / private key), bạn có thể chắc rằng người gửi chính là người mà họ nói rằng họ là (nói tóm tắt hơn là không hoặc khó để mạo danh bằng JWT), ngoài ra, chữ ký cũng được tính toán dựa trên nội dung của header và nội dung payload, nhờ đó, bạn có thể xác thực được nội dung là nguyên bản, chưa được chỉnh sửa hoặc can thiệp. Tuy nhiên, một lưu ý hết sức quan trọng là do cấu trúc của JWT đơn giản nên JWT có thể dễ dàng bị decode, do vậy, bạn không nên dùng JWT để transfer các thông tin nhạy cảm.</p></li>
+</ul>
+
+<h4 id="howdojsonwebtokenswork">How do JSON Web Tokens work?</h4>
+
+<p>Ở đây, mình ví dụ cụ thể ứng dụng của JWT trong bài toán Authenticate (xác thực) - Trong việc xác thực, khi user đăng nhập thành công (Browser sẽ post username và mật khẩu về Server), Server sẽ trả về một chuỗi JWT về Browser, và Token JWT này cần được lưu lại trong Browser của người dùng (thường là LocalStorage hoặc Cookies), thay vì cách truyền thống là tạo một session trên Server và trả về Cookie.</p>
+
+<p>Bất cứ khi nào mà User muốn truy cập vào Route được bảo vệ (mà chỉ có User đã đăng nhập mới được phép), Browser sẽ gửi token JWT này trong Header <strong>Authorization</strong>, <strong>Bearer</strong> schema của request gửi đi. </p>
+
+<pre><code>Authorization: Bearer &lt;token&gt;  
+</code></pre>
+
+<p>Đây là cách mà <strong>stateless</strong> (phi trạng thái) <strong>authentication</strong> làm việc, trạng thái của user không được lưu trong bộ nhớ của Server mà được đóng gói hẳn vào trong HTTP Request. Server sẽ kiểm tra Token JWT này có hợp lệ hay không (Bởi vì JWT có tính chất self-contained, mọi thông tin cần thiết để kiểm tra JWT đều đã được chứa trong Token JWT). </p>
+
+<p>Do tính chất stateless nên chúng ta không còn phải lo lắng về domains nào được sử dụng cho API của bạn, không còn gặp rắc rối với CORS (Cross-Origin Resource Sharing) nữa.</p>
+
+<p><img src="http://i.imgur.com/u3qlZUm.png" alt="JWT Work"></p>
+
+<p><strong>Tài liệu tham khảo</strong>:</p>
+
+<ul>
+<li><p><strong>JWT Introduction</strong> - <a href="http://viphat.me/1S1SwIm">http://viphat.me/1S1SwIm</a></p></li>
+<li><p><strong>Get Started with JWT</strong> - <a href="http://viphat.me/1S216a5">http://viphat.me/1S216a5</a></p></li>
+<li><p><strong>Understanding JWT</strong> - <a href="http://viphat.me/1S1SnEJ">http://viphat.me/1S1SnEJ</a></p></li>
+<li><p><strong>The Anatomy of JWT</strong> - <a href="http://viphat.me/1S1SD6G">http://viphat.me/1S1SD6G</a></p></li>
+</ul>
+
+<p><strong>Further Reading:</strong></p>
+
+<ul>
+<li><strong>Simple AngularJS JWT Authentication</strong> - <a href="http://viphat.me/1S1SyzU">http://viphat.me/1S1SyzU</a></li>
+</ul>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=T%C3%ACm%20hi%E1%BB%83u%20v%E1%BB%81%20JSON%20Web%20Token&amp;url=http://localhost:2368/json-web-token-p1/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/json-web-token-p1/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/json-web-token-p1/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

@@ -1,0 +1,193 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Toán tử and, &amp;&amp;, or, || trong Ruby</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/toan-tu-and-or-trong-ruby/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Toán tử and, &amp;&amp;, or, || trong Ruby">
+    <meta property="og:description" content="Thời gian trôi qua nhanh thật, từ cái bài Post ‘Tôi đã bắt đầu học Ruby như thế nào” là vừa đúng 2 tháng, 27/08/2014 -&gt; 27/10/2014, Vậy là từ lúc bắt đầu học Ruby, tính...">
+    <meta property="og:url" content="http://localhost:2368/toan-tu-and-or-trong-ruby/">
+    <meta property="article:published_time" content="2014-11-08T15:50:42.000Z">
+    <meta property="article:modified_time" content="2015-06-16T13:28:49.915Z">
+    <meta property="article:tag" content="Ruby on Rails">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Toán tử and, &amp;&amp;, or, || trong Ruby">
+    <meta name="twitter:description" content="Thời gian trôi qua nhanh thật, từ cái bài Post ‘Tôi đã bắt đầu học Ruby như thế nào” là vừa đúng 2 tháng, 27/08/2014 -&gt; 27/10/2014, Vậy là từ lúc bắt đầu học Ruby, tính...">
+    <meta name="twitter:url" content="http://localhost:2368/toan-tu-and-or-trong-ruby/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Toán tử and, &amp;&amp;, or, || trong Ruby",
+    "url": "http://localhost:2368/toan-tu-and-or-trong-ruby/",
+    "datePublished": "2014-11-08T15:50:42.000Z",
+    "dateModified": "2015-06-16T13:28:49.915Z",
+    "keywords": "Ruby on Rails",
+    "description": "Thời gian trôi qua nhanh thật, từ cái bài Post ‘Tôi đã bắt đầu học Ruby như thế nào” là vừa đúng 2 tháng, 27/08/2014 -&gt; 27/10/2014, Vậy là từ lúc bắt đầu học Ruby, tính..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-ruby-on-rails">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-ruby-on-rails">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2014-11-08">08 Nov 2014</time> on <a href="../tag/ruby-on-rails/">Ruby on Rails</a></span>
+
+        <h1 class="post-title">Toán tử and, &amp;&amp;, or, || trong Ruby</h1>
+
+        <section class="post-content">
+            <p>Thời gian trôi qua nhanh thật, từ cái bài Post ‘Tôi đã bắt đầu học Ruby như thế nào” là vừa đúng 2 tháng, 27/08/2014 -&gt; 27/10/2014, Vậy là từ lúc bắt đầu học Ruby, tính ra là gần 3 tháng rồi. Trình độ của mình vẫn gà gà như thường. Chỉ mới xong một Project nhỏ bằng Sinatra, Code vài bài trên Codewars.com và hiện bắt đầu làm quen với Rails. Trong 2 tháng này, có nhiều sự kiện xảy ra, đó là việc mình quyết định từ bỏ con đường Data Processing, rời khỏi vùng thoải mái của mình để trở thành <strong>Ruby On Rails Developer</strong> Full time – Cảm ơn Anh Khoa đã đặt niềm tin vào Em.</p>
+
+<p>Quay lại chủ đề hôm nay, Khi học Ruby, có một việc mình khá confuse là sự khác nhau giữa <strong>and</strong> và <strong>&amp;&amp;</strong> (hay sự khác nhau giữa <strong>or</strong> và <strong>||</strong>) – mình đọc trên một số Blog cũng như StackOverFlow, thì giữa tụi nó khác nhau ở mức độ ưu tiên, mức độ ưu tiên của <strong>and</strong> sẽ thấp hơn <strong>&amp;&amp;</strong> và mình thấy mọi người dặn là hạn chế dùng <strong>and</strong>, <strong>or</strong> khi không cần thiết. Nhưng mức độ ưu tiên của nó ảnh hưởng như thế nào thì không ai cho mình một ví dụ cụ thể để dễ nắm cả. Mãi đến hôm nay, đọc bài viết trên Toptal thì mình đã sáng tỏ.</p>
+
+<pre><code>val1 = true and false  
+val2 = true &amp;&amp; false  
+</code></pre>
+
+<p>Although these two statements might appear to be equivalent, they are not, due to the order of operations. Specifically, the and and or operators have lower precedence than the = operator, whereas the &amp;&amp; and || operators have higher precedence than the = operator, based on order of operations.</p>
+
+<p>To help clarify this, here’s the same code, but employing parentheses to clarify the default order of operations:</p>
+
+<pre><code>(val1 = true) and false # results in val1 being equal to true 
+val2 = (true &amp;&amp; false) # results in val2 being equal to false  
+</code></pre>
+
+<p><strong><em>Ôn bài</em></strong>:</p>
+
+<pre><code> &amp;&amp;=
+
+ ||=
+</code></pre>
+
+<p>Trích từ bài viết 10 câu hỏi phỏng vấn về Ruby hay gặp nhất – <a href="http://www.toptal.com/ruby/interview-questions">http://www.toptal.com/ruby/interview-questions</a></p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=To%C3%A1n%20t%E1%BB%AD%20and,%20&amp;&amp;,%20or,%20%7C%7C%20trong%20Ruby&amp;url=http://localhost:2368/toan-tu-and-or-trong-ruby/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/toan-tu-and-or-trong-ruby/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/toan-tu-and-or-trong-ruby/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

@@ -1,0 +1,286 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Cấu hình SSH xác thực bằng Public Keys trên CentOS 6</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/cau-hinh-ssh-xac-thuc-bang-public-keys-tren-centos-6/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Cấu hình SSH xác thực bằng Public Keys trên CentOS 6">
+    <meta property="og:description" content="Cấu hình SSH chỉ đăng nhập bằng Public Keys trên CentOS 6 Bởi vì User Root có quyền tối cao trên hệ thống nên sẽ rất nguy hiểm nếu sử dụng thường xuyên tài khoản root, do đó, ta nên...">
+    <meta property="og:url" content="http://localhost:2368/cau-hinh-ssh-xac-thuc-bang-public-keys-tren-centos-6/">
+    <meta property="article:published_time" content="2015-06-30T15:13:45.817Z">
+    <meta property="article:modified_time" content="2015-11-29T02:57:44.787Z">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="SSH">
+    <meta property="article:tag" content="Network">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Cấu hình SSH xác thực bằng Public Keys trên CentOS 6">
+    <meta name="twitter:description" content="Cấu hình SSH chỉ đăng nhập bằng Public Keys trên CentOS 6 Bởi vì User Root có quyền tối cao trên hệ thống nên sẽ rất nguy hiểm nếu sử dụng thường xuyên tài khoản root, do đó, ta nên...">
+    <meta name="twitter:url" content="http://localhost:2368/cau-hinh-ssh-xac-thuc-bang-public-keys-tren-centos-6/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Cấu hình SSH xác thực bằng Public Keys trên CentOS 6",
+    "url": "http://localhost:2368/cau-hinh-ssh-xac-thuc-bang-public-keys-tren-centos-6/",
+    "datePublished": "2015-06-30T15:13:45.817Z",
+    "dateModified": "2015-11-29T02:57:44.787Z",
+    "keywords": "Linux, SSH, Network",
+    "description": "Cấu hình SSH chỉ đăng nhập bằng Public Keys trên CentOS 6 Bởi vì User Root có quyền tối cao trên hệ thống nên sẽ rất nguy hiểm nếu sử dụng thường xuyên tài khoản root, do đó, ta nên..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-linux tag-ssh tag-network">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-linux tag-ssh tag-network">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-06-30">30 Jun 2015</time> on <a href="../tag/linux/">Linux</a> | <a href="../tag/ssh/">SSH</a> | <a href="../tag/network/">Network</a></span>
+
+        <h1 class="post-title">Cấu hình SSH xác thực bằng Public Keys trên CentOS 6</h1>
+
+        <section class="post-content">
+            <h4 id="cuhnhsshchngnhpbngpublickeystrncentos6">Cấu hình SSH chỉ đăng nhập bằng Public Keys trên CentOS 6</h4>
+
+<p>Bởi vì User Root có quyền tối cao trên hệ thống nên sẽ rất nguy hiểm nếu sử dụng thường xuyên tài khoản root, do đó, ta nên add thêm một User khác và đăng nhập SSH vào User này, thay cho root. Để an toàn hơn, chúng ta sẽ bỏ luôn việc đăng nhập SSH bằng mật khẩu mà chỉ cho đăng nhập bằng ssh public key của máy.</p>
+
+<h5 id="bc1ngnhpvotikhonrootthmmtusermi">Bước 1 - Đăng nhập vào tài khoản root, Thêm một User mới</h5>
+
+<pre><code>ssh root@ip_address  
+useradd viphat  
+</code></pre>
+
+<p>Thay mật khẩu của User mới bằng lệnh</p>
+
+<pre><code>passwd viphat  
+</code></pre>
+
+<h5 id="bc2mnquynrootchousermi">Bước 2 - Mượn quyền Root cho User mới</h5>
+
+<p>Cấu hình để User mới có thể mượn quyền của Root khi cần bằng cách dùng "sudo" trước mỗi dòng lệnh. <br>
+việc mượn quyền bằng lệnh sudo giúp hạn chế bớt các sai lầm có thể làm hỏng hệ thống. Ngoài ra, các thao tác thực hiện bằng lệnh sudo đều được lưu trong file log "/var/log/secure" để xem lại khi cần thiết</p>
+
+<p>Cấu hình sudo bằng cách gõ lệnh</p>
+
+<pre><code>/usr/sbin/visudo
+</code></pre>
+
+<p>tìm đến dòng</p>
+
+<pre><code class="language- ">root    ALL=(ALL)       ALL  
+</code></pre>
+
+<p>thêm vào dưới đó dòng sau</p>
+
+<pre><code>viphat  ALL=(ALL)       ALL  
+</code></pre>
+
+<h5 id="bc3cuhnhsshkhngchophpngnhptrctipbngtikhonroot">Bước 3 - Cấu hình SSH không cho phép đăng nhập trực tiếp bằng tài khoản root</h5>
+
+<pre><code>sudo vi /etc/ssh/sshd_config  
+</code></pre>
+
+<p>Tìm dòng PermitRootLogin và sửa thành no</p>
+
+<pre><code>PermitRootLogin no  
+</code></pre>
+
+<p>thêm dòng sau vào cuối file </p>
+
+<pre><code>AllowUsers viphat  
+</code></pre>
+
+<p>Khởi động lại dịch vụ SSH</p>
+
+<pre><code>sudo service sshd reload  
+</code></pre>
+
+<p>Thử nghiệm bằng việc ssh bằng tài khoản root và ssh bằng tài khoản mới tạo:</p>
+
+<p><img src="http://i.imgur.com/8zSG5Zp.png" alt="i1"></p>
+
+<h5 id="bc4cuhnhsshchxcthcbngpublickeyskhngxcthcbngmtkhu">Bước 4 - Cấu hình SSH chỉ xác thực bằng Public Keys, không xác thực bằng mật khẩu</h5>
+
+<p>Việc đăng nhập bằng Keys giúp bạn tránh việc bị lộ mật khẩu hoặc tránh bị tấn công dò ra mật khẩu bằng kỹ thuật brute-force password guessing attack. </p>
+
+<p>Trước tiên, bạn cần generate ssh key từ máy client (máy bạn đang sử dụng) và copy nó vào thư mục ~/.ssh/authorized_keys của User mới tạo ở bước trên.</p>
+
+<pre><code>scp ~/.ssh/id_rsa.pub viphat@ip_address:~/.ssh/authorized_keys  
+</code></pre>
+
+<p>Mở File cấu hình dịch vụ SSH</p>
+
+<pre><code>sudo vi /etc/ssh/sshd_config  
+</code></pre>
+
+<p>Tìm và thay các dòng sau thành: </p>
+
+<pre><code>MaxAuthTries 1  
+PubkeyAuthentication yes  
+AuthorizedKeysFile  .ssh/authorized_keys  
+PasswordAuthentication no  
+</code></pre>
+
+<p>MaxAuthTries là số lần tối đa Server cho phép client thử đăng nhập trước khi đóng kết nối. Vì Đăng nhập bằng Key không bao giờ fail nên để 1 là hợp lý.</p>
+
+<p>Khởi động lại dịch vụ SSH</p>
+
+<pre><code>sudo service sshd reload  
+</code></pre>
+
+<p>Thử nghiệm (Như bạn thấy, lần SSH này, Server không còn đòi phải nhập mật khẩu như trước nữa</p>
+
+<p><img src="http://i.imgur.com/cBiTZqu.png" alt="i2"></p>
+
+<p><strong>Nâng cao</strong></p>
+
+<p>Để cấu hình riêng cho từng User, hoặc từng Group, ta dùng lệnh như sau</p>
+
+<p>(User A - B - C)</p>
+
+<pre><code>Match User A,B,C  
+PasswordAuthentication no  
+</code></pre>
+
+<p>(Group)</p>
+
+<pre><code>Match Group sudoers  
+PasswordAuthentication no  
+</code></pre>
+
+<p>(Tất cả các User không phải root)</p>
+
+<pre><code>Match User !root  
+PasswordAuthentication no  
+</code></pre>
+
+<p><mark>Tìm hiểu về SSH, Mã hóa đối xứng và bất đối xứng</mark></p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=C%E1%BA%A5u%20h%C3%ACnh%20SSH%20x%C3%A1c%20th%E1%BB%B1c%20b%E1%BA%B1ng%20Public%20Keys%20tr%C3%AAn%20CentOS%206&amp;url=http://localhost:2368/cau-hinh-ssh-xac-thuc-bang-public-keys-tren-centos-6/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/cau-hinh-ssh-xac-thuc-bang-public-keys-tren-centos-6/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/cau-hinh-ssh-xac-thuc-bang-public-keys-tren-centos-6/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

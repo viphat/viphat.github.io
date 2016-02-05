@@ -1,0 +1,220 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>[AngularJS] Scope trong Directive</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/angularjs-directive-scope/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[AngularJS] Scope trong Directive">
+    <meta property="og:description" content="Scope là một khái niệm quan trọng bậc nhất còn Directive lại là một trong những chức năng mạnh mẽ nhất trong AngularJS. Nếu không hiểu về Scope cũng như không biết cách tận dụng sức mạnh Directive (để DRY...">
+    <meta property="og:url" content="http://localhost:2368/angularjs-directive-scope/">
+    <meta property="article:published_time" content="2015-11-19T16:27:15.664Z">
+    <meta property="article:modified_time" content="2015-12-09T10:13:25.746Z">
+    <meta property="article:tag" content="Front End">
+    <meta property="article:tag" content="AngularJS">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="[AngularJS] Scope trong Directive">
+    <meta name="twitter:description" content="Scope là một khái niệm quan trọng bậc nhất còn Directive lại là một trong những chức năng mạnh mẽ nhất trong AngularJS. Nếu không hiểu về Scope cũng như không biết cách tận dụng sức mạnh Directive (để DRY...">
+    <meta name="twitter:url" content="http://localhost:2368/angularjs-directive-scope/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "[AngularJS] Scope trong Directive",
+    "url": "http://localhost:2368/angularjs-directive-scope/",
+    "datePublished": "2015-11-19T16:27:15.664Z",
+    "dateModified": "2015-12-09T10:13:25.746Z",
+    "keywords": "Front End, AngularJS",
+    "description": "Scope là một khái niệm quan trọng bậc nhất còn Directive lại là một trong những chức năng mạnh mẽ nhất trong AngularJS. Nếu không hiểu về Scope cũng như không biết cách tận dụng sức mạnh Directive (để DRY..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-front-end tag-angularjs">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-front-end tag-angularjs">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-11-19">19 Nov 2015</time> on <a href="../tag/front-end/">Front End</a> | <a href="../tag/angularjs/">AngularJS</a></span>
+
+        <h1 class="post-title">[AngularJS] Scope trong Directive</h1>
+
+        <section class="post-content">
+            <p><img src="http://i.imgur.com/EDiANT3.png" alt="Angular Scopes in Directives"></p>
+
+<p><strong>Scope</strong> là một khái niệm quan trọng bậc nhất còn <strong>Directive</strong> lại là một trong những chức năng mạnh mẽ nhất trong AngularJS. Nếu không hiểu về Scope cũng như không biết cách tận dụng sức mạnh Directive (để DRY Code Front-End) thì không thể xem như Dev đó biết AngularJS rồi. Nếu bạn quan tâm đến AngularJS cũng như Directive trong AngularJS, bạn có thể tìm đọc qua các tài liệu đầy đủ như <a href="https://docs.angularjs.org/guide/directive"><strong>AngularJS Directive Guide</strong></a> hay qua Ebook này. Trong bài viết này, mình chỉ viết ngắn gọn về một khía cạnh nhỏ: Scope của Directive nhằm mục đích tra cứu và tham khảo của bản thân sau này.</p>
+
+<p>Tài liệu về Scope cho các bạn chưa quen với Scope: <a href="https://github.com/angular/angular.js/wiki/Understanding-Scopes"><strong>Understanding Scopes</strong></a>.</p>
+
+<h5 id="scopetrongdirective">Scope trong Directive</h5>
+
+<p>Mọi Directive đều có scope gắn liền với nó. Directive sử dụng scope để access data bên trong template, link, controller. Chúng ta có thể khai báo Scope trong phần định nghĩa Directive theo một trong các giá trị sau:</p>
+
+<ul>
+<li><p><strong>Scope: false</strong> - Directive sẽ sử dụng chung Parent Scope. Mọi thay đổi của Scope bên trong Directive đều được phản ảnh trên Parent Scope của nó.</p></li>
+<li><p><strong>Scope: true</strong> - Directive sẽ tạo một Scope mới của riêng nó và kế thừa lại Parent Scope của nó. Mọi thay đổi của Directive Scope sẽ không làm ảnh hưởng đến giá trị của Parent Scope, tuy nhiên thay đổi bên Parent Scope lại được phản ảnh bên trong Directive Scope.</p></li>
+<li><p><strong>Scope: {}</strong> - Directive sẽ tạo một Scope cô lập (isolated) mới, đây là phần thú vị nhất trong Scope Directive. Một Scope bị cô lập mới, tách hẳn ra khỏi Parent Scope và không kế thừa giá trị nào từ Parent Scope. Bạn phải khai báo cụ thể nếu muốn truyền giá trị từ Parent Scope đến Directive Isolated Scope. Isolated Scope giúp cho Directive có thể tái sử dụng ở nhiều nơi khác nhau và không phụ thuộc vào Parent Scope chứa nó. Truyền giá trị cho một Isolated Scope bằng cách dùng một trong các Prefix sau:</p>
+
+<ul><li><strong>@</strong> (Text binding / one-way binding): Chỉ truyền Text hoặc giá trị của một model (Angular theo mô hình MVVM) vào Directive (chứ không phải bản thân model). Do vậy, khi sử dụng @ với model, phải thêm cặp dấu {{ }} để lấy giá trị của model đó. @ thường được sử dụng để khởi tạo giá trị ban đầu cho Directive Scope.</li>
+<li><strong>=</strong> (Direct model binding / two-way binding): tại một binding 2 chiều giữa Directive Scope và Parent Scope, do vậy, nó luôn expect được truyền vào một model, điều đó có nghĩa là bạn không thể truyền một expression như là một giá trị vào thuộc tính được map bởi dấu =. = thường được sử dụng để chia sẻ dữ liệu và giao tiếp giữa Directive Scope và Parent Scope.</li>
+<li><strong>&amp;</strong> (Behaviour Binding / Method Binding): Là một method binding nên đúng với tên gọi của nó, &amp; được dùng để truyền một method từ Parent Scope vào Directive Scope. Nó rất hữu dụng khi bạn muốn invoke một method của Parent Scope từ bên trong Directive Scope.</li>
+<li>Nếu muốn tìm hiểu thêm về Prefixes trong Directive Isolated Scope, mời bạn đọc thêm tại <a href="https://umur.io/angularjs-directives-using-isolated-scope-with-attributes/">đây</a>.</li></ul></li>
+</ul>
+
+<h5 id="phnbitcompilecontrollerlinkfunctiontrongdirective">Phân biệt compile - controller - link function trong Directive</h5>
+
+<p>Một câu hỏi khác cũng khá thú vị khi làm việc với Directive trong AngularJS và nảy ra khi mình đang viết bài này, đó là :</p>
+
+<blockquote>
+  <p>Phân biệt compile function, link function, controller function trong AngularJS Directive??</p>
+</blockquote>
+
+<p>Nhiều lúc mình dùng loạn cả lên, bình thường thì dùng controller, khi thích thì dùng link function. (Hiếm khi dùng compile function)</p>
+
+<p>Mình tìm được một bài khá chi tiết của một Dev người Việt trên <a href="https://angular-tutorial.quora.com/Angular-directive-functions-controller-vs-link-vs-compile"><strong>Quora</strong></a>. Và đây là đáp án - TLDR:</p>
+
+<p>Here is the rules for those functions</p>
+
+<ul>
+<li><p><strong>compile</strong> should be used when you need modify directive template, like add new expression, append another directive inside this directive... You’ll need to use compile function to do those jobs.</p></li>
+<li><p><strong>controller</strong> is used when you need to share or manipulate $scope data. Or when you want directive interactive with each other.</p></li>
+<li><p><strong>link</strong> is the function which used when you need to attach event handler, modify DOM.</p></li>
+</ul>
+
+<p>Khác biệt cơ bản là Compile sẽ chạy trước tiên, trước khi DOM compile hoàn tất. Controller chạy sau Compile nhưng cũng trước khi DOM hoàn tất nhưng controller không can thiệp được vào DOM. Link chạy sau khi compile và có thể modify DOM.</p>
+
+<p>Một quy ước chung của Angular: <strong>Write business logic in controller and DOM manipulation in link</strong>.</p>
+
+<ul>
+<li>Một bài viết khá chi tiết về compile &amp; controller &amp; link (pre-link, post-link) và Do / Don't Do của chúng trên StackOverflow: <a href="http://stackoverflow.com/questions/24615103/angular-directives-when-and-how-to-use-compile-controller-pre-link-and-post/24615207#24615207">http://stackoverflow.com/questions/24615103/angular-directives-when-and-how-to-use-compile-controller-pre-link-and-post/24615207#24615207</a></li>
+</ul>
+
+<p>Phiên bản AngularJS 2.0 cũng sắp chính thức ra mắt, mình vẫn chưa tìm hiểu nên không biết có thay đổi gì nhiều liên quan đến scope không. Phải tìm hiểu mới được, hẹn các bạn ở một dịp khác.</p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=%5BAngularJS%5D%20Scope%20trong%20Directive&amp;url=http://localhost:2368/angularjs-directive-scope/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/angularjs-directive-scope/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/angularjs-directive-scope/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

@@ -1,0 +1,310 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Monitoring Linux System</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/monitoring-linux-system/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Monitoring Linux System">
+    <meta property="og:description" content="Being a full-stack developer means to have an open mind towards new technologies, having your hands dirty in each one and to have an understanding of how a web application gets done from a concept to design to the finished...">
+    <meta property="og:url" content="http://localhost:2368/monitoring-linux-system/">
+    <meta property="article:published_time" content="2015-06-27T02:44:03.081Z">
+    <meta property="article:modified_time" content="2015-07-07T03:33:16.125Z">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Monitor">
+    <meta property="article:tag" content="Ghi nhanh">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Monitoring Linux System">
+    <meta name="twitter:description" content="Being a full-stack developer means to have an open mind towards new technologies, having your hands dirty in each one and to have an understanding of how a web application gets done from a concept to design to the finished...">
+    <meta name="twitter:url" content="http://localhost:2368/monitoring-linux-system/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Monitoring Linux System",
+    "url": "http://localhost:2368/monitoring-linux-system/",
+    "datePublished": "2015-06-27T02:44:03.081Z",
+    "dateModified": "2015-07-07T03:33:16.125Z",
+    "keywords": "Linux, Monitor, Ghi nhanh",
+    "description": "Being a full-stack developer means to have an open mind towards new technologies, having your hands dirty in each one and to have an understanding of how a web application gets done from a concept to design to the finished..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-linux tag-monitor tag-ghi-nhanh">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-linux tag-monitor tag-ghi-nhanh">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-06-27">27 Jun 2015</time> on <a href="../tag/linux/">Linux</a> | <a href="../tag/monitor/">Monitor</a> | <a href="../tag/ghi-nhanh/">Ghi nhanh</a></span>
+
+        <h1 class="post-title">Monitoring Linux System</h1>
+
+        <section class="post-content">
+            <blockquote>
+  <p>Being a full-stack developer means to have an open mind towards new technologies, having your hands dirty in each one and to have an understanding of how a web application gets done from a concept to design to the finished product.</p>
+  
+  <p>The idea of a “full-stack developer” isn’t about being fluent in every possible technology there is, because specialization exists for a reason. It’s more about having an understanding in each of the areas above, to communicate intelligently between team members and to be a good asset if the situation needs it.</p>
+</blockquote>
+
+<p>SitePoint - <a href="http://www.sitepoint.com/full-stack-developer/">Being a Full Stack Developer</a></p>
+
+<p>Như <strong>anh An</strong> nói trong bài <a href="http://blog.siliconstraits.vn/full-stack-developer-ban-la-ai/">Full Stack Developer là ai?</a>, Full-Stack Developer nên biết khi nào cần hiểu rộng, khi nào cần hiểu sâu và nó không mâu thuẫn gì với cái gọi là "Nhất nghệ tinh, nhất thân vinh" cả. Con đường trở thành Full-Stack Developer đầy chông gai nhưng nhiều cũng nhiều quả ngọt đang đợi.</p>
+
+<p>Tâm sự lan man về Full Stack Developer thế thôi, mình nghĩ mình vẫn còn phải cố gắng nhiều. Bài viết này không phải là một bài chia sẻ kinh nghiệm về Monitoring System trên Hệ thống Linux (Bởi mình vốn chẳng nhiều kinh nghiệm). Mình cảm thấy nó cần thiết  để tìm ra các nút thắt cổ chai để tối ưu Performance của Hệ thống nên share to learn. Đây cũng là một trong những kiến thức mà mình nghĩ mình nên bổ sung thêm trên con đường trở thành một Full stack developer.</p>
+
+<h4 id="monitoringlinuxsystem">Monitoring Linux System</h4>
+
+<h5 id="monitoringcpuusage">Monitoring CPU usage</h5>
+
+<p>Sử dụng gói sar (trong bộ công cụ sysstat) để theo dõi CPU usage trên Hệ thống.</p>
+
+<blockquote>
+  <p>Những ứng dụng không phải chủ chốt như sysstat nên cài đặt nhanh bằng lệnh yum hay apt-get cho tiện. Không mất công biên dịch làm chi.</p>
+</blockquote>
+
+<pre><code class="language-shell">sar -u 10 8  
+</code></pre>
+
+<p>-u - Hiển thị % sử dụng CPU 
+10 - Thời gian giữa 2 lệnh sar (số giây) <br>
+8 - số lần lệnh sar sẽ chạy</p>
+
+<p><strong>Ý nghĩa của các thông số</strong></p>
+
+<p>%usr - % CPU chạy ở User Mode
+%sys - % CPU chạy ở System Mode
+%idle - % CPU đang ở chế độ nghỉ
+%steal - <a href="https://major.io/2008/11/04/what-is-steal-time-in-my-sysstat-output">more_info</a></p>
+
+<p>Nếu <strong>%usr</strong> cao, có nghĩa là ứng dụng của Bạn không được tối ưu đúng cách và đang chiếm dụng quá nhiều tài nguyên CPU. <br>
+Nếu <strong>%sys</strong> cao, có thể vấn đề nằm ở việc swapping hoặc paging và cần được làm rõ thêm. <br>
+if the <strong>%idle</strong> value is low, it serves as an indication that either the CPUs are underpowered or the application load is high. Similarly, if we see nonzero values in the <strong>%iowait</strong> time column, it serves as a reminder that the I/O subsystem could be a potential bottleneck.</p>
+
+<h5 id="monitoringpagingandswapping">Monitoring paging and swapping</h5>
+
+<p><strong>Paging</strong> occurs when a part of the operating system process gets transferred from the
+physical memory to the disk or is read back from the physical memory to the disk. </p>
+
+<p><strong>Swapping</strong> occurs when an entire process gets transferred to the disk from the physical memory or is read back to the physical memory from the disk. Depending on the system, either paging or swapping could be an issue. </p>
+
+<p>If <strong>paging occurs normally</strong> and you see a trend of <strong>heavy swapping</strong>, then the issue could be related to insufficient memory, or sometimes the issue could be related to disk as well. </p>
+
+<p>If the system is <strong>heavily paging</strong> and <strong>not swapping</strong>, the issue could be related to either the CPU or the memory.</p>
+
+<pre><code>vmstat -S m 10 20  
+</code></pre>
+
+<p>Đọc thêm về cách sử dụng vmstat và đọc kết quả từ nó - <a href="https://www.linode.com/docs/uptime/monitoring/use-vmstat-to-monitor-system-performance">Use vmstat to monitor Paging and Swapping</a></p>
+
+<p><strong>Các thông số quan trọng cần chú ý</strong>:</p>
+
+<pre><code class="language-si``` - The si column reports the amount of memory that is moved from swap to “real” memory per second.">
+</code></pre>
+
+<p>so```  - The so column reports the amount of memory that is moved to swap from “real” memory per second.</p>
+
+<p>Đọc thêm bài viết - <a href="http://www.linuxatemyram.com/">Linux Ate My Ram</a></p>
+
+<pre><code>free -m  
+</code></pre>
+
+<p>dòng -/+ buffers/cache, cột free chính là số ram còn trống, có thể sử dụng</p>
+
+<pre><code class="language- ">sar -W  
+</code></pre>
+
+<p>If we see high values in the pswpin/s (pages swapped into the memory per second) column and the pgpgout/s (pages swapped out per second) column, it means that the current memory is inadequate and needs to be either increased or, for certain application components, optimally resized.</p>
+
+<p><a href="http://unix.stackexchange.com/questions/78880/difference-between-sar-w-and-sar-b">http://unix.stackexchange.com/questions/78880/difference-between-sar-w-and-sar-b</a></p>
+
+<h5 id="findingtheworstuseronthesystem">Finding the worst user on the system</h5>
+
+<p><code>top</code> - Xem % CPU, %MEM đang bị Process nào chiếm dụng nhiều nhất</p>
+
+<h5 id="monitoringsystemload">Monitoring system load</h5>
+
+<p><code>uptime</code> - 
+Tập trung vào 3 con số <strong>Load average</strong> - Load average is categorized over the three time intervals, that is, the 1-, 5-, and 15-minute periods. Load averages are not categorized for the number of CPUs on the system. So for a system with a single CPU, a load average of 1 indicates 100 percent busy time period with zero idle time, whereas for a system with 5 CPUs a load average of 1 would indicate an idle time of 80 percent and a busy time period of only 20 percent. (Như vậy 5 CPU thì khi 100% busy time thì Load Average phải là 5.0)</p>
+
+<ul>
+<li>Theo Thầy Thương nói thì CPU cao, RAM cao, I/O cao thì còn thể theo thời gian mà hạ xuống được. Load cao thì không thể cứu chữa, thế nào cũng bị sập nếu để quá lâu (Error 503)???</li>
+</ul>
+
+<h5 id="identifyingcpubottlenecks">Identifying CPU bottlenecks</h5>
+
+<p>Làm sao để xác định CPU không đủ năng lực xử lý?</p>
+
+<h5 id="identifyingdiskiobottlenecks">Identifying disk I/O bottlenecks</h5>
+
+<p><a href="http://www.techopedia.com/definition/30479/io-bottleneck">http://www.techopedia.com/definition/30479/io-bottleneck</a> <br>
+<a href="http://searchstorage.techtarget.com/report/Troubleshooting-and-identifying-data-storage-performance-bottlenecks">http://searchstorage.techtarget.com/report/Troubleshooting-and-identifying-data-storage-performance-bottlenecks</a> </p>
+
+<ul>
+<li>RAID cũng có thể gây I/O Bottleneck</li>
+</ul>
+
+<h5 id="monitoringdiskspaceusage">Monitoring disk space usage</h5>
+
+<pre><code>fdisk -l  
+df -h  
+</code></pre>
+
+<h4 id="monitoringnetworkstatus">Monitoring Network Status</h4>
+
+<h4 id="todocuhicntmlip">TODO- Câu hỏi cần tìm lời đáp</h4>
+
+<ul>
+<li><p>Tại sao netstat, vốn nhiều người quen dùng, lại deprecated trong CENTOS?
+<a href="http://www.binarytides.com/linux-netstat-command-examples/">http://www.binarytides.com/linux-netstat-command-examples/</a> <br>
+<a href="https://dougvitale.wordpress.com/2011/12/21/deprecated-linux-networking-commands-and-their-replacements/">https://dougvitale.wordpress.com/2011/12/21/deprecated-linux-networking-commands-and-their-replacements/</a></p></li>
+<li><p>Để Monitor tốt (và giải quyết nếu gặp vấn đề) đòi hỏi phải hiểu sâu  và rộng hơn về Hệ điều hành và về cấu trúc máy tính , về Network cùng tỉ tỉ thứ khác... Vậy mình muốn đạt được đến mức độ nào? và mất bao lâu? Cần tìm hiểu thêm những gì?</p></li>
+</ul>
+
+<p>Vẫn còn đang tìm câu trả lời.</p>
+
+<ul>
+<li>Có cần thiết phải Free-up Ram? Làm sao để Free-up Ram? Có nên Kill Process nếu không đủ RAM và mình cần thực hiện một tác vụ nào đó??</li>
+</ul>
+
+<p>Không cần thiết phải Free-up Ram vì Free-up Ram không thực sự hiệu quả, cái đáng làm là tìm điểm thắt cổ chai... và Nếu Ram lúc nào cũng gần đầy thì nó là dấu hiệu cho thấy bạn nên nâng cấp Máy hoặc xem lại Performance của Ứng dụng mình đang chạy, có bị Memory Leaks chỗ nào hay không?)</p>
+
+<p>Thêm nữa, là SWAP sẽ được System tự clean up khi không dùng đến.</p>
+
+<p><a href="http://blog.midnightmonk.com/225/linux/free-up-and-release-unused-or-cached-memory.shtml">http://blog.midnightmonk.com/225/linux/free-up-and-release-unused-or-cached-memory.shtml</a></p>
+
+<ul>
+<li>Làm sao để biết được thư mục này lưu ở ổ cứng nào? Và làm sao để di chuyển data từ ổ cứng này qua bớt ổ cứng khác để giảm việc tập trung read / write vào 1 ổ cứng (I/O Bottleneck)</li>
+</ul>
+
+<p>Cái này mình đã làm thử khi cài đặt lại Ubuntu Mate 15.04 thì mình có thể chọn lưu các thư mục của hệ thống vào từng ổ cứng hoặc phân vùng cụ thể.</p>
+
+<p>Đọc thêm bài <strong>Theo dõi hiệu năng của Hệ điều hành</strong>- <a href="http://acegik.net/blog/java/performance/theo-doi-hieu-nang-cua-he-dieu-hanh.html">http://acegik.net/blog/java/performance/theo-doi-hieu-nang-cua-he-dieu-hanh.html</a></p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Monitoring%20Linux%20System&amp;url=http://localhost:2368/monitoring-linux-system/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/monitoring-linux-system/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/monitoring-linux-system/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

@@ -1,0 +1,315 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Các kỹ thuật Tấn công web cơ bản</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/cac-ky-thuat-tan-cong-web-co-ban/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Các kỹ thuật Tấn công web cơ bản">
+    <meta property="og:description" content="Biết để phòng và chống. I. Tổng quan Các nguy cơ đối với ứng dụng web Tấn công vào hệ thống vận hành Tấn công vào ứng dụng web Tấn công vào công tác vận hành, quản trị: Khai thác...">
+    <meta property="og:url" content="http://localhost:2368/cac-ky-thuat-tan-cong-web-co-ban/">
+    <meta property="article:published_time" content="2015-09-22T01:10:17.947Z">
+    <meta property="article:modified_time" content="2015-09-22T01:10:17.942Z">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Web Developer">
+    <meta property="article:tag" content="Today I Learned">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Các kỹ thuật Tấn công web cơ bản">
+    <meta name="twitter:description" content="Biết để phòng và chống. I. Tổng quan Các nguy cơ đối với ứng dụng web Tấn công vào hệ thống vận hành Tấn công vào ứng dụng web Tấn công vào công tác vận hành, quản trị: Khai thác...">
+    <meta name="twitter:url" content="http://localhost:2368/cac-ky-thuat-tan-cong-web-co-ban/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Các kỹ thuật Tấn công web cơ bản",
+    "url": "http://localhost:2368/cac-ky-thuat-tan-cong-web-co-ban/",
+    "datePublished": "2015-09-22T01:10:17.947Z",
+    "dateModified": "2015-09-22T01:10:17.942Z",
+    "keywords": "Security, Web Developer, Today I Learned",
+    "description": "Biết để phòng và chống. I. Tổng quan Các nguy cơ đối với ứng dụng web Tấn công vào hệ thống vận hành Tấn công vào ứng dụng web Tấn công vào công tác vận hành, quản trị: Khai thác..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-security tag-web-developer tag-today-i-learned">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-security tag-web-developer tag-today-i-learned">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-09-22">22 Sep 2015</time> on <a href="../tag/security/">Security</a> | <a href="../tag/web-developer/">Web Developer</a> | <a href="../tag/today-i-learned/">Today I Learned</a></span>
+
+        <h1 class="post-title">Các kỹ thuật Tấn công web cơ bản</h1>
+
+        <section class="post-content">
+            <p>Biết để phòng và chống.</p>
+
+<h4 id="itngquan">I. Tổng quan</h4>
+
+<p><img src="http://i.imgur.com/eY0s3wQ.png" alt="Thống kê"></p>
+
+<h5 id="ccnguycivingdngweb">Các nguy cơ đối với ứng dụng web</h5>
+
+<ul>
+<li>Tấn công vào hệ thống vận hành</li>
+<li>Tấn công vào ứng dụng web</li>
+<li>Tấn công vào công tác vận hành, quản trị: Khai thác điểm yếu trong cơ chế quản trị, người dùng.</li>
+<li>Tấn công vào nền tảng phục vụ ứng dụng web: Khai thác vào lỗ hổng Web Server, máy chủ OS, DB, dịch vụ đang chạy trên máy chủ.</li>
+</ul>
+
+<h5 id="ccliantonthngtinthnggp">Các lỗi an toàn thông tin thường gặp</h5>
+
+<ul>
+<li>SQL Injection.</li>
+<li>XSS.</li>
+<li>CSRF.</li>
+<li>Kiểm soát các thao tác với file.</li>
+<li>Mã hóa dữ liệu nhạy cảm.</li>
+<li>Kiểm tra quyền truy cập của người dùng.</li>
+<li>User Enumeration (lý do là mặc dù đã lỗi thời nhưng hiện giờ khi bạn đăng nhập vào các website sẽ vẫn báo một lỗi chung chung là "Incorrect email/password combination" thay vì cụ thể hơn như "The email you entered does not exist" bởi vì không cần thiết để một người có ý định tấn công website của bạn biết là họ đang đối diện với vấn đề nào.)</li>
+<li>Session Fixation.</li>
+<li>Session Hijacking.</li>
+<li>Sử dụng Cookie an toàn.</li>
+<li>Sử dụng Captcha an toàn.</li>
+</ul>
+
+<h5 id="mtscngcphbindnghtrphthinliantonthngtinattt">Một số công cụ phổ biến dùng hỗ trợ phát hiện lỗi an toàn thông tin (ATTT)</h5>
+
+<ul>
+<li>BurpSuite</li>
+<li>Firebug</li>
+<li>Temper Data</li>
+<li>Hackbar</li>
+</ul>
+
+<h4 id="iigiithiumtsliattt">II. Giới thiệu một số lỗi ATTT</h4>
+
+<h6 id="1csrfcrosssiterequestforgery">1. CSRF (Cross-Site Request Forgery)</h6>
+
+<ul>
+<li><p><strong>Nguy cơ</strong>: là kiểu tấn công lừa người dùng thực hiện một hành động mà họ không mong muốn lên ứng dụng web, bằng chính quyền người dùng đó.</p></li>
+<li><p><strong>Biện pháp</strong>: Sử dụng token (sinh ngẫu nhiên) trong các xử lý quan trọng, server kiểm tra tính hợp lệ của token này. </p></li>
+<li><strong>Dò lỗi</strong> (Áp dụng cho các chức năng thêm, sửa, xóa dữ liệu):
+<ul><li>Bước 1: xác định request thêm, sửa, xóa CSDL</li>
+<li>Bước 2: kiểm tra cách chống CSRF token(token, bpid, state..)</li>
+<li>Bước 3: Thực hiện các case như không có token, token khác null, token cũ.</li>
+<li>Bước 4: Kiểm tra kết quả, nếu thực hiện thành công thì mắc lỗi CSRF.</li></ul></li>
+</ul>
+
+<p><img src="http://i.imgur.com/nh7sC1p.png" alt="CSRF"></p>
+
+<ul>
+<li><strong>Fix lỗi</strong>:
+<ul><li>Phía server: Tạo giá trị token và lưu vào session.</li>
+<li>Trong các chức năng quan trọng: Viết code xử lý khi gửi request sẽ gửi kèm giá trị token.</li>
+<li>Phía Server: kiểm tra tính hợp lệ của request bằng cách so sánh giá trị token gửi lên từ client và token lưu trong session.</li>
+<li>Hợp lệ: Thực thi code, reset lại token và lưu lại trong session.</li></ul></li>
+</ul>
+
+<h5 id="2kimsotfileuploadlnhthng">2. Kiểm soát file upload lên hệ thống</h5>
+
+<ul>
+<li><strong>Nguy cơ</strong>: Các chức năng upload file, dữ liệu lên server nếu không kiểm soát tốt dẫn đến upload các file không hợp lệ (như webshell, file cấu hình,...)</li>
+<li><strong>Biện pháp</strong>: Kiểm soát phía server
+<ul><li>Extension của file</li>
+<li>Lọc các ký tự ‘/’, ‘\’, ký tự null</li>
+<li>Sinh ngẫu nhiên tên file</li></ul></li>
+<li><strong>Fix lỗi</strong>
+<img src="http://i.imgur.com/8jGQ0ap.png" alt="File Upload 1">
+<img src="http://i.imgur.com/2Qbt3In.png" alt="File Upload 2"></li>
+</ul>
+
+<h5 id="3pathtraversaldownloadfile">3. Path Traversal – Download file</h5>
+
+<ul>
+<li><strong>Nguy cơ</strong>: Các xử lý download qua action truyền filename nếu không xử lý filename dẫn đến attacker có thể download các file config của ứng dụng hay cấu hình server.</li>
+<li><strong>Biện pháp</strong>: Trước khi xử lý, cần lọc các ký tự ‘/’, ‘\’, ký tự null.</li>
+<li><strong>Fix lỗi</strong>:
+<img src="http://i.imgur.com/xQmy0Zr.png" alt="Path Traversal 1">
+<img src="http://i.imgur.com/2Qbt3In.png" alt="Path Traversal 2"></li>
+</ul>
+
+<h5 id="4mhadliunhycm">4. Mã hóa dữ liệu nhạy cảm</h5>
+
+<ul>
+<li><p><strong>Nguy cơ</strong>: Bằng một cách nào đó (khai thác lỗ hổng hoặc có quyền truy cập DB), Attacker lấy được các thông tin nhạy cảm trong DB. Các thông tin sẽ bị lộ nếu không mã hóa hoặc mã hóa không an toàn.</p></li>
+<li><p><strong>Biện pháp</strong>: Mã hóa dữ liệu nhạy cảm trong DB, các hàm mã hóa 1 chiều phải dùng Salt.</p></li>
+<li><p><strong>Fix lỗi</strong>: </p></li>
+</ul>
+
+<p><img src="http://i.imgur.com/17oldHm.png" alt="Encrypt">
+<img src="http://i.imgur.com/suIWgFH.png" alt="Encrypt"></p>
+
+<h5 id="5phnquyn">5. Phân quyền</h5>
+
+<ul>
+<li><strong>Nguy cơ</strong>: Một hệ thống phân quyền không tốt, dẫn đến người dùng có thể truy cập đến các chức năng, dữ liệu không được phép.</li>
+<li><strong>Biện pháp</strong>: 
+<ul><li>Kiểm tra quyền trong request gửi lên server</li>
+<li>Người dùng có được phép thực hiện chức năng?</li>
+<li>Người dùng thực hiện chức năng trên vùng dữ liệu cho phép?</li></ul></li>
+<li><strong>Fix lỗi</strong>:</li>
+</ul>
+
+<p><img src="http://i.imgur.com/uTCkln9.png" alt="Get List Users">
+<img src="http://i.imgur.com/1Iom5lW.png" alt="User Details"></p>
+
+<h5 id="6sdngcaptchaanton">6. Sử dụng captcha an toàn</h5>
+
+<ul>
+<li><p><strong>Nguy cơ</strong>: Với các chức năng quan trọng, attacker có thể sử dụng công cụ tự động đến khi đạt được mục đích.</p></li>
+<li><p><strong>Biện pháp</strong>: Sử dụng Captcha cho các chức năng quan trọng này.</p></li>
+</ul>
+
+<h5 id="7userenumeration">7. User enumeration</h5>
+
+<ul>
+<li><p><strong>Nguy cơ</strong>:</p>
+
+<ul><li>Trong chức năng đăng nhập, nếu thông báo lỗi quá chi tiết dẫn đến attacker có thể thử và tìm ra thông tin user có trên hệ thống.</li>
+<li>Với chức năng như reset password, forgot password, đăng ký cho phép thông báo user đúng hay sai dẫn đến attacker có thể thử và tìm ra thông tin user có trên hệ thống.</li></ul></li>
+<li><p><strong>Biện pháp</strong>:</p>
+
+<ul><li>Sử dụng chung thông báo lỗi cho trường hợp login sai username hay password.</li>
+<li>Sử dụng captcha cho các chức năng đăng ký, reset, forgot password.</li></ul></li>
+<li><p><strong>Fix lỗi</strong>:
+<img src="http://i.imgur.com/K1ioVme.png" alt="User Enumeration"></p></li>
+</ul>
+
+<h4 id="iiiktlun">III. Kết Luận</h4>
+
+<p>Có rất nhiều lỗ hổng và các kỹ thuật tấn công trong quá trình lập trình và phát triển một website đòi hỏi developer cần phải nắm chắc kiến thức lập trình cũng như có khả năng điều khiển tốt mã nguồn của mình.</p>
+
+<p>Trên đây, tôi nêu ra một số kỹ thuật tấn công cơ bản và cách fix nó. Bên cạnh đó, developer cần:</p>
+
+<p>Tiếp tục nghiên cứu những nguy cơ và cách phòng chống cho các nguy cơ đó. Tìm hiểu thêm về các công cụ kiểm tra lỗi bảo mật đang được phát triển hiện nay và học cách ứng dụng chúng vào trong thực tiễn công việc của mình.</p>
+
+<p><strong>Nguồn bài viết</strong>: 
+<a href="https://viblo.asia/nguyen.thi.hong.nhung/posts/7ymwGXLYG4p1">https://viblo.asia/nguyen.thi.hong.nhung/posts/7ymwGXLYG4p1</a></p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=C%C3%A1c%20k%E1%BB%B9%20thu%E1%BA%ADt%20T%E1%BA%A5n%20c%C3%B4ng%20web%20c%C6%A1%20b%E1%BA%A3n&amp;url=http://localhost:2368/cac-ky-thuat-tan-cong-web-co-ban/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/cac-ky-thuat-tan-cong-web-co-ban/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/cac-ky-thuat-tan-cong-web-co-ban/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

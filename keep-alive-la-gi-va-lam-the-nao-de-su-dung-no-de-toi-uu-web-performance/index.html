@@ -1,0 +1,226 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Keep Alive là gì, và làm thế nào để sử dụng nó để tối ưu Web Performance?</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/keep-alive-la-gi-va-lam-the-nao-de-su-dung-no-de-toi-uu-web-performance/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Keep Alive là gì, và làm thế nào để sử dụng nó để tối ưu Web Performance?">
+    <meta property="og:description" content="Keep Alive là gì? Nếu bạn đã đọc qua bài viết HTTP Succinctly thì hẳn có nghe qua Keep Alive Connection. Ở đây, mình cũng xin được ôn lại, Keep Alive là một phương thức cho phép sử dụng cùng...">
+    <meta property="og:url" content="http://localhost:2368/keep-alive-la-gi-va-lam-the-nao-de-su-dung-no-de-toi-uu-web-performance/">
+    <meta property="article:published_time" content="2015-08-05T15:50:38.854Z">
+    <meta property="article:modified_time" content="2015-08-05T15:50:58.151Z">
+    <meta property="article:tag" content="Keep Alive">
+    <meta property="article:tag" content="HTTP">
+    <meta property="article:tag" content="Performance">
+    <meta property="article:tag" content="Web Developer">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Keep Alive là gì, và làm thế nào để sử dụng nó để tối ưu Web Performance?">
+    <meta name="twitter:description" content="Keep Alive là gì? Nếu bạn đã đọc qua bài viết HTTP Succinctly thì hẳn có nghe qua Keep Alive Connection. Ở đây, mình cũng xin được ôn lại, Keep Alive là một phương thức cho phép sử dụng cùng...">
+    <meta name="twitter:url" content="http://localhost:2368/keep-alive-la-gi-va-lam-the-nao-de-su-dung-no-de-toi-uu-web-performance/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Keep Alive là gì, và làm thế nào để sử dụng nó để tối ưu Web Performance?",
+    "url": "http://localhost:2368/keep-alive-la-gi-va-lam-the-nao-de-su-dung-no-de-toi-uu-web-performance/",
+    "datePublished": "2015-08-05T15:50:38.854Z",
+    "dateModified": "2015-08-05T15:50:58.151Z",
+    "keywords": "Keep Alive, HTTP, Performance, Web Developer",
+    "description": "Keep Alive là gì? Nếu bạn đã đọc qua bài viết HTTP Succinctly thì hẳn có nghe qua Keep Alive Connection. Ở đây, mình cũng xin được ôn lại, Keep Alive là một phương thức cho phép sử dụng cùng..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-keep-alive tag-http tag-performance tag-web-developer">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-keep-alive tag-http tag-performance tag-web-developer">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-08-05">05 Aug 2015</time> on <a href="../tag/keep-alive/">Keep Alive</a> | <a href="../tag/http/">HTTP</a> | <a href="../tag/performance/">Performance</a> | <a href="../tag/web-developer/">Web Developer</a></span>
+
+        <h1 class="post-title">Keep Alive là gì, và làm thế nào để sử dụng nó để tối ưu Web Performance?</h1>
+
+        <section class="post-content">
+            <h4 id="keepalivelg">Keep Alive là gì?</h4>
+
+<p>Nếu bạn đã đọc qua bài viết <a href="http://notes.viphat.work/http-succinctly/"><strong>HTTP Succinctly</strong></a> thì hẳn có nghe qua Keep Alive Connection. Ở đây, mình cũng xin được ôn lại, Keep Alive là một phương thức cho phép sử dụng cùng một kết nối TCP cho một chuỗi các phiên giao dịch HTTP thay vì cứ phải tạo mới từng connection cho mỗi một HTTP Request. Bạn có thể hiểu nôm na là Web Server có thể trả về nhiều hơn một file trong cùng một kết nối. (Keep alive còn được biết đến với cái tên persistent connection.)</p>
+
+<p><img src="http://i.imgur.com/yjksohR.png" alt="Keep Alive Enabled"></p>
+
+<h4 id="lmthnoenablekeepalive">Làm thế nào để Enable Keep Alive</h4>
+
+<ul>
+<li>Keep Alive có thể được enable bằng cách sử dụng HTTP header <code>Connection: Keep-Alive</code>.</li>
+<li>Nếu Keep Alive không được enable thì HTTP Header của bạn sẽ giống như thế này <code>connection:close</code></li>
+<li>Cách để enable Keep Alive khác nhau tùy thuộc vào Web Server mà bạn đang sử dụng. Ở đây, mình chỉ quan tâm đến 2 Web Server thông dụng là <strong>Apache</strong> và <strong>Nginx</strong>.</li>
+</ul>
+
+<h5 id="enablekeepalivebnghtaccess">Enable Keep Alive bằng .htaccess</h5>
+
+<p>Chỉ cần thêm dòng sau vào file .htaccess của bạn</p>
+
+<pre><code>&lt;ifModule mod_headers.c&gt; Header set Connection keep-alive &lt;/ifModule&gt;  
+</code></pre>
+
+<h5 id="enablekeepalivetrongapache">Enable Keep Alive trong Apache</h5>
+
+<p>Trường hợp này áp dụng khi bạn có toàn quyền cấu hình Server Apache của bạn:</p>
+
+<pre><code>#
+# KeepAlive: Whether or not to allow persistent connections (more than
+# one request per connection). Set to "Off" to deactivate.
+#
+KeepAlive On
+
+#
+# MaxKeepAliveRequests: The maximum number of requests to allow
+# during a persistent connection. Set to 0 to allow an unlimited amount.
+# We recommend you leave this number high, for maximum performance.
+#
+MaxKeepAliveRequests 100
+
+#
+# KeepAliveTimeout: Number of seconds to wait for the next request from the
+# same client on the same connection.
+#
+KeepAliveTimeout 100  
+</code></pre>
+
+<h5 id="enablekeepalivetrongnginx">Enable Keep Alive trong Nginx</h5>
+
+<p>Trong cài đặt và cấu hình mặc định thì Nginx luôn Enable Keep Alive, trừ khi chính bạn muốn tắt nó bằng cách dùng directive <code>keepalive_disable</code>, chúng ta có thể chỉ định disable keep alive cho từng User Agent (Browser cụ thể).</p>
+
+<p>Xem thêm - <a href="http://wiki.nginx.org/HttpCoreModule#keepalive_disable">http://wiki.nginx.org/HttpCoreModule#keepalive_disable</a></p>
+
+<h4 id="ktlun">Kết luận</h4>
+
+<p>Keep Alive được dùng để tối ưu hóa tốc độ tải trang nhằm đem lại trải nghiệm tốt hơn cho người dùng. Mặc định thì Keep Alive luôn được mở khi cài đặt Apache hoặc Nginx, nhưng một số nhà cung cấp dịch vụ shared hosting có thể đã tắt nó nhằm tránh quá tải cho hệ thống của họ, vì vậy, luôn để ý và test kỹ xem Server của mình có enable keep alive không nhé. (Bằng cách quan sát HTTP Response hoặc sử dụng <a href="https://varvy.com/pagespeed/">PageSpeed Tool</a> để kiểm tra).</p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Keep%20Alive%20l%C3%A0%20g%C3%AC,%20v%C3%A0%20l%C3%A0m%20th%E1%BA%BF%20n%C3%A0o%20%C4%91%E1%BB%83%20s%E1%BB%AD%20d%E1%BB%A5ng%20n%C3%B3%20%C4%91%E1%BB%83%20t%E1%BB%91i%20%C6%B0u%20Web%20Performance?&amp;url=http://localhost:2368/keep-alive-la-gi-va-lam-the-nao-de-su-dung-no-de-toi-uu-web-performance/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/keep-alive-la-gi-va-lam-the-nao-de-su-dung-no-de-toi-uu-web-performance/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/keep-alive-la-gi-va-lam-the-nao-de-su-dung-no-de-toi-uu-web-performance/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

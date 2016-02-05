@@ -1,0 +1,380 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>So sánh các Hệ thống FileSystem</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/so-sanh-cac-he-thong-filesystem/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="So sánh các Hệ thống FileSystem">
+    <meta property="og:description" content="File system là gì File system được dùng để quản lý cách mà Dữ liệu được đọc và lưu trữ trên thiết bị. Có nhiều hệ thống File system, khác nhau về cấu trúc, về tốc độ, độ bảo mật,...">
+    <meta property="og:url" content="http://localhost:2368/so-sanh-cac-he-thong-filesystem/">
+    <meta property="article:published_time" content="2015-05-25T22:22:01.000Z">
+    <meta property="article:modified_time" content="2015-06-26T02:07:38.034Z">
+    <meta property="article:tag" content="Linux">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="So sánh các Hệ thống FileSystem">
+    <meta name="twitter:description" content="File system là gì File system được dùng để quản lý cách mà Dữ liệu được đọc và lưu trữ trên thiết bị. Có nhiều hệ thống File system, khác nhau về cấu trúc, về tốc độ, độ bảo mật,...">
+    <meta name="twitter:url" content="http://localhost:2368/so-sanh-cac-he-thong-filesystem/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "So sánh các Hệ thống FileSystem",
+    "url": "http://localhost:2368/so-sanh-cac-he-thong-filesystem/",
+    "datePublished": "2015-05-25T22:22:01.000Z",
+    "dateModified": "2015-06-26T02:07:38.034Z",
+    "keywords": "Linux",
+    "description": "File system là gì File system được dùng để quản lý cách mà Dữ liệu được đọc và lưu trữ trên thiết bị. Có nhiều hệ thống File system, khác nhau về cấu trúc, về tốc độ, độ bảo mật,..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-linux">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-linux">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-05-26">26 May 2015</time> on <a href="../tag/linux/">Linux</a></span>
+
+        <h1 class="post-title">So sánh các Hệ thống FileSystem</h1>
+
+        <section class="post-content">
+            <h4 id="filesystemlg">File system là gì</h4>
+
+<p>File system được dùng để quản lý cách mà Dữ liệu được đọc và lưu trữ trên thiết bị. Có nhiều hệ thống File system, khác nhau về cấu trúc, về tốc độ, độ bảo mật, độ linh hoạt... Mỗi File system đều có những giới hạn hay những mặt hạn chế của riêng mình. Những File system ra đời sau này, tiên tiến hơn, khắc phục những điểm yếu và dần thay thế những File system cũ hơn. Chúng ta sẽ điểm qua một vài hệ thống File system tiêu biểu dùng nhiều trong 3 dòng hệ điều hành phổ biến hiện nay:</p>
+
+<p><strong>Windows file system</strong></p>
+
+<ul>
+<li>FAT16</li>
+<li>FAT32</li>
+<li>NTFS</li>
+</ul>
+
+<p><strong>Linux file system</strong></p>
+
+<ul>
+<li>EXT2, EXT3, EXT4</li>
+<li>reiserFS</li>
+<li>XFS</li>
+<li>JFS1, JFS</li>
+</ul>
+
+<p><strong>MacOS file system</strong></p>
+
+<ul>
+<li>HFS</li>
+<li>HFS+</li>
+</ul>
+
+<hr>
+
+<h4 id="sosnhccfilesystem">So sánh các File system</h4>
+
+<table>  
+<thead>  
+<tr>  
+<th>File system</th>  
+<th>Năm giới thiệu</th>  
+<th>Kích thước file tối đa</th>  
+<th>Kích thước ổ đĩa tối đa</th>  
+<th>Block journaling</th>  
+<th>Ghi chú</th>  
+</tr>  
+</thead>  
+<tbody>  
+<tr>  
+<td>FAT16</td>  
+<td>1984</td>  
+<td>2GB or 4GB</td>  
+<td>2GB or 4GB</td>  
+<td>Không</td>  
+<td>Đã lạc hậu, không nên sử dụng</td>  
+</tr>  
+<tr>  
+<td>FAT32</td>  
+<td>1996</td>  
+<td>2GB or 4GB</td>  
+<td>2TB or 16TB</td>  
+<td>Không</td>  
+<td>Đã lạc hậu, không nên sử dụng</td>  
+</tr>  
+<tr>  
+<td>NTFS (3.1)</td>  
+<td>2001</td>  
+<td>16EB</td>  
+<td>16EB</td>  
+<td>Có</td>  
+<td>Nên sử dụng, nếu đang chạy Hệ thống Windows</td>  
+</tr>  
+<tr>  
+<td>EXT2</td>  
+<td>1993</td>  
+<td>2TB</td>  
+<td>32TB</td>  
+<td>Không</td>  
+<td>Đã lạc hậu, không nên sử dụng</td>  
+</tr>  
+<tr>  
+<td>EXT3</td>  
+<td>1999</td>  
+<td>2TB</td>  
+<td>32TB</td>  
+<td>Có</td>  
+<td>Đã lạc hậu, không nên sử dụng</td>  
+</tr>  
+<tr>  
+<td>EXT4</td>  
+<td>2006</td>  
+<td>16TB</td>  
+<td>1EB</td>  
+<td>Có</td>  
+<td>Nên sử dụng, nếu đang chạy Hệ thống Linux</td>  
+</tr>  
+<tr>  
+<td>reiserFS</td>  
+<td>2001</td>  
+<td>8TB</td>  
+<td>16TB</td>  
+<td>Có</td>  
+<td>Với những File có kích thước dưới 4KB, reiserFS có tốc độ xử lý nhanh hơn (Có thể sử dụng reiserFS cho các hệ thống nơi chú trọng hiệu suất xử lý với các tập tin nhỏ như HTTP Cache)</td>  
+</tr>  
+<tr>  
+<td>XFS</td>  
+<td>1994</td>  
+<td>8EB</td>  
+<td>8EB</td>  
+<td>Có</td>  
+<td>Nên sử dụng cho các Hệ thống Server lớn, lên đến hàng trăm TB (Không hỗ trợ để lưu trữ thư mục root hay /boot trong hệ thống Linux)</td>  
+</tr>  
+<tr>  
+<td>JFS1</td>  
+<td>1990</td>  
+<td>8EB</td>  
+<td>4PB</td>  
+<td>Có</td>  
+<td>Đã lạc hậu, không nên sử dụng</td>  
+</tr>  
+<tr>  
+<td>JFS</td>  
+<td>1999</td>  
+<td>4 PB</td>  
+<td>32 PB</td>  
+<td>Có</td>  
+<td>Không còn được hỗ trợ và duy trì bởi IBM (Thua kém về hiệu năng và độ tin cậy so với EXT4)</td>  
+</tr>  
+<tr>  
+<td>HFS</td>  
+<td>1985</td>  
+<td>2GB</td>  
+<td>2TB</td>  
+<td>Không</td>  
+<td>Đã lạc hậu, không nên sử dụng</td>  
+</tr>  
+<tr>  
+<td>HFS+</td>  
+<td>1998</td>  
+<td>8EB</td>  
+<td>8EB</td>  
+<td>Có</td>  
+<td>Sử dụng chính trong MacOS</td>  
+</tr>  
+</tbody>  
+</table>  
+
+<p><br></p>
+
+<h5 id="journalingfilesystem">Journaling file system</h5>
+
+<p>The journaled file system (JFS) maintains a log, or journal, of what activity has taken place in the main data areas of the disk; if a crash occurs, any lost data can be recreated because updates to the metadata in directories and bit maps have been written to a serial log. The JFS not only returns the data to the pre-crash configuration but also recovers unsaved data and stores it in the location it would have been stored in if the system had not been unexpectedly interrupted.</p>
+
+<h5 id="bngchuyninvcng">Bảng chuyển đổi đơn vị ổ cứng</h5>
+
+<table>  
+<thead>  
+<tr>  
+<th>Tên</th>  
+<th>Ký hiệu</th>  
+<th>Quy đổi</th>  
+</tr>  
+</thead>  
+<tbody>  
+<tr>  
+<td>Byte</td>  
+<td>B</td>  
+<td>-</td>  
+</tr>  
+<tr>  
+<td>KiloByte</td>  
+<td>KB</td>  
+<td>1024 B</td>  
+</tr>  
+<tr>  
+<td>MegaByte</td>  
+<td>MB</td>  
+<td>1024 KB</td>  
+</tr>  
+<tr>  
+<td>GigaByte</td>  
+<td>GB</td>  
+<td>1024 MB</td>  
+</tr>  
+<tr>  
+<td>TeraByte</td>  
+<td>TB</td>  
+<td>1024 GB</td>  
+</tr>  
+<tr>  
+<td>PetaByte</td>  
+<td>PB</td>  
+<td>1024 TB</td>  
+</tr>  
+<tr>  
+<td>ExaByte</td>  
+<td>EB</td>  
+<td>1024 PB</td>  
+</tr>  
+<tr>  
+<td>ZettaByte</td>  
+<td>ZB</td>  
+<td>1024 EB</td>  
+</tr>  
+<tr>  
+<td>YottaByte</td>  
+<td>YB</td>  
+<td>1024 ZB</td>  
+</tr>  
+</tbody>  
+</table>  
+
+<p><br></p>
+
+<p><mark>Ghost chưa hỗ trợ Markdown cho Table nên chịu khó xài HTML vậy</mark>.</p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=So%20s%C3%A1nh%20c%C3%A1c%20H%E1%BB%87%20th%E1%BB%91ng%20FileSystem&amp;url=http://localhost:2368/so-sanh-cac-he-thong-filesystem/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/so-sanh-cac-he-thong-filesystem/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/so-sanh-cac-he-thong-filesystem/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

@@ -1,0 +1,389 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>[Sách] HTTP Succinctly</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/http-succinctly/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[Sách] HTTP Succinctly">
+    <meta property="og:description" content="Những mẫu ghi chép vụn trong lúc đọc quyển HTTP Succinctly, quyển này chưa tới 60 trang nhưng cung cấp cho những người mới (cũng như những người cũ muốn ôn lại cũng như hệ thống hóa, bài bản hóa)...">
+    <meta property="og:url" content="http://localhost:2368/http-succinctly/">
+    <meta property="article:published_time" content="2015-07-14T23:42:01.613Z">
+    <meta property="article:modified_time" content="2015-07-15T23:36:29.636Z">
+    <meta property="article:tag" content="Đọc sách">
+    <meta property="article:tag" content="Network">
+    <meta property="article:tag" content="HTTP">
+    <meta property="article:tag" content="HTTP Request">
+    <meta property="article:tag" content="HTTP Response">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="[Sách] HTTP Succinctly">
+    <meta name="twitter:description" content="Những mẫu ghi chép vụn trong lúc đọc quyển HTTP Succinctly, quyển này chưa tới 60 trang nhưng cung cấp cho những người mới (cũng như những người cũ muốn ôn lại cũng như hệ thống hóa, bài bản hóa)...">
+    <meta name="twitter:url" content="http://localhost:2368/http-succinctly/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "[Sách] HTTP Succinctly",
+    "url": "http://localhost:2368/http-succinctly/",
+    "datePublished": "2015-07-14T23:42:01.613Z",
+    "dateModified": "2015-07-15T23:36:29.636Z",
+    "keywords": "Đọc sách, Network, HTTP, HTTP Request, HTTP Response",
+    "description": "Những mẫu ghi chép vụn trong lúc đọc quyển HTTP Succinctly, quyển này chưa tới 60 trang nhưng cung cấp cho những người mới (cũng như những người cũ muốn ôn lại cũng như hệ thống hóa, bài bản hóa)..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-doc-sach tag-network tag-http tag-http-request tag-http-response">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-doc-sach tag-network tag-http tag-http-request tag-http-response">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-07-15">15 Jul 2015</time> on <a href="../tag/doc-sach/">Đọc sách</a> | <a href="../tag/network/">Network</a> | <a href="../tag/http/">HTTP</a> | <a href="../tag/http-request/">HTTP Request</a> | <a href="../tag/http-response/">HTTP Response</a></span>
+
+        <h1 class="post-title">[Sách] HTTP Succinctly</h1>
+
+        <section class="post-content">
+            <p>Những mẫu ghi chép vụn trong lúc đọc quyển HTTP Succinctly, quyển này chưa tới 60 trang nhưng cung cấp cho những người mới (cũng như những người cũ muốn ôn lại cũng như hệ thống hóa, bài bản hóa) kiến thức khá chi tiết và đầy đủ về dịch vụ HTTP - Từ Resources - URL, Request và Response, Connections, Web Architecture, State và Security...</p>
+
+<h4 id="chapter1resources">Chapter 1 - Resources</h4>
+
+<p>Mọi thứ trên Internet (Các Trang Web, Hình ảnh, tập tin, File CSS, File Javascript...) đều được gọi là một Resource (tài nguyên), chúng được định danh bằng một địa chỉ gọi là URL (Uniform Resource Locator). Cấu trúc chung của một URL là:</p>
+
+<pre><code>&lt;schema&gt;://&lt;host&gt;:&lt;port&gt;/&lt;path&gt;?&lt;query&gt;#&lt;fragment&gt;  
+</code></pre>
+
+<p>trong đó</p>
+
+<ul>
+<li><p><strong>schema</strong>: giao thức mà Server sử dụng, nó chỉ chúng ta làm thế nào để truy cập được vào tài nguyên đó. ví dụ: http, https, ftp, mailto</p></li>
+<li><p><strong>host</strong>: tên miền của máy tính đang giữ tài nguyên đó. (Thực chất là trình duyệt sẽ nhờ vào <a href="http://notes.viphat.work/tong-quan-ve-he-thong-dns/">DNS</a> để phân giải tên host thành <a href="http://notes.viphat.work/so-luoc-ve-dia-chi-ip/">IP</a> nhờ vào đó các máy tính để có thể giao tiếp và nhìn thấy nhau trên mạng), ví dụ: food.com</p></li>
+<li><p><strong>port</strong>: nếu bạn không chỉ thị một con số cụ thể thì trình duyệt sẽ hiểu là 80 (đối với http) và 443 (đối với https).</p></li>
+<li><p><strong>path</strong>: đường dẫn cụ thể đến tài nguyên đó trên host. ví dụ: /recipe/grilled-cauliflower-19710/ (Có thể đó không phải là đường dẫn đến một tập tin thực sự mà một ứng dụng trên Web Server (ASP.NET, PHP, Ruby On Rails) sẽ xử lý đường dẫn này và trả về cho bạn thứ bạn muốn).</p></li>
+<li><p><strong>query</strong>: Tham số được truyền thêm vào để Server đích có thể sử dụng và có thể hiểu. các giá trị được truyền vào thêm dạng key-value và cách nhau bằng dấu &amp;. ví dụ: first_name=Scott&amp;last_name=Allen</p></li>
+<li><p><strong>fragment</strong>: Những thứ đằng sau dấu # được gọi là fragment. Ngược lại với Query, Server đích không đọc được fragment, nó chỉ được sử dụng ở phía client và thường được dùng để chỉ ra phần cụ thể của một tài nguyên. Ví dụ, bạn có thể hình dung mình có một trang html, trong đó có thẻ <code>&lt;div id="feedback"&gt;...&lt;div&gt;</code>, khi chúng ta thêm #feedback vào url của trang thì trình duyệt sẽ tự động lăn đến thẻ <code>div</code> đó. Fragment còn được dùng nhiều trong các framework trên front-end như AngularJs.</p></li>
+</ul>
+
+<h5 id="urlencoding">URL Encoding</h5>
+
+<p>Trong URL có một số ký tự đặc biệt (unsafe characters) và để đưa các ký tự này vào URL thì chúng ta phải qua một bước mã hóa nó bằng percent-encoded (còn gọi là URL Encoded). Ví dụ "^my resume.txt" sẽ được mã hóa thành "%5my%20resume.txt", trong đó ^ là %5 và khoảng trắng bị mã hóa thành %20. (Các con số này chính là giá trị trong hệ thập lục phân của ký tự đó trong bảng mã ASCII - Đọc thêm <a href="https://vi.wikipedia.org/wiki/ASCII">https://vi.wikipedia.org/wiki/ASCII</a>)</p>
+
+<h5 id="contenttype">Content-Type</h5>
+
+<p>Khi chúng ta request đến một URL, làm sao trình duyệt nhận biết được kết quả trả về là một tài nguyên gì? (Web, âm thanh, hình ảnh...) để có cách trình bày hoặc xử lý phù hợp. Đó là do khi Server response về kết quả, sẽ đính kèm thông tin <strong>content type</strong> trong đó. <strong>Content type</strong> sẽ theo chuẩn của MIME (Multipurpose Internet Mail Extensions), ví dụ như "text/html" sẽ cho biết tài nguyên này là định dạng html, "image/jpeg", "image/png", "image/gif", "application/json", "application/octet-stream"... Đọc thêm ở đây - <a href="https://en.wikipedia.org/wiki/Internet_media_type">https://en.wikipedia.org/wiki/Internet_media_type</a></p>
+
+<p>Trình duyệt Web sẽ không sử dụng extension của tập tin để xác định nội dung đó vì File Extension thường là các chỉ dẫn lạc lối. Không có gì bảo đảm một file có đuôi là jpeg thì đích thực nó là định dạng jpeg cả. Do đó, trình duyệt Web sẽ dựa vào nội dung content type mà Server trả về, nếu không có thông tin đó thì nó sẽ đọc 200 bytes đầu tiên của file để đoán được content-type. Trường hợp bất đắc dĩ, trình duyệt mới nhờ đến File Extension để xác định định dạng của tài nguyên được trả về.</p>
+
+<p>Bởi sẽ có trường hợp một URL nhưng có thể có đến vài định dạng tài nguyên khác nhau (ví dụ html, json, xml...) nên khi gửi request, client có thể thêm vào thông tin loại nội dung mà mình mong muốn được nhận. Server sẽ cố gắng trả về đúng loại nội dung đó cho client nếu có thể (Nếu không có loại nội dung client yêu cầu thì Server vẫn trả về loại nội dung mặc định). Đây gọi là <strong>Content Type Negetiation</strong>.</p>
+
+<h4 id="chapter2messages">Chapter 2 - Messages</h4>
+
+<p>HTTP hoạt động theo mô hình client-server nên mọi tương tác (được gọi là phiên giao dịch http transaction) đều bao gồm 2 thông điệp là <strong>http request</strong> và <strong>http response</strong>. Mình đã có bài viết khá chi tiết về chủ đề này - <a href="http://notes.viphat.work/tong-quan-ve-tcp-ip-va-http/#toc7">http://notes.viphat.work/tong-quan-ve-tcp-ip-va-http/#toc7</a> nhưng cũng xin cóp nhặt một số kiến thức quan trọng từ sách để ôn lại</p>
+
+<h5 id="httprequestmethods">HTTP Request Methods</h5>
+
+<p><img src="http://i.imgur.com/onxmZKT.png" alt="HTTP Request Methods"></p>
+
+<p>GET là một Safe Method, bởi vì (thông thường) Get Method chỉ dùng để lấy một tài nguyên từ Server chứ không làm thay đổi nó. còn POST thì ngược lại, do đó làm thay đổi tài nguyên nên mỗi khi mình refresh một trang được trả về bởi một POST request, trình duyệt web sẽ cảnh báo chúng ta bằng một hộp thoại như thế này:</p>
+
+<p><img src="http://i.imgur.com/Ur9f7hc.png" alt="Warm"></p>
+
+<p>Do vậy, một Pattern hay được Web Developer sử dụng là <strong>POST/Redirect/GET</strong>: Khi một POST Request gửi đến Server, Server sẽ xử lý và cập nhật lại Resource, sau đó redirect đến một trang GET khác để hiển thị kết quả.</p>
+
+<h5 id="httprequestheader">HTTP Request Header</h5>
+
+<p><img src="http://i.imgur.com/p85KV9h.png" alt="Request Header 1">
+<img src="http://i.imgur.com/gO6qCgL.png" alt="Request Header 2"></p>
+
+<p>Một Request đầy đủ sẽ trông như thế này:</p>
+
+<p><img src="http://i.imgur.com/WLCtJ9a.png" alt="Request Header"></p>
+
+<h5 id="httpresponse">HTTP Response</h5>
+
+<p><img src="http://i.imgur.com/AiYrrhR.png" alt="Response"></p>
+
+<p>Một số Response Code thông dụng:</p>
+
+<table>  
+<thead>  
+<tr>  
+<th style="text-align:center"><strong>Code</strong></th>  
+<th style="text-align:center; min-width: 100px;"><strong>Reason</strong></th>  
+<th><strong>Description</strong></th>  
+</tr>  
+</thead>  
+<tbody>  
+<tr>  
+<td style="text-align:center">200</td>  
+<td style="text-align:center">OK</td>  
+<td>The Status Code Everyone wants to see. A 200 code in the response means everything worked!</td>  
+</tr>  
+<tr>  
+<td style="text-align:center">301</td>  
+<td style="text-align:center">Moved Permanently</td>  
+<td>The resource has moved to the URL specified in the Location header and the client never needs to check this URL again.</td>  
+</tr>  
+<tr>  
+<td style="text-align:center">302</td>  
+<td style="text-align:center">Moved Temporarily</td>  
+<td>The resource has moved to the URL specified in the Location header. In the future, the client can still request the URL because it's a temporary move. <br>This type of response code is typically used after a POST operation to move a client a resource it can retrieve with GET (The POST/Redirect/GET pattern).</td>  
+</tr>  
+<tr>  
+<td style="text-align:center">304</td>  
+<td style="text-align:center">Not modified</td>  
+<td>This is the server telling the client that the resource hasn't changed since the last time the client retrieved the resource, so it can just use a locally cached copy.</td>  
+</tr>  
+<tr>  
+<td style="text-align:center">400</td>  
+<td style="text-align:center">Bad Request</td>  
+<td>The server could not understand the request. The request probably used incorrect syntax.</td>  
+</tr>  
+<tr>  
+<td style="text-align:center">403</td>  
+<td style="text-align:center">Forbidden</td>  
+<td>The server refused access to the resource.</td>  
+</tr>  
+<tr>  
+<td style="text-align:center">404</td>  
+<td style="text-align:center">Not Found</td>  
+<td>A popular code meaning the resource was not found.</td>  
+</tr>  
+<tr>  
+<td style="text-align:center">500</td>  
+<td style="text-align:center">Internet Server Error</td>  
+<td>The server encountered an error in processing the request. Commonly happens because of programming errors in web application.</td>  
+</tr>  
+<tr>  
+<td style="text-align:center">503</td>  
+<td style="text-align:center">Service unavailable</td>  
+<td>The server will currrently not service the request. This status code can appear when a server is throttling requests because it is under heavy load.</td>  
+</tr>  
+</tbody>  
+</table>
+
+<p>Cũng cần phải nhớ rằng HTTP status code chỉ trạng thái của những gì đang diễn ra ở mức HTTP. Nó không nhất thiết phải phản ánh đúng những gì đang diễn ra bên trong ứng dụng Web của bạn. Điều này nghĩa là khi người dùng cập nhật một Resource không thành công bởi vì Input của người dùng đưa vào có vấn đề thì Server nên trả về HTTP Status Code là 200 kèm theo một thông điệp lỗi chứ không nên là HTTP Status Code 4xx bởi vì đó không phải là lỗi ở mức HTTP.</p>
+
+<h4 id="chapter3connections">Chapter 3 - Connections</h4>
+
+<h5 id="parallelconnections">Parallel Connections</h5>
+
+<p>Những năm gần đây, cùng với sự tiến bộ của công nghệ lập trình Web và tốc độ đường truyền Internet ngày càng được cải thiện, số lượng resources trung bình mà một trang web cần tải về trước khi render hoàn toàn sẽ ngày càng tăng. Và dĩ nhiên, chúng ta không thể kết nối đến Server theo kiểu one-by-one tuần tự như ngày trước nữa. Hiện nay, các Web Browser sẽ mở ra nhiều <strong>Parallel Connections</strong> (kết nối song song) đến Server để đồng thời tải nhiều resources về cùng một lúc. </p>
+
+<p>Số lượng Parallel connection trên mỗi Host này tùy thuộc vào cấu hình của trình duyệt Web cũng như giới hạn của Host. Nếu tạo quá nhiều parallel connection sẽ dễ gây tắc nghẽn Network và làm quá tải Server bởi mỗi server đều có giới hạn về phần cứng, không thể đáp ứng quá nhiều kết nối cùng lúc. Hiện tại thì số lượng parallel connection giới hạn từ 2-8 (tùy trình duyệt Web). </p>
+
+<blockquote>
+  <p>Một cách để tối ưu Web Performance là chia các resources của trang web ra đặt ở nhiều Host khác nhau để tối đa hóa số lượng kết nối đồng thời và cũng tránh được việc gây quá tải cho một host nhất định.</p>
+</blockquote>
+
+<h5 id="persistentconnectionshttpkeepalive">Persistent Connections (HTTP Keep-Alive)</h5>
+
+<p>Ngày trước, mỗi khi trình duyệt web sẽ mở và đóng một connection sau mỗi lần một request riêng đã gửi đến Server. Việc cứ mở và đóng connection cho mỗi một request như vậy làm tăng chi phí xử lý, lưu trữ và làm quá tải Server một cách không cần thiết. Do vậy từ HTTP 1.0 và HTTP 1.1 đã cung cấp một loại kết nối mới là <strong>Persistent Connection</strong> và nó đã trở thành cách kết nối mặc định. Một kết nối Persistent connection vẫn mở sau khi một giao dịch request-response được hoàn thành trong một khoảng thời gian nhất định (được quy định trong Keep-Alive Timeout) để giao dịch request-response mới có thể sử dụng tiếp cho đến khi không còn một phiên giao dịch nào khác. Tuy nhiên, như đã nhắc ở phần trên, Một máy chủ chỉ phục vụ được hữu hạn số lượng kết nối cùng lúc nên nếu thiết lập thời gian giữ kết nối - Keep-Alive Timeout quá cao sẽ rất phí phạm khi Web Browser đã hoàn thành tất cả các Request-Response cần thiết để hiển thị trang nhưng các kết nối thì chưa được đóng lại.</p>
+
+<h5 id="pipelinedconnections">Pipelined Connections</h5>
+
+<p>Ngoài <strong>Parallel connections</strong> và <strong>Persistent connections</strong> được sử dụng rộng rãi và được hỗ trợ bởi hầu hết clients cũng như servers. (Dĩ nhiên là trình duyệt web và web server đều phải hỗ trợ thì mới thiết lập được kết nối đó). HTTP còn hỗ trợ một dạng kết nối mới hơn là <strong>Pipelined Connections</strong> (Kết nối dạng đường ống), chúng sẽ thiết lập một "đường ống" kết nối giữa client và server, cho phép đóng gói nhiều request và truyền vào "đường ống" này cùng một lúc, việc này giúp làm giảm độ trễ và tăng tốc độ tải trang web. Tuy nhiên, do Pipelined Connections không được phổ biến và hỗ trợ rộng rãi bởi các Web Server cũng như trình duyệt Web nên gây ra nhiều vấn đề nhức nhối về tính tương thích. (Hầu hết Trình duyệt Web đã tắt chế độ Pipelined Connections này để tránh gây lỗi với Web Server đời cũ như IIS). Đọc thêm về Pipelined Connections - <a href="https://en.wikipedia.org/wiki/HTTP_pipelining">https://en.wikipedia.org/wiki/HTTP_pipelining</a></p>
+
+<p><img src="http://i.imgur.com/ndKI7w3.png" alt="Pipeling"></p>
+
+<h4 id="chapter4webarchitecture">Chapter 4 - Web Architecture</h4>
+
+<h5 id="proxies">Proxies</h5>
+
+<p>Mình đã có bài viết cụ thể về <a href="http://notes.viphat.work/khai-niem-ve-proxy-forward-proxy-reverse-proxy/"><strong>Proxy, Forward Proxy và Reverse Proxy</strong></a>. Trong HTTP Succinctly thì Khái niệm Proxy được phân loại tùy vào chức năng cụ thể của nó như:</p>
+
+<ul>
+<li><p><strong>Load Balancing Proxies</strong> can take a message and forward it to one of several web servers on a round-robin basis, or by knowing which server is currently processing the fewest number of requests.</p></li>
+<li><p><strong>SSL Acceleration Proxies</strong> can encrypt and decrypt HTTP messages, taking the encryption load off a web server.</p></li>
+<li><p><strong>Caching Proxies</strong> can store copies of frequently accessed resources and respond to messages requesting those resources directly. </p></li>
+</ul>
+
+<p>Proxies can provide an additional layer of <strong>security</strong> by filtering out potentially dangerous HTTP messages. Specifically, messages that look like they might to trying to find a cross-site scripting (XSS) vulnerability or launch a SQL injection attack.</p>
+
+<h5 id="caching">Caching</h5>
+
+<p>Caching is an optimization made to improve performance and scalability. When there are multiple requests for the same resource representation, a server can send the same bytes over the network time and time again for each request. Or, a proxy server or a client can cache the representation locally and reduce the amount of time and bandwidth required for a full retrieval. Caching can reduce latency, help prevent bottlenecks and allow a web application to survive when every user shows up at once to buy the newest product or see the latest press release. Caching is also a great example of how the metadata in the HTTP message headers facilitates additional layers and services.</p>
+
+<p>Có 2 loại caches:</p>
+
+<ul>
+<li><strong>Public cache</strong> là một cache chia sẻ giữa nhiều người dùng với nhau. Public cache thường ở trong một Proxy server. Một Public cache nằm trên một forward proxy thường sẽ caching các tài nguyên phổ dụng thuộc nhiều ứng dụng web khác nhau trong cộng đồng những người sử dụng chung forward proxy đó. Public cache nằm trên một reverse proxy thường dùng để caching các tài nguyên phổ dụng của một ứng dụng web cụ thể. Ví dụ như CSS, JS, hình ảnh hay Logo của Website. </li>
+<li><strong>Private cache</strong> thuộc về từng user đơn lẻ. Trình duyệt Web luôn giữ private cache của các tài nguyên mà bạn đã truy cập trước đó vào ổ cứng của bạn (Thư mục Temporary Internet Files của các trình duyệt). Chúng sẽ được tái sử dụng nhằm tăng tốc quá trình truy cập lại các tài nguyên đó lần nữa.</li>
+<li>Trong HTTP 1.1, Response với Status là 200 của một HTTP GET request thì mặc định là có thể cache được. Ứng dụng Web có thể thay đổi đều này bằng cách sử dụng header thích hợp (<strong>Cache-Control</strong>) trong HTTP Response để cho phép hoặc không cho phép Resource đó được cache. Cache-Control chấp nhận giá trị là <strong>public</strong>, <strong>private</strong> hay <strong>no-cache</strong> và <strong>no-store</strong> (message chứa thông tin nhạy cảm và không được tồn tại, cần phải xóa khỏi bộ nhớ càng sớm càng tốt).</li>
+<li>HTTP 1.1 sử dụng chỉ thị <strong>Last-Modified</strong> và <strong>Expires</strong> trong HTTP Response để báo cho hệ thống caching biết là khi nào tài nguyên đã cached bị thay đổi hoặc hết hạn và cần phải thay mới chúng. Trong HTTP Request, chỉ thị <strong>If-Modified-Since</strong> để cho Server biết rằng client chỉ cần server trả về tài nguyên nếu tài nguyên đó đã bị thay đổi so với thời gian đề cập trong <strong>If-Modified-Since</strong>. Nếu không có gì thay đổi thì Server chỉ cần trả về thông điệp với status code là <strong>304 - Not modified</strong>. Ngoài ra, còn một cách khác để làm được những việc này là thông qua chỉ thị <strong>ETag</strong>, nếu <strong>ETag</strong> của tài nguyên không khớp thì đã đến lúc hệ thống caching cần tải mới tài nguyên.</li>
+</ul>
+
+<h4 id="chapter5stateandsecurity">Chapter 5 - State and Security</h4>
+
+<h5 id="thestatelessyetstatefulweb">The Stateless (Yet Stateful) Web</h5>
+
+<p>Một trong những đặc điểm khiến HTTP trở nên phổ dụng là vì bản thân nó mang tính Stateless. Do các phiên giao dịch request-response hoàn toàn độc lập khỏi các phiên giao dịch trong quá khứ cũng như tương lai nên giao thức HTTP không yêu cầu server giữ lại thông tin về mỗi HTTP request. Bản thân mỗi request đã mang đủ thông tin mà Server cần để tạo ra response. Do đặc điểm này mà nhờ đó hệ thống caching có thể hoạt động, và nếu không có Caching, thì có thể nói Hệ thống Mạng Internet đã không thể tồn tại nổi.</p>
+
+<p>Nhưng nhu cầu thiết yếu của ứng dụng Web là chúng ta cần lưu lại các trạng thái của người dùng, vậy với đặc trưng "phi trạng thái" của giao thức HTTP thì phải làm như thế nào?</p>
+
+<h5 id="cookies">Cookies</h5>
+
+<p>Để khắc phục đặc điểm Stateless của HTTP, Cookies xuất hiện như một vị cứu tinh, nó được mệnh danh là "HTTP State Management Mechanism". Khi người dùng lần đầu truy cập vào một website, site này sẽ đưa cho trình duyệt web của user một file cookie. Trình duyệt Web sau đó sẽ biết phải đính kèm cookie này vào trong Header mỗi khi gửi một Request đến Server. Nhờ vào Cookie mà chúng ta có thể lưu lại các trạng thái trước đó của người dùng và phân biệt được giữa ngườ dùng này và người dùng kia.</p>
+
+<p>Session cũng hoạt động dựa trên Cookie, Session được tạo và lưu trữ trên Server còn Cookie sẽ ghi lại địa chỉ tham chiếu đến Session đó trên Server.</p>
+
+<p>Có hai loại Cookie là Session Cookies và Persistent Cookies: Session Cookies chỉ tồn tại trong một phiên người dùng và sẽ bị xóa khi người dùng đóng trình duyệt Web. Còn Persistent Cookies được lưu thành file vào ổ cứng máy tính để rồi dù bạn có tắt máy đi chăng nữa thì khi bật máy lại, Cookie đó vẫn tồn tại và Trạng thái của bạn được bảo toàn. Điểm phân biệt giữa Session Cookies và Persistent Cookies là Persistent Cookies có thời hạn Expire cụ thể.</p>
+
+<p><mark>Lưu ý về Domain trong Cookie, để thiết lập một Cookie có thể hoạt động khắp các Sub-Domain thì phải khai báo như thế nào? Nếu muốn thiết lập Cookie chỉ có hiệu lực ở một đường dẫn (path) cụ thể thì làm như thế nào?</mark></p>
+
+<p>Third-party cookies (thường là cookies đến từ các trang quảng cáo hoặc các dịch vụ như google analytics) là cookie được thiết lập bởi các website với tên miền ngoài tên miền mà bạn đang truy cập. Third-party cookies có thể bị lợi dụng để theo dõi hành động của bạn trên Internet. Để bảo đảm tính riêng tư thì bạn có thể disallow third-party cookies của trình duyệt web.</p>
+
+<p>Tuy nhiên Cookie cũng gặp phải nhiều vấn đề liên quan đến việc bảo mật và mạo danh.</p>
+
+<h5 id="authentication">Authentication</h5>
+
+<p>Để định danh người dùng Web, HTTP thường sử dụng một trong các giao thức xác thực sau:</p>
+
+<ul>
+<li><p><strong>Basic Authentication</strong>: Hình thức xác thực cơ bản nhất, và kém bảo mật nhất do bất kỳ ai bắt được gói tin đều có thể giải mã thông tin được truyền trong đó do chỉ mã hóa bằng base64 encoding.</p></li>
+<li><p><strong>Digest Authentication</strong>: Là giao thức cải tiến hơn so với Basic Authentication nhưng còn xa mới đạt được sự hoàn hảo. Chúng vẫn bị đánh lừa bởi phương pháp tấn công giả mạo "man-in-the-middle". Nguyên tắc của Digest Authentication như sau: <em>The server gives the client a one-time use string (a nonce) that it combines with the username, realm, password and the URI request. The client runs all of those fields through an MD5 hashing method to produce a hash key.It sends this hash key to the server along with the username and the realm to attempt to authenticate. On the Server-side, the same method is used to generate a hashkey, It looks up the stored password (in DB) for this username, runs in through the same algorithm and compares it to what the client sent. If they match: access is granted.</em>
+Đọc thêm tại <a href="https://en.wikipedia.org/wiki/Digest_access_authentication">https://en.wikipedia.org/wiki/Digest_access_authentication</a></p></li>
+<li><p><strong>Windows Authentication</strong>: dùng cho máy chủ IIS và thường thấy trong Intranet Website. Không được dùng phổ biến trên Internet.</p></li>
+<li><p><strong>Forms-based Authentication</strong>: Đây là dạng xác thực thường gặp nhất, xuất hiện trong hầu hết các ứng dụng Web (cần định danh người dùng). Cũng như Basic Authentication, chúng không được bảo mật do thông tin được truyền đi dưới dạng plain-text nếu không sử dụng <strong>HTTPS</strong>. Nguyên tắc cơ bản là người dùng sẽ đăng nhập trên một form trong trang web và gửi thông tin username + mật khẩu đến Server, Server sẽ xác nhận và thiết lập cookie để chỉ ra rằng User đó đã được xác thực.</p></li>
+<li><p><strong>OAuth</strong>: OAuth cho phép sử dụng tài khoản của ứng dụng Web này để đăng nhập vào một ứng dụng Web khác.</p></li>
+<li><p><strong>OpenID</strong>: OpenID cho phép một định danh người dùng có thể được sử dụng ở nhiều ứng dụng Website khác nhau. OpenID hiện không còn được các Website sử dụng rộng rãi khi không được người dùng đón nhận. </p></li>
+</ul>
+
+<p>Để phân biệt OAuth và OpenID, mới bạn đọc thêm bài viết dưới đây: <a href="http://softwareas.com/oauth-openid-youre-barking-up-the-wrong-tree-if-you-think-theyre-the-same-thing/">http://softwareas.com/oauth-openid-youre-barking-up-the-wrong-tree-if-you-think-theyre-the-same-thing/</a></p>
+
+<h5 id="securehttp">Secure HTTP</h5>
+
+<p>HTTPS đã được đề cập cụ thể trong bài viết <a href="http://notes.viphat.work/phan-biet-http-va-https/"><strong>Phân biệt HTTP và HTTPS</strong></a>, nên ở đây mình chỉ ghi lại một số thông tin cần lưu ý:</p>
+
+<ul>
+<li>All traffic over HTTPS is encrypted in the request and the response.</li>
+<li>The server is authenticated to the client thanks to the server certificate.</li>
+<li>HTTPS does not authenticate the client.</li>
+</ul>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=%5BS%C3%A1ch%5D%20HTTP%20Succinctly&amp;url=http://localhost:2368/http-succinctly/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/http-succinctly/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/http-succinctly/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

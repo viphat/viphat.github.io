@@ -1,0 +1,249 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>[TIL] Action Mailer Previews in Ruby on Rails</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/action-mailer-previews-in-rails/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[TIL] Action Mailer Previews in Ruby on Rails">
+    <meta property="og:description" content="Xuất phát từ nhu cầu của mình là phải ngồi mần một Email Template cho tác vụ gửi Newsletter của dự án đang làm nên phải thay đổi và kiểm tra thường xuyên. Vì vậy, không thể cứ mỗi lần...">
+    <meta property="og:url" content="http://localhost:2368/action-mailer-previews-in-rails/">
+    <meta property="article:published_time" content="2015-07-22T23:30:37.101Z">
+    <meta property="article:modified_time" content="2015-07-23T02:36:15.851Z">
+    <meta property="article:tag" content="Action Mailer">
+    <meta property="article:tag" content="Today I Learned">
+    <meta property="article:tag" content="Ruby on Rails">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="[TIL] Action Mailer Previews in Ruby on Rails">
+    <meta name="twitter:description" content="Xuất phát từ nhu cầu của mình là phải ngồi mần một Email Template cho tác vụ gửi Newsletter của dự án đang làm nên phải thay đổi và kiểm tra thường xuyên. Vì vậy, không thể cứ mỗi lần...">
+    <meta name="twitter:url" content="http://localhost:2368/action-mailer-previews-in-rails/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "[TIL] Action Mailer Previews in Ruby on Rails",
+    "url": "http://localhost:2368/action-mailer-previews-in-rails/",
+    "datePublished": "2015-07-22T23:30:37.101Z",
+    "dateModified": "2015-07-23T02:36:15.851Z",
+    "keywords": "Action Mailer, Today I Learned, Ruby on Rails",
+    "description": "Xuất phát từ nhu cầu của mình là phải ngồi mần một Email Template cho tác vụ gửi Newsletter của dự án đang làm nên phải thay đổi và kiểm tra thường xuyên. Vì vậy, không thể cứ mỗi lần..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-action-mailer tag-today-i-learned tag-ruby-on-rails">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-action-mailer tag-today-i-learned tag-ruby-on-rails">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-07-23">23 Jul 2015</time> on <a href="../tag/action-mailer/">Action Mailer</a> | <a href="../tag/today-i-learned/">Today I Learned</a> | <a href="../tag/ruby-on-rails/">Ruby on Rails</a></span>
+
+        <h1 class="post-title">[TIL] Action Mailer Previews in Ruby on Rails</h1>
+
+        <section class="post-content">
+            <p>Xuất phát từ nhu cầu của mình là phải ngồi mần một Email Template cho tác vụ gửi Newsletter của dự án đang làm nên phải thay đổi và kiểm tra thường xuyên. Vì vậy, không thể cứ mỗi lần thay đổi một chút là lại phải gửi Email đi, vừa mất thời gian (Gửi Mail qua <strong>SMTP Server</strong> xong lại phải mở hộp mail để check, và cũng không chắc là mail đến nhanh như mong đợi không) và tốn kém chi phí (nếu bạn sử dụng các dịch vụ Email Delivery như <strong>Sendgrid</strong> và <strong>Mailchimp</strong>...). Thử Google trên mạng thì có 2 giải pháp là dùng <strong>Mail Catcher</strong> để bắt hết tất cả Mail gửi đi trong môi trường Development và nhét về lại một chỗ - <a href="http://mailcatcher.me/">http://mailcatcher.me/</a>. Cách thứ hai, đơn giản hơn nữa là Rails có hỗ trợ <strong>Action Mailer Previews</strong> giúp bạn nhanh chóng và dễ dàng để xem trước Email của bạn bằng trình duyệt Web.</p>
+
+<p>Ở đây, tôi giả định bạn đã có một class UserMailer với method new_user():</p>
+
+<p><small><strong>app/mailers/user_mailer.rb</strong></small>  </p>
+
+<pre><code>class UserMailer &lt; ActionMailer::Base  
+  default from: "from@example.com"
+
+  def new_user(user)
+    @user = user
+    mail to: user.email, subject: "Hello!"
+  end
+end  
+</code></pre>
+
+<p>và một Email Template tương ứng với Method đó tại:</p>
+
+<p><small><strong>app/views/user_mailer/new_user.html.erb</strong></small>  </p>
+
+<pre><code>&lt;h1&gt;Hello &lt;%= @user.first_name %&gt;!&lt;/h1&gt;
+
+&lt;p&gt;  
+  Welcome to my website!
+&lt;/p&gt;  
+</code></pre>
+
+<p>Để Preview Mail này trên trình duyệt Web, ta tiến hành các bước sau:</p>
+
+<p>Tạo File <strong>test/mailers/previews/user_mailer_preview.rb</strong> với nội dung:</p>
+
+<pre><code>class UserMailerPreview &lt; ActionMailer::Preview
+
+  def new_user
+    user = User.first
+    UserMailer.new_user(user)
+  end
+
+end  
+</code></pre>
+
+<p>Khởi động lại Server bằng <code>rails server</code> và truy cập <strong><a href="http://localhost:3000/rails/mailers/user_mailer/new_user">http://localhost:3000/rails/mailers/user_mailer/new_user</a></strong> để xem kết quả.</p>
+
+<p>Nếu bạn không muốn Class <strong>UserMailerPreview</strong> phải đặt trong thư mục <strong>test/mailers/previews/</strong> (Trường hợp Dự án dùng rspec nên không có thư mục test chẳng hạn) thì bạn có thể đặt lại Path trong <strong>config/environments/development.rb</strong>  </p>
+
+<pre><code>config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"  
+</code></pre>
+
+<h5 id="bonustip">Bonus Tip</h5>
+
+<p><strong>#1</strong> - Để sử dụng <strong>Views Helpers</strong> trong Email Template, bạn thêm dòng sau vào trong class <code>UserMailer</code>:</p>
+
+<pre><code>add_template_helper(TimelineHelper)  
+</code></pre>
+
+<ul>
+<li>TimelineHelper là tên Helper cần đưa vào</li>
+</ul>
+
+<p><strong>#2</strong> - Sử dụng chung một Layout cho nhiều loại Mail.</p>
+
+<p>Thêm dòng sau vào trong các class ActionMailer mà bạn sử dụng:</p>
+
+<pre><code>layout 'mail_layout'  
+</code></pre>
+
+<p>(với mail_layout là tên File dùng làm Layout đặt trong thư mục <strong>app/views/layouts/</strong>)</p>
+
+<p>Nếu có sử dụng Devise thì thêm dòng sau vào <strong>config/application.rb</strong> để sử dụng chung Layout cho các Mail gửi từ Devise:</p>
+
+<pre><code>config.to_prepare do  
+  Devise::Mailer.layout "mail_layout"
+end  
+</code></pre>
+
+<blockquote>
+  <p><span style="color: #f92672;"> Bài viết trong loạt bài Today I Learned, ghi nhanh và tổng hợp các kiến thức, tips mới mà tôi học được trong ngày.</span></p>
+</blockquote>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=%5BTIL%5D%20Action%20Mailer%20Previews%20in%20Ruby%20on%20Rails&amp;url=http://localhost:2368/action-mailer-previews-in-rails/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/action-mailer-previews-in-rails/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/action-mailer-previews-in-rails/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

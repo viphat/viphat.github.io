@@ -1,0 +1,219 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Tại sao bạn không nên viết lại Code</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/tai-sao-ban-khong-nen-viet-lai-code/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Tại sao bạn không nên viết lại Code">
+    <meta property="og:description" content="Viết lại code Một việc mà các lập trình viên rất thường hay nghĩ đến khi gặp khó khăn trong khi đọc lại code của chính mình hay đồng nghiệp đó là muốn viết lại toàn bộ project từ đầu....">
+    <meta property="og:url" content="http://localhost:2368/tai-sao-ban-khong-nen-viet-lai-code/">
+    <meta property="article:published_time" content="2015-08-19T23:27:18.268Z">
+    <meta property="article:modified_time" content="2015-08-19T23:42:30.880Z">
+    <meta property="article:tag" content="Kinh nghiệm Lập trình">
+    <meta property="article:tag" content="Web Developer">
+    <meta property="article:tag" content="Basic">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Tại sao bạn không nên viết lại Code">
+    <meta name="twitter:description" content="Viết lại code Một việc mà các lập trình viên rất thường hay nghĩ đến khi gặp khó khăn trong khi đọc lại code của chính mình hay đồng nghiệp đó là muốn viết lại toàn bộ project từ đầu....">
+    <meta name="twitter:url" content="http://localhost:2368/tai-sao-ban-khong-nen-viet-lai-code/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Tại sao bạn không nên viết lại Code",
+    "url": "http://localhost:2368/tai-sao-ban-khong-nen-viet-lai-code/",
+    "datePublished": "2015-08-19T23:27:18.268Z",
+    "dateModified": "2015-08-19T23:42:30.880Z",
+    "keywords": "Kinh nghiệm Lập trình, Web Developer, Basic",
+    "description": "Viết lại code Một việc mà các lập trình viên rất thường hay nghĩ đến khi gặp khó khăn trong khi đọc lại code của chính mình hay đồng nghiệp đó là muốn viết lại toàn bộ project từ đầu...."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-kinh-nghiem-lap-trinh tag-web-developer tag-basic">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-kinh-nghiem-lap-trinh tag-web-developer tag-basic">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-08-20">20 Aug 2015</time> on <a href="../tag/kinh-nghiem-lap-trinh/">Kinh nghiệm Lập trình</a> | <a href="../tag/web-developer/">Web Developer</a> | <a href="../tag/basic/">Basic</a></span>
+
+        <h1 class="post-title">Tại sao bạn không nên viết lại Code</h1>
+
+        <section class="post-content">
+            <h4 id="vitlicode">Viết lại code</h4>
+
+<p>Một việc mà các lập trình viên rất thường hay nghĩ đến khi gặp khó khăn trong khi đọc lại code của chính mình hay đồng nghiệp đó là muốn viết lại toàn bộ project từ đầu. Đó không hẳn là suy nghĩ hoàn toàn sai lầm, nhưng trong đa số trường hợp. Lợi ích nó đem lại không đáng để đánh đổi công sức của hàng tháng (thậm chí hàng năm) để làm việc đó. Một số cty từng mắc phải sai lầm chết người này và gần như không thể gượng dậy được sau sai lầm đó. Tiêu biểu là Netscape Communications Corporation với phần mềm Netscape Navigator hay Borland với Quattro Pro. Sau đây chúng ta hãy tìm hiểu tại sao.</p>
+
+<p>Hình như có một lý do rất mơ hồ nào đó làm cho lập trình viên chúng ta luôn muốn quẳng mớ code cũ và bắt đầu lại từ đầu. Thường thì lí do đó là chúng ta luôn nghĩ mớ code cũ mà chúng ta mất cả hàng tháng trời viết ra, sau 1 thời gian nhìn lại, thì nhìn bọn nó không khác gì 1 đống hỗn độn mà bạn nhiều khi không thể giải thích được. Và... vì thế bạn bắt đầu lại từ đầu với hy vọng rằng code mới sẽ đẹp và dễ hiểu cùng với hiệu năng cao hơn. Nhưng sự thật là hình như chúng ta đã sai. Điều đó là bởi vì một số điều cơ bản sau của lập trình.</p>
+
+<h4 id="ccodekhhnlvit">Đọc code khó hơn là viết</h4>
+
+<p>Đây là lý do mà tại sao việc tái sử dụng code lại khó đến vậy. Đây là lý do tại sao mọi người trong cùng 1 nhóm lại có cả mớ version khác nhau của 1 hàm để làm 1 việc đơn giản nào đó (xử lý string chẳng hạn). Mọi người viết riêng hàm của mình để dùng, đơn giản là bởi viết hàm mới nhanh hơn và (có thể) là vui hơn ngồi tìm hiểu cách hoạt động của 1 cái hàm cũ mà ai đó đã viết. 
+Hệ quả tất yếu của hiện tượng này, hầu hết lập trình viên khi nhìn lại đống code cũ của mình và đồng nghiệp, chỉ thấy một mớ to bự lộn xộn và chả mong gì hơn ngoài quẳng nó đi và bắt đầu lại từ đầu. <br>
+Nhưng chờ 1 chút, tại sao nó lại lộn xộn? Tôi đã hỏi 1 số người như vậy và họ trả lời "Đây, nhìn cái hàm này xem, nó dài tận 2 trang chỉ để làm công việc mà đáng lẽ chỉ tốn vài dòng code, tôi còn ko hiểu hết 1 nửa mấy cái API này đến từ đâu nữa".</p>
+
+<h4 id="tisaobnkhngnnvitlicode">Tại sao bạn không nên viết lại code</h4>
+
+<p>Tôi cho rằng cái ý tưởng mà cho rằng code mới sẽ ngon hơn code cũ thật sự rất ngu dốt. Code cũ là code mà đã được sử dụng, được test rất nhiều lần. Hàng đống bug đã dc tìm ra và sửa. Bạn đừng mong bạn sẽ tìm được bug trong code mới bằng cách ngồi chờ bên cạnh cái ổ cứng của mình, và đợi bug chạy đến với bạn.</p>
+
+<p>Trở lại với cái hàm dài 2 trang ở trên. Tôi biết là nó chỉ làm mỗi việc là hiển thị cái cửa sổ thôi, nhưng nó có 1 đống thứ lèo nhèo trong đó mà chả ai hiểu gì hết trơn. Bạn biết cái mớ đó là để làm gì ko? Để fix bug đấy ạ. 1 cái trong đó là để fix 1 cái bug mà Nancy tìm ra khi cô cố cài đặt phần mềm lên 1 cái máy tính ko có Internet Explore. 1 cái khác nữa sửa lỗi xảy ra khi máy tính hết bộ nhớ. 1 cái khác nữa là để sửa lỗi khi mà phần mềm đang đọc file trên đĩa mềm thì đồng chí người dùng nổi hứng kéo cái đĩa ra. Còn cái hàm LoadLibrary này trông có hơi mất thẩm mỹ 1 chút nhưng có đảm bảo là phần mềm sẽ sống sót được trên Windows 95.</p>
+
+<p>Mỗi một cái bug này lấy đi hàng tuần trời dùng để phát hiện ra chúng, và tốn vài ngày để fix. Nhiều bug chỉ tốn vài dòng hoặc thậm chí vài kí tự để fix nhưng nó lấy đi rất nhiều thời gian và tóc của lập trình viên để nặn ra được mấy kí tự đó.</p>
+
+<p>Khi bạn vứt code cũ đi và làm lại từ đầu, nghĩa là bạn đã quẳng đi tất cả thứ trên. Hàng đống bug đã được sửa và hàng năm trời lập trình. Chẹp, suy nghĩ kỹ nhé.</p>
+
+<p>Không chỉ vậy, bạn còn vứt luôn lợi thế dẫn đầu của mình (giả sử mà bạn đang dẫn đầu thật). Bạn như nói với đối thủ của mình răng "Tao chấp bọn mày một vài năm đấy". Và tin tôi đi, thời gian tính bằng năm trong lĩnh vực phần mềm này là hơi bị dài.</p>
+
+<p>Bạn đặt bạn vào một tình thế rất nguy hiểm khi mà bạn còn bận lo code lại từ đầu, thì bạn không thể đáp ứng được những yêu cầu nảy sinh của thị trường, rồi khi các đối thủ của bạn liên tục cập nhật tính năng mới thì bạn chả làm gì hơn ngoài ngồi nhìn và ân hận, đơn giản chỉ bởi vì bạn... code chưa xong.</p>
+
+<p>Bạn lãng phí quá nhiều thời gian, tiền bạc và công sức để viết lại 1 thứ có sẵn từ lâu rồi.</p>
+
+<h4 id="ccchnosngstvicodexukhng">Có cách nào để sống sót với code xấu không?</h4>
+
+<p>Vậy còn cách nào khác không. Câu trả lời là có, thường có 3 vấn đề bạn hay gặp với mớ code cũ của bạn đó là: <br>
+* Cấu trúc của code
+* Tính hiệu quả của code
+* Code trông xấu vì cách đặt tên quá bừa bãi</p>
+
+<p>Vấn đề thứ 3, có thể dễ dàng sửa đổi với các editor hiện nay. Còn 2 vấn đề đầu tiên, nếu có thời gian, hãy chậm rãi sửa nó để không ảnh hưởng đến phần khác trong project. Đừng viết lại, hãy chỉ sửa phần nào không tốt thôi. Công việc này khá là đau đớn và mất thời gian, nhưng hãy còn tốt hơn nhiều so với việc xoá bỏ project và làm lại từ đầu.</p>
+
+<p>1 điều quan trọng nữa mà bạn nên nhớ khi bạn bắt đầu lại từ đầu đó là hoàn toàn không có gì đảm bảo là bạn sẽ làm tốt hơn lần trước. Có thể bạn sẽ lặp lại lỗi lầm trước đây thêm 1 lần nữa và nếu may mắn, bạn sẽ được "khuyến mãi" thêm vấn đề nữa mà bạn đã tránh được trong lần trước.</p>
+
+<h4 id="likt">Lời kết</h4>
+
+<p>Hãy nhớ rằng câu thần chú "Thà là bỏ đi hết ta làm lại từ đầu" thật sự rất nguy hiểm khi bạn áp dụng cho những hệ thống ứng dụng vừa và lớn. Nếu bạn có 1 vài project nhỏ, viết để lấy kinh nghiệm thì ok, bạn có thể viết lại nó hàng ngày theo cách bạn muốn. Nhưng nếu bạn đang có 1 project lớn và bạn đặt nhiều hy vọng vào nó thì hãy cân nhắc cẩn thận để chắc chắn rằng bạn sẽ không ân hận sau khi quyết định.</p>
+
+<hr>
+
+<p>Đọc nhân dịp mình và Team muốn viết lại hoàn toàn front-end của dự án đang làm theo hướng Single-Page applicatin ở Phase 2. (Hiện tại thì Project chỉ dùng AngularJS theo hướng dùng để render trang mà thôi.).</p>
+
+<p>Nguồn bài viết - <a href="http://kipalog.com/posts/Nhung-thu-ma-ban-dung-bao-gio-nen-lam---Part-1">Kipalog</a></p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=T%E1%BA%A1i%20sao%20b%E1%BA%A1n%20kh%C3%B4ng%20n%C3%AAn%20vi%E1%BA%BFt%20l%E1%BA%A1i%20Code&amp;url=http://localhost:2368/tai-sao-ban-khong-nen-viet-lai-code/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/tai-sao-ban-khong-nen-viet-lai-code/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/tai-sao-ban-khong-nen-viet-lai-code/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

@@ -1,0 +1,275 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Chapter 2 - User Experience and Performance - Lean Websites</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/user-experience-and-performance-lean-websites/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Chapter 2 - User Experience and Performance - Lean Websites">
+    <meta property="og:description" content="Mối quan hệ giữa User Experience và Performance. UX Principles   “User experience encompasses all aspects of the end-user's interaction with the company, its services, and its products.” ― Jakob Nielsen Các nguyên tắc cần nắm để đem lại trãi nghiệm tốt...">
+    <meta property="og:url" content="http://localhost:2368/user-experience-and-performance-lean-websites/">
+    <meta property="article:published_time" content="2015-08-23T05:03:52.207Z">
+    <meta property="article:modified_time" content="2015-08-24T00:04:54.838Z">
+    <meta property="article:tag" content="Web Developer">
+    <meta property="article:tag" content="Web Performance">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Chapter 2 - User Experience and Performance - Lean Websites">
+    <meta name="twitter:description" content="Mối quan hệ giữa User Experience và Performance. UX Principles   “User experience encompasses all aspects of the end-user's interaction with the company, its services, and its products.” ― Jakob Nielsen Các nguyên tắc cần nắm để đem lại trãi nghiệm tốt...">
+    <meta name="twitter:url" content="http://localhost:2368/user-experience-and-performance-lean-websites/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Chapter 2 - User Experience and Performance - Lean Websites",
+    "url": "http://localhost:2368/user-experience-and-performance-lean-websites/",
+    "datePublished": "2015-08-23T05:03:52.207Z",
+    "dateModified": "2015-08-24T00:04:54.838Z",
+    "keywords": "Web Developer, Web Performance",
+    "description": "Mối quan hệ giữa User Experience và Performance. UX Principles   “User experience encompasses all aspects of the end-user&#x27;s interaction with the company, its services, and its products.” ― Jakob Nielsen Các nguyên tắc cần nắm để đem lại trãi nghiệm tốt..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-web-developer tag-web-performance">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-web-developer tag-web-performance">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-08-23">23 Aug 2015</time> on <a href="../tag/web-developer/">Web Developer</a> | <a href="../tag/web-performance/">Web Performance</a></span>
+
+        <h1 class="post-title">Chapter 2 - User Experience and Performance - Lean Websites</h1>
+
+        <section class="post-content">
+            <p>Mối quan hệ giữa User Experience và Performance.</p>
+
+<h4 id="uxprinciples">UX Principles</h4>
+
+<blockquote>
+  <p>“User experience encompasses all aspects of the end-user's interaction with the company, its services, and its products.” ― Jakob Nielsen</p>
+</blockquote>
+
+<p>Các nguyên tắc cần nắm để đem lại trãi nghiệm tốt cho người dùng:</p>
+
+<ul>
+<li><p>First of all, you want to make sure you know and understand the user's goal. You want to ask yourself why users are coming to your website. For example, the user goals of a shopping site such as Amazon, and of a public transit website, are very different. Whereas Amazon tries to persuade users to hang out for hours on their site, while making suggestions on similar products, a public transit website has another goal — to provide users with the train schedule as soon as possible. Once the user has the schedule information, they will most likely exit the site.</p></li>
+<li><p>Now it's up to the UX team to make sure the site supports the goal. It's worth coming up with hypothetical user journeys to measure their completion time. In the case of Amazon, the UX team needs to figure out how to keep users on the site. Using cookies and logins to retrieve information from previous visits, Amazon will want to seduce users into staying on the page by pretending to know them—and, more importantly, their interests. In the example of the public transit page, you could measure how many steps it takes to find or download the schedule, or to display the fares.</p></li>
+</ul>
+
+<p>All UX user journeys should be created with performance in mind. The team should lay out the journey so the user will perceive each step of their journey as easily and fast as possible. That's where information architecture and wireframing come in.</p>
+
+<h4 id="informationarchitectureandwireframes">Information Architecture and Wireframes</h4>
+
+<p>Khi UX Designer thiết kế <a href="http://iainstitute.org/en/learn/resources/what_is_ia.php"><strong>Information Architecture</strong></a> và Wireframes cũng phải xem Performance như là một phần công việc của mình. Điều này sẽ giúp chúng ta tiết kiệm được rất nhiều thời gian sau này. Chúng ta gọi đây là phương pháp <strong>Design for Performance</strong>.</p>
+
+<p>Web designers love to create beautiful and aesthetic web pages, and they have a perfectly good reason for doing so. Thoughtful design can make a site welcoming, enjoyable to use and memorable. Design is a big part of user experience, but what about performance? Every single image or extra font you put on the page will affect the performance of the site. Our generation is impatient, and even if a website is aesthetically appealing, the user may leave if it's slow.</p>
+
+<p>“It’s imperative that designers weigh the balance between aesthetics and performance to improve the end user experience.”</p>
+
+<p>Don't get me wrong, I'm all for design and aesthetics, but they have to be reasonable, and more importantly context sensitive. There's no need to show everybody the high-resolution version of an image if it's not needed. Be context sensitive, considerate, and respectful. Don't fill your page with unnecessary, heavy assets like images just because you don't know what else to put there.</p>
+
+<p>Speed as a Design Feature - Tham khảo thêm <a href="https://speakerdeck.com/mikeyk/secrets-to-lightning-fast-mobile-design">https://speakerdeck.com/mikeyk/secrets-to-lightning-fast-mobile-design</a></p>
+
+<h4 id="perceivedandpreemptivewebperformance">Perceived and Preemptive Web Performance</h4>
+
+<p>Performance is part of user experience. Even if the actual performance of your site might be less than ideal, there are ways to trick users into thinking the site has better performance.</p>
+
+<p>This involves perceived and preemptive web performance. While perceived performance defines how your user perceives, or feels about, the loading of your website, preemptive web performance deals with predicting what the user might want to load next, dispatching it in advance to cut down on loading time later.</p>
+
+<p>You don't want users to become bored while waiting for web content to load. <strong>A website feels fast if the user is presented with a responsive system and is kept informed of progress</strong>.</p>
+
+<p>Following the "fake it till you make it" principle can help improve the perceived speed of a site. Some tricks that can make website visitors believe a website is responsive and speedy include:</p>
+
+<ul>
+<li><p><strong>Offline caching</strong>: with many modern browsers now supporting this, it can be used to provide an illusion of performance. It has helped <a href="http://www.fastcodesign.com/1669788/the-3-white-lies-behind-instagrams-lightning-speed">Instagram</a> create fast-feeling user experiences. Instead of waiting for the server to respond to a photo upload, the offline cache presents the photo the user just attempted to upload. Afterwards, the photo is actually sent to the server. If you pay attention to the loading spinner in your mobile browser, you can spot this trick yourself.</p></li>
+<li><p><strong>Presenting instant feedback and reporting progress</strong>: let the user know how far along they are in their journey through your site.</p></li>
+<li><p><strong>Placing important functionality at the top of the page</strong>: by displaying important content to users above the fold (ATF)—at the top of the page, so they don't have to scroll—increases perceived performance.</p></li>
+<li><p><strong>Avoiding too many steps</strong>: minimize the number of hoops users have to go through to achieve their goal.</p></li>
+</ul>
+
+<p>Preemptive strategies take this a step further, but require a lot more intelligence. An <a href="http://java.dzone.com/articles/mobile-ux-refining-perceived">example</a> is Instagram's photo upload functionality. Before a user hits the upload button, the image is uploaded in the background, purely on the assumption that this is the user's eventual intention. But this approach is not always recommended. If users don't have a good data plan on their mobile devices and want to save bandwidth, for example, this could really annoy them if they didn't actually want to upload the photo after all.</p>
+
+<p><strong>Implementing Preemptive Performance</strong></p>
+
+<p>Newer browsers have started to adopt the preemptive approach, supporting techniques such as the prefetch and prerender attributes that make the browser look ahead for resources that might be needed.</p>
+
+<h4 id="theperformancepointsystem">The Performance Point System</h4>
+
+<p>Hệ thống này dùng để tính điểm Performance cho một IA Design (hay Wireframe). The idea behind this point system is to give the pre-development, non-technical members of the team a simple way to understand what components of a website could be considered "heavy", and which elements promise better perceived performance.</p>
+
+<p>It's about "divide and conquer", the process of breaking down problems into sub-problems of the same type, until the individual sub-problems become simple enough to be solved directly. (Ý tưởng chung là chia nhỏ các thành phần của Wireframe thành một đơn vị có thể đo lường gọi là <strong>Measurable performance modules</strong>.). We can then move them around and arrange them to accomplish not only an intuitive information architecture, but also a positive user experience. Each module gets a number assigned, which defines its performance impact. At the end of the wireframing process, the numbers are summed to reveal a score. The lower the number, the better the expected performance. </p>
+
+<table border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Module</th><th>Points</th><th>Description</th></tr></thead><tbody><tr><td>Low impact</td><td>1</td><td>Small images, mostly static content and simple graphics, interaction elements like buttons and text fields.</td></tr><tr><td>Medium impact</td><td>2</td><td>Medium-sized images and simple scripts.</td></tr><tr><td>High impact</td><td>6</td><td>Large images and third-party scripts loading either heavy JavaScript or both JavaScript and images (such as adverts).</td></tr></tbody></table>
+
+<h4 id="casestudytimemagazinewebsite">Case Study: Time Magazine Website</h4>
+
+<p><img src="http://i.imgur.com/WykAyin.png" alt="Time Magazine">
+We can see, in the “filmstrip” in Figure above, that the main story image only appears after around six seconds. There is no visible content prior to that. I've broken this down further into simple wireframes to illustrate how the site, above the fold, looks at various points in time as the site is being loaded.</p>
+
+<p><img src="http://i.imgur.com/XKUDcox.png" alt="2.1">
+Sau 3 giây, vẫn chưa có gì được tải xong trừ Menu và một bức ảnh của Tạp chí.</p>
+
+<p><img src="http://i.imgur.com/kUPxWT9.png" alt="2.2"></p>
+
+<p>Sau 5.7 giây, một số thành phần chính đang được tải xuống.</p>
+
+<p><img src="http://i.imgur.com/vehRUxK.png" alt="2.3"></p>
+
+<p>Sau 7.5 giây, hầu hết các thành phần mới được tải xong.</p>
+
+<p>Chúng ta có thể cải thiện Performance của Trang này, nếu chúng ta muốn nội dung chính càng được hiển thị nhanh chóng càng tốt.</p>
+
+<p><img src="http://i.imgur.com/qIC6FGt.png" alt="Wireframe"></p>
+
+<p>Mẫu Wireframe của Trang Web này.</p>
+
+<p><img src="http://i.imgur.com/VMs1EI0.png" alt="2.4"></p>
+
+<p>Thứ tự xuất hiện của các thành phần.</p>
+
+<p>Performance Point của Trang web là:</p>
+
+<table border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Count</th><th>Module</th><th>Score</th></tr></thead><tbody><tr><td>10</td><td>Low impact</td><td>10</td></tr><tr><td>2</td><td>Medium impact</td><td>4</td></tr><tr><td>2</td><td>High impact</td><td>12</td></tr><tr><td><span class="strong"><strong>14</strong></span></td><td><span class="strong"><strong>Total</strong></span></td><td><span class="strong"><strong>26</strong></span></td></tr></tbody></table>
+
+<h4 id="citinnhthno">Cải tiến như thế nào</h4>
+
+<p>By making some adjustments to the site, we should be able to improve perceived performance. Although Time.com uses progressive JPEGs for their main story image, it seems that the image doesn't get the early attention it needs. Something in the code seems to be blocking its rendering, so that a user only sees it after 5.7 seconds. Even if the main news image is classified as a high impact module, I would argue that, in this case, it is important to load this image as early as possible. So my proposed performant wireframe for Time.com could look like:</p>
+
+<p><img src="http://i.imgur.com/QoZwh1e.png" alt="2.5"></p>
+
+<table border="1"><colgroup><col><col><col></colgroup><thead><tr><th>Count</th><th>Module</th><th>Score</th></tr></thead><tbody><tr><td>12</td><td>Low impact</td><td>12</td></tr><tr><td>3</td><td>Medium impact</td><td>6</td></tr><tr><td>1</td><td>High impact</td><td>6</td></tr><tr><td><span class="strong"><strong>16</strong></span></td><td><span class="strong"><strong>Total</strong></span></td><td><span class="strong"><strong>24</strong></span></td></tr></tbody></table>
+
+<p>I decreased the image height and width of the main story image, placing more context next to the image by aligning the headline and description to the right. I also replaced the stock data widget with a CTA button that the user has to press. Only when pressed will the stock data be loaded, which will somewhat reduce the ATF load time.</p>
+
+<p>I also added some loading number priorities into the wireframe, so the developers will know where to put their focus when planning out the critical rendering path (which is a topic we'll discuss later).</p>
+
+<p>If you're not sure which widgets and elements should be either removed or moved down below the fold, verify if those widgets and elements are actually used by your visitors. And if you decide that a heavy image (high impact MPM) should be placed above the fold, make sure to balance the performance budget with other low and medium impact modules.</p>
+
+<p>A performant wireframe is not enough to make your website feel fast, but it's an excellent start on your journey to a lean website.</p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Chapter%202%20-%20User%20Experience%20and%20Performance%20-%20Lean%20Websites&amp;url=http://localhost:2368/user-experience-and-performance-lean-websites/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/user-experience-and-performance-lean-websites/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/user-experience-and-performance-lean-websites/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

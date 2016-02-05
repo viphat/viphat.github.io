@@ -1,0 +1,190 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Linux file system hierarchy</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/linux-file-system-hierarchy/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Linux file system hierarchy">
+    <meta property="og:description" content='Tiếp tục loạt bài "Back To Basic với Linux"   On a UNIX system, everything is a file; if something is not a file, it is a process. Bởi vì Trong Hệ thống Unix-based như Linux thì Everything is a File...'>
+    <meta property="og:url" content="http://localhost:2368/linux-file-system-hierarchy/">
+    <meta property="article:published_time" content="2015-06-24T12:01:44.786Z">
+    <meta property="article:modified_time" content="2015-07-14T23:44:56.543Z">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Basic">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Linux file system hierarchy">
+    <meta name="twitter:description" content='Tiếp tục loạt bài "Back To Basic với Linux"   On a UNIX system, everything is a file; if something is not a file, it is a process. Bởi vì Trong Hệ thống Unix-based như Linux thì Everything is a File...'>
+    <meta name="twitter:url" content="http://localhost:2368/linux-file-system-hierarchy/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Linux file system hierarchy",
+    "url": "http://localhost:2368/linux-file-system-hierarchy/",
+    "datePublished": "2015-06-24T12:01:44.786Z",
+    "dateModified": "2015-07-14T23:44:56.543Z",
+    "keywords": "Linux, Basic",
+    "description": "Tiếp tục loạt bài &quot;Back To Basic với Linux&quot;   On a UNIX system, everything is a file; if something is not a file, it is a process. Bởi vì Trong Hệ thống Unix-based như Linux thì Everything is a File..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-linux tag-basic">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-linux tag-basic">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-06-24">24 Jun 2015</time> on <a href="../tag/linux/">Linux</a> | <a href="../tag/basic/">Basic</a></span>
+
+        <h1 class="post-title">Linux file system hierarchy</h1>
+
+        <section class="post-content">
+            <p>Tiếp tục loạt bài "Back To Basic với Linux"</p>
+
+<blockquote>
+  <p>On a UNIX system, everything is a file; if something is not a file, it is a process.</p>
+</blockquote>
+
+<p>Bởi vì Trong Hệ thống Unix-based như Linux thì Everything is a File nên hiểu về Hệ thống File trên Linux là rất quan trọng...</p>
+
+<p><img src="http://i.imgur.com/akeik47.png" alt="Linux File System"></p>
+
+<p><strong>Tham khảo chi tiết tại</strong>: 
+<a href="http://www.blackmoreops.com/2015/06/18/linux-file-system-hierarchy-v2-0/">Linux File System Hierarchy</a></p>
+
+<p>Bài trước: <a href="http://notes.viphat.work/so-sanh-cac-he-thong-filesystem/"><strong>So sánh các hệ thống File System</strong></a>, tìm hiểu về FAT16, FAT32, NTFS, EXT2, EXT3, EXT4...</p>
+
+<p>Một bài cũng thuộc chủ đề "Back To Basic với Linux" trên Kipalog, cũng là một kiến thức nền tảng rất quan trọng trong hệ thống Linux và cũng liên quan đến File System là <a href="http://kipalog.com/posts/Re-learning-Linux---Permission"><strong>Linux File Permission</strong></a>, Bạn sẽ được ôn về quyền Read,Write,Execute, Lệnh CHMOD, Mượn quyền SUID, SGID và Sticky Bit...</p>
+
+<p>Kiến thức nền tảng là rất quan trọng và cần thiết để phát triển sự nghiệp (Bạn có thể xem bài phỏng vấn của Itviec -<a href="http://blog.itviec.com/2015/06/developer-gioi-khong-nhat-thiet-phai-biet-nhieu-ngon-ngu/"><strong>Developer giỏi không nhất thiết phải biết nhiều ngôn ngữ</strong></a>.)</p>
+
+<p><img src="http://i.imgur.com/m5mDHI9.jpg" alt="Awesome - Not Average"></p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Linux%20file%20system%20hierarchy&amp;url=http://localhost:2368/linux-file-system-hierarchy/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/linux-file-system-hierarchy/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/linux-file-system-hierarchy/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

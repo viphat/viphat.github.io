@@ -1,0 +1,213 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Khoảng trắng trong Ruby</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/khoang-trang-trong-ruby/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Khoảng trắng trong Ruby">
+    <meta property="og:description" content="Haizz, trước giờ cứ tưởng khoảng trắng trong Ruby không quan trọng, nên cứ nhấn space space tùm lum (Không theo convention) nhưng giờ đọc cái này xong mới biết, đúng là Ruby Parser sẽ không biên dịch những khoảng...">
+    <meta property="og:url" content="http://localhost:2368/khoang-trang-trong-ruby/">
+    <meta property="article:published_time" content="2014-11-26T15:51:45.000Z">
+    <meta property="article:modified_time" content="2015-06-16T13:15:05.923Z">
+    <meta property="article:tag" content="Ruby on Rails">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Khoảng trắng trong Ruby">
+    <meta name="twitter:description" content="Haizz, trước giờ cứ tưởng khoảng trắng trong Ruby không quan trọng, nên cứ nhấn space space tùm lum (Không theo convention) nhưng giờ đọc cái này xong mới biết, đúng là Ruby Parser sẽ không biên dịch những khoảng...">
+    <meta name="twitter:url" content="http://localhost:2368/khoang-trang-trong-ruby/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Khoảng trắng trong Ruby",
+    "url": "http://localhost:2368/khoang-trang-trong-ruby/",
+    "datePublished": "2014-11-26T15:51:45.000Z",
+    "dateModified": "2015-06-16T13:15:05.923Z",
+    "keywords": "Ruby on Rails",
+    "description": "Haizz, trước giờ cứ tưởng khoảng trắng trong Ruby không quan trọng, nên cứ nhấn space space tùm lum (Không theo convention) nhưng giờ đọc cái này xong mới biết, đúng là Ruby Parser sẽ không biên dịch những khoảng..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-ruby-on-rails">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-ruby-on-rails">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2014-11-26">26 Nov 2014</time> on <a href="../tag/ruby-on-rails/">Ruby on Rails</a></span>
+
+        <h1 class="post-title">Khoảng trắng trong Ruby</h1>
+
+        <section class="post-content">
+            <p>Haizz, trước giờ cứ tưởng khoảng trắng trong Ruby không quan trọng, nên cứ nhấn space space tùm lum (Không theo convention) nhưng giờ đọc cái này xong mới biết, đúng là Ruby Parser sẽ không biên dịch những khoảng trắng thừa nhưng nếu bạn không hiểu thì Chương trình của bạn sẽ dính lỗi hoặc cho ra kết quả không mong muốn. (Mình cũng bị một lần rồi, mình thấy mình gõ đoạn Code y chang trong Sách, nhưng khi biên dịch, lại báo lỗi ngay vị trí đó, Té ra là vì mình bị dư một khoảng trắng)</p>
+
+<p>Mời bạn xem đoạn Code sau:</p>
+
+<pre><code>def times_two(arg1)  
+  puts arg1 * 2 
+end 
+
+def sum(arg1, arg2)  
+  puts arg1 + arg2 
+end  
+</code></pre>
+
+<p>Điều gì sẽ xảy ra nếu ta gọi 2 hàm trên bằng những dòng lệnh sau:</p>
+
+<pre><code>times_two 5  
+times_two(5)  
+times_two (5) 
+
+sum 1, 2  
+sum(1, 2)  
+sum (1,2)  
+</code></pre>
+
+<p>Như mong đợi, 3 dòng đầu tiên sẽ in kết quả là 10 <br>
+2 dòng tiếp theo in kết quả là 3</p>
+
+<p>Tuy nhiên, dòng cuối lại bị báo lỗi</p>
+
+<pre><code>syntax error, unexpected ',', expecting ')' sum (1, 2)  
+</code></pre>
+
+<p>Vấn đề là khoảng trắng giữa tên method và dấu ngoặc (, Bởi vì có khoảng trắng đó, trình dịch của Ruby sẽ nghĩ rằng (1, 2) là một biểu thức thể hiện cho một đối số. Nhưng (1, 2) lại không phải là một biểu thức đúng trong Ruby, do đó, nó sẽ gây lỗi.</p>
+
+<p>Lưu ý rằng lỗi này sẽ không xảy ra với trường hợp method chỉ có 1 đối số (như method times_two trong bài) nên dòng lệnh sau vẫn đúng</p>
+
+<pre><code>times_two (5)  
+</code></pre>
+
+<pre><code>sum (1+2)  
+ArgumentError: wrong number of arguments (1 for 2)  
+</code></pre>
+
+<p>Theo Ruby Top 10 Interview Questions – <a href="http://www.toptal.com/ruby/interview-questions">http://www.toptal.com/ruby/interview-questions</a></p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Kho%E1%BA%A3ng%20tr%E1%BA%AFng%20trong%20Ruby&amp;url=http://localhost:2368/khoang-trang-trong-ruby/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/khoang-trang-trong-ruby/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/khoang-trang-trong-ruby/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

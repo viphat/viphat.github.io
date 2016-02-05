@@ -1,0 +1,316 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Input/Output Redirection in the Shell</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/input-output-redirection-in-the-shell/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Input/Output Redirection in the Shell">
+    <meta property="og:description" content="Khi chúng ta gõ lệnh vào terminal, chúng đều trả về một output. Ví dụ: $ echo hello hello   Standard output Nếu bạn nghĩ lệnh echo hello dùng để xuất chữ hello ra màn hình terminal thì bạn chỉ đúng một...">
+    <meta property="og:url" content="http://localhost:2368/input-output-redirection-in-the-shell/">
+    <meta property="article:published_time" content="2015-08-19T22:52:14.168Z">
+    <meta property="article:modified_time" content="2015-08-19T23:12:04.791Z">
+    <meta property="article:tag" content="Basic">
+    <meta property="article:tag" content="Stdin">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Stdout">
+    <meta property="article:tag" content="Stderr">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Input/Output Redirection in the Shell">
+    <meta name="twitter:description" content="Khi chúng ta gõ lệnh vào terminal, chúng đều trả về một output. Ví dụ: $ echo hello hello   Standard output Nếu bạn nghĩ lệnh echo hello dùng để xuất chữ hello ra màn hình terminal thì bạn chỉ đúng một...">
+    <meta name="twitter:url" content="http://localhost:2368/input-output-redirection-in-the-shell/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Input/Output Redirection in the Shell",
+    "url": "http://localhost:2368/input-output-redirection-in-the-shell/",
+    "datePublished": "2015-08-19T22:52:14.168Z",
+    "dateModified": "2015-08-19T23:12:04.791Z",
+    "keywords": "Basic, Stdin, Linux, Stdout, Stderr",
+    "description": "Khi chúng ta gõ lệnh vào terminal, chúng đều trả về một output. Ví dụ: $ echo hello hello   Standard output Nếu bạn nghĩ lệnh echo hello dùng để xuất chữ hello ra màn hình terminal thì bạn chỉ đúng một..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-basic tag-stdin tag-linux tag-stdout tag-stderr">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-basic tag-stdin tag-linux tag-stdout tag-stderr">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-08-20">20 Aug 2015</time> on <a href="../tag/basic/">Basic</a> | <a href="../tag/stdin/">Stdin</a> | <a href="../tag/linux/">Linux</a> | <a href="../tag/stdout/">Stdout</a> | <a href="../tag/stderr/">Stderr</a></span>
+
+        <h1 class="post-title">Input/Output Redirection in the Shell</h1>
+
+        <section class="post-content">
+            <p>Khi chúng ta gõ lệnh vào terminal, chúng đều trả về một output. Ví dụ:</p>
+
+<pre><code>$ echo hello
+hello  
+</code></pre>
+
+<h4 id="standardoutput">Standard output</h4>
+
+<p>Nếu bạn nghĩ lệnh <code>echo hello</code> dùng để xuất chữ <code>hello</code> ra màn hình terminal thì bạn chỉ đúng một phần thôi. Mỗi hệ điều hành dựa trên nền tàng Unix có một khái niệm là "a default place for output to go" - hay còn gọi lại Standard Output (hay stdout). Là một nơi để chứa những output dùng để hiển thị lên màn hình cho bạn được thấy.</p>
+
+<h4 id="standardinput">Standard input</h4>
+
+<p>Standard input (hay stdin) là một nơi mặc định mà commands sẽ lắng nghe để nhận tham số input. Ví dụ, nếu bạn gõ <code>cat</code> mà không có tham số, nó sẽ lắng nghe input trong stdin và xuất ra những gì bạn đã gõ vào đó, cho đến khi gặp ký tự EOF (<strong>CTRL+D</strong>).</p>
+
+<p>Bất kì lệnh nào trong Unix đều có stdout và stdin.</p>
+
+<p>Để không trả về output nào, bạn có thể redirect output đó về một tập tin đặc biệt là <code>&gt; dev/null</code>. <code>dev/null</code> sẽ nuốt chửng mọi thứ truyền vào cho nó và không làm gì cả.</p>
+
+<h4 id="pipes">Pipes</h4>
+
+<p>Pipes làm trung gian và kết nối standard output của một lệnh thành standard input của một lệnh khác. Ví dụ:</p>
+
+<pre><code>$echo "hello there"
+hello there  
+$echo "hello there" | sed "s/hello/hi"
+hi there  
+</code></pre>
+
+<p>Ở đây, standard output "hello there" của lệnh echo đã trở thành đầu vào của lệnh sed và sed đã thay chữ <code>hello</code> bằng chữ <code>hi</code> và in kết quả vào stdout (rồi hiển thị lên màn hình).</p>
+
+<pre><code>$ echo "hello there" | sed "s/hello/hi/" | sed "s/there/robots/"
+hi robots  
+</code></pre>
+
+<h4 id="standarderror">Standard error</h4>
+
+<p>Standard Error (hay stderr) cũng giống như standard output và standard input, nó là nơi mặc định để các thông điệp lỗi đi đến. Để xem một số stderr output, bạn thử catting một file không tồn tại xem.</p>
+
+<pre><code>$cat does-not-exist
+cat: does-not-exist: No such file or directory  
+</code></pre>
+
+<p>stderr khá giống stdout nhưng nếu nó vô hiệu khi bạn muốn dùng stderr với Pipes</p>
+
+<pre><code>$ cat does-not-exist | sed 's/No such/ROBOT SMASH/'
+cat: does-not-exist: No such file or directory  
+</code></pre>
+
+<p>Bởi vì Pipes lấy stdout chứ không phải stderr. Vậy ngoài cách sử dụng Pipes, còn cách nào để redirect output.</p>
+
+<h4 id="redirectingoutput">Redirecting output</h4>
+
+<p>Mặc định, stdout và stderr đều được in lên màn hình terminal, đó là lý do vì sao mà chúng ta có thể thấy được chúng. Nhưng chúng ta có thể redirect output vào một file bằng cách sử dụng dấu <code>&gt;</code></p>
+
+<pre><code>$ echo hello
+hello  
+$ echo hello &gt; new-file
+$ cat new-file
+hello  
+</code></pre>
+
+<p>Ở đây lệnh <code>&gt; new-file</code> thực hiện 2 công việc cùng lúc:</p>
+
+<ul>
+<li>Tạo tập tin new-file nếu tập tin này chưa tồn tại.</li>
+<li>Thay thế nội dung của tập tin new-file bằng output của lệnh <code>echo hello</code></li>
+</ul>
+
+<p>Thay vì ghi đè, bạn có thể ghi nối (append) bằng cách dùng dấu <code>&gt;&gt;</code></p>
+
+<pre><code>$ cat new-file
+hello  
+$ echo hello again &gt;&gt; new-file
+$ cat new-file
+hello  
+hello again  
+</code></pre>
+
+<h4 id="filedescriptors">File descriptors</h4>
+
+<p>File descriptors là một biến số nguyên dương tham chiếu đến một nguồn input/output cụ thể: 0 là stdin, 1 là stdout, 2 là stderr. Xem thêm tại <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/stdin.html">đây</a>. Sử dụng dấu <code>&gt;&amp;</code> để redirect input/output bằng File descriptors.</p>
+
+<pre><code># Redirect stdout to stdout (FD 1)
+$ echo "hello there" &gt;&amp;1
+hello there  
+# Redirect stdout to stderr (FD 2)
+$ echo "hello there" &gt;&amp;2
+hello there  
+</code></pre>
+
+<p><strong>Ứng dụng của File Descriptors</strong>:</p>
+
+<pre><code># Redirect to stdout, so it comes through the pipe
+$ echo "no changes" &gt;&amp;1 | sed "s/no/some/"
+some changes  
+# Redirect to stderr, so it does not come through
+$ echo "no changes" &gt;&amp;2 | sed "s/no/some/"
+no changes  
+</code></pre>
+
+<h4 id="advancedfiledescriptors">Advanced file descriptors</h4>
+
+<p>Giả sử chúng ta muốn thêm <code>Robot says</code> vào nội dung của các file - file1, file2, file3 nhưng do file2 là stderr, nó không thể được nhận bởi lệnh <code>sed</code> nên chúng ta phải redirect <code>stderr</code> thành <code>stdout</code> bằng <strong>File descriptors</strong>, cụ thể cách làm như sau - chuyển 2 (stderr) về 1 (stdout) bằng <code>2&gt;&amp;1</code>:</p>
+
+<pre><code>$ ./command file1 file2 file3 2&gt;&amp;1 | sed "s/std/Robot says: std/"
+Robot says: stderr file2  
+Robot says: stdout file1  
+Robot says: stdout file3  
+</code></pre>
+
+<h4 id="ngdngthct">Ứng dụng thực tế</h4>
+
+<p>Chuyển tất cả stdout và stderr vào một log-file.</p>
+
+<pre><code>$ ./command file1 file2 file3 &gt; log-file 2&gt;&amp;1
+$ cat log-file
+stderr file2  
+stdout file1  
+stdout file3  
+</code></pre>
+
+<p>Bạn cần chú ý về thứ tự của lệnh trên sẽ dẫn đến kết quả hoàn toàn khác, thứ tự đúng phải là</p>
+
+<pre><code>&gt; log-file 2&gt;&amp;1
+</code></pre>
+
+<p>chứ không phải là </p>
+
+<pre><code>2&gt;&amp;1 &gt; log-file  
+</code></pre>
+
+<p>Vì lệnh này sẽ redirect stderr về stdout (vốn được in ra màn hình) và stdout được redirect đến <code>log-file</code>, nhưng stderr sẽ không đi theo vì stderr được chỉ đến stdout "cũ".</p>
+
+<pre><code># Redirect stdout, because it's plain `&gt;`
+$ ./command file1 file2 file3 &gt; log-file
+stderr file2  
+# Redirect stderr, because it's `2&gt;`
+$ ./command file1 file2 file3 2&gt; log-file
+stdout file1  
+stdout file3  
+</code></pre>
+
+<p>Nguồn bài viết: <a href="https://robots.thoughtbot.com/input-output-redirection-in-the-shell">https://robots.thoughtbot.com/input-output-redirection-in-the-shell</a>.</p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Input/Output%20Redirection%20in%20the%20Shell&amp;url=http://localhost:2368/input-output-redirection-in-the-shell/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/input-output-redirection-in-the-shell/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/input-output-redirection-in-the-shell/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

@@ -1,0 +1,338 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Làm quen cách sử dụng Vim với Vimtutor</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/vimtutor/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Làm quen cách sử dụng Vim với Vimtutor">
+    <meta property="og:description" content="Khi bắt đầu học cách sử dụng VIM, cái cảm giác phải chậm chạp học gõ từng phím như 13 năm trước, lúc mình mới làm quen với máy tính đã trở lại. Sử dụng VIM khó thế nhưng cũng...">
+    <meta property="og:url" content="http://localhost:2368/vimtutor/">
+    <meta property="article:published_time" content="2015-07-09T03:18:09.389Z">
+    <meta property="article:modified_time" content="2015-07-11T02:02:05.479Z">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="VIM">
+    <meta property="article:tag" content="Basic">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Làm quen cách sử dụng Vim với Vimtutor">
+    <meta name="twitter:description" content="Khi bắt đầu học cách sử dụng VIM, cái cảm giác phải chậm chạp học gõ từng phím như 13 năm trước, lúc mình mới làm quen với máy tính đã trở lại. Sử dụng VIM khó thế nhưng cũng...">
+    <meta name="twitter:url" content="http://localhost:2368/vimtutor/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Làm quen cách sử dụng Vim với Vimtutor",
+    "url": "http://localhost:2368/vimtutor/",
+    "datePublished": "2015-07-09T03:18:09.389Z",
+    "dateModified": "2015-07-11T02:02:05.479Z",
+    "keywords": "Linux, VIM, Basic",
+    "description": "Khi bắt đầu học cách sử dụng VIM, cái cảm giác phải chậm chạp học gõ từng phím như 13 năm trước, lúc mình mới làm quen với máy tính đã trở lại. Sử dụng VIM khó thế nhưng cũng..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-linux tag-vim tag-basic">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-linux tag-vim tag-basic">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-07-09">09 Jul 2015</time> on <a href="../tag/linux/">Linux</a> | <a href="../tag/vim/">VIM</a> | <a href="../tag/basic/">Basic</a></span>
+
+        <h1 class="post-title">Làm quen cách sử dụng Vim với Vimtutor</h1>
+
+        <section class="post-content">
+            <p>Khi bắt đầu học cách sử dụng VIM, cái cảm giác phải chậm chạp học gõ từng phím như 13 năm trước, lúc mình mới làm quen với máy tính đã trở lại. Sử dụng VIM khó thế nhưng cũng thú vị thế.</p>
+
+<p>Cách học VIM tốt nhất là <strong>Learn by Usage</strong> bởi vì chỉ có sử dụng VIM thường xuyên một thời gian đủ lâu, các command trong VIM mới thấm vào một cách tự nhiên mà chúng ta không phải bỏ ra nỗ lực để nhớ và tiêu hóa chúng. Vậy nên, nếu bạn quyết tâm muốn nhuần nhuyễn VIM, có một biện pháp cực đoan là không cho mình một sự lựa chọn nào khác ngoài VIM - Bạn phải gỡ hết tất cả các Code Editor, IDE khác đang có trong máy và chuyển qua sử dụng VIM, Có thể sẽ khiến bạn làm việc chậm chạp trong vài ngày hoặc thậm chí vài tuần đầu tiên. Nhưng rồi bạn sẽ được đền đáp xứng đáng. (Afternatively, bạn có thể sử dụng Vintage Mode cho Code Editor chẳng hạn, dù có một số hạn chế)</p>
+
+<p>Bài này mình chỉ ghi lại phần Summary của <strong>vimtutor</strong>, nếu bạn cài đặt gói đầy đủ của vim (thông thường thì Ubuntu sẽ cài sẵn gói vim-tiny mà thôi) thì sẽ có vimtutor, một ứng dụng nhỏ để học và thực hành ngay trong vim.</p>
+
+<blockquote>
+  <p>Vim is a very powerful editor that has many commands, too many to explain in a tutor such as this.  This tutor is designed to describe enough of the commands that you will be able to easily use Vim as an all-purpose editor.</p>
+</blockquote>
+
+<hr>
+
+<h4 id="lesson1movingthecursoreditingafileexitinginsertiondeletionappending">Lesson 1 - Moving the Cursor, Editing A File, Exiting, Insertion, Deletion, Appending</h4>
+
+<p>1.1 - Moving the Cursor (In Command Mode ESC) <br>
+Di chuyển trỏ chuột trong VIM (Có thể dùng các phím mũi tên nhưng không khuyến khích)</p>
+
+<p><strong>h</strong>(left) <strong>j</strong>(down) <strong>k</strong>(up) <strong>l</strong>(right)</p>
+
+<p>1.2 - Opening and Exiting VIM</p>
+
+<ul>
+<li>Start vim from the shell prompt type </li>
+</ul>
+
+<pre><code>vim FILENAME (Hoăc vi FILENAME)  
+</code></pre>
+
+<ul>
+<li>To Exit vim</li>
+</ul>
+
+<p><strong>:q!</strong> to trash all changes.
+<strong>:wq</strong> to save the changes.</p>
+
+<p>1.3 - Delete character at the cursor type: <strong>x</strong></p>
+
+<p>1.4 - <strong>i</strong> để insert before cursor. <strong>a</strong> để insert after cursor. <strong>A</strong> (Shift a) để append after the line. </p>
+
+<h4 id="lesson2movingcursordeletionandundo">Lesson 2 - Moving Cursor, Deletion and Undo</h4>
+
+<p>type <strong>de</strong> to delete to the end of current word. <br>
+type <strong>dw</strong> to delete until the start of next word. <br>
+type <strong>dd</strong> to delete the line.</p>
+
+<p><strong>de</strong>,<strong>dw</strong>,<strong>dd</strong> có thể dùng kèm với số để xóa nhanh nhiều từ, ví dụ <strong>d2w</strong>, <strong>d3e</strong>, <strong>2dd</strong>...</p>
+
+<p>type <strong>d$</strong> to delete to the end of the line.</p>
+
+<p>type <strong>2w</strong> to move the cursor two words forward. <br>
+type <strong>3e</strong> to move the cursor to the end of the third word forward. <br>
+type <strong>0</strong> to move to the start of the line. <br>
+type <strong>$</strong> to move to the end of the line. <br>
+type <strong>b</strong> - opposite with <strong>w</strong></p>
+
+<p>type <strong>u</strong> to undo the last commands, <strong>U</strong> to fix a whole line. <br>
+type <strong>Ctrl+R</strong> to redo the undo command. </p>
+
+<h4 id="lesson3replacedelete">Lesson 3 - Replace, Delete</h4>
+
+<p>Những lệnh liên quan đến deletion như <strong>x</strong>, <strong>dd</strong>, <strong>dw</strong>, <strong>de</strong>... đều được vim đưa nội dung đã xóa vào register (giống Clipboard vậy)... và bạn có thể dùng <strong>p</strong> để dán nội dung trong register vào nơi bạn muốn.</p>
+
+<p><strong>r</strong> để replace ký tự tại cursor.</p>
+
+<p><strong>ce</strong> và <strong>cw</strong> để replace từ hoặc phần còn lại của từ tại cursor. (ce là kết hợp giữa <strong>de</strong> và <strong>i</strong>)</p>
+
+<p><strong>c$</strong> là kết hợp giữa <strong>d$</strong> và <strong>i</strong> - Xóa phần còn lại của dòng.</p>
+
+<h4 id="lesson4movingsearchreplace">Lesson 4 - Moving, Search &amp; Replace</h4>
+
+<p><strong>Ctrl+G</strong> để biết thêm thông tin về File hiện hành: Tên file, vị trí hiện tại trong file (số dòng)</p>
+
+<p><strong>G</strong> (shift G) để di chuyển đến dòng cuối của file (tương tự <strong>:$</strong>)</p>
+
+<p><strong>gg</strong> để di chuyển đến dòng đầu tiên của file (tương tự <strong>:0</strong>)</p>
+
+<p><strong>:line_number</strong> để di chuyển đến dòng cụ thể trong File. (Tương tự việc gõ <strong>line_numer G</strong> - Shift G)</p>
+
+<p><strong>/từ_cần_tìm</strong> - Tìm kiếm trong vim, cursor sẽ nhảy đến từ đầu tiên mà nó tìm thấy. <strong>n</strong> để di chuyển next, <strong>N</strong> để đến previous trong lúc tìm kiếm</p>
+
+<p>(nếu <strong>/từ_cần_tìm</strong> là đi tới thì <strong>?từ_cần_tìm</strong> là tìm kiếm quay lui.)</p>
+
+<p><strong>Ctrl+O</strong> to go back to where you came from.</p>
+
+<p><strong>Ctrl+I</strong> to go forward (ngược với <strong>Ctrl+O</strong>)</p>
+
+<p><strong>Matching parenthesis or bracket</strong>: </p>
+
+<p>Khi đặt cursor trên các ký tự như <strong>(</strong>, <strong>[</strong> hoặc <strong>{</strong> và gõ command <strong>%</strong> thì cursor sẽ được nhảy đến phần đóng hoặc mở thẻ tương ứng với nó - rất hữu ích trong lập trình và trong lúc cấu hình hệ thống.</p>
+
+<p><strong>:s/old/new/g</strong> để Tìm kiếm và thay thế chuỗi <code>old</code> bằng chuỗi <code>new</code>.</p>
+
+<p>Chỉ thị <code>g</code> cho phép thay thế toàn bộ ocurrences của từ đang tìm trong dòng hiện tại. (Bỏ chỉ thị g đi nếu chỉ muốn thay thế First occurrence).</p>
+
+<p><strong>:#,#s/old/new/g</strong> Search &amp; Replace tại những dòng cụ thể.</p>
+
+<p><strong>:%s/old/new/g</strong> - Search &amp; Replace mọi ocurrences trong toàn bộ nội dung của File.</p>
+
+<p><strong>:%s/old/new/gc</strong> Search &amp; Replace mọi ocurrences trong toàn bộ nội dung của File nhưng có prompt để xác định muốn replace occurence đó hay không.</p>
+
+<h4 id="lesson5excuteexternalcommand">Lesson 5 - Excute External Command</h4>
+
+<p><strong>:!</strong> cho phép bạn nhập và thực thi external command (Các lệnh ngoài vim như lệnh của shell) trực tiếp trong VIM. (Rất hữu ích đối với Developer)</p>
+
+<p><strong>:w FILE_NAME</strong> - Giống Save As ở các Editor thông thường, Lưu lại File hiện tại với Tên khác.</p>
+
+<p><strong>v</strong> để chuyển sang Visual Selection mode, bạn có thể select nhiều dòng một cách trực quan trong mode này.</p>
+
+<p><strong>:r FILE_NAME</strong> để chèn nội dung của một file khác vào cursor.</p>
+
+<p><strong>:r !ls</strong>  chèn output của lệnh ls vào cursor</p>
+
+<h4 id="lesson6copysomeoptions">Lesson 6  - Copy &amp;&amp; Some Options</h4>
+
+<p><strong>o</strong> - Open a line below the cursor and place you in Insert mode.</p>
+
+<p><strong>O</strong> - Open a line above the cursor and place you in Insert mode.</p>
+
+<p><strong>R</strong> - Nếu <strong>r</strong> có tác dụng replace từng ký tự thì <strong>R</strong> sẽ chuyển bạn sang hẳn Replace Mode. (Nhấn ESC để thoát Replace Mode nếu không cần)</p>
+
+<p><strong>y</strong> để copy nội dung của dòng vào register và <strong>p</strong> để dán. (Bạn có nhớ là các lệnh liên quan đến Deletion như dw, de, dd,d$...thực ra tương tự lệnh cut)</p>
+
+<p><strong>y</strong> kết hợp với Visual Mode <strong>v</strong> để select và copy highlighted text.</p>
+
+<p><strong>y</strong> đóng vai trò là operator như <strong>d</strong>, nghĩa là bạn có thể kết hợp với số lượng ở trước <strong>2y</strong>, <strong>3y</strong> để copy nhiều dòng, kết hợp với w,e,y - <strong>yw</strong>, <strong>y2w</strong>...</p>
+
+<ul>
+<li><strong>:set ic</strong> - Set Option Ignore case cho các lệnh tìm kiếm</li>
+<li><strong>:set ts=4</strong> - Set Tab indent = 4</li>
+<li><strong>:set nu</strong> - Set hiển thị line number</li>
+<li>Để tắt option đã set, thêm tiền tố no, ví dụ: <strong>:set nonu</strong></li>
+</ul>
+
+<p>Có rất nhiều Option trong VIM.</p>
+
+<h4 id="lesson7helperinvim">Lesson 7 - Helper in VIM</h4>
+
+<ul>
+<li><strong>Trợ giúp trong vim</strong>: </li>
+</ul>
+
+<p>Nếu gặp khó khăn trong quá trình sử dụng vim, nếu không nhớ lệnh này có ý nghĩa gì thì ta có thể mở help ngay trong vim. <strong>:help</strong>, <strong>:help lệnh_cần_biết</strong></p>
+
+<ul>
+<li><p><strong>Ctrl+W</strong> để chuyển qua lại giữa các cửa sổ (Nếu Bạn Split vim thành nhiều panel)</p></li>
+<li><p>File cấu hình của vim là: </p></li>
+</ul>
+
+<p><strong>~/.vimrc</strong> - là nơi chứa các cấu hình của vim. vim powerful hơn vi nhiều nhưng do mặc định thì các chức năng hay ho của vim đã bị disabled, đơn cử như chức năng Syntax Highlighting. Bạn có thể edit file .vimrc và copy nội dung file vimrc_example.vim bằng lệnh:</p>
+
+<p><strong>:r $VIMRUNTIME/vimrc_example.vim</strong></p>
+
+<ul>
+<li>Nhắc lệnh trong vim:</li>
+</ul>
+
+<p><strong>:set nocp</strong></p>
+
+<p>Khi gõ một lệnh, Bạn có thể nhấn <strong>Ctrl+D</strong> để hiển thị hết danh sách các lệnh bắt đầu bằng ký tự bạn gõ, nhấn <strong>TAB</strong> để auto complete (tương tự như TAB trong Terminal của Linux).</p>
+
+<hr>
+
+<p>Bài viết tạm kết thúc ở đây. Nhưng thực ra Vim còn rất nhiều thứ để khám phá. Hẹn gặp lại trong những bài viết khác về vim nhé.</p>
+
+<p><mark>Cài đặt Plugin, thiết lập môi trường Code Ruby &amp; Rails trực tiếp trong vim.</mark></p>
+
+<p>Nhìn Anh chàng này code Ruby trên vim &amp; tmux mà mê - <a href="https://www.youtube.com/watch?v=9jzWDr24UHQ">https://www.youtube.com/watch?v=9jzWDr24UHQ</a></p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=L%C3%A0m%20quen%20c%C3%A1ch%20s%E1%BB%AD%20d%E1%BB%A5ng%20Vim%20v%E1%BB%9Bi%20Vimtutor&amp;url=http://localhost:2368/vimtutor/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/vimtutor/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/vimtutor/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

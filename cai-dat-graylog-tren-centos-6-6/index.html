@@ -1,0 +1,308 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Cài đặt Graylog trên CentOS 6.6</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/cai-dat-graylog-tren-centos-6-6/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Cài đặt Graylog trên CentOS 6.6">
+    <meta property="og:description" content="Bài này mình chỉ ghi nhận lại những bước mình đã làm, các câu lệnh đã dùng cùng những tùy chỉnh trong quá trình cài đặt thử nghiệm Graylog 1.0.x (Nâng cấp từ Graylog2). Mình sẽ dành thời...">
+    <meta property="og:url" content="http://localhost:2368/cai-dat-graylog-tren-centos-6-6/">
+    <meta property="article:published_time" content="2015-07-04T16:53:41.405Z">
+    <meta property="article:modified_time" content="2015-07-04T17:27:12.703Z">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Server">
+    <meta property="article:tag" content="Graylog">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Cài đặt Graylog trên CentOS 6.6">
+    <meta name="twitter:description" content="Bài này mình chỉ ghi nhận lại những bước mình đã làm, các câu lệnh đã dùng cùng những tùy chỉnh trong quá trình cài đặt thử nghiệm Graylog 1.0.x (Nâng cấp từ Graylog2). Mình sẽ dành thời...">
+    <meta name="twitter:url" content="http://localhost:2368/cai-dat-graylog-tren-centos-6-6/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Cài đặt Graylog trên CentOS 6.6",
+    "url": "http://localhost:2368/cai-dat-graylog-tren-centos-6-6/",
+    "datePublished": "2015-07-04T16:53:41.405Z",
+    "dateModified": "2015-07-04T17:27:12.703Z",
+    "keywords": "Linux, Server, Graylog",
+    "description": "Bài này mình chỉ ghi nhận lại những bước mình đã làm, các câu lệnh đã dùng cùng những tùy chỉnh trong quá trình cài đặt thử nghiệm Graylog 1.0.x (Nâng cấp từ Graylog2). Mình sẽ dành thời..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-linux tag-server tag-graylog">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-linux tag-server tag-graylog">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-07-04">04 Jul 2015</time> on <a href="../tag/linux/">Linux</a> | <a href="../tag/server/">Server</a> | <a href="../tag/graylog/">Graylog</a></span>
+
+        <h1 class="post-title">Cài đặt Graylog trên CentOS 6.6</h1>
+
+        <section class="post-content">
+            <p>Bài này mình chỉ ghi nhận lại những bước mình đã làm, các câu lệnh đã dùng cùng những tùy chỉnh trong quá trình cài đặt thử nghiệm Graylog 1.0.x (Nâng cấp từ Graylog2). Mình sẽ dành thời gian chỉn chu bài viết hơn cũng như đánh giá hiệu quả, chia sẻ kinh nghiệm về sử dụng Graylog để quản lý, phân tích Log cho các ứng dụng Web sau thời gian thử nghiệm Graylog thực tế.</p>
+
+<p>Graylog là một trong những Open Source Log Management được nhiều người biết đến (Bên cạnh <strong>LogStash</strong> của Elastic Co và các SaaS như <strong>Loggly</strong>, <strong>Papertrail</strong>). Bạn có thể sử dụng Graylog để xây dựng một hệ thống quản lý Log tập trung: Log của ứng dụng Web, Log của Web Server, Log của SSH, Log của Hệ thống (Syslog)...</p>
+
+<h4 id="mitrng">Môi trường</h4>
+
+<ul>
+<li>CentOS 6.6</li>
+<li>Graylog 1.0.x</li>
+<li>ElasticSearch 1.5 trở lên</li>
+<li>MongoDB 2.0 trở lên</li>
+</ul>
+
+<p><strong>Tìm tất cả các tập tin có tên nginx.conf bắt đầu từ thư mục root</strong></p>
+
+<pre><code>find / -name nginx.conf  
+</code></pre>
+
+<p><strong>Stop Rails Application đang chạy (Nginx and Phusion Passenger)</strong></p>
+
+<p>Remove các dòng liên quan đến App XYZ trong File cấu hình nginx.conf, restart service nginx (Phusion Passenger sẽ tự stop app đó, không cần cấu hình gì thêm).</p>
+
+<p>Stop Postgresql</p>
+
+<pre><code>/etc/init.d/postgresql-9.4 stop
+</code></pre>
+
+<p>Stop Redis</p>
+
+<pre><code>/etc/init.d/redis_6379 stop
+</code></pre>
+
+<p>Clear Cronjob</p>
+
+<pre><code>crontab -e  
+</code></pre>
+
+<p><strong>Cập nhật lại Logrotate</strong></p>
+
+<pre><code>vi /etc/logrotate.conf  
+</code></pre>
+
+<p><strong>Cài đặt Errbit</strong> (Ứng dụng quản lý các Exception)</p>
+
+<pre><code>git clone https://github.com/errbit/errbit.git  
+bundle install  
+RAILS_ENV=production bundle exec rake errbit:bootstrap  
+vi .env.default  
+vi config/initializers/action_mailer.rb  
+</code></pre>
+
+<h4 id="citelasticsearch">Cài đặt Elasticsearch</h4>
+
+<p>Graylog sử dụng ElasticSearch để thực hiện Full-Text-Search</p>
+
+<p>Tham khảo đường dẫn - <a href="https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-4-on-centos-7">https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-4-on-centos-7</a></p>
+
+<ul>
+<li>Kiểm tra ElasticSearch đã cài đặt thành công và đã được chạy hay chưa?</li>
+</ul>
+
+<pre><code>curl localhost:9200/_nodes/process?pretty  
+</code></pre>
+
+<h4 id="citmongodb">Cài đặt MongoDB</h4>
+
+<p>Tham khảo đường dẫn - <a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/">http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/</a></p>
+
+<p>Khởi động dịch vụ MongoDB</p>
+
+<pre><code class="language- ">service mongod start  
+chkconfig mongod on  
+</code></pre>
+
+<h4 id="citgraylog">Cài đặt Graylog</h4>
+
+<p>Graylog có cung cấp Image đã cài đặt và cấu hình sẵn Graylog-Server cũng như Graylog-Web-Interface dành cho các distribution như Ubuntu, CentOS và Docker... nhưng việc restore Image lên VPS của Linode là thuộc phạm vi của một bài viết khác, với lại, mình thấy cài đặt thủ công sẽ thú vị hơn, chủ động hơn... do đó, mình chọn cách làm này.</p>
+
+<h5 id="citgraylogserver">Cài đặt Graylog-Server</h5>
+
+<p>Làm theo hướng dẫn tại <a href="http://docs.graylog.org/en/latest/pages/installation.html#manual-setup-graylog-server-on-linux">http://docs.graylog.org/en/latest/pages/installation.html#manual-setup-graylog-server-on-linux</a></p>
+
+<p>Khởi động Graylog-Server</p>
+
+<pre><code>./graylogctl start
+</code></pre>
+
+<p>Đọc Log của Graylog để Debug khi gặp lỗi </p>
+
+<pre><code>tail -f /opt/graylog-1.0.2/log  
+</code></pre>
+
+<h5 id="citgraylogwebinterface">Cài đặt Graylog-Web-Interface</h5>
+
+<p>Làm theo hướng dẫn tại <a href="http://docs.graylog.org/en/latest/pages/installation.html#manual-setup-graylog-web-interface-on-linux">http://docs.graylog.org/en/latest/pages/installation.html#manual-setup-graylog-web-interface-on-linux</a></p>
+
+<p>Khởi động Graylog-Web-Interface</p>
+
+<pre><code>nohup /opt/graylog-web-interface-1.0.2/bin/graylog-web-interface &amp;  
+</code></pre>
+
+<h4 id="cuhnhgraylogvelasticsearch">Cấu hình Graylog và ElasticSearch</h4>
+
+<p>Cấu hình Graylog và ElasticSearch, tham khảo tại <a href="http://docs.graylog.org/en/latest/pages/configuring_es.html">http://docs.graylog.org/en/latest/pages/configuring_es.html</a></p>
+
+<p>Increase File Open Limit của CentOS 6.6 theo khuyến nghị của GrayLog - Tham khảo tại <br>
+<a href="http://pro.benjaminste.in/post/318453669/increase-the-number-of-file-descriptors-on-centos">http://pro.benjaminste.in/post/318453669/increase-the-number-of-file-descriptors-on-centos</a></p>
+
+<p>Kiểm tra Health Status của ElasticSearch Cluster:</p>
+
+<pre><code>curl -XGET 'http://localhost:9200/_cluster/health/twitter?level=shards'  
+</code></pre>
+
+<p>Nếu là <strong>Red</strong> thì Graylog-Server sẽ không thể Start được, còn cách để chuyển Health Status từ Red về Yellow hay Green thì mình sẽ tìm hiểu thêm.</p>
+
+<p><strong>Cấu hình Firewall</strong></p>
+
+<p>Hệ thống của mình sử dụng Iptables nên mình sẽ mở các cổng 12201, 12301, 12302 (UDP) để các ứng dụng có thể gửi Log về Server, Mở cổng 9000 (TCP) để mình có thể truy cập vào Graylog bằng Web Interface.</p>
+
+<p>Lưu và phục hồi lại cấu hình Iptables:</p>
+
+<pre><code>iptables-save &gt; /etc/sysconfig/iptables  
+iptables-restore &lt; /etc/sysconfig/iptables  
+service iptables restart  
+</code></pre>
+
+<p><img src="http://i.imgur.com/Gg2nLA7.png" alt="Thành Quả"></p>
+
+<hr>
+
+<p>Có thể thay thế <strong>Graylog + Mongodb + Elasticsearch</strong> bằng <strong>Logstash + Elasticsearch + Kibana 4 + Logstash Forwarder</strong></p>
+
+<p><mark><strong>Tìm hiểu về Log Data Mining - Log Analysis</strong></mark> - Dù có sử dụng Log Management thì nếu không biết cách khai thác các dữ liệu đã log một cách hiệu quả thì cũng như thật lãng phí, tốn tài nguyên của hệ thống.</p>
+
+<blockquote>
+  <p>Cập nhật tình hình là mình muốn gỡ Graylog-Server ra vì nó ngốn quá nhiều tài nguyên của Hệ thống quá. Process Graylog-Server hay bị ngắt giữa chừng (Chắc mình phải tìm cách thiết lập Hệ thống Alert khi một Process bị interrupt). Log ghi nhận nhiều nhưng mình chưa biết cách khai thác nên không thấy hữu ích.</p>
+</blockquote>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=C%C3%A0i%20%C4%91%E1%BA%B7t%20Graylog%20tr%C3%AAn%20CentOS%206.6&amp;url=http://localhost:2368/cai-dat-graylog-tren-centos-6-6/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/cai-dat-graylog-tren-centos-6-6/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/cai-dat-graylog-tren-centos-6-6/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

@@ -1,0 +1,473 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>PostgreSQL Cookbook</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/postgresql-cookbook/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="PostgreSQL Cookbook">
+    <meta property="og:description" content="Chương 1 - Managing Databases and the PostgreSQL Server Postgres CLI psql -h localhost -U postgres (-p PORT)   \q để thoát khi đang trong Postgres CLI Create Database SQL STATEMENT CREATE DATABASE hrdb WITH ENCODING='UTF-8' OWNER=hr CONNECTION LIMIT=...">
+    <meta property="og:url" content="http://localhost:2368/postgresql-cookbook/">
+    <meta property="article:published_time" content="2015-06-27T03:37:15.986Z">
+    <meta property="article:modified_time" content="2015-06-27T04:05:00.506Z">
+    <meta property="article:tag" content="Đọc sách">
+    <meta property="article:tag" content="Kinh nghiệm Lập trình">
+    <meta property="article:tag" content="Ghi nhanh">
+    <meta property="article:tag" content="Postgres">
+    <meta property="article:tag" content="SQL">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="PostgreSQL Cookbook">
+    <meta name="twitter:description" content="Chương 1 - Managing Databases and the PostgreSQL Server Postgres CLI psql -h localhost -U postgres (-p PORT)   \q để thoát khi đang trong Postgres CLI Create Database SQL STATEMENT CREATE DATABASE hrdb WITH ENCODING='UTF-8' OWNER=hr CONNECTION LIMIT=...">
+    <meta name="twitter:url" content="http://localhost:2368/postgresql-cookbook/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "PostgreSQL Cookbook",
+    "url": "http://localhost:2368/postgresql-cookbook/",
+    "datePublished": "2015-06-27T03:37:15.986Z",
+    "dateModified": "2015-06-27T04:05:00.506Z",
+    "keywords": "Đọc sách, Kinh nghiệm Lập trình, Ghi nhanh, Postgres, SQL",
+    "description": "Chương 1 - Managing Databases and the PostgreSQL Server Postgres CLI psql -h localhost -U postgres (-p PORT)   \\q để thoát khi đang trong Postgres CLI Create Database SQL STATEMENT CREATE DATABASE hrdb WITH ENCODING=&#x27;UTF-8&#x27; OWNER=hr CONNECTION LIMIT=..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-doc-sach tag-kinh-nghiem-lap-trinh tag-ghi-nhanh tag-postgres tag-sql">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-doc-sach tag-kinh-nghiem-lap-trinh tag-ghi-nhanh tag-postgres tag-sql">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-06-27">27 Jun 2015</time> on <a href="../tag/doc-sach/">Đọc sách</a> | <a href="../tag/kinh-nghiem-lap-trinh/">Kinh nghiệm Lập trình</a> | <a href="../tag/ghi-nhanh/">Ghi nhanh</a> | <a href="../tag/postgres/">Postgres</a> | <a href="../tag/sql/">SQL</a></span>
+
+        <h1 class="post-title">PostgreSQL Cookbook</h1>
+
+        <section class="post-content">
+            <h4 id="chng1managingdatabasesandthepostgresqlserver">Chương 1 - Managing Databases and the PostgreSQL Server</h4>
+
+<p><strong>Postgres CLI</strong></p>
+
+<pre><code>psql -h localhost -U postgres (-p PORT)  
+</code></pre>
+
+<p>\q để thoát khi đang trong Postgres CLI</p>
+
+<h5 id="createdatabase">Create Database</h5>
+
+<p><strong>SQL STATEMENT</strong></p>
+
+<pre><code>CREATE DATABASE hrdb WITH ENCODING='UTF-8' OWNER=hr CONNECTION LIMIT=25;  
+</code></pre>
+
+<p><strong>CLI</strong></p>
+
+<pre><code>createdb -h localhost -U postgres testdb1  
+</code></pre>
+
+<p><strong>List all Database in Postgres</strong></p>
+
+<pre><code>SELECT datname from pg_database where datistemplate = false;  
+</code></pre>
+
+<h5 id="createusers">Create Users</h5>
+
+<pre><code>CREATE USER hr with PASSWORD 'hr';  
+</code></pre>
+
+<h5 id="createschema">Create Schema</h5>
+
+<p>Schemas are among the most important objects with in a database. A schema is a named collecction of tables. A schema may also contain views, indexes, sequences, data types, operators, and functions. Schemas help organize database objects into logical groups, which helps make these object more manageable.  </p>
+
+<pre><code>CREATE SCHEMA employee;  
+CREATE SCHEMA university AUTHORIZATION bob; (A schema named univerisy and is owned by bob)  
+</code></pre>
+
+<p>Default Schema is public schema.</p>
+
+<p><strong>List all schema</strong></p>
+
+<p><code>\dn</code> in psql</p>
+
+<p><code>\du</code> in psql (List all User)</p>
+
+<h5 id="creategroups">Create Groups</h5>
+
+<pre><code>CREATE GROUP dept;  
+ALTER GROUP dept ADD USER agovi1, nchabbra;  
+SELECT * FROM pg_group;  
+</code></pre>
+
+<h5 id="destroyingdatabase">Destroying Database</h5>
+
+<pre><code>DROP DATABASE hrdb;  
+</code></pre>
+
+<p><strong>CLI</strong></p>
+
+<pre><code>dropdb hrdb  
+</code></pre>
+
+<h5 id="tablespaces">Tablespaces</h5>
+
+<p>A tablespace is a location on the disk where PostgreSQL stores data files containing database objects, for example indexes, tables, and so on.</p>
+
+<pre><code>CREATE TABLESPACE HRMS LOCATION '/var/lib/pgsql/data/hrms';  
+</code></pre>
+
+<p><strong>Moving Objects between tablespaces</strong></p>
+
+<pre><code>ALTER DATABASE testdb1 SET default_tablespaces='hrms';  
+ALTER TABLE employee SET TABLESPACE hrms;  
+ALTER INDEX emp_idx SET TABLESPACE hrms;  
+</code></pre>
+
+<h5 id="databasecluster">Database Cluster</h5>
+
+<p>Database cluster is a collection of databases that are managed by a single server instance</p>
+
+<p><strong>Start and Stop SERVER</strong></p>
+
+<p>Các cách để khởi động và tắt SERVER (Trong đó có cách tắt khẩn cấp, Halt ngay lập tức, không kịp hoàn tất I/O ra Disk.)</p>
+
+<p><strong>Display the Server Status</strong></p>
+
+<p><strong>Terminating connections</strong></p>
+
+<p>Có thể dùng để ngắt các phiên kết nối đang làm chậm Performance của Database.</p>
+
+<p>Ngắt tất cả các phiên kết nối đến Database testdb1</p>
+
+<pre><code>SELECT pg_terminate_backend(pid) FROM pg_stat_activity where datnam='testdb1'  
+</code></pre>
+
+<p>Also useful in free memory from idle postgress processes <br>
+(pg<em>cancel</em>backend(pid) dùng để cancel running queries and not to terminate existing sessions)</p>
+
+<h4 id="chng2controllingsecurity">Chương 2 - Controlling Security</h4>
+
+<h5 id="securingdatabaseobjects">Securing Database Objects</h5>
+
+<p>Bảo đảm chỉ có những authenticated users mới được truy cập đến data mà họ được cấp phép để truy cập. </p>
+
+<p>Revoke - Thu hồi <br>
+Grant - Cấp quyền</p>
+
+<pre><code>REVOKE ALL on testusers from testdb1;  
+REVOKE insert, update, delete, truncate on testusers from testdb1;  
+</code></pre>
+
+<p>Các quyền có thể revoke hoặc grant là: SELECT, UPDATE, INSERT, DELETE, TRUNCATE, TRIGGER</p>
+
+<h5 id="controllingaccessviafirewalls">Controlling access via firewalls</h5>
+
+<p>Cổng mặc định của PostgreSQL là 5432 (Cấu hình Firewall - Iptables open Port này)</p>
+
+<h5 id="controllingaccessviaconfigurationfiles">Controlling access via configuration files</h5>
+
+<p>PostgreSQL có 2 file cấu hình chính</p>
+
+<p>postgresql.conf - contains a single entry that controls on which network interfaces PostgreSQL listens for connections</p>
+
+<p>pg_hba.conf - used to define which clients can connect to which database and using which login role</p>
+
+<p><strong>Show location of hba_files in Psql</strong></p>
+
+<pre><code>SHOW hba_file;  
+SHOW data_directory;  
+</code></pre>
+
+<h5 id="auditingdatabasechanges">Auditing Database Changes</h5>
+
+<p>Một bảng theo dõi toàn bộ sự thay đổi (Insert,Update,Delete) của các bảng khác, cái này rất tiện khi dùng để truy vết và blame cũng như restore lại một vài record.</p>
+
+<p>Xem thêm tại - <a href="https://wiki.postgresql.org/wiki/Audit_trigger_91plus"><strong>Audit Trigger Plus</strong></a></p>
+
+<h5 id="enablingsslinpostgresql">Enabling SSL in PostgreSQL</h5>
+
+<h5 id="testingsslencryption">Testing SSL Encryption</h5>
+
+<p>chưa rõ cụ thể là SSL để bảo vệ kết nối giữa client / server trong PostgreSQL hữu ích ra sao và nên sử dụng trong trường hợp nào, Tốc độ và hiệu suất có tốt hơn hay kém hơn? vì đa phần mình đều dùng localhost.</p>
+
+<h5 id="encryptingconfidentialdata">Encrypting confidential data</h5>
+
+<ul>
+<li>Các ngôn ngữ Backend khác đã làm giúp việc này. Dữ liệu cần phải được mã hóa khi lưu vào Database.</li>
+</ul>
+
+<h5 id="crackingpostgresqlpasswords">Cracking PostgreSQL Passwords</h5>
+
+<ul>
+<li>Đừng đặt password quá ngắn, quá đơn giản để tránh brute force và dictionary attack</li>
+</ul>
+
+<hr>
+
+<h4 id="chng3backupandrecovery">Chương 3 - Backup and Recovery</h4>
+
+<p><strong>Logical Backups</strong> - Dump File được tạo ra bởi pg_dump</p>
+
+<p><strong>Physical Backups</strong> - OS level backup of a database directory and its associated files</p>
+
+<h5 id="logicalbackup">Logical Backup</h5>
+
+<pre><code>pg_dump -U username -W -Fc database_name &gt; [Backup Location Path].dump  
+</code></pre>
+
+<p>-W (Prompt for Password)
+-F (Output File -Fc for Custom Format)</p>
+
+<p><strong>Logical backup of all PostgreSQL databases</strong></p>
+
+<pre><code>pg_dumpall -U postgres &gt; [Backup Location Path]  
+</code></pre>
+
+<p>option --schema-only, --roles-only, --tablespaces-only</p>
+
+<p><strong>Logical backup of specific objects</strong></p>
+
+<pre><code>pg_dump -U postgres -W -F t ubrand &gt; 1.tar -n audit  
+</code></pre>
+
+<p>Xem thêm tại <a href="http://www.postgresql.org/docs/9.1/static/app-pgdump.html">http://www.postgresql.org/docs/9.1/static/app-pgdump.html</a></p>
+
+<h5 id="filesystemlevelbackup">File system level backup</h5>
+
+<p>The easiest way to do this is to make an archive of the PostgreSQL data directory or the directory defined by the $PGDATA environment variable.</p>
+
+<p>Nhưng có một lưu ý là The database must be shutdown completely in order to get a useful backup. A File System backup is meaningful only when the database is in a consistent state.</p>
+
+<p>Một cách khác hay hơn là tận dụng Logical Volume Manager để backup Data của PostgreSQL (Tham khảo thêm trong Sách)</p>
+
+<h5 id="takingabasebackup">Taking a base backup</h5>
+
+<p><strong>pg_basebackup</strong> tool takes base backups of a running PostgreSQL database Server. These backups are initiated without affecting other PostgreSQL database clients and can be used for both point-in-time recovery, as well as the start point for log shipping or to stream replication standby servers.</p>
+
+<pre><code>pg_basebackup -h localhost -D directory  
+</code></pre>
+
+<p>user phải có quyền replication trước khi thực hiện pg_basebackup</p>
+
+<p>Cần phải config postgresql.conf <br>
+max<em>wal</em>senders &gt; 1 <br>
+wal_level must be set to archive</p>
+
+<blockquote>
+  <p>pg<em>dump có cách sử dụng đơn giản nhưng Performance không tốt bằng pg</em>basebackup, đặc biệt là với Database lớn (&gt;50GB), pg_dump trả về dump file</p>
+</blockquote>
+
+<p>Backup và Archive Log của PostgreSQL dùng để Roll forward, hỗ trợ thêm cho Point-In-Time Recovery</p>
+
+<h5 id="hotphysicalbackupandcontinousarchiving">Hot Physical Backup and Continous Archiving</h5>
+
+<p>Cho dù chúng ta backup thường xuyên đến cỡ nào thì khi sự cố xảy ra, nhiều khả năng là bản Backup gần nhất đã lỗi thời, và bạn không thể restore lại nguyên hiện trạng trước khi xảy ra sự cố được.</p>
+
+<p>Enable WAL (Write-ahead Log) </p>
+
+<p><strong>Thay đổi cấu hình trong file postgresql.conf</strong></p>
+
+<p>wal_level = hot_standby <br>
+archive<em>mode = on <br>
+archive</em>command = 'test ! -f <br>
+/home/abcd/pgsql/backup_in_progress || (test ! -f 
+/home/abcd/pgsql/archive/%f &amp;&amp; cp %p
+/home/abcd/pgsql/archive/%f)
+'</p>
+
+<p><mark>Phần này đọc thêm trong Sách và Xây dựng thành Một bài viết khác, đầy đủ, chi tiết hơn</mark></p>
+
+<h5 id="pointintimerecovery">Point-in-time Recovery</h5>
+
+<p>Phục hồi lại với bản Backup gần nhất <br>
+Sử dụng Kỹ thuật Point-in-time Recovery để hồi phục Database đến checkpoint mong muốn. </p>
+
+<p>Restoring databases and specific database objects <br>
+Thông qua <strong>pg_restore</strong> Utility</p>
+
+<p><strong>pg_dump / pg_restore</strong></p>
+
+<pre><code>pg_dump -U username -f backup.dump database_name -Fc  
+</code></pre>
+
+<p>switch -F specify format of backup file:</p>
+
+<p>c will use custom PostgreSQL format which is compressed and results in smallest backup file size <br>
+d for directory where each file is one table <br>
+t for TAR archive (bigger than custom format)</p>
+
+<h5 id="restorebackup">Restore backup</h5>
+
+<pre><code>pg_restore -d database_name -U username -C backup.dump  
+</code></pre>
+
+<p>Parameter -C should create database before importing data. If it doesn't work you can always create database eg. with command (as user postgres or other account that has rights to create databases) createdb db_name -O owner</p>
+
+<p><strong>pg_dump/psql</strong></p>
+
+<p>In case that you didn't specify the argument -F default plain text SQL format was used (or with -F p). Then you can't use pg_restore. You can import data with psql.</p>
+
+<p><strong>backup:</strong></p>
+
+<pre><code>pg_dump -U username -f backup.sql database_name  
+</code></pre>
+
+<p><strong>restore:</strong></p>
+
+<pre><code>psql -d database_name -f backup.sql  
+</code></pre>
+
+<h2 id="chng4routinemaintenancetasks">Chương 4 - Routine Maintenance Tasks</h2>
+
+<p>(Có thời gian sẽ đọc thêm)</p>
+
+<h2 id="chng5monitoringthesystemusingunixutilities">Chương 5 - Monitoring the System Using Unix Utilities</h2>
+
+<blockquote>
+  <p>Mình đã viết thành bài riêng tại <a href="http://notes.viphat.work/monitoring-linux-system/">http://notes.viphat.work/monitoring-linux-system/</a></p>
+</blockquote>
+
+<p>Tham khảo thêm cách cài sysstat - <a href="http://www.thegeekstuff.com/2011/03/sar-examples/">http://www.thegeekstuff.com/2011/03/sar-examples/</a></p>
+
+<p>Các chương còn lại cũng hay nhưng ở mức độ Advance nên mình chưa hiểu hết, sẽ đọc lại sau (Cũng hy vọng là mình sẽ có dịp làm việc với một Hệ thống Database lớn, lúc đó thì mới được dịp áp dụng các kiến thức ở những Chương sau):</p>
+
+<p><strong>Chương 6 - Monitoring Database Activity and Investigating Performance Issues</strong> (Theo dõi hoạt động của Database và điều tra các vấn đề về Performance)</p>
+
+<p><strong>Chương 7 - High Availability and Replication</strong> (Nhân bản Database để mang lại độ sẵn sàng cao cho các ứng dụng Database lớn và nhiều người sử dụng)</p>
+
+<p>Chương 8 - Connection Pooling </p>
+
+<p><strong>Chương 9 - Table Partioning</strong> (Phân vùng các Table, tách riêng và chia nhỏ Table nếu Table quá lớn, chứa nhiều dữ liệu)</p>
+
+<p>Chương 10 - Accessing PostgreSQL from Perl</p>
+
+<p>Chương 11 - Accessing PostgreSQL from Python <br>
+(Nếu có thời gian và có dịp, mình sẽ học thêm về Python. Hiện mình chủ yếu làm việc với Rails, còn Ruby thực ra còn nhiều cái chưa rành lắm... chẳng hạn, block_given? là gì?)</p>
+
+<p>Chương 12 - <strong>Data Migration from Other Databases and Upgrading PostgreSQL Cluster</strong></p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=PostgreSQL%20Cookbook&amp;url=http://localhost:2368/postgresql-cookbook/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/postgresql-cookbook/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/postgresql-cookbook/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

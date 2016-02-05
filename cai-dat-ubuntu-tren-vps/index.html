@@ -1,0 +1,296 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Cài đặt UBuntu trên VPS</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/cai-dat-ubuntu-tren-vps/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Cài đặt UBuntu trên VPS">
+    <meta property="og:description" content="Black Friday vừa qua, đi đâu cũng thấy khuyến mãi và ngập tràn Coupon nên mình nảy ý định kiếm khuyến mãi VPS nào hấp dẫn chút. Sau một hồi tìm kiếm ở http://ChiaseCoupon.com thì Ramnode với khuyến...">
+    <meta property="og:url" content="http://localhost:2368/cai-dat-ubuntu-tren-vps/">
+    <meta property="article:published_time" content="2015-11-30T04:14:41.984Z">
+    <meta property="article:modified_time" content="2015-11-30T13:06:11.137Z">
+    <meta property="article:tag" content="Server">
+    <meta property="article:tag" content="VPS">
+    <meta property="article:tag" content="Ubuntu">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Cài đặt UBuntu trên VPS">
+    <meta name="twitter:description" content="Black Friday vừa qua, đi đâu cũng thấy khuyến mãi và ngập tràn Coupon nên mình nảy ý định kiếm khuyến mãi VPS nào hấp dẫn chút. Sau một hồi tìm kiếm ở http://ChiaseCoupon.com thì Ramnode với khuyến...">
+    <meta name="twitter:url" content="http://localhost:2368/cai-dat-ubuntu-tren-vps/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Cài đặt UBuntu trên VPS",
+    "url": "http://localhost:2368/cai-dat-ubuntu-tren-vps/",
+    "datePublished": "2015-11-30T04:14:41.984Z",
+    "dateModified": "2015-11-30T13:06:11.137Z",
+    "keywords": "Server, VPS, Ubuntu",
+    "description": "Black Friday vừa qua, đi đâu cũng thấy khuyến mãi và ngập tràn Coupon nên mình nảy ý định kiếm khuyến mãi VPS nào hấp dẫn chút. Sau một hồi tìm kiếm ở http://ChiaseCoupon.com thì Ramnode với khuyến..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-server tag-vps tag-ubuntu">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-server tag-vps tag-ubuntu">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-11-30">30 Nov 2015</time> on <a href="../tag/server/">Server</a> | <a href="../tag/vps/">VPS</a> | <a href="../tag/ubuntu/">Ubuntu</a></span>
+
+        <h1 class="post-title">Cài đặt UBuntu trên VPS</h1>
+
+        <section class="post-content">
+            <p>Black Friday vừa qua, đi đâu cũng thấy khuyến mãi và ngập tràn Coupon nên mình nảy ý định kiếm khuyến mãi VPS nào hấp dẫn chút. Sau một hồi tìm kiếm ở <a href="http://ChiaseCoupon.com">http://ChiaseCoupon.com</a> thì <strong>Ramnode</strong> với khuyến mãi giảm 20% trọn đời có vẻ phù hợp. Mình quyết định dùng Ramnode thay thế cho <strong>Linode</strong> đã xài cả năm nay (Một phần vì Linode không có khuyến mãi nào dành cho người dùng cũ và trung thành như mình). Vậy là mất 1 ngày cuối tuần để chuyển dữ liệu từ VPS cũ sang VPS mới, trong quá trình cài đặt và chuyển VPS, mình xin ghi lại một số thứ linh tinh để sau này tiện tra cứu.</p>
+
+<p>Kinh nghiệm khi cài Ubuntu lên VPS / Dedicated Server ở môi trường Production là nên sử dụng phiên bản LTS - Long Term Support (mới nhất là 14.04 LTS), khác biệt cơ bản của release LTS với các phiên bản thường (14.10, 15.04, 15.10...) là release LTS được hỗ trợ lâu dài đến 3 năm hoặc 5 năm, thay vì cứ phải upgrade liên tục mỗi 6 tháng cùng vòng đời ngắn ngủi như các phiên bản thường. Release LTS chỉ cập nhật các bản vá bảo mật nhằm luôn giữ cho hệ thống ổn định và lược bỏ việc cập nhật các ứng dụng không liên quan đến môi trường Production như trMột số Best Practice khi cài đặt Nginxình duyệt mail, trình duyệt web, media player... (Nếu bạn sử dụng cho Server, bạn nên sử dụng <strong>Minimal Setup</strong> để bỏ qua giao diện GUI và các ứng dụng không cần thiết).</p>
+
+<p><strong>Cập nhật Ubuntu sau khi cài đặt</strong>:</p>
+
+<pre><code>sudo apt-get update  
+</code></pre>
+
+<pre><code>sudo apt-get upgrade  
+</code></pre>
+
+<pre><code>sudo apt-get dist-upgrade  
+</code></pre>
+
+<p><strong>Cleaning Up</strong>:</p>
+
+<pre><code>echo "Cleaning Up" &amp;&amp;  
+sudo apt-get -f install &amp;&amp;  
+sudo apt-get autoremove &amp;&amp;  
+sudo apt-get -y autoclean &amp;&amp;  
+sudo apt-get -y clean  
+</code></pre>
+
+<p><strong>Thêm User mới</strong> (Hạn chế cài đặt các ứng dụng dưới quyền Root):</p>
+
+<pre><code>adduser [USERNAME]  
+</code></pre>
+
+<p><strong>Thêm User mới vào sudoer</strong></p>
+
+<pre><code>sudo usermod -a -G sudo [USERNAME]  
+</code></pre>
+
+<p><strong>Add SSH Key</strong></p>
+
+<pre><code>ssh-copy-id username@ip-address  
+</code></pre>
+
+<p>Cấu hình SSH không cho phép đăng nhập Root và chỉ đăng nhập bằng SSH Key - Tham khảo tại <a href="http://notes.viphat.work/cau-hinh-ssh-xac-thuc-bang-public-keys-tren-centos-6/"><strong>đây</strong></a>.</p>
+
+<p><strong>Cài đặt RVM</strong></p>
+
+<pre><code>gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3  
+</code></pre>
+
+<pre><code>\curl -sSL https://get.rvm.io | bash
+</code></pre>
+
+<pre><code>source /home/viphat/.rvm/scripts/rvm  
+</code></pre>
+
+<p><strong>Cài đặt Ruby bằng RVM</strong>:</p>
+
+<pre><code>rvm list known  
+</code></pre>
+
+<pre><code>rvm install ruby-2.2-head  
+</code></pre>
+
+<pre><code>bash --login  
+rvm use ruby-2.2-head  
+</code></pre>
+
+<p><strong>Cài đặt NodeJS 0.12.x và NPM</strong> (Tương tự cho 4.x)</p>
+
+<pre><code>curl -sL https://deb.nodesource.com/setup_0.12 | sudo -E bash -
+
+sudo apt-get install -y nodejs  
+</code></pre>
+
+<p><strong>Cài đặt Postgres</strong> (Reposity này luôn có phiên bản Postgres mới nhất)</p>
+
+<pre><code>sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" &gt; /etc/apt/sources.list.d/pgdg.list'  
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -  
+sudo apt-get update  
+sudo apt-get install postgresql  
+</code></pre>
+
+<p>Cấu hình File pg_hba.conf xác thực bằng mật khẩu.</p>
+
+<p><strong>Đổi mật khẩu của User postgres</strong>:</p>
+
+<pre><code>ALTER USER postgres with password 'YourNewPassword';  
+</code></pre>
+
+<p><strong>Cài đặt Phusion Passenger và Nginx</strong></p>
+
+<pre><code>gem install passenger  
+rvmsudo passenger-install-nginx-module  
+</code></pre>
+
+<p>Passenger sẽ cài luôn Nginx bản stable 1.8.0, nếu bạn không có nhu cầu nâng cấp thì Nginx 1.8.0 là đủ dùng.</p>
+
+<p><strong>Cấu hình Nginx.conf để chạy với Phusion Passenger</strong></p>
+
+<pre><code>http {  
+passenger_root /home/vipMột số Best Practice khi cài đặt Nginxhat/.rvm/gems/ruby-2.2-head/gems/passenger-5.0.21;  
+passenger_ruby /home/viphat/.rvm/gems/ruby-2.2-head/wrappers/ruby;  
+}
+
+server {  
+listen 80;  
+server_name example.com;  
+passenger_enabled on;  
+root /var/www/my_awesome_rails_app/public;  
+}
+</code></pre>
+
+<p><strong>Cài đặt Git</strong> (Latest Version)</p>
+
+<pre><code>sudo add-apt-repository ppa:git-core/ppa  
+sudo apt-get update  
+sudo apt-get install git  
+</code></pre>
+
+<p>Với những ứng dụng / dịch vụ kể trên là đã đủ cho hoạt động của các Website cá nhân của mình rồi... Để tối ưu hơn thì nên cài thêm Iptables hoặc ufw, Fail2ban...</p>
+
+<p>Trong quá trình tra cứu thì tìm được nhiều bài viết hay, đưa ra một số Practice khi cài VPS Ubuntu hay Nginx: </p>
+
+<ul>
+<li><p><a href="http://0v.org/installing-ghost-on-ubuntu-nginx-and-mysql/"><strong>Install GHOST</strong></a>.</p></li>
+<li><p><a href="http://hocvps.com/rule-nginx/"><strong>Một số Tips &amp; Trick khi cài đặt Nginx</strong></a></p></li>
+<li><p><a href="http://hocvps.com/cai-dat-fail2ban-tren-centos/"><strong>Cài đặt Fail2Ban trên CentOS 6</strong></a></p></li>
+</ul>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=C%C3%A0i%20%C4%91%E1%BA%B7t%20UBuntu%20tr%C3%AAn%20VPS&amp;url=http://localhost:2368/cai-dat-ubuntu-tren-vps/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/cai-dat-ubuntu-tren-vps/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/cai-dat-ubuntu-tren-vps/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

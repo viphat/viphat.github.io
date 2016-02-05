@@ -1,0 +1,224 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Sử dụng Git Stash hiệu quả</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/su-dung-git-stash-hieu-qua/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Sử dụng Git Stash hiệu quả">
+    <meta property="og:description" content="Lưu lại thay đổi Git stash được sử dụng khi muốn lưu lại các thay đổi chưa commit, thường rất hữu dụng khi bạn muốn đổi sang 1 branch khác mà lại đang làm dở ở branch hiện tại. Muốn...">
+    <meta property="og:url" content="http://localhost:2368/su-dung-git-stash-hieu-qua/">
+    <meta property="article:published_time" content="2015-09-10T07:36:06.877Z">
+    <meta property="article:modified_time" content="2015-09-10T07:36:06.876Z">
+    <meta property="article:tag" content="Git">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Sử dụng Git Stash hiệu quả">
+    <meta name="twitter:description" content="Lưu lại thay đổi Git stash được sử dụng khi muốn lưu lại các thay đổi chưa commit, thường rất hữu dụng khi bạn muốn đổi sang 1 branch khác mà lại đang làm dở ở branch hiện tại. Muốn...">
+    <meta name="twitter:url" content="http://localhost:2368/su-dung-git-stash-hieu-qua/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Sử dụng Git Stash hiệu quả",
+    "url": "http://localhost:2368/su-dung-git-stash-hieu-qua/",
+    "datePublished": "2015-09-10T07:36:06.877Z",
+    "dateModified": "2015-09-10T07:36:06.876Z",
+    "keywords": "Git",
+    "description": "Lưu lại thay đổi Git stash được sử dụng khi muốn lưu lại các thay đổi chưa commit, thường rất hữu dụng khi bạn muốn đổi sang 1 branch khác mà lại đang làm dở ở branch hiện tại. Muốn..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-git">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-git">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-09-10">10 Sep 2015</time> on <a href="../tag/git/">Git</a></span>
+
+        <h1 class="post-title">Sử dụng Git Stash hiệu quả</h1>
+
+        <section class="post-content">
+            <h4 id="lulithayi">Lưu lại thay đổi</h4>
+
+<p><code>Git stash</code> được sử dụng khi muốn lưu lại các thay đổi chưa commit, thường rất hữu dụng khi bạn muốn đổi sang 1 branch khác mà lại đang làm dở ở branch hiện tại.</p>
+
+<p>Muốn lưu toàn bộ nội dung công việc đang làm dở, bạn có thể sử dụng <code>git stash</code> như sau</p>
+
+<pre><code>$ git stash save #or just "git stash"
+</code></pre>
+
+<p>Khi này branch đã trở nên "sạch sẽ" và <code>git status</code> sẽ cho thấy bạn có thể chuyển sang branch tuỳ thích. Bạn có thể <code>git stash</code> <strong>bao nhiêu lần tuỳ thích</strong> và mỗi lần đó git sẽ lưu toàn bộ lần thay đổi đó như 1 phần tử trong 1 stack.</p>
+
+<h4 id="lylithayi">Lấy lại thay đổi</h4>
+
+<p>Sau khi đã git stash 1 hoặc vài lần, bạn có thể xem lại danh sách các lần lưu thay đổi bằng câu lệnh.</p>
+
+<pre><code>$ git stash list
+stash@{0}: WIP on &lt;branch-name&gt;: &lt;lastest commit&gt;  
+stash@{1}: WIP on &lt;branch-name&gt;: &lt;lastest commit&gt;  
+stash@{2}: WIP on &lt;branch-name&gt;: &lt;lastest commit&gt;  
+</code></pre>
+
+<p>Nếu muốn xem cả nội dung của từng thay đổi thì thêm option -p</p>
+
+<pre><code>$ git stash list -p
+</code></pre>
+
+<p>hoặc xem nội dung cụ thể hơn nữa của lần thay đổi thứ 1:</p>
+
+<pre><code>$ git stash show stash@{1}
+</code></pre>
+
+<p>Khi muốn apply lại thay đổi từ stash lần 1 bạn có thể</p>
+
+<pre><code>$ git stash apply stash@{1}
+</code></pre>
+
+<h4 id="xoccthayikhngcnthit">Xoá các thay đổi không cần thiết</h4>
+
+<p>Đôi khi bạn muốn lấy lại thay đổi và xoá nội dung thay đổi lưu trong stack đi, khi đó bạn có thể</p>
+
+<pre><code>$ git stash apply stash@{1}
+$ git stash drop stash@{1}
+</code></pre>
+
+<p>hoặc đơn giản hơn là</p>
+
+<pre><code>$ git stash pop stash@{1}
+</code></pre>
+
+<p>Thậm chí nếu muốn xoá toàn bộ stack thì có thể dùng clear</p>
+
+<pre><code>$ git stash clear
+</code></pre>
+
+<p>Nguồn bài viết - <a href="http://kipalog.com/posts/Su-dung-git-stash-hieu-qua"><strong>Kipalog</strong></a></p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=S%E1%BB%AD%20d%E1%BB%A5ng%20Git%20Stash%20hi%E1%BB%87u%20qu%E1%BA%A3&amp;url=http://localhost:2368/su-dung-git-stash-hieu-qua/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/su-dung-git-stash-hieu-qua/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/su-dung-git-stash-hieu-qua/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

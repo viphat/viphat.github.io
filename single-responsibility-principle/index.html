@@ -1,0 +1,215 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>SRP - Single Responsibility Principle</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=a5b69b1abb">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/single-responsibility-principle/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="SRP - Single Responsibility Principle">
+    <meta property="og:description" content="Một trong những Design Pattern để viết code chất lượng mà các Developer giỏi thường hay áp dụng chính là SRP (The Single Responsibility Principle), Nguyên tắc trách nhiệm duy nhất, hiểu nôm na là một lớp chỉ (và nên)...">
+    <meta property="og:url" content="http://localhost:2368/single-responsibility-principle/">
+    <meta property="article:published_time" content="2015-12-22T15:29:35.800Z">
+    <meta property="article:modified_time" content="2015-12-23T00:21:34.434Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="SRP - Single Responsibility Principle">
+    <meta name="twitter:description" content="Một trong những Design Pattern để viết code chất lượng mà các Developer giỏi thường hay áp dụng chính là SRP (The Single Responsibility Principle), Nguyên tắc trách nhiệm duy nhất, hiểu nôm na là một lớp chỉ (và nên)...">
+    <meta name="twitter:url" content="http://localhost:2368/single-responsibility-principle/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "SRP - Single Responsibility Principle",
+    "url": "http://localhost:2368/single-responsibility-principle/",
+    "datePublished": "2015-12-22T15:29:35.800Z",
+    "dateModified": "2015-12-23T00:21:34.434Z",
+    "description": "Một trong những Design Pattern để viết code chất lượng mà các Developer giỏi thường hay áp dụng chính là SRP (The Single Responsibility Principle), Nguyên tắc trách nhiệm duy nhất, hiểu nôm na là một lớp chỉ (và nên)..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2015-12-22">22 Dec 2015</time> </span>
+
+        <h1 class="post-title">SRP - Single Responsibility Principle</h1>
+
+        <section class="post-content">
+            <p>Một trong những <strong>Design Pattern</strong> để viết code chất lượng mà các Developer giỏi thường hay áp dụng chính là <strong>SRP</strong> (The Single Responsibility Principle), Nguyên tắc trách nhiệm duy nhất, hiểu nôm na là một lớp chỉ (và nên) có một trách nhiệm duy nhất mà nó được giao - <strong>SRP</strong> cũng là chữ cái S trong bộ <a href="http://viphat.me/1JrHhC1"><strong>Nguyên tắc SOLID</strong></a> (<strong>S</strong>ingle responsibility, <strong>O</strong>pen/closed, <strong>L</strong>iskov substitution, <strong>I</strong>nterface segregation, <strong>D</strong>ependency inversion) nhuần nhuyễn nguyên tắc này đảm bảo bạn sẽ trở thành một lập trình viên 'cứng'. Bất kì phần code nào không có khả năng bảo trì (maintainable) và không thể thích nghi với những yêu cầu thay đổi thì sẽ nhanh chóng bị lỗi thời, Do vậy SRP rất cần thiết và tối quan trọng để viết code tốt và dễ bảo trì.</p>
+
+<blockquote>
+  <p>Tản mạn ngoài lề một chút, mình kiếm cơm bằng nghề coder chưa lâu, từ lúc bắt đầu đến thời điểm hiện tại thì chỉ theo xuyên suốt có 1 dự án. Dự án vừa rồi cũng mới trãi qua đợt Refactor lớn, tách Front-End khỏi Back-End. Do vừa Refactor, cleaning code, vừa optimize lại mới thấy rằng chỉ mới vài tháng trước đây thôi: Code mình viết bừa bộn hết sức, từ cách đặt tên method, tên biến tùy tiện, tham số thì truyền vào không theo một thứ tự hay quy chuẩn nào, các lớp không được phân tách rõ ràng mà trộn lẫn vào nhau... cho đến việc cố gắng nhét một mớ nhiệm vụ vào trong 1 method, dẫn đến code cuối cùng dài ngoằng, người khác e ngại và đọc không hiểu nổi, còn bản thân thì cũng mất kha khá thời gian để đọc lại những gì mình đã từng viết. (việc một controller hay một model hơn cả ngàn dòng code không phải hiếm gặp.) - Cũng nhờ đợt Refactor này mà mình mới thấy rõ cái dở của bản thân mình trước đây và thấm thía được tầm quan trọng của việc làm thế nào để code trở nên tốt hơn và dễ bảo trì hơn. (Vâng, Tôi còn rất nhiều thứ phải học để trở thành Developer giỏi)</p>
+</blockquote>
+
+<pre><code class="language-ruby "># When I wrote this, only God and I understood what I was doing
+# Now, God only knows
+</code></pre>
+
+<hr>
+
+<h5 id="whatisaresponsibility">What is a Responsibility?</h5>
+
+<p>Quay trở lại chủ đề của bài viết hôm nay, có một câu hỏi được đặt ra là trách nhiệm là gì? Và tại sao việc phân tách và chia nhỏ trách nhiệm cho từng lớp theo <strong>SRP</strong> lại quan trọng?</p>
+
+<p>Vâng, có thể coi <strong>một trách nhiệm</strong> là một lý do để thay đổi. Bất kỳ thay đổi nhỏ nào của yêu cầu có thể dễ dàng dẫn đến nhiều thay đổi ở các phần khác nhau của code. SRP giúp các lập trình viên viết code đó được tách riêng biệt ra, nơi mà mỗi lớp có công việc riêng của nó. Nếu các đặc tả kỹ thuật của công việc này thay đổi, thì các lập trình viên chỉ cần thay đổi những lớp xác định. Sự thay đổi này ít có khả năng phá vỡ toàn bộ ứng dụng, và các lớp khác vẫn sẽ làm công việc của chúng như trước. Nếu một tester thông báo cho Developer biết chức năng nào bị lỗi, Developer sẽ nhanh chóng xác định được lớp nào đang đảm nhận chức năng đó và chỉ cần sửa nó, rebuild, retest, redeploy lại riêng lớp đó mà thôi.</p>
+
+<p>Ví dụ, xét một module biên soạn và in một báo cáo. Một module như vậy có thể bị sửa vì hai lý do. Thứ nhất, nội dung của báo cáo có thể thay đổi. Thứ hai, định dạng của báo cáo có thể thay đổi. Hai thứ đó thay đổi vì những nguyên nhân rất khác nhau; một bên mang tính nội dung, bên kia mang tính hình thức. Nguyên tắc trách nhiệm duy nhất nói rằng hai khía cạnh đó của cùng một bài toán thực sự là hai trách nhiệm riêng biệt, và do đó nên nằm trong hai lớp hay module khác nhau. Sẽ là một thiết kế tồi nếu ghép cặp lại với nhau hai thứ có thể thay đổi vì những lý do khác nhau tại những thời điểm khác nhau, nó có thể gây ra những lỗi không mong đợi.</p>
+
+<p>Như đã định nghĩa ở trên, một trách nhiệm là một lý do để thay đổi. Nếu bạn có thể thấy nhiều hơn 1 lý do để thay đổi thì lớp đó không còn là Single Responsibility nữa. Điều này đôi lúc rất khó để nhận ra, xét ví dụ về một Interface Modem như sau, bạn nghĩ rằng trông nó có thực sự hoàn hảo?</p>
+
+<pre><code>interface Modem {  
+  public void dial(String pno);
+  public void hangup();
+  public void send(char c);
+  public char recv();
+}
+</code></pre>
+
+<p>Tuy nhiên, chúng ta có thể nhận thấy 2 trách nhiệm đang được nhét vào Interface Modem này. Trách nhiệm đầu tiên là <em>connection management</em>, trách nhiệm thứ hai là <em>data management</em>. Hàm <em>dial</em> và <em>hangup</em> quản lý kết nối của modem trong khi hàm <em>send</em> và <em>recv</em> có chức năng trao đổi dữ liệu. 2 tập chức năng hầu như không có gì chung cả, vậy nên ta hoàn toàn có thể tách chúng ra thành 2 lớp con riêng biệt.</p>
+
+<p><img src="http://i.imgur.com/QSmDC0l.pnghttp://i.imgur.com/QSmDC0l.png" alt="Separated Modem Interface"></p>
+
+<blockquote>
+  <p>The SRP is one of the simplest of the principle, and one of the hardest to get right. Con-joining responsibilities is something that we do naturally. Finding and separating those responsibilities from one another is much of what software design is really about.</p>
+</blockquote>
+
+<p>Việc phát triển code bằng cách sử dụng các kỹ thuật này và nguyên tắc trách nhiệm duy nhất (Single Responsibility Principle) có thể dường như là một nhiệm vụ khó khăn, nhưng những nỗ lực này chắc chắn sẽ mang lại lợi ích to lớn khi dự án ngày càng lớn lên và tiếp tục phát triển.</p>
+
+<p><strong>Đọc thêm</strong>:</p>
+
+<ul>
+<li><p><a href="http://viphat.me/1JrEQPJ">Nguyên tắc trách nhiệm duy nhất - Techmaster</a></p></li>
+<li><p><a href="http://viphat.me/1JrHhC1">Solid là gì - Áp dụng SOLID để trở thành lập trình viên code 'cứng'</a></p></li>
+<li><p><a href="http://viphat.me/1JrHx3Z">Giới thiệu khái quát về nguyên tắc SOLID - Lê Quang Khải's Blog</a></p></li>
+<li><p><a href="http://viphat.me/1JrH8hP">Những nguyên tắc, những định luật lập trình mà chúng ta nên có sẵn trong đầu - Viblo.asia</a></p></li>
+</ul>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=SRP%20-%20Single%20Responsibility%20Principle&amp;url=http://localhost:2368/single-responsibility-principle/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/single-responsibility-principle/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/single-responsibility-principle/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>
