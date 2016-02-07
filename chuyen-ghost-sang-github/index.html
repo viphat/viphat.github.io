@@ -1,0 +1,204 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Chuyển Blog sang Github Static Pages</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=58efda9a8e">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/chuyen-ghost-sang-github/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Chuyển Blog sang Github Static Pages">
+    <meta property="og:description" content="Đã lâu không có thời gian chăm chút đến Blog do quỹ thời gian đã dành phần lớn cho UBrand và giải quyết một số vấn đề cá nhân. Nhận thấy, tuy mình đã hoàn thành việc Refactor và nâng...">
+    <meta property="og:url" content="http://localhost:2368/chuyen-ghost-sang-github/">
+    <meta property="article:published_time" content="2016-02-07T02:01:11.102Z">
+    <meta property="article:modified_time" content="2016-02-07T02:10:50.350Z">
+    <meta property="article:tag" content="Github">
+    <meta property="article:tag" content="Ghost">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Chuyển Blog sang Github Static Pages">
+    <meta name="twitter:description" content="Đã lâu không có thời gian chăm chút đến Blog do quỹ thời gian đã dành phần lớn cho UBrand và giải quyết một số vấn đề cá nhân. Nhận thấy, tuy mình đã hoàn thành việc Refactor và nâng...">
+    <meta name="twitter:url" content="http://localhost:2368/chuyen-ghost-sang-github/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Chuyển Blog sang Github Static Pages",
+    "url": "http://localhost:2368/chuyen-ghost-sang-github/",
+    "datePublished": "2016-02-07T02:01:11.102Z",
+    "dateModified": "2016-02-07T02:10:50.350Z",
+    "keywords": "Github, Ghost",
+    "description": "Đã lâu không có thời gian chăm chút đến Blog do quỹ thời gian đã dành phần lớn cho UBrand và giải quyết một số vấn đề cá nhân. Nhận thấy, tuy mình đã hoàn thành việc Refactor và nâng..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-github tag-ghost-tag">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-github tag-ghost-tag">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2016-02-07">07 Feb 2016</time> on <a href="../tag/github/">Github</a> | <a href="../tag/ghost-tag/">Ghost</a></span>
+
+        <h1 class="post-title">Chuyển Blog sang Github Static Pages</h1>
+
+        <section class="post-content">
+            <p>Đã lâu không có thời gian chăm chút đến Blog do quỹ thời gian đã dành phần lớn cho UBrand và giải quyết một số vấn đề cá nhân. Nhận thấy, tuy mình đã hoàn thành việc Refactor và nâng cấp Front-End của Project nhưng xét thấy sắp tới vẫn còn nhiều features lớn để làm vì năm 2016 sẽ là một năm cực kỳ quan trọng, đây là một năm "to be or not to be" và cũng không có nhiều thời gian dành cho Blog cũng như vọc vạch cái VPS đang xài ở Ramnode nữa nên quyết định cancel account ở Ramnode, dời Blog về một Host free mà nhanh, ổn định. Và Github Pages quả là một sự lựa chọn xứng đáng.</p>
+
+<p>Tuy nhiên, có một trở ngại là Github Pages chỉ hỗ trợ Jekyll và các Blog Framework dạng Static Pages, còn Ghost thì chạy trên nền Node.js. Sau một hồi đi tìm tòi trên Google thì phát hiện <a href="https://github.com/axitkhurana/buster"><strong>Buster</strong></a>, viết bằng Python là một tools generate static pages từ Ghost, super simple and awesome. Vậy là vấn đề đã được giải quyết, chiến tiếp thôi.</p>
+
+<p>Cài đặt Buster: </p>
+
+<pre><code>pip install buster  
+</code></pre>
+
+<p>Chuyển đến thư mục chứa Source của Ghost ở localhost và chạy lệnh Setup (Paste Link Repository của Github)</p>
+
+<pre><code>buster setup  
+</code></pre>
+
+<p>Start Ghost ở Localhost</p>
+
+<pre><code>npm start  
+</code></pre>
+
+<p>Viết bài trên Localhost bằng Editor của Ghost như bình thường, Sau đó dùng Buster để generate ra static page</p>
+
+<pre><code>buster generate --domain=http://127.0.0.1:2368  
+</code></pre>
+
+<p>Chuyển đến thư mục static (Đây là thư mục chứa các trang static được generate từ buster) và push changes trong thư mục static này lên Github. It's done!</p>
+
+<ul>
+<li><p>Mọi người vẫn có thể truy cập blog ở Domain <a href="http://notes.viphat.work"><strong>notes.viphat.work</strong></a>, bên cạnh tên miền <a href="http://viphat.github.io"><strong>viphat.github.io</strong></a> nhé.</p></li>
+<li><p>Tham khảo <a href="http://briank.im/i-see-ghosts/"><strong>I see ghosts</strong></a>.</p></li>
+</ul>
+
+<p><strong>Chúc mọi người năm mới với nhiều thắng lợi vẻ vang</strong>.</p>
+
+<p>Ngày 29 tháng củ mật. ^^</p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Chuy%E1%BB%83n%20Blog%20sang%20Github%20Static%20Pages&amp;url=http://localhost:2368/chuyen-ghost-sang-github/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/chuyen-ghost-sang-github/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/chuyen-ghost-sang-github/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>
