@@ -1,0 +1,277 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Giới thiệu về Docker</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=6c46c87b89">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic&amp;subset=latin,latin-ext,vietnamese">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/gioi-thieu-ve-docker/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Giới thiệu về Docker">
+    <meta property="og:description" content="1. Cài đặt môi trường - Vấn đề muôn thuở của lập trình viên Tôi đã sử dụng hệ điều hành Ubuntu 13.04 được 3 năm, từ đó đến giờ để lập trình thì tôi đã phải cài đủ...">
+    <meta property="og:url" content="http://localhost:2368/gioi-thieu-ve-docker/">
+    <meta property="article:published_time" content="2016-02-13T02:14:29.064Z">
+    <meta property="article:modified_time" content="2016-02-13T02:14:29.062Z">
+    <meta property="article:tag" content="docker">
+    <meta property="article:tag" content="cloud">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Giới thiệu về Docker">
+    <meta name="twitter:description" content="1. Cài đặt môi trường - Vấn đề muôn thuở của lập trình viên Tôi đã sử dụng hệ điều hành Ubuntu 13.04 được 3 năm, từ đó đến giờ để lập trình thì tôi đã phải cài đủ...">
+    <meta name="twitter:url" content="http://localhost:2368/gioi-thieu-ve-docker/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Giới thiệu về Docker",
+    "url": "http://localhost:2368/gioi-thieu-ve-docker/",
+    "datePublished": "2016-02-13T02:14:29.064Z",
+    "dateModified": "2016-02-13T02:14:29.062Z",
+    "keywords": "docker, cloud",
+    "description": "1. Cài đặt môi trường - Vấn đề muôn thuở của lập trình viên Tôi đã sử dụng hệ điều hành Ubuntu 13.04 được 3 năm, từ đó đến giờ để lập trình thì tôi đã phải cài đủ..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-docker tag-cloud">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-docker tag-cloud">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2016-02-13">13 Feb 2016</time> on <a href="../tag/docker/">docker</a> | <a href="../tag/cloud/">cloud</a></span>
+
+        <h1 class="post-title">Giới thiệu về Docker</h1>
+
+        <section class="post-content">
+            <h5 id="1citmitrngvnmunthucalptrnhvin">1. Cài đặt môi trường - Vấn đề muôn thuở của lập trình viên</h5>
+
+<p>Tôi đã sử dụng hệ điều hành Ubuntu 13.04 được 3 năm, từ đó đến giờ để lập trình thì tôi đã phải cài đủ thứ: </p>
+
+<ul>
+<li>LAMP stack dành cho lập trình web. </li>
+<li>Python cho xử lý ngôn ngữ và crawl dữ liệu. </li>
+<li>Java để lầp trình PC game. </li>
+<li>...</li>
+</ul>
+
+<p>Kết quả là sau một thời gian, khi cài một số thư viện, ngôn ngữ mới thì gặp những lỗi build conflict giữa các thư viện, không biết giải quyết thế nào.</p>
+
+<h5 id="2dockerxuthin">2. Docker xuất hiện</h5>
+
+<p>Docker giống như một loại máy ảo, có thể cô lập được môi trường bên trong và bên ngoài nên nếu tối có thể cài đặt nó lên và vào trong để cài môi trường phát triển thì sẽ giải quyết được vấn đề conflict bên trên.</p>
+
+<h5 id="3vythcchtdockerlg">3. Vậy thực chất Docker là gì?</h5>
+
+<p>Để nói về docker tôi nghĩ có thể mô tả nó thông qua 3 thứ sau: </p>
+
+<ul>
+<li>VM (Virtual Machine) </li>
+<li>Java </li>
+<li>Git</li>
+</ul>
+
+<h5 id="dockervsvirtualmachine">Docker vs Virtual Machine</h5>
+
+<p>Về cơ bản docker giống như một VM, nhưng kiến trúc bên dưới của nó hơi khác một chút. Nếu như với VM bạn sẽ phải xác định rõ tài nguyên RAM, ổ cứng cho nó và tất cả những gì VM sử dụng sẽ bị hạn chế theo cấu hình đó. Nhưng với docker thì không bị hạn chế như vậy.</p>
+
+<p>Thêm 1 điểm khác biệt nữa là tiến trình của VM thì là của VM, còn tiến trình của docker thì là tiến trình của cả hệ thống. Vì vậy nếu bạn chạy apache trong 1 container thì ra bên ngoài liệt kê vẫn thấy có tiến trình tên apache. Trong khi điều này với VM là không thể. Nhìn vào hình minh họa bên dưới bạn sẽ thấy điều đó.</p>
+
+<p><img src="http://i.imgur.com/omL8PTn.png" alt="Containers vs VMs"></p>
+
+<h5 id="dockergingjava">Docker giống Java?</h5>
+
+<p>Nếu bạn đã từng lập trình thì hẳn sẽ thích Java ở điểm là bạn chỉ cần viết chương trình một lần và chạy ở mọi nơi, mọi môi trường. Và với docker bạn cũng có thể làm điều tương tự: cài môi trường một, deploy mọi nơi!</p>
+
+<p>Docker Engine nằm bên dưới cũng đóng vai trò tương tự Java Virtual Machine để tạo nên điều kì diệu đó.</p>
+
+<h5 id="cngit">Còn git?</h5>
+
+<p>Git là một loại chương trình dùng để quản lý source code rất phổ dụng trong giới lập trình. Docker coi môi trường lập trình cũng giống như một loại souce code có thể quản lý thông qua các commit. Với mỗi thay đổi của môi trường lập trình bạn đều có thể commit ghi lại sự thay đổi đó. </p>
+
+<p>Và sau cùng bạn cũng có thể push những thay đổi đó lên một nơi gọi là docker hub, tương tự như github vậy. Và ngược lại bạn cũng có thể pull một image (môi trường lập trình bao gồm hệ điều hành và phần mềm bên trong, ở dạng nén) từ đâu đó về. Ví dụ:</p>
+
+<pre><code>docker pull deplop/lamp  
+</code></pre>
+
+<p>Lệnh này sẽ pull một image tên là lamp (bên trong đã cài sẵn LAMP stack) từ một registry tên deplop (tên tài khoản của tôi trên dockerhub) về. </p>
+
+<p>Nhờ sự tiện dụng này mà người ta có thể chia sẻ cho nhau các docker image đóng gói sẵn mà người dùng lại sẽ chẳng cần phải biết cách tạo ra nó như thế nào. (Thật ra cũng dễ thôi)</p>
+
+<p>Hiện nay các opensource, hoặc các nhà phát triển ngôn ngữ lập trình đều có công bố các docker image chính thức cho các phiên bản ở trên trang Docker Hub.</p>
+
+<h4 id="4chongibtusdngdocker">4. Cho người bắt đầu sử dụng Docker</h4>
+
+<p>Có một khái niệm rất quan trọng mà tôi chưa nhắc đến ở phần trên. Đó là docker container. Nếu như docker image là file nén của HĐH mà bạn muốn cài thì docker container chính là một thực thể sống của HĐH ấy. (Giống class và instance)</p>
+
+<p>Việc đầu tiên để bạn làm quen với docker là hãy thử dùng nó. Sẽ rất khó để bạn tự build một môi trường theo đúng ý ở thời điểm này. Vậy hãy tập cách dùng đồ của người khác đã. Hãy pull thử một image nào đó trên docker hub, ví dụ như:</p>
+
+<pre><code>docker pull mysql/mysql-server  
+</code></pre>
+
+<p>(hãy chắc chắn là bạn đang dùng quyền root, nếu không thì phải thêm sudo ở đầu câu lệnh). </p>
+
+<p>Bật console lên và gõ:</p>
+
+<pre><code>docker images  
+</code></pre>
+
+<p>bạn sẽ thấy danh sách các docker image trên máy của mình, trong đó có <code>mysql/mysql-server</code> </p>
+
+<p>Để tạo được docker container từ image này thì bạn cần dùng lệnh docker run như sau:</p>
+
+<pre><code>docker run -it mysql/mysql-server /bin/bash  
+</code></pre>
+
+<p>Bạn sẽ thấy mình được chuyển vào trong container, bằng chứng là tại prompt của terminal bạn đã thấy mình đang đăng nhập là root trên một host khác rồi. </p>
+
+<p>Gõ mysql bạn sẽ có thể sử dụng được mysql ngay trong container đó. </p>
+
+<p>Gõ exit bạn sẽ trở lại với terminal ở host bên ngoài (hệ điều hành bạn đang dùng). </p>
+
+<p>Bây giờ hãy gõ lệnh <code>docker ps -a</code> bạn sẽ thấy danh sách các container mình đã tạo ra. Trạng thái của nó có thể là <strong>Up</strong> hoặc <strong>Exited</strong> hoặc <strong>Created</strong>. Để vào lại container lúc nãy bạn cần gõ lệnh:</p>
+
+<pre><code>docker exec -it [container_id] bash  
+</code></pre>
+
+<p>Trong trường hợp container của bạn chưa ở trạng thái Up thì bạn cần start container lên trước:</p>
+
+<pre><code>docker start [container_id]  
+</code></pre>
+
+<h4 id="5ktlun">5. Kết luận</h4>
+
+<p>Dựa vào nội dung bên trên bạn đã hiểu docker là gì và cách sử dụng cơ bản của docker rồi chứ? </p>
+
+<p>Docker thật tuyệt vời để tách biệt các môi trường lập trình và deploy môi trường cũng thật dễ dàng. Hãy thử tưởng tượng khi bạn tham gia vào 1 dự án, đáng ra bạn sẽ phải cài rất nhiều thứ để có thể chạy được môi trường lập trình trên máy mình thì bạn chỉ cần đơn giản là pull docker image của môi trường lập trình ấy về và start nó lên là xong!</p>
+
+<p>Tuy nhiên nếu chỉ để dùng với mục đích ấy thì chắc hẳn người ta chỉ cần viết 1 cái script cài đặt chứ chẳng nhọc công tạo ra một thứ như docker. Trong bài sau, tôi sẽ giới thiệu với bạn ý nghĩa thực sự của docker khi áp dụng trong các hệ thống lớn, cần scale liên tục.</p>
+
+<hr>
+
+<p>Nguồn <strong><a href="http://deplop.me/docker-introduction/">Blog Dép lốp</a></strong>.</p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Gi%E1%BB%9Bi%20thi%E1%BB%87u%20v%E1%BB%81%20Docker&amp;url=http://localhost:2368/gioi-thieu-ve-docker/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/gioi-thieu-ve-docker/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/gioi-thieu-ve-docker/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>

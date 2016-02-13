@@ -73,7 +73,6 @@
 }
 
 
-@import url('http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic&subset=latin,latin-ext,vietnamese');
 /* ==========================================================================
    2. General - Setting up some base styles
    ========================================================================== */
@@ -87,7 +86,7 @@ html {
 body {
     height: 100%;
     max-height: 100%;
-    font-family: "Roboto",Helvetica,'Helvetica Neue',Arial,Verdana,sans-serif !important;
+    font-family: "Roboto", Courier, monospace;
     font-size: 2.0rem;
     line-height: 1.6em;
     color: #B2B6BD;
@@ -229,6 +228,7 @@ dl dd {
 mark {
     background-color: #ffc336;
 }
+
 /*
 code, tt {
     padding: 1px 3px;
@@ -843,7 +843,7 @@ button, input, select, textarea {
   display: none;
   top: 0px;
   left: 0px;
-  word-spacing: -3px;
+  word-spacing: 0px;
   height: 100%;
   position: fixed;
   background: #2b303b;

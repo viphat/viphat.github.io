@@ -11,9 +11,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=c67ff0f6ad">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=6c46c87b89">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic&amp;subset=latin,latin-ext,vietnamese">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
 
     <link rel="canonical" href="http://localhost:2368/tim-hieu-ve-git-va-github/">
@@ -22,16 +23,16 @@
     <meta property="og:site_name" content="viphat's notes">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Tìm hiểu về Git và Github">
-    <meta property="og:description" content="Trong những bài viết trước, mình có nhắc đến Git – một Version Control do chính cha đẻ của Hệ điều hành Linux tạo ra cho cộng đồng nguồn mở. Nó đáng để mình tách hẳn ra làm một bài về...">
+    <meta property="og:description" content="Trong bài viết trước, mình có nhắc đến Git – Hệ thống version control do chính cha đẻ của Hệ điều hành Linux - Linus Tovard tạo ra cho cộng đồng. Mọi lập trình viên đều nên biết cách sử dụng...">
     <meta property="og:url" content="http://localhost:2368/tim-hieu-ve-git-va-github/">
     <meta property="article:published_time" content="2014-08-31T15:44:11.000Z">
-    <meta property="article:modified_time" content="2015-01-14T14:48:32.000Z">
+    <meta property="article:modified_time" content="2016-02-13T01:46:01.626Z">
     <meta property="article:tag" content="Git">
     <meta property="article:tag" content="Kinh nghiệm Lập trình">
     
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Tìm hiểu về Git và Github">
-    <meta name="twitter:description" content="Trong những bài viết trước, mình có nhắc đến Git – một Version Control do chính cha đẻ của Hệ điều hành Linux tạo ra cho cộng đồng nguồn mở. Nó đáng để mình tách hẳn ra làm một bài về...">
+    <meta name="twitter:description" content="Trong bài viết trước, mình có nhắc đến Git – Hệ thống version control do chính cha đẻ của Hệ điều hành Linux - Linus Tovard tạo ra cho cộng đồng. Mọi lập trình viên đều nên biết cách sử dụng...">
     <meta name="twitter:url" content="http://localhost:2368/tim-hieu-ve-git-va-github/">
     
     <script type="application/ld+json">
@@ -50,9 +51,9 @@
     "headline": "Tìm hiểu về Git và Github",
     "url": "http://localhost:2368/tim-hieu-ve-git-va-github/",
     "datePublished": "2014-08-31T15:44:11.000Z",
-    "dateModified": "2015-01-14T14:48:32.000Z",
+    "dateModified": "2016-02-13T01:46:01.626Z",
     "keywords": "Git, Kinh nghiệm Lập trình",
-    "description": "Trong những bài viết trước, mình có nhắc đến Git – một Version Control do chính cha đẻ của Hệ điều hành Linux tạo ra cho cộng đồng nguồn mở. Nó đáng để mình tách hẳn ra làm một bài về..."
+    "description": "Trong bài viết trước, mình có nhắc đến Git – Hệ thống version control do chính cha đẻ của Hệ điều hành Linux - Linus Tovard tạo ra cho cộng đồng. Mọi lập trình viên đều nên biết cách sử dụng..."
 }
     </script>
 
@@ -74,7 +75,7 @@
 
 
         <header class="post-header">
-            <a id="blog-logo" href="http://notes.viphat.work">
+            <a id="blog-logo" href="http://localhost:2368">
                     <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
             </a>
         </header>
@@ -85,17 +86,13 @@
         <h1 class="post-title">Tìm hiểu về Git và Github</h1>
 
         <section class="post-content">
-            <p>Trong những <a href="http://blog.viphat.name/blog/2014/08/27/toi-da-bat-dau-hoc-ruby-nhu-the-nao/">bài viết</a> trước, mình có nhắc đến Git – một Version Control do chính cha đẻ của Hệ điều hành Linux tạo ra cho cộng đồng nguồn mở. Nó đáng để mình tách hẳn ra làm một bài về nó. Git là gì? Trước tiên thì mình cần nắm được khái niệm Version Control là gì đã.</p>
+            <p>Trong <a href="http://notes.viphat.work/toi-da-bat-dau-hoc-ruby-nhu-the-nao/">bài viết</a> trước, mình có nhắc đến Git – Hệ thống version control do chính cha đẻ của Hệ điều hành Linux - Linus Tovard tạo ra cho cộng đồng. Mọi lập trình viên đều nên biết cách sử dụng git để thuận lợi hơn trong công việc.</p>
 
-<p>Bài viết này được đúc kết dựa trên những gì mình đã tìm hiểu về Git, có lẽ nó chỉ dừng lại ở mức căn bản, phục vụ cho công việc thường ngày của Lập trình viên. Nếu bạn đang mong đợi được biết đầy đủ về Git thì có lẽ bạn sẽ tìm thấy nó ở một hoặc nhiều quyển sách viết về Git.</p>
+<p>Git là gì? Trước tiên thì mình cần nắm được khái niệm Version Control là gì đã.</p>
 
-<blockquote>
-  <p><em>bài được viết dựa trên Tutorial của Git-Tower – <a href="http://www.git-tower.com/learn/ebook/command-line/introduction">http://www.git-tower.com/learn/ebook/command-line/introduction</a></em></p>
-</blockquote>
+<p>Bài viết này được đúc kết dựa trên những gì mình đã tìm hiểu về Git, có lẽ nó chỉ dừng lại ở mức căn bản, phục vụ cho công việc thường ngày của Lập trình viên. Nếu bạn đang mong đợi được biết đầy đủ về git thì có lẽ bạn sẽ tìm thấy nó ở một hoặc nhiều quyển sách viết về git.</p>
 
 <h4 id="versioncontrollg">Version Control là gì?</h4>
-
-<p><img src="http://www.git-tower.com/learn/content/01-ebook/01-command-line/02-basics/01-what-is-version-control/what-is-vcs.png" alt="What is VCS"></p>
 
 <p>Bạn có thể nghĩ hệ thống Version Control như là một dạng “database”, Nó lưu các ảnh (snapshot) của dự án bạn đang làm tại bất kì thời điểm nào bạn muốn. Và khi cần, VCS sẽ cho bạn biết chính xác giữa 2 thời điểm, dự án của bạn đã thay đổi và khác nhau ở những điểm nào.</p>
 
@@ -164,8 +161,6 @@
   <p>A “remote” repository, in contrast, is typically located on a remote server on the internet or in your local network. No actual working files are associated with a remote repository: it has no working directory but it exclusively consists of the “.git” repository folder. Teams are using remote repositories to share &amp; exchange data: they serve as a common base where everybody can publish their own changes and receive changes from their teammates.</p>
 </blockquote>
 
-<p><img src="http://www.git-tower.com/learn/content/01-ebook/01-command-line/02-basics/07-working-on-your-project/staging-area-file-status.png" alt="Staging Area"></p>
-
 <p><strong>What Makes a Good Commit?</strong></p>
 
 <blockquote>
@@ -218,7 +213,7 @@
 
 <p><code>git stash apply &lt;stashname&gt;</code> – Khôi phục lại trạng thái ở , tuy nhiên stash đó chưa được xóa khỏi stash list, bạn cần remove nó bằng lệnh <code>git stash drop &lt;stashname&gt;</code></p>
 
-<p>Tham khảo thêm Document của Git Stash trên <a href="http://git-scm.com/docs/git-stash">http://git-scm.com/docs/git-stash</a></p>
+<p>Tham khảo thêm Document của <a href="http://git-scm.com/docs/git-stash"><strong>Git Stash</strong></a></p>
 
 <h5 id="tnhhungcndngstash">Tình huống cần dùng stash</h5>
 
@@ -230,17 +225,15 @@
 
 <h5 id="cctnhhungkhc">Các tình huống khác</h5>
 
-<blockquote>
-  <h5 id="whentostash"><strong><em>When to Stash</em></strong></h5>
-  
-  <p>Stashing helps you get a clean working copy. While this can be helpful in many situations, it’s strongly recommended…</p>
-  
-  <ul>
-  <li>before checking out a different branch.</li>
-  <li>before pulling remote changes.</li>
-  <li>before merging or rebasing a branch.</li>
-  </ul>
-</blockquote>
+<p><strong><em>When to Stash</em></strong></p>
+
+<p>Stashing helps you get a clean working copy. While this can be helpful in many situations, it’s strongly recommended…</p>
+
+<ul>
+<li>before checking out a different branch.</li>
+<li>before pulling remote changes.</li>
+<li>before merging or rebasing a branch.</li>
+</ul>
 
 <hr>
 
@@ -248,35 +241,41 @@
 
 <p>Branch là gì, Tại sao Branch là một tính năng vô cùng quan trọng trong Git – Hãy xem thêm bài viết – <strong><a href="http://www.git-tower.com/learn/ebook/command-line/branching-merging/branching-can-change-your-life">Branching can change Your life</a></strong></p>
 
-<p><em>Các lệnh liên quan đến Branching tại <a href="http://www.git-tower.com/learn/ebook/command-line/branching-merging/working-with-branches">đây</a></em></p>
+<p>Tham khảo thêm các lệnh liên quan đến Branching tại <a href="http://www.git-tower.com/learn/ebook/command-line/branching-merging/working-with-branches"><strong>Git Tower</strong></a>.</p>
 
 <h5 id="workswithremoterepository">Works with Remote Repository</h5>
 
-<p><a href="https://www.atlassian.com/git/tutorial/remote-repositories">https://www.atlassian.com/git/tutorial/remote-repositories</a> <br>
-<a href="http://www.git-tower.com/learn/ebook/command-line/remote-repositories/introduction#start">http://www.git-tower.com/learn/ebook/command-line/remote-repositories/introduction#start</a></p>
+<p>Tham khảo thêm:</p>
 
-<h5 id="gitsubmodule">Git Submodule</h5>
-
-<p>Chưa cần quan tâm.</p>
+<ul>
+<li><p><a href="https://www.atlassian.com/git/tutorial/remote-repositories">https://www.atlassian.com/git/tutorial/remote-repositories</a>  </p></li>
+<li><p><a href="http://www.git-tower.com/learn/ebook/command-line/remote-repositories/introduction#start">http://www.git-tower.com/learn/ebook/command-line/remote-repositories/introduction#start</a></p></li>
+</ul>
 
 <h5 id="guitoolsforgit">GUI Tools for Git</h5>
 
 <ul>
-<li>gitk – graphical history browser, in Tcl/Tk, distributed with Git (usually in gitk package)</li>
-<li>git gui – graphical commit tool, in Tcl/Tk, distributed with Git (usually in git-gui package)</li>
-<li>QGit – uses Qt toolkit</li>
-<li>Giggle – uses GTK+ toolkit</li>
-<li>git-cola – uses PyQt4</li>
-<li>gitg – GTK+/GNOME clone of GitX</li>
-<li>tig – text mode interface for git, is GUI and pager, uses ncurses</li>
-<li>GitForce Git tool with Graphical user interface, available under GNU GPL license</li>
+<li><strong>gitk</strong> – graphical history browser, in Tcl/Tk, distributed with Git (usually in gitk package)</li>
+<li><strong>git gui</strong> – graphical commit tool, in Tcl/Tk, distributed with Git (usually in git-gui package)</li>
+<li><strong>qgit</strong> – uses Qt toolkit</li>
+<li><strong>giggle</strong> – uses GTK+ toolkit</li>
+<li><strong>git-cola</strong> – uses PyQt4</li>
+<li><strong>gitg</strong> – GTK+/GNOME clone of GitX</li>
+<li><strong>tig</strong> – text mode interface for git, is GUI and pager, uses ncurses</li>
+<li><strong>GitForce</strong> - Git tool with Graphical user interface, available under GNU GPL license</li>
 </ul>
 
 <p><img src="http://dl.dropbox.com/u/1592778/viphat%3A%20master%20-home-eddie-viphat_006.png" alt="Git-Cola"></p>
 
 <hr>
 
-<p>Git có rất nhiều lệnh mà đôi khi mình sẽ không nhớ hết được (và cũng không cần thiết phải nhớ hết) – Để phục vụ cho công việc hàng ngày, mình chỉ cần nhớ một số lệnh quan trọng và cần cho công việc là đủ… Để biết tất tần tật về Git – Tham khảo Git Document – <a href="http://git-scm.com/doc">http://git-scm.com/doc</a></p>
+<p>Git có rất nhiều lệnh mà đôi khi bạn sẽ không nắm hết tất cả được, nhưng để phục vụ cho công việc hàng ngày thì chỉ cần nhớ một số lệnh git sử dụng thường xuyên là đủ.</p>
+
+<p>Để biết tất tần tật về Git – Tham khảo <a href="http://git-scm.com/doc"><strong>Git Document</strong></a>.</p>
+
+<hr>
+
+<p>Bài được viết dựa trên Tutorial của <a href="https://www.git-tower.com/learn/git/ebook/command-line/introduction"><strong>Git Tower</strong></a>.</p>
         </section>
 
         <footer class="post-footer">
