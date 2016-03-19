@@ -1,0 +1,290 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Scale Server cho ứng dụng Web Ruby On Rails.</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=ad03384a9b">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic&amp;subset=latin,latin-ext,vietnamese">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
+    <link rel="canonical" href="http://localhost:2368/server-scaling/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="viphat's notes">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Scale Server cho ứng dụng Web Ruby On Rails.">
+    <meta property="og:description" content="Hiện tại, mình đang phụ trách việc chuyển Server từ Linode sang sử dụng hệ sinh thái của AWS, đồng thời thiết lập cân bằng tải nhằm tránh tình trạng quá tải vào lúc cao điểm như giai đoạn vừa...">
+    <meta property="og:url" content="http://localhost:2368/server-scaling/">
+    <meta property="article:published_time" content="2016-03-17T07:15:38.749Z">
+    <meta property="article:modified_time" content="2016-03-19T09:19:26.420Z">
+    <meta property="article:tag" content="Server">
+    <meta property="article:tag" content="Ruby on Rails">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Scale Server cho ứng dụng Web Ruby On Rails.">
+    <meta name="twitter:description" content="Hiện tại, mình đang phụ trách việc chuyển Server từ Linode sang sử dụng hệ sinh thái của AWS, đồng thời thiết lập cân bằng tải nhằm tránh tình trạng quá tải vào lúc cao điểm như giai đoạn vừa...">
+    <meta name="twitter:url" content="http://localhost:2368/server-scaling/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "viphat's notes",
+    "author": {
+        "@type": "Person",
+        "name": "Duong Vi Phat",
+        "image": "http://localhost:2368/content/images/2015/09/avatar-ninja.png",
+        "url": "http://localhost:2368/author/viphat",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Scale Server cho ứng dụng Web Ruby On Rails.",
+    "url": "http://localhost:2368/server-scaling/",
+    "datePublished": "2016-03-17T07:15:38.749Z",
+    "dateModified": "2016-03-19T09:19:26.420Z",
+    "keywords": "Server, Ruby on Rails",
+    "description": "Hiện tại, mình đang phụ trách việc chuyển Server từ Linode sang sử dụng hệ sinh thái của AWS, đồng thời thiết lập cân bằng tải nhằm tránh tình trạng quá tải vào lúc cao điểm như giai đoạn vừa..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="viphat's notes" href="http://localhost:2368/rss/">
+
+</head>
+<body class="post-template tag-server tag-ruby-on-rails">
+
+    
+
+<main class="content" role="main">
+    <div id="toc"></div>
+    <nav class="main-nav">
+          <i class="fa fa-bars js-main-menu-open element-light right" style="font-size:30px; margin-left:5px;"></i>
+    </nav>
+    <article class="post tag-server tag-ruby-on-rails">
+
+
+
+        <header class="post-header">
+            <a id="blog-logo" href="http://localhost:2368">
+                    <img src="../content/images/2015/06/988902_10153164942799169_3258802522813421684_n.jpg" alt="notes.viphat.work">
+            </a>
+        </header>
+
+
+        <span class="post-meta"><time datetime="2016-03-17">17 Mar 2016</time> on <a href="../tag/server/">Server</a> | <a href="../tag/ruby-on-rails/">Ruby on Rails</a></span>
+
+        <h1 class="post-title">Scale Server cho ứng dụng Web Ruby On Rails.</h1>
+
+        <section class="post-content">
+            <p>Hiện tại, mình đang phụ trách việc chuyển Server từ Linode sang sử dụng hệ sinh thái của AWS, đồng thời thiết lập cân bằng tải nhằm tránh tình trạng quá tải vào lúc cao điểm như giai đoạn vừa qua.</p>
+
+<p><strong>Multiple Load Balancer</strong></p>
+
+<blockquote>
+  <p>Dự phòng khi 1 Server Load Balancer bị sập hoặc quá tải - chưa cần thiết.</p>
+</blockquote>
+
+<p><strong>Setup CDN for Assets</strong></p>
+
+<p>OK (Đang dùng S3 nhưng S3 không có chức năng của một CDN, có thể chuyển sang Cloudfront)</p>
+
+<p><a href="http://thachpham.com/hosting-domain/cdn-la-gi-va-khi-nao-nen-dung-cdn-cho-website.html">http://thachpham.com/hosting-domain/cdn-la-gi-va-khi-nao-nen-dung-cdn-cho-website.html</a></p>
+
+<p><strong>Application Server</strong></p>
+
+<p>Unicorn vs Puma vs Passenger</p>
+
+<blockquote>
+  <p>Quyết định vẫn dùng <strong>Passenger</strong> (Và tiếp tục dùng bản OSS).</p>
+</blockquote>
+
+<p><strong>Web Server</strong> (Nginx 1.9.x )</p>
+
+<p>TODO: Tìm hiểu các thủ thuật để Improve Performance của Nginx.</p>
+
+<p><strong>Cân bằng tải</strong></p>
+
+<p>Load Balancing bằng Nginx hay dùng Haproxy, hay dịch vụ Load Balancer của Amazon </p>
+
+<p><a href="http://cloudacademy.com/blog/aws-elb-vs-haproxy/">http://cloudacademy.com/blog/aws-elb-vs-haproxy/</a></p>
+
+<blockquote>
+  <p>Quyết định dùng Dịch vụ Load Balancing của AWS (Vì tuy không thể cấu hình linh hoạt, cũng không có nhiều lựa chọn về thuật toán như HaProxy nhưng rất tiện lợi).</p>
+</blockquote>
+
+<p><strong>Database Server</strong></p>
+
+<ul>
+<li><p>Theo mô hình một Database Server riêng và tập trung, hay là replicate theo Master-Slave, và để chung với Web Server?</p></li>
+<li><p>Tách ra một Database Server riêng thì có nên Replicate thêm một Server để dự phòng hay không?</p></li>
+<li><p>Dùng Amazon RDS hay tự cài Postgres trên Amazon EC2.</p></li>
+</ul>
+
+<blockquote>
+  <p>Dùng dịch vụ của Amazon RDS (và Replication + Multiple A-Z nếu cầu thiết để phòng rủi ro)</p>
+</blockquote>
+
+<p><a href="http://www.laurencegellert.com/2013/05/pros-and-cons-of-rds-vs-ec2-for-mysql-with-aws/">http://www.laurencegellert.com/2013/05/pros-and-cons-of-rds-vs-ec2-for-mysql-with-aws/</a></p>
+
+<p><strong>Redis Server</strong></p>
+
+<ul>
+<li>Có nên tách Redis ra riêng một Server chuyên dùng để Caching hay không?</li>
+</ul>
+
+<blockquote>
+  <p>Tách ra một Server riêng và dùng dịch vụ của AWS.</p>
+</blockquote>
+
+<p><strong>Caching</strong></p>
+
+<p><a href="https://github.com/Shopify/identity_cache">https://github.com/Shopify/identity_cache</a> để cache ActiveRecord (cụ thể là Course, Unit, Lesson, Exam...)</p>
+
+<p><a href="https://devcenter.heroku.com/articles/caching-strategies#fragment-caching">https://devcenter.heroku.com/articles/caching-strategies#fragment-caching</a></p>
+
+<p><a href="http://guides.rubyonrails.org/caching_with_rails.html">http://guides.rubyonrails.org/caching_with_rails.html</a></p>
+
+<p>Action Controller Caching - <a href="https://github.com/rails/actionpack-action_caching">https://github.com/rails/actionpack-action_caching</a></p>
+
+<p>Fragment Cache? - Không dùng, Vì UBrand sẽ cache trên Front-End (AngularJS)</p>
+
+<p><strong>Deployment Progress</strong></p>
+
+<p>Mina, Capistrano, CodeDeploy của AWS</p>
+
+<p><strong>Automated Server Configuration</strong></p>
+
+<p>Chef, Puppet...</p>
+
+<blockquote>
+  <p>Chưa có thời gian tìm hiểu, tạm thời cài đặt thủ công và dùng chức năng Clone Server của AWS</p>
+</blockquote>
+
+<p><strong>Background Jobs Processing Framework</strong></p>
+
+<ul>
+<li>Chỉ cho một Server chạy Sidekiq để tránh xung đột, dùng Data ở Redis nên không lo vấn đề phân tán.</li>
+</ul>
+
+<p><strong>Sử dụng Redis làm Sessions Store</strong></p>
+
+<p><a href="http://www.justinweiss.com/articles/how-rails-sessions-work/">http://www.justinweiss.com/articles/how-rails-sessions-work/</a></p>
+
+<p><a href="https://www.happybearsoftware.com/almost-protect-yourself-from-cookie-session-store.html">https://www.happybearsoftware.com/almost-protect-yourself-from-cookie-session-store.html</a></p>
+
+<p><a href="http://blog.togo.io/introducing/redis-store/">http://blog.togo.io/introducing/redis-store/</a></p>
+
+<p>Lợi ích?</p>
+
+<p><strong>ElasticSearch</strong></p>
+
+<p>Hiện tại, chắc vẫn để ElasticSearch ở một con có cấu hình cao thay vì tách riêng (sử dụng dịch vụ của AWS) vì chưa có nhu cầu dùng nhiều.</p>
+
+<p><strong>Slow SQL Query</strong></p>
+
+<p>(&gt;100ms), Viết lại Query khác hoặc bí lắm là Caching Results.</p>
+
+<p><strong>References</strong></p>
+
+<p><a href="http://www.slideshare.net/kigster/12step-program-for-scaling-web-applications-on-postgresql">http://www.slideshare.net/kigster/12step-program-for-scaling-web-applications-on-postgresql</a></p>
+
+<p><a href="http://www.slideshare.net/kigster/from-obvious-to-ingenius-incrementally-scaling-web-apps-on-postgresql">http://www.slideshare.net/kigster/from-obvious-to-ingenius-incrementally-scaling-web-apps-on-postgresql</a></p>
+
+<p><a href="http://www.slideshare.net/pgconf/five-steps-perform2009">http://www.slideshare.net/pgconf/five-steps-perform2009</a></p>
+
+<p><a href="http://www.slideshare.net/kigster/scaling-wanelocom-100x-in-six-months">http://www.slideshare.net/kigster/scaling-wanelocom-100x-in-six-months</a></p>
+
+<p><a href="http://nickcraver.com/blog/2016/02/17/stack-overflow-the-architecture-2016-edition/?utm_source=twitterfeed&amp;amp;utm_medium=facebook">http://nickcraver.com/blog/2016/02/17/stack-overflow-the-architecture-2016-edition/?utm_source=twitterfeed&amp;amp;utm_medium=facebook</a></p>
+        </section>
+
+        <footer class="post-footer">
+
+                <section class="author">
+                    <h3>Duong Vi Phat</h3>
+                    <p></p>
+                </section>
+
+            <section class="share">
+                <h3>Share this</h3>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Scale%20Server%20cho%20%E1%BB%A9ng%20d%E1%BB%A5ng%20Web%20Ruby%20On%20Rails.&amp;url=http://localhost:2368/server-scaling/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/server-scaling/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/server-scaling/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <!-- <a class="subscribe icon-feed" href="http://localhost:2368/rss/"><span class="tooltip">Subscribe!</span></a> -->
+        <div class="inner">
+             <section class="social_links">
+                <a href="https://twitter.com/viphat" target="_blank">
+                  <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="https://www.facebook.com/viphat" target="_blank">
+                  <i class="fa fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="https://github.com/viphat" target="_blank">
+                  <i class="fa fa-github-square fa-2x"></i>
+                </a>
+             </section>
+             <section class="copyright">All content copyright <a href="../">viphat's notes</a> © 2014-2015 • All rights reserved.</section>
+             <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a> in <a href="https://github.com/viphat/The-Shell">The Shell</a> theme.</section>
+        </div>
+    </footer>
+
+        <div class="main-menu-ovrl main-menu-ovrl-hugeinc js-main-menu-ovrl">
+    <i class="fa fa-times main-menu-ovrl-close js-main-menu-close" style="margin-left: 5px; font-size:30px;"></i>
+    <nav>
+        <ul>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/">Home</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/tag-cloud/">Tag Cloud</a>
+                </li>
+                <li style="font-size: 42px; padding-bottom:10px;">
+                    <a href="http://localhost:2368/blog-archive/">Blog Archive</a>
+                </li>
+        </ul>
+    </nav>
+</div>
+
+    <!-- You can safely delete this line if your theme does not require jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript" src="../assets/js/toc.min.js"></script>
+    <script type="text/javascript" src="../assets/js/shell.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+</body>
