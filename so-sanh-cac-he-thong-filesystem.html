@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>So sánh các Hệ thống FileSystem</title>
+  <meta name="description" content="File system là gì">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/so-sanh-cac-he-thong-filesystem">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <h4 id="file-system-l-g">File system là gì</h4>
+
+<p>File system được dùng để quản lý cách mà Dữ liệu được đọc và lưu trữ trên thiết bị. Có nhiều hệ thống File system, khác nhau về cấu trúc, về tốc độ, độ bảo mật, độ linh hoạt… Mỗi File system đều có những giới hạn hay những mặt hạn chế của riêng mình. Những File system ra đời sau này, tiên tiến hơn, khắc phục những điểm yếu và dần thay thế những File system cũ hơn. Chúng ta sẽ điểm qua một vài hệ thống File system tiêu biểu dùng nhiều trong 3 dòng hệ điều hành phổ biến hiện nay:</p>
+
+<p><strong>Windows file system</strong></p>
+
+<ul>
+  <li>FAT16</li>
+  <li>FAT32</li>
+  <li>NTFS</li>
+</ul>
+
+<p><strong>Linux file system</strong></p>
+
+<ul>
+  <li>EXT2, EXT3, EXT4</li>
+  <li>reiserFS</li>
+  <li>XFS</li>
+  <li>JFS1, JFS</li>
+</ul>
+
+<p><strong>MacOS file system</strong></p>
+
+<ul>
+  <li>HFS</li>
+  <li>HFS+</li>
+</ul>
+
+<hr />
+
+<h4 id="so-snh-cc-file-system">So sánh các File system</h4>
+
+<table>
+<thead>
+<tr>
+<th>File system</th>
+<th>Năm giới thiệu</th>
+<th>Kích thước file tối đa</th>
+<th>Kích thước ổ đĩa tối đa</th>
+<th>Block journaling</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FAT16</td>
+<td>1984</td>
+<td>2GB or 4GB</td>
+<td>2GB or 4GB</td>
+<td>Không</td>
+<td>Đã lạc hậu, không nên sử dụng</td>
+</tr>
+<tr>
+<td>FAT32</td>
+<td>1996</td>
+<td>2GB or 4GB</td>
+<td>2TB or 16TB</td>
+<td>Không</td>
+<td>Đã lạc hậu, không nên sử dụng</td>
+</tr>
+<tr>
+<td>NTFS (3.1)</td>
+<td>2001</td>
+<td>16EB</td>
+<td>16EB</td>
+<td>Có</td>
+<td>Nên sử dụng, nếu đang chạy Hệ thống Windows</td>
+</tr>
+<tr>
+<td>EXT2</td>
+<td>1993</td>
+<td>2TB</td>
+<td>32TB</td>
+<td>Không</td>
+<td>Đã lạc hậu, không nên sử dụng</td>
+</tr>
+<tr>
+<td>EXT3</td>
+<td>1999</td>
+<td>2TB</td>
+<td>32TB</td>
+<td>Có</td>
+<td>Đã lạc hậu, không nên sử dụng</td>
+</tr>
+<tr>
+<td>EXT4</td>
+<td>2006</td>
+<td>16TB</td>
+<td>1EB</td>
+<td>Có</td>
+<td>Nên sử dụng, nếu đang chạy Hệ thống Linux</td>
+</tr>
+<tr>
+<td>reiserFS</td>
+<td>2001</td>
+<td>8TB</td>
+<td>16TB</td>
+<td>Có</td>
+<td>Với những File có kích thước dưới 4KB, reiserFS có tốc độ xử lý nhanh hơn (Có thể sử dụng reiserFS cho các hệ thống nơi chú trọng hiệu suất xử lý với các tập tin nhỏ như HTTP Cache)</td>
+</tr>
+<tr>
+<td>XFS</td>
+<td>1994</td>
+<td>8EB</td>
+<td>8EB</td>
+<td>Có</td>
+<td>Nên sử dụng cho các Hệ thống Server lớn, lên đến hàng trăm TB (Không hỗ trợ để lưu trữ thư mục root hay /boot trong hệ thống Linux)</td>
+</tr>
+<tr>
+<td>JFS1</td>
+<td>1990</td>
+<td>8EB</td>
+<td>4PB</td>
+<td>Có</td>
+<td>Đã lạc hậu, không nên sử dụng</td>
+</tr>
+<tr>
+<td>JFS</td>
+<td>1999</td>
+<td>4 PB</td>
+<td>32 PB</td>
+<td>Có</td>
+<td>Không còn được hỗ trợ và duy trì bởi IBM (Thua kém về hiệu năng và độ tin cậy so với EXT4)</td>
+</tr>
+<tr>
+<td>HFS</td>
+<td>1985</td>
+<td>2GB</td>
+<td>2TB</td>
+<td>Không</td>
+<td>Đã lạc hậu, không nên sử dụng</td>
+</tr>
+<tr>
+<td>HFS+</td>
+<td>1998</td>
+<td>8EB</td>
+<td>8EB</td>
+<td>Có</td>
+<td>Sử dụng chính trong MacOS</td>
+</tr>
+</tbody>
+</table>
+<p><br /></p>
+
+<h5 id="journaling-file-system">Journaling file system</h5>
+
+<p>The journaled file system (JFS) maintains a log, or journal, of what activity has taken place in the main data areas of the disk; if a crash occurs, any lost data can be recreated because updates to the metadata in directories and bit maps have been written to a serial log. The JFS not only returns the data to the pre-crash configuration but also recovers unsaved data and stores it in the location it would have been stored in if the system had not been unexpectedly interrupted.</p>
+
+<h5 id="bng-chuyn-i-n-v--cng">Bảng chuyển đổi đơn vị ổ cứng</h5>
+
+<table>
+<thead>
+<tr>
+<th>Tên</th>
+<th>Ký hiệu</th>
+<th>Quy đổi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Byte</td>
+<td>B</td>
+<td>-</td>
+</tr>
+<tr>
+<td>KiloByte</td>
+<td>KB</td>
+<td>1024 B</td>
+</tr>
+<tr>
+<td>MegaByte</td>
+<td>MB</td>
+<td>1024 KB</td>
+</tr>
+<tr>
+<td>GigaByte</td>
+<td>GB</td>
+<td>1024 MB</td>
+</tr>
+<tr>
+<td>TeraByte</td>
+<td>TB</td>
+<td>1024 GB</td>
+</tr>
+<tr>
+<td>PetaByte</td>
+<td>PB</td>
+<td>1024 TB</td>
+</tr>
+<tr>
+<td>ExaByte</td>
+<td>EB</td>
+<td>1024 PB</td>
+</tr>
+<tr>
+<td>ZettaByte</td>
+<td>ZB</td>
+<td>1024 EB</td>
+</tr>
+<tr>
+<td>YottaByte</td>
+<td>YB</td>
+<td>1024 ZB</td>
+</tr>
+</tbody>
+</table>
+<p><br /></p>
+
+<p>==Ghost chưa hỗ trợ Markdown cho Table nên chịu khó xài HTML vậy==.</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

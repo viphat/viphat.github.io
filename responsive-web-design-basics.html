@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Responsive Web Design Basics (Draft)</title>
+  <meta name="description" content="Bài viết này là những ghi chép nhanh trong quá trình đọc tài liệu về Responsive Web Design Basics do Google cung cấp miễn phí cho các Lập trình viên - Xem tạ...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/responsive-web-design-basics">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Bài viết này là những ghi chép nhanh trong quá trình đọc tài liệu về Responsive Web Design Basics do Google cung cấp miễn phí cho các Lập trình viên - Xem tại https://developers.google.com/web/fundamentals/layouts/rwd-fundamentals/?hl=en</p>
+
+<p><strong>Set the Viewport</strong></p>
+
+<ul>
+  <li>Use meta viewport tag to control the width and scaling of the browsers viewport.</li>
+  <li>Include width=device-width to match the screen’s width in device independent pixels.</li>
+  <li>Include initial-scale=1 to establish a 1:1 relationship between CSS pixels and device independent pixels.</li>
+  <li>Ensure your page is accessible by not disabling user scaling.</li>
+</ul>
+
+<p><strong>Size content to the Viewport</strong></p>
+
+<ul>
+  <li>Do not use large fixed width elements.</li>
+  <li>Content should not rely on a particular viewport width to render well.</li>
+  <li>Use CSS media queries to apply different styling for small and large screens.</li>
+</ul>
+
+<p><strong>Use CSS media queries for responsiveness</strong></p>
+
+<ul>
+  <li>Media queries can be used to apply styles based on device characteristics.</li>
+  <li>Use min-width over min-device-width to ensure the broadest experience.</li>
+  <li>Use relative sizes for elements to avoid breaking layout.</li>
+</ul>
+
+<p>@media (query) {
+/* CSS Rules used when query matches */
+}</p>
+
+<p>Các query hiện có</p>
+
+<p>min-width
+max-width
+min-height
+max-height
+orientation=portrait
+orientation=landscape</p>
+
+<p><strong>How to choose breakpoints</strong></p>
+
+<ul>
+  <li>Create breakpoints based on content, never on specific devices, products or brands.</li>
+  <li>Design for the smallest mobile device first, then progressively enhance the experience as more screen real estate becomes available. (Chia nhỏ trường hợp ra nếu cần thiết)</li>
+  <li>Optimize text for reading (Keep lines of text to a maximum of around 70 or 80 characters.)</li>
+  <li>Never completely hide content</li>
+</ul>
+
+<p><strong>Các tài liệu hữu ích khác trên Google Developers</strong></p>
+
+<p><strong>Optimize Performance</strong>: 
+https://developers.google.com/web/fundamentals/performance/?hl=en</p>
+
+<p><strong>Multi Device Layouts</strong>:</p>
+
+<p>https://developers.google.com/web/fundamentals/layouts/rwd-fundamentals/?hl=en</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

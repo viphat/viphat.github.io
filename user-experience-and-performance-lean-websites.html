@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 2 - User Experience and Performance - Lean Websites</title>
+  <meta name="description" content="Mối quan hệ giữa User Experience và Performance.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/user-experience-and-performance-lean-websites">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Mối quan hệ giữa User Experience và Performance.</p>
+
+<h4 id="ux-principles">UX Principles</h4>
+
+<blockquote>
+  <p>“User experience encompasses all aspects of the end-user’s interaction with the company, its services, and its products.” ― Jakob Nielsen</p>
+</blockquote>
+
+<p>Các nguyên tắc cần nắm để đem lại trãi nghiệm tốt cho người dùng:</p>
+
+<ul>
+  <li>
+    <p>First of all, you want to make sure you know and understand the user’s goal. You want to ask yourself why users are coming to your website. For example, the user goals of a shopping site such as Amazon, and of a public transit website, are very different. Whereas Amazon tries to persuade users to hang out for hours on their site, while making suggestions on similar products, a public transit website has another goal — to provide users with the train schedule as soon as possible. Once the user has the schedule information, they will most likely exit the site.</p>
+  </li>
+  <li>
+    <p>Now it’s up to the UX team to make sure the site supports the goal. It’s worth coming up with hypothetical user journeys to measure their completion time. In the case of Amazon, the UX team needs to figure out how to keep users on the site. Using cookies and logins to retrieve information from previous visits, Amazon will want to seduce users into staying on the page by pretending to know them—and, more importantly, their interests. In the example of the public transit page, you could measure how many steps it takes to find or download the schedule, or to display the fares.</p>
+  </li>
+</ul>
+
+<p>All UX user journeys should be created with performance in mind. The team should lay out the journey so the user will perceive each step of their journey as easily and fast as possible. That’s where information architecture and wireframing come in.</p>
+
+<h4 id="information-architecture-and-wireframes">Information Architecture and Wireframes</h4>
+
+<p>Khi UX Designer thiết kế <a href="http://iainstitute.org/en/learn/resources/what_is_ia.php"><strong>Information Architecture</strong></a> và Wireframes cũng phải xem Performance như là một phần công việc của mình. Điều này sẽ giúp chúng ta tiết kiệm được rất nhiều thời gian sau này. Chúng ta gọi đây là phương pháp <strong>Design for Performance</strong>.</p>
+
+<p>Web designers love to create beautiful and aesthetic web pages, and they have a perfectly good reason for doing so. Thoughtful design can make a site welcoming, enjoyable to use and memorable. Design is a big part of user experience, but what about performance? Every single image or extra font you put on the page will affect the performance of the site. Our generation is impatient, and even if a website is aesthetically appealing, the user may leave if it’s slow.</p>
+
+<p>“It’s imperative that designers weigh the balance between aesthetics and performance to improve the end user experience.”</p>
+
+<p>Don’t get me wrong, I’m all for design and aesthetics, but they have to be reasonable, and more importantly context sensitive. There’s no need to show everybody the high-resolution version of an image if it’s not needed. Be context sensitive, considerate, and respectful. Don’t fill your page with unnecessary, heavy assets like images just because you don’t know what else to put there.</p>
+
+<p>Speed as a Design Feature - Tham khảo thêm https://speakerdeck.com/mikeyk/secrets-to-lightning-fast-mobile-design</p>
+
+<h4 id="perceived-and-preemptive-web-performance">Perceived and Preemptive Web Performance</h4>
+
+<p>Performance is part of user experience. Even if the actual performance of your site might be less than ideal, there are ways to trick users into thinking the site has better performance.</p>
+
+<p>This involves perceived and preemptive web performance. While perceived performance defines how your user perceives, or feels about, the loading of your website, preemptive web performance deals with predicting what the user might want to load next, dispatching it in advance to cut down on loading time later.</p>
+
+<p>You don’t want users to become bored while waiting for web content to load. <strong>A website feels fast if the user is presented with a responsive system and is kept informed of progress</strong>.</p>
+
+<p>Following the “fake it till you make it” principle can help improve the perceived speed of a site. Some tricks that can make website visitors believe a website is responsive and speedy include:</p>
+
+<ul>
+  <li>
+    <p><strong>Offline caching</strong>: with many modern browsers now supporting this, it can be used to provide an illusion of performance. It has helped <a href="http://www.fastcodesign.com/1669788/the-3-white-lies-behind-instagrams-lightning-speed">Instagram</a> create fast-feeling user experiences. Instead of waiting for the server to respond to a photo upload, the offline cache presents the photo the user just attempted to upload. Afterwards, the photo is actually sent to the server. If you pay attention to the loading spinner in your mobile browser, you can spot this trick yourself.</p>
+  </li>
+  <li>
+    <p><strong>Presenting instant feedback and reporting progress</strong>: let the user know how far along they are in their journey through your site.</p>
+  </li>
+  <li>
+    <p><strong>Placing important functionality at the top of the page</strong>: by displaying important content to users above the fold (ATF)—at the top of the page, so they don’t have to scroll—increases perceived performance.</p>
+  </li>
+  <li>
+    <p><strong>Avoiding too many steps</strong>: minimize the number of hoops users have to go through to achieve their goal.</p>
+  </li>
+</ul>
+
+<p>Preemptive strategies take this a step further, but require a lot more intelligence. An <a href="http://java.dzone.com/articles/mobile-ux-refining-perceived">example</a> is Instagram’s photo upload functionality. Before a user hits the upload button, the image is uploaded in the background, purely on the assumption that this is the user’s eventual intention. But this approach is not always recommended. If users don’t have a good data plan on their mobile devices and want to save bandwidth, for example, this could really annoy them if they didn’t actually want to upload the photo after all.</p>
+
+<p><strong>Implementing Preemptive Performance</strong></p>
+
+<p>Newer browsers have started to adopt the preemptive approach, supporting techniques such as the prefetch and prerender attributes that make the browser look ahead for resources that might be needed.</p>
+
+<h4 id="the-performance-point-system">The Performance Point System</h4>
+
+<p>Hệ thống này dùng để tính điểm Performance cho một IA Design (hay Wireframe). The idea behind this point system is to give the pre-development, non-technical members of the team a simple way to understand what components of a website could be considered “heavy”, and which elements promise better perceived performance.</p>
+
+<p>It’s about “divide and conquer”, the process of breaking down problems into sub-problems of the same type, until the individual sub-problems become simple enough to be solved directly. (Ý tưởng chung là chia nhỏ các thành phần của Wireframe thành một đơn vị có thể đo lường gọi là <strong>Measurable performance modules</strong>.). We can then move them around and arrange them to accomplish not only an intuitive information architecture, but also a positive user experience. Each module gets a number assigned, which defines its performance impact. At the end of the wireframing process, the numbers are summed to reveal a score. The lower the number, the better the expected performance.</p>
+
+<table border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Module</th><th>Points</th><th>Description</th></tr></thead><tbody><tr><td>Low impact</td><td>1</td><td>Small images, mostly static content and simple graphics, interaction elements like buttons and text fields.</td></tr><tr><td>Medium impact</td><td>2</td><td>Medium-sized images and simple scripts.</td></tr><tr><td>High impact</td><td>6</td><td>Large images and third-party scripts loading either heavy JavaScript or both JavaScript and images (such as adverts).</td></tr></tbody></table>
+
+<h4 id="case-study-time-magazine-website">Case Study: Time Magazine Website</h4>
+
+<p><img src="http://i.imgur.com/WykAyin.png" alt="Time Magazine" />
+We can see, in the “filmstrip” in Figure above, that the main story image only appears after around six seconds. There is no visible content prior to that. I’ve broken this down further into simple wireframes to illustrate how the site, above the fold, looks at various points in time as the site is being loaded.</p>
+
+<p><img src="http://i.imgur.com/XKUDcox.png" alt="2.1" />
+Sau 3 giây, vẫn chưa có gì được tải xong trừ Menu và một bức ảnh của Tạp chí.</p>
+
+<p><img src="http://i.imgur.com/kUPxWT9.png" alt="2.2" /></p>
+
+<p>Sau 5.7 giây, một số thành phần chính đang được tải xuống.</p>
+
+<p><img src="http://i.imgur.com/vehRUxK.png" alt="2.3" /></p>
+
+<p>Sau 7.5 giây, hầu hết các thành phần mới được tải xong.</p>
+
+<p>Chúng ta có thể cải thiện Performance của Trang này, nếu chúng ta muốn nội dung chính càng được hiển thị nhanh chóng càng tốt.</p>
+
+<p><img src="http://i.imgur.com/qIC6FGt.png" alt="Wireframe" /></p>
+
+<p>Mẫu Wireframe của Trang Web này.</p>
+
+<p><img src="http://i.imgur.com/VMs1EI0.png" alt="2.4" /></p>
+
+<p>Thứ tự xuất hiện của các thành phần.</p>
+
+<p>Performance Point của Trang web là:</p>
+
+<table border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Count</th><th>Module</th><th>Score</th></tr></thead><tbody><tr><td>10</td><td>Low impact</td><td>10</td></tr><tr><td>2</td><td>Medium impact</td><td>4</td></tr><tr><td>2</td><td>High impact</td><td>12</td></tr><tr><td><span class="strong"><strong>14</strong></span></td><td><span class="strong"><strong>Total</strong></span></td><td><span class="strong"><strong>26</strong></span></td></tr></tbody></table>
+
+<h4 id="ci-tin-nh-th-no">Cải tiến như thế nào</h4>
+
+<p>By making some adjustments to the site, we should be able to improve perceived performance. Although Time.com uses progressive JPEGs for their main story image, it seems that the image doesn’t get the early attention it needs. Something in the code seems to be blocking its rendering, so that a user only sees it after 5.7 seconds. Even if the main news image is classified as a high impact module, I would argue that, in this case, it is important to load this image as early as possible. So my proposed performant wireframe for Time.com could look like:</p>
+
+<p><img src="http://i.imgur.com/QoZwh1e.png" alt="2.5" /></p>
+
+<table border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Count</th><th>Module</th><th>Score</th></tr></thead><tbody><tr><td>12</td><td>Low impact</td><td>12</td></tr><tr><td>3</td><td>Medium impact</td><td>6</td></tr><tr><td>1</td><td>High impact</td><td>6</td></tr><tr><td><span class="strong"><strong>16</strong></span></td><td><span class="strong"><strong>Total</strong></span></td><td><span class="strong"><strong>24</strong></span></td></tr></tbody></table>
+
+<p>I decreased the image height and width of the main story image, placing more context next to the image by aligning the headline and description to the right. I also replaced the stock data widget with a CTA button that the user has to press. Only when pressed will the stock data be loaded, which will somewhat reduce the ATF load time.</p>
+
+<p>I also added some loading number priorities into the wireframe, so the developers will know where to put their focus when planning out the critical rendering path (which is a topic we’ll discuss later).</p>
+
+<p>If you’re not sure which widgets and elements should be either removed or moved down below the fold, verify if those widgets and elements are actually used by your visitors. And if you decide that a heavy image (high impact MPM) should be placed above the fold, make sure to balance the performance budget with other low and medium impact modules.</p>
+
+<p>A performant wireframe is not enough to make your website feel fast, but it’s an excellent start on your journey to a lean website.</p>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

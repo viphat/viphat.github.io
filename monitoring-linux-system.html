@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Monitoring Linux System</title>
+  <meta name="description" content="  Being a full-stack developer means to have an open mind towards new technologies, having your hands dirty in each one and to have an understanding of how a...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/monitoring-linux-system">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <blockquote>
+  <p>Being a full-stack developer means to have an open mind towards new technologies, having your hands dirty in each one and to have an understanding of how a web application gets done from a concept to design to the finished product.</p>
+</blockquote>
+
+<blockquote>
+  <p>The idea of a “full-stack developer” isn’t about being fluent in every possible technology there is, because specialization exists for a reason. It’s more about having an understanding in each of the areas above, to communicate intelligently between team members and to be a good asset if the situation needs it.</p>
+</blockquote>
+
+<p>SitePoint - <a href="http://www.sitepoint.com/full-stack-developer/">Being a Full Stack Developer</a></p>
+
+<p>Như <strong>anh An</strong> nói trong bài <a href="http://blog.siliconstraits.vn/full-stack-developer-ban-la-ai/">Full Stack Developer là ai?</a>, Full-Stack Developer nên biết khi nào cần hiểu rộng, khi nào cần hiểu sâu và nó không mâu thuẫn gì với cái gọi là “Nhất nghệ tinh, nhất thân vinh” cả. Con đường trở thành Full-Stack Developer đầy chông gai nhưng nhiều cũng nhiều quả ngọt đang đợi.</p>
+
+<p>Tâm sự lan man về Full Stack Developer thế thôi, mình nghĩ mình vẫn còn phải cố gắng nhiều. Bài viết này không phải là một bài chia sẻ kinh nghiệm về Monitoring System trên Hệ thống Linux (Bởi mình vốn chẳng nhiều kinh nghiệm). Mình cảm thấy nó cần thiết  để tìm ra các nút thắt cổ chai để tối ưu Performance của Hệ thống nên share to learn. Đây cũng là một trong những kiến thức mà mình nghĩ mình nên bổ sung thêm trên con đường trở thành một Full stack developer.</p>
+
+<h4 id="monitoring-linux-system">Monitoring Linux System</h4>
+
+<h5 id="monitoring-cpu-usage">Monitoring CPU usage</h5>
+
+<p>Sử dụng gói sar (trong bộ công cụ sysstat) để theo dõi CPU usage trên Hệ thống.</p>
+
+<blockquote>
+  <p>Những ứng dụng không phải chủ chốt như sysstat nên cài đặt nhanh bằng lệnh yum hay apt-get cho tiện. Không mất công biên dịch làm chi.</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>sar -u 10 8
+</code></pre>
+</div>
+<p>-u - Hiển thị % sử dụng CPU 
+10 - Thời gian giữa 2 lệnh sar (số giây)
+8 - số lần lệnh sar sẽ chạy</p>
+
+<p><strong>Ý nghĩa của các thông số</strong></p>
+
+<p>%usr - % CPU chạy ở User Mode
+%sys - % CPU chạy ở System Mode
+%idle - % CPU đang ở chế độ nghỉ
+%steal - <a href="https://major.io/2008/11/04/what-is-steal-time-in-my-sysstat-output">more_info</a></p>
+
+<p>Nếu <strong>%usr</strong> cao, có nghĩa là ứng dụng của Bạn không được tối ưu đúng cách và đang chiếm dụng quá nhiều tài nguyên CPU.
+Nếu <strong>%sys</strong> cao, có thể vấn đề nằm ở việc swapping hoặc paging và cần được làm rõ thêm.
+if the <strong>%idle</strong> value is low, it serves as an indication that either the CPUs are underpowered or the application load is high. Similarly, if we see nonzero values in the <strong>%iowait</strong> time column, it serves as a reminder that the I/O subsystem could be a potential bottleneck.</p>
+
+<h5 id="monitoring-paging-and-swapping">Monitoring paging and swapping</h5>
+
+<p><strong>Paging</strong> occurs when a part of the operating system process gets transferred from the
+physical memory to the disk or is read back from the physical memory to the disk.</p>
+
+<p><strong>Swapping</strong> occurs when an entire process gets transferred to the disk from the physical memory or is read back to the physical memory from the disk. Depending on the system, either paging or swapping could be an issue.</p>
+
+<p>If <strong>paging occurs normally</strong> and you see a trend of <strong>heavy swapping</strong>, then the issue could be related to insufficient memory, or sometimes the issue could be related to disk as well.</p>
+
+<p>If the system is <strong>heavily paging</strong> and <strong>not swapping</strong>, the issue could be related to either the CPU or the memory.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>vmstat -S m 10 20
+</code></pre>
+</div>
+
+<p>Đọc thêm về cách sử dụng vmstat và đọc kết quả từ nó - <a href="https://www.linode.com/docs/uptime/monitoring/use-vmstat-to-monitor-system-performance">Use vmstat to monitor Paging and Swapping</a></p>
+
+<p><strong>Các thông số quan trọng cần chú ý</strong>:</p>
+
+<p><code class="highlighter-rouge">si</code> - The si column reports the amount of memory that is moved from swap to “real” memory per second.</p>
+
+<p><code class="highlighter-rouge">so</code>  - The so column reports the amount of memory that is moved to swap from “real” memory per second.</p>
+
+<p>Đọc thêm bài viết - <a href="http://www.linuxatemyram.com/">Linux Ate My Ram</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>free -m 
+</code></pre>
+</div>
+<p>dòng -/+ buffers/cache, cột free chính là số ram còn trống, có thể sử dụng</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sar -W
+</code></pre>
+</div>
+<p>If we see high values in the pswpin/s (pages swapped into the memory per second) column and the pgpgout/s (pages swapped out per second) column, it means that the current memory is inadequate and needs to be either increased or, for certain application components, optimally resized.</p>
+
+<p>http://unix.stackexchange.com/questions/78880/difference-between-sar-w-and-sar-b</p>
+
+<h5 id="finding-the-worst-user-on-the-system">Finding the worst user on the system</h5>
+
+<p><code class="highlighter-rouge">top</code> - Xem % CPU, %MEM đang bị Process nào chiếm dụng nhiều nhất</p>
+
+<h5 id="monitoring-system-load">Monitoring system load</h5>
+
+<p><code class="highlighter-rouge">uptime</code> - 
+Tập trung vào 3 con số <strong>Load average</strong> - Load average is categorized over the three time intervals, that is, the 1-, 5-, and 15-minute periods. Load averages are not categorized for the number of CPUs on the system. So for a system with a single CPU, a load average of 1 indicates 100 percent busy time period with zero idle time, whereas for a system with 5 CPUs a load average of 1 would indicate an idle time of 80 percent and a busy time period of only 20 percent. (Như vậy 5 CPU thì khi 100% busy time thì Load Average phải là 5.0)</p>
+
+<ul>
+  <li>Theo Thầy Thương nói thì CPU cao, RAM cao, I/O cao thì còn thể theo thời gian mà hạ xuống được. Load cao thì không thể cứu chữa, thế nào cũng bị sập nếu để quá lâu (Error 503)???</li>
+</ul>
+
+<h5 id="identifying-cpu-bottlenecks">Identifying CPU bottlenecks</h5>
+
+<p>Làm sao để xác định CPU không đủ năng lực xử lý?</p>
+
+<h5 id="identifying-disk-io-bottlenecks">Identifying disk I/O bottlenecks</h5>
+
+<p>http://www.techopedia.com/definition/30479/io-bottleneck 
+http://searchstorage.techtarget.com/report/Troubleshooting-and-identifying-data-storage-performance-bottlenecks</p>
+
+<ul>
+  <li>RAID cũng có thể gây I/O Bottleneck</li>
+</ul>
+
+<h5 id="monitoring-disk-space-usage">Monitoring disk space usage</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>fdisk -l
+df -h
+</code></pre>
+</div>
+<p>#### Monitoring Network Status</p>
+
+<h4 id="todo--cu-hi-cn-tm-li-p">TODO- Câu hỏi cần tìm lời đáp</h4>
+
+<ul>
+  <li>
+    <p>Tại sao netstat, vốn nhiều người quen dùng, lại deprecated trong CENTOS?
+http://www.binarytides.com/linux-netstat-command-examples/
+https://dougvitale.wordpress.com/2011/12/21/deprecated-linux-networking-commands-and-their-replacements/</p>
+  </li>
+  <li>
+    <p>Để Monitor tốt (và giải quyết nếu gặp vấn đề) đòi hỏi phải hiểu sâu  và rộng hơn về Hệ điều hành và về cấu trúc máy tính , về Network cùng tỉ tỉ thứ khác… Vậy mình muốn đạt được đến mức độ nào? và mất bao lâu? Cần tìm hiểu thêm những gì?</p>
+  </li>
+</ul>
+
+<p>Vẫn còn đang tìm câu trả lời.</p>
+
+<ul>
+  <li>Có cần thiết phải Free-up Ram? Làm sao để Free-up Ram? Có nên Kill Process nếu không đủ RAM và mình cần thực hiện một tác vụ nào đó??</li>
+</ul>
+
+<p>Không cần thiết phải Free-up Ram vì Free-up Ram không thực sự hiệu quả, cái đáng làm là tìm điểm thắt cổ chai… và Nếu Ram lúc nào cũng gần đầy thì nó là dấu hiệu cho thấy bạn nên nâng cấp Máy hoặc xem lại Performance của Ứng dụng mình đang chạy, có bị Memory Leaks chỗ nào hay không?)</p>
+
+<p>Thêm nữa, là SWAP sẽ được System tự clean up khi không dùng đến.</p>
+
+<p>http://blog.midnightmonk.com/225/linux/free-up-and-release-unused-or-cached-memory.shtml</p>
+
+<ul>
+  <li>Làm sao để biết được thư mục này lưu ở ổ cứng nào? Và làm sao để di chuyển data từ ổ cứng này qua bớt ổ cứng khác để giảm việc tập trung read / write vào 1 ổ cứng (I/O Bottleneck)</li>
+</ul>
+
+<p>Cái này mình đã làm thử khi cài đặt lại Ubuntu Mate 15.04 thì mình có thể chọn lưu các thư mục của hệ thống vào từng ổ cứng hoặc phân vùng cụ thể.</p>
+
+<p>Đọc thêm bài <strong>Theo dõi hiệu năng của Hệ điều hành</strong>- http://acegik.net/blog/java/performance/theo-doi-hieu-nang-cua-he-dieu-hanh.html</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

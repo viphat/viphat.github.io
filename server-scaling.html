@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Scale Server cho ứng dụng Web Ruby On Rails.</title>
+  <meta name="description" content="Hiện tại, mình đang phụ trách việc chuyển Server từ Linode sang sử dụng hệ sinh thái của AWS, đồng thời thiết lập cân bằng tải nhằm tránh tình trạng quá tải ...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/server-scaling">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Hiện tại, mình đang phụ trách việc chuyển Server từ Linode sang sử dụng hệ sinh thái của AWS, đồng thời thiết lập cân bằng tải nhằm tránh tình trạng quá tải vào lúc cao điểm như giai đoạn vừa qua.</p>
+
+<p><strong>Multiple Load Balancer</strong></p>
+
+<blockquote>
+  <p>Dự phòng khi 1 Server Load Balancer bị sập hoặc quá tải - chưa cần thiết.</p>
+</blockquote>
+
+<p><strong>Setup CDN for Assets</strong></p>
+
+<p>OK (Đang dùng S3 nhưng S3 không có chức năng của một CDN, có thể chuyển sang Cloudfront)</p>
+
+<p>http://thachpham.com/hosting-domain/cdn-la-gi-va-khi-nao-nen-dung-cdn-cho-website.html</p>
+
+<p><strong>Application Server</strong></p>
+
+<p>Unicorn vs Puma vs Passenger</p>
+
+<blockquote>
+  <p>Quyết định vẫn dùng <strong>Passenger</strong> (Và tiếp tục dùng bản OSS).</p>
+</blockquote>
+
+<p><strong>Web Server</strong> (Nginx 1.9.x )</p>
+
+<p>TODO: Tìm hiểu các thủ thuật để Improve Performance của Nginx.</p>
+
+<p><strong>Cân bằng tải</strong></p>
+
+<p>Load Balancing bằng Nginx hay dùng Haproxy, hay dịch vụ Load Balancer của Amazon</p>
+
+<p>http://cloudacademy.com/blog/aws-elb-vs-haproxy/</p>
+
+<blockquote>
+  <p>Quyết định dùng Dịch vụ Load Balancing của AWS (Vì tuy không thể cấu hình linh hoạt, cũng không có nhiều lựa chọn về thuật toán như HaProxy nhưng rất tiện lợi).</p>
+</blockquote>
+
+<p><strong>Database Server</strong></p>
+
+<ul>
+  <li>
+    <p>Theo mô hình một Database Server riêng và tập trung, hay là replicate theo Master-Slave, và để chung với Web Server?</p>
+  </li>
+  <li>
+    <p>Tách ra một Database Server riêng thì có nên Replicate thêm một Server để dự phòng hay không?</p>
+  </li>
+  <li>
+    <p>Dùng Amazon RDS hay tự cài Postgres trên Amazon EC2.</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Dùng dịch vụ của Amazon RDS (và Replication + Multiple A-Z nếu cầu thiết để phòng rủi ro)</p>
+</blockquote>
+
+<p>http://www.laurencegellert.com/2013/05/pros-and-cons-of-rds-vs-ec2-for-mysql-with-aws/</p>
+
+<p><strong>Redis Server</strong></p>
+
+<ul>
+  <li>Có nên tách Redis ra riêng một Server chuyên dùng để Caching hay không?</li>
+</ul>
+
+<blockquote>
+  <p>Tách ra một Server riêng và dùng dịch vụ của AWS.</p>
+</blockquote>
+
+<p><strong>Caching</strong></p>
+
+<p>https://github.com/Shopify/identity_cache để cache ActiveRecord (cụ thể là Course, Unit, Lesson, Exam…)</p>
+
+<p>https://devcenter.heroku.com/articles/caching-strategies#fragment-caching</p>
+
+<p>http://guides.rubyonrails.org/caching_with_rails.html</p>
+
+<p>Action Controller Caching - https://github.com/rails/actionpack-action_caching</p>
+
+<p>Fragment Cache? - Không dùng, Vì UBrand sẽ cache trên Front-End (AngularJS)</p>
+
+<p><strong>Deployment Progress</strong></p>
+
+<p>Mina, Capistrano, CodeDeploy của AWS</p>
+
+<p><strong>Automated Server Configuration</strong></p>
+
+<p>Chef, Puppet…</p>
+
+<blockquote>
+  <p>Chưa có thời gian tìm hiểu, tạm thời cài đặt thủ công và dùng chức năng Clone Server của AWS</p>
+</blockquote>
+
+<p><strong>Background Jobs Processing Framework</strong></p>
+
+<ul>
+  <li>Chỉ cho một Server chạy Sidekiq để tránh xung đột, dùng Data ở Redis nên không lo vấn đề phân tán.</li>
+</ul>
+
+<p><strong>Sử dụng Redis làm Sessions Store</strong></p>
+
+<p>http://www.justinweiss.com/articles/how-rails-sessions-work/</p>
+
+<p>https://www.happybearsoftware.com/almost-protect-yourself-from-cookie-session-store.html</p>
+
+<p>http://blog.togo.io/introducing/redis-store/</p>
+
+<p>Lợi ích?</p>
+
+<p><strong>ElasticSearch</strong></p>
+
+<p>Hiện tại, chắc vẫn để ElasticSearch ở một con có cấu hình cao thay vì tách riêng (sử dụng dịch vụ của AWS) vì chưa có nhu cầu dùng nhiều.</p>
+
+<p><strong>Slow SQL Query</strong></p>
+
+<p>(&gt;100ms), Viết lại Query khác hoặc bí lắm là Caching Results.</p>
+
+<p><strong>References</strong></p>
+
+<p>http://www.slideshare.net/kigster/12step-program-for-scaling-web-applications-on-postgresql</p>
+
+<p>http://www.slideshare.net/kigster/from-obvious-to-ingenius-incrementally-scaling-web-apps-on-postgresql</p>
+
+<p>http://www.slideshare.net/pgconf/five-steps-perform2009</p>
+
+<p>http://www.slideshare.net/kigster/scaling-wanelocom-100x-in-six-months</p>
+
+<p>http://nickcraver.com/blog/2016/02/17/stack-overflow-the-architecture-2016-edition/?utm_source=twitterfeed&amp;amp;utm_medium=facebook</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

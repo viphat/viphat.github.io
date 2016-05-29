@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Làm quen cách sử dụng Vim với Vimtutor</title>
+  <meta name="description" content="Khi bắt đầu học cách sử dụng VIM, cái cảm giác phải chậm chạp học gõ từng phím như 13 năm trước, lúc mình mới làm quen với máy tính đã trở lại. Sử dụng VIM k...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/vimtutor">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Khi bắt đầu học cách sử dụng VIM, cái cảm giác phải chậm chạp học gõ từng phím như 13 năm trước, lúc mình mới làm quen với máy tính đã trở lại. Sử dụng VIM khó thế nhưng cũng thú vị thế.</p>
+
+<p>Cách học VIM tốt nhất là <strong>Learn by Usage</strong> bởi vì chỉ có sử dụng VIM thường xuyên một thời gian đủ lâu, các command trong VIM mới thấm vào một cách tự nhiên mà chúng ta không phải bỏ ra nỗ lực để nhớ và tiêu hóa chúng. Vậy nên, nếu bạn quyết tâm muốn nhuần nhuyễn VIM, có một biện pháp cực đoan là không cho mình một sự lựa chọn nào khác ngoài VIM - Bạn phải gỡ hết tất cả các Code Editor, IDE khác đang có trong máy và chuyển qua sử dụng VIM, Có thể sẽ khiến bạn làm việc chậm chạp trong vài ngày hoặc thậm chí vài tuần đầu tiên. Nhưng rồi bạn sẽ được đền đáp xứng đáng. (Afternatively, bạn có thể sử dụng Vintage Mode cho Code Editor chẳng hạn, dù có một số hạn chế)</p>
+
+<p>Bài này mình chỉ ghi lại phần Summary của <strong>vimtutor</strong>, nếu bạn cài đặt gói đầy đủ của vim (thông thường thì Ubuntu sẽ cài sẵn gói vim-tiny mà thôi) thì sẽ có vimtutor, một ứng dụng nhỏ để học và thực hành ngay trong vim.</p>
+
+<blockquote>
+  <p>Vim is a very powerful editor that has many commands, too many to explain in a tutor such as this.  This tutor is designed to describe enough of the commands that you will be able to easily use Vim as an all-purpose editor.</p>
+</blockquote>
+
+<hr />
+
+<h4 id="lesson-1---moving-the-cursor-editing-a-file-exiting-insertion-deletion-appending">Lesson 1 - Moving the Cursor, Editing A File, Exiting, Insertion, Deletion, Appending</h4>
+
+<p>1.1 - Moving the Cursor (In Command Mode ESC)
+Di chuyển trỏ chuột trong VIM (Có thể dùng các phím mũi tên nhưng không khuyến khích)</p>
+
+<p><strong>h</strong>(left) <strong>j</strong>(down) <strong>k</strong>(up) <strong>l</strong>(right)</p>
+
+<p>1.2 - Opening and Exiting VIM</p>
+
+<ul>
+  <li>Start vim from the shell prompt type</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>vim FILENAME (Hoăc vi FILENAME)
+</code></pre>
+</div>
+
+<ul>
+  <li>To Exit vim</li>
+</ul>
+
+<p><strong>:q!</strong> to trash all changes.
+<strong>:wq</strong> to save the changes.</p>
+
+<p>1.3 - Delete character at the cursor type: <strong>x</strong></p>
+
+<p>1.4 - <strong>i</strong> để insert before cursor. <strong>a</strong> để insert after cursor. <strong>A</strong> (Shift a) để append after the line.</p>
+
+<h4 id="lesson-2---moving-cursor-deletion-and-undo">Lesson 2 - Moving Cursor, Deletion and Undo</h4>
+
+<p>type <strong>de</strong> to delete to the end of current word.
+type <strong>dw</strong> to delete until the start of next word.
+type <strong>dd</strong> to delete the line.</p>
+
+<p><strong>de</strong>,<strong>dw</strong>,<strong>dd</strong> có thể dùng kèm với số để xóa nhanh nhiều từ, ví dụ <strong>d2w</strong>, <strong>d3e</strong>, <strong>2dd</strong>…</p>
+
+<p>type <strong>d$</strong> to delete to the end of the line.</p>
+
+<p>type <strong>2w</strong> to move the cursor two words forward.
+type <strong>3e</strong> to move the cursor to the end of the third word forward.
+type <strong>0</strong> to move to the start of the line.
+type <strong>$</strong> to move to the end of the line.
+type <strong>b</strong> - opposite with <strong>w</strong></p>
+
+<p>type <strong>u</strong> to undo the last commands, <strong>U</strong> to fix a whole line.
+type <strong>Ctrl+R</strong> to redo the undo command.</p>
+
+<h4 id="lesson-3---replace-delete">Lesson 3 - Replace, Delete</h4>
+
+<p>Những lệnh liên quan đến deletion như <strong>x</strong>, <strong>dd</strong>, <strong>dw</strong>, <strong>de</strong>… đều được vim đưa nội dung đã xóa vào register (giống Clipboard vậy)… và bạn có thể dùng <strong>p</strong> để dán nội dung trong register vào nơi bạn muốn.</p>
+
+<p><strong>r</strong> để replace ký tự tại cursor.</p>
+
+<p><strong>ce</strong> và <strong>cw</strong> để replace từ hoặc phần còn lại của từ tại cursor. (ce là kết hợp giữa <strong>de</strong> và <strong>i</strong>)</p>
+
+<p><strong>c$</strong> là kết hợp giữa <strong>d$</strong> và <strong>i</strong> - Xóa phần còn lại của dòng.</p>
+
+<h4 id="lesson-4---moving-search--replace">Lesson 4 - Moving, Search &amp; Replace</h4>
+
+<p><strong>Ctrl+G</strong> để biết thêm thông tin về File hiện hành: Tên file, vị trí hiện tại trong file (số dòng)</p>
+
+<p><strong>G</strong> (shift G) để di chuyển đến dòng cuối của file (tương tự <strong>:$</strong>)</p>
+
+<p><strong>gg</strong> để di chuyển đến dòng đầu tiên của file (tương tự <strong>:0</strong>)</p>
+
+<p><strong>:line_number</strong> để di chuyển đến dòng cụ thể trong File. (Tương tự việc gõ <strong>line_numer G</strong> - Shift G)</p>
+
+<p><strong>/từ_cần_tìm</strong> - Tìm kiếm trong vim, cursor sẽ nhảy đến từ đầu tiên mà nó tìm thấy. <strong>n</strong> để di chuyển next, <strong>N</strong> để đến previous trong lúc tìm kiếm</p>
+
+<p>(nếu <strong>/từ_cần_tìm</strong> là đi tới thì <strong>?từ_cần_tìm</strong> là tìm kiếm quay lui.)</p>
+
+<p><strong>Ctrl+O</strong> to go back to where you came from.</p>
+
+<p><strong>Ctrl+I</strong> to go forward (ngược với <strong>Ctrl+O</strong>)</p>
+
+<p><strong>Matching parenthesis or bracket</strong>:</p>
+
+<p>Khi đặt cursor trên các ký tự như <strong>(</strong>, <strong>[</strong> hoặc <strong>{</strong> và gõ command <strong>%</strong> thì cursor sẽ được nhảy đến phần đóng hoặc mở thẻ tương ứng với nó - rất hữu ích trong lập trình và trong lúc cấu hình hệ thống.</p>
+
+<p><strong>:s/old/new/g</strong> để Tìm kiếm và thay thế chuỗi <code class="highlighter-rouge">old</code> bằng chuỗi <code class="highlighter-rouge">new</code>.</p>
+
+<p>Chỉ thị <code class="highlighter-rouge">g</code> cho phép thay thế toàn bộ ocurrences của từ đang tìm trong dòng hiện tại. (Bỏ chỉ thị g đi nếu chỉ muốn thay thế First occurrence).</p>
+
+<p><strong>:#,#s/old/new/g</strong> Search &amp; Replace tại những dòng cụ thể.</p>
+
+<p><strong>:%s/old/new/g</strong> - Search &amp; Replace mọi ocurrences trong toàn bộ nội dung của File.</p>
+
+<p><strong>:%s/old/new/gc</strong> Search &amp; Replace mọi ocurrences trong toàn bộ nội dung của File nhưng có prompt để xác định muốn replace occurence đó hay không.</p>
+
+<h4 id="lesson-5---excute-external-command">Lesson 5 - Excute External Command</h4>
+
+<p><strong>:!</strong> cho phép bạn nhập và thực thi external command (Các lệnh ngoài vim như lệnh của shell) trực tiếp trong VIM. (Rất hữu ích đối với Developer)</p>
+
+<p><strong>:w FILE_NAME</strong> - Giống Save As ở các Editor thông thường, Lưu lại File hiện tại với Tên khác.</p>
+
+<p><strong>v</strong> để chuyển sang Visual Selection mode, bạn có thể select nhiều dòng một cách trực quan trong mode này.</p>
+
+<p><strong>:r FILE_NAME</strong> để chèn nội dung của một file khác vào cursor.</p>
+
+<p><strong>:r !ls</strong>  chèn output của lệnh ls vào cursor</p>
+
+<h4 id="lesson-6----copy--some-options">Lesson 6  - Copy &amp;&amp; Some Options</h4>
+
+<p><strong>o</strong> - Open a line below the cursor and place you in Insert mode.</p>
+
+<p><strong>O</strong> - Open a line above the cursor and place you in Insert mode.</p>
+
+<p><strong>R</strong> - Nếu <strong>r</strong> có tác dụng replace từng ký tự thì <strong>R</strong> sẽ chuyển bạn sang hẳn Replace Mode. (Nhấn ESC để thoát Replace Mode nếu không cần)</p>
+
+<p><strong>y</strong> để copy nội dung của dòng vào register và <strong>p</strong> để dán. (Bạn có nhớ là các lệnh liên quan đến Deletion như dw, de, dd,d$…thực ra tương tự lệnh cut)</p>
+
+<p><strong>y</strong> kết hợp với Visual Mode <strong>v</strong> để select và copy highlighted text.</p>
+
+<p><strong>y</strong> đóng vai trò là operator như <strong>d</strong>, nghĩa là bạn có thể kết hợp với số lượng ở trước <strong>2y</strong>, <strong>3y</strong> để copy nhiều dòng, kết hợp với w,e,y - <strong>yw</strong>, <strong>y2w</strong>…</p>
+
+<ul>
+  <li><strong>:set ic</strong> - Set Option Ignore case cho các lệnh tìm kiếm</li>
+  <li><strong>:set ts=4</strong> - Set Tab indent = 4</li>
+  <li><strong>:set nu</strong> - Set hiển thị line number</li>
+  <li>Để tắt option đã set, thêm tiền tố no, ví dụ: <strong>:set nonu</strong></li>
+</ul>
+
+<p>Có rất nhiều Option trong VIM.</p>
+
+<h4 id="lesson-7---helper-in-vim">Lesson 7 - Helper in VIM</h4>
+
+<ul>
+  <li><strong>Trợ giúp trong vim</strong>:</li>
+</ul>
+
+<p>Nếu gặp khó khăn trong quá trình sử dụng vim, nếu không nhớ lệnh này có ý nghĩa gì thì ta có thể mở help ngay trong vim. <strong>:help</strong>, <strong>:help lệnh_cần_biết</strong></p>
+
+<ul>
+  <li>
+    <p><strong>Ctrl+W</strong> để chuyển qua lại giữa các cửa sổ (Nếu Bạn Split vim thành nhiều panel)</p>
+  </li>
+  <li>
+    <p>File cấu hình của vim là:</p>
+  </li>
+</ul>
+
+<p><strong>~/.vimrc</strong> - là nơi chứa các cấu hình của vim. vim powerful hơn vi nhiều nhưng do mặc định thì các chức năng hay ho của vim đã bị disabled, đơn cử như chức năng Syntax Highlighting. Bạn có thể edit file .vimrc và copy nội dung file vimrc_example.vim bằng lệnh:</p>
+
+<p><strong>:r $VIMRUNTIME/vimrc_example.vim</strong></p>
+
+<ul>
+  <li>Nhắc lệnh trong vim:</li>
+</ul>
+
+<p><strong>:set nocp</strong></p>
+
+<p>Khi gõ một lệnh, Bạn có thể nhấn <strong>Ctrl+D</strong> để hiển thị hết danh sách các lệnh bắt đầu bằng ký tự bạn gõ, nhấn <strong>TAB</strong> để auto complete (tương tự như TAB trong Terminal của Linux).</p>
+
+<hr />
+
+<p>Bài viết tạm kết thúc ở đây. Nhưng thực ra Vim còn rất nhiều thứ để khám phá. Hẹn gặp lại trong những bài viết khác về vim nhé.</p>
+
+<p>==Cài đặt Plugin, thiết lập môi trường Code Ruby &amp; Rails trực tiếp trong vim.==</p>
+
+<p>Nhìn Anh chàng này code Ruby trên vim &amp; tmux mà mê - https://www.youtube.com/watch?v=9jzWDr24UHQ</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

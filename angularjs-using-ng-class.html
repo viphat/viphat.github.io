@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Sử dụng ng-class trong Angular-JS</title>
+  <meta name="description" content="Hôm nay, mình lại tiếp tục với một bài khác cũng về AngularJS.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/angularjs-using-ng-class">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Hôm nay, mình lại tiếp tục với một bài khác cũng về AngularJS.</p>
+
+<p>AngularJS cung cấp một vài chức năng tuyệt vời để giúp chúng ta tạo một ứng dụng tương tác. AngularJS cung cấp một thứ gọi là Directives nhằm mục đích can thiệp và thay đổi DOM để đính vào một số hành vi Angular cụ thể vào các thành phần do ta quy định. Liên quan đến các xử lý về mặt giao diện, 2 directive được sử dụng thường xuyên bên cạnh <code class="highlighter-rouge">ng-show</code>, <code class="highlighter-rouge">ng-hide</code>, <code class="highlighter-rouge">ng-if</code> chính là directive <code class="highlighter-rouge">ng-style</code> và <code class="highlighter-rouge">ng-class</code>. Và bài viết này sẽ hướng dẫn bạn các cách sử dụng <code class="highlighter-rouge">ng-class</code> trong Project của bạn. Directive <code class="highlighter-rouge">ng-class</code> giúp chúng ta một số công việc tuyệt vời sau:</p>
+
+<ul>
+  <li>Thêm / Xóa Class dựa trên các biến của Angular.</li>
+  <li>Thêm / Xóa Class dựa vào các biểu thức điều kiện.</li>
+  <li>Binding một hoặc nhiều class dựa trên dữ liệu động.</li>
+</ul>
+
+<h4 id="using-ngclass">Using ngClass</h4>
+
+<h5 id="ngclass-using-string-syntax">ngClass Using String Syntax</h5>
+
+<p>Đây là cách sử dụng đơn giản nhất của <code class="highlighter-rouge">ng-class</code>, gán trực tiếp một biến của Angular vào trong directive <code class="highlighter-rouge">ng-class</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;!-- whatever is typed into this input will be used as the class for the div below --&gt;
+&lt;input type="text" ng-model="textType"&gt;
+
+&lt;!-- the class will be whatever is typed into the input box above --&gt;
+&lt;div ng-class="textType"&gt;Look! I'm Words!&lt;/div&gt;
+</code></pre>
+</div>
+
+<p>Đây là ví dụ:</p>
+
+<p data-height="350" data-theme-id="0" data-slug-hash="XXXzWP" data-default-tab="result" data-user="viphat" class="codepen">See the Pen <a href="http://codepen.io/viphat/pen/XXXzWP/">XXXzWP</a> by Duong Vi Phat (<a href="http://codepen.io/viphat">@viphat</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async="" src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<h5 id="ngclass-using-array-syntax">ngClass Using Array Syntax</h5>
+
+<p>Tương tự như cách sử dụng String syntax nhưng áp dụng trong trường hợp bạn muốn apply nhiều class cùng lúc từ nhiều biến của AngularJS (Nếu bạn chỉ muốn dùng một biến thì vẫn có thể gán nhiều css class cho giá trị của biến đó - Ví dụ: <code class="highlighter-rouge">$scope.style="text-center text-primary col-md-6"</code>)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;!-- both input boxes below will be classes for the div --&gt;
+&lt;input type="text" ng-model="styleOne"&gt;
+&lt;input type="text" ng-model="styleTwo"&gt;
+
+&lt;!-- this div will take on both classes from above --&gt;
+&lt;div ng-class="[styleOne, styleTwo]"&gt;Look! I'm Words!&lt;/div&gt;
+
+</code></pre>
+</div>
+
+<h5 id="s-dng-ngclass-trong-biu-thc-iu-kin">Sử dụng ngClass trong biểu thức điều kiện</h5>
+
+<p>Một cách advanced hơn khi sử dụng <code class="highlighter-rouge">ng-class</code> trong AngularJS là sử dụng các biểu thức điều kiện, khi biểu thức này true, class sẽ được apply.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;!-- input box to toggle a variable to true or false --&gt;
+&lt;input type="checkbox" ng-model="awesome"&gt; Are You Awesome?
+&lt;input type="checkbox" ng-model="giant"&gt; Are You a Giant?
+
+&lt;!-- add the class 'text-success' if the variable 'awesome' is true --&gt;
+&lt;div ng-class="{ 'text-success': awesome, 'text-large': giant }"&gt;
+
+</code></pre>
+</div>
+
+<p>Để sử dụng biểu thức trong <code class="highlighter-rouge">ng-class</code> thì bạn phải đặt trong cặp dấu <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="p">}</span></code>, bên trái của biểu thức (phân cách nhau bởi dấu :) là class định apply (bạn nên đặt chúng trong dấu ‘’ để chứa các ký tự đặc biệt, dấu - và khoảng trắng). Bên phải của biểu thức là biến hoặc điều kiện.</p>
+
+<h5 id="s-dng-ngclass-vi-biu-thc-ternary-operator">Sử dụng ngClass với biểu thức Ternary Operator</h5>
+
+<p><code class="highlighter-rouge">ng-class</code> cũng hỗ trợ biểu thức dưới dạng ternary operator</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ng-class="$even ? 'even-row' : 'odd-row'"&gt;
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ng-class="$variableToEvaluate ? 'class-if-true' : 'class-if-false'"&gt;
+</code></pre>
+</div>
+<p>ternary operator được dùng nhiều trong trường hợp bạn quy định các class khác nhau dựa vào giá trị true/false của một biến.</p>
+
+<h5 id="dng-ngcass-kt-hp-vi-first-last-index-even-odd">Dùng ngCass kết hợp với $first, $last, $index, $even, $odd</h5>
+
+<p><code class="highlighter-rouge">ng-class</code> có thể dùng trong biểu thức điều kiện cùng với các biến của ng-repeat như $first, $last, $index, $even, $odd</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;!-- add a class to the first item --&gt;
+&lt;ul&gt;
+    &lt;li ng-class="{ 'text-success': $first }" ng-repeat="item in items"&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- add a class to the last item --&gt;
+&lt;ul&gt;
+    &lt;li ng-class="{ 'text-danger': $last }" ng-repeat="item in items"&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- add a class to the even items and a different class to the odd items --&gt;
+&lt;ul&gt;
+    &lt;li ng-class="{ 'text-info': $even, 'text-danger': $odd }" ng-repeat="item in items"&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+</div>
+
+<h4 id="cc-cch-s-dng-ngclass">Các cách sử dụng ngClass</h4>
+
+<p>Directive <code class="highlighter-rouge">ng-class</code> có 2 cách sử dụng: như là một class và như là một attribute (tương ứng với <code class="highlighter-rouge">restrict: "AC"</code>). Bản thân mình thì quen dùng <code class="highlighter-rouge">ng-class</code> dưới dạng một attribute hơn, bởi vì nó sẽ rất rõ ràng trong việc phân biệt các class động và các class tĩnh được định nghĩa sẵn.</p>
+
+<h5 id="s-dng-ngclass-nh-mt-thnh-phn-ca-thuc-tnh-class">Sử dụng ngClass như một thành phần của thuộc tính Class</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;!-- example with string syntax --&gt;
+&lt;!-- use the type variable as a class --&gt;
+&lt;div class="item ng-class:type;"&gt;Stuff Goes Here&lt;/div&gt;
+
+&lt;!-- example with string syntax --&gt;
+&lt;!-- use the styleOne and styleTwo variables as classes --&gt;
+&lt;div class="item ng-class:[styleOne, styleTwo];"&gt;Stuff Goes Here&lt;/div&gt;
+
+&lt;!-- example with evaluated data --&gt;
+&lt;!-- add the text-error class if wrong is true --&gt;
+&lt;div class="item ng-class:{ 'text-error': wrong };"&gt;Stuff Goes Here&lt;/div&gt;
+</code></pre>
+</div>
+
+<h5 id="s-dng-ngclass-nh-mt-thuc-tnh">Sử dụng ngClass như một thuộc tính</h5>
+<p>github
+```
+<!-- example with string syntax -->
+<!-- use the type variable as a class --></p>
+<div class="item" ng-class="type">Stuff Goes Here</div>
+
+<!-- example with string syntax -->
+<!-- use the styleOne and styleTwo variables as classes -->
+<div class="item" ng-class="[styleOne, styleTwo]">Stuff Goes Here</div>
+
+<!-- example with evaluated data -->
+<!-- add the text-error class if wrong is true -->
+<div class="item" ng-class="{ 'text-error': wrong }">Stuff Goes Here</div>
+<p>```</p>
+
+<p><strong>Kết luận</strong></p>
+
+<p>Trên đây, mình đã liệt kê công dụng và các cách apply <code class="highlighter-rouge">ng-class</code> trong AngularJS 1.x, hy vọng chúng hữu ích cho bạn bởi <code class="highlighter-rouge">ng-class</code> sẽ đóng góp rất nhiều trong việc tạo một trang web sinh động trong AngularJs.</p>
+
+<ul>
+  <li>Link gốc của bài viết tại <a href="http://viphat.me/1P74DRJ"><strong>Scotch.io</strong></a></li>
+</ul>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

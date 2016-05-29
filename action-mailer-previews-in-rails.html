@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>[TIL] Action Mailer Previews in Ruby on Rails</title>
+  <meta name="description" content="Xuất phát từ nhu cầu của mình là phải ngồi mần một Email Template cho tác vụ gửi Newsletter của dự án đang làm nên phải thay đổi và kiểm tra thường xuyên. Vì...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/action-mailer-previews-in-rails">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Xuất phát từ nhu cầu của mình là phải ngồi mần một Email Template cho tác vụ gửi Newsletter của dự án đang làm nên phải thay đổi và kiểm tra thường xuyên. Vì vậy, không thể cứ mỗi lần thay đổi một chút là lại phải gửi Email đi, vừa mất thời gian (Gửi Mail qua <strong>SMTP Server</strong> xong lại phải mở hộp mail để check, và cũng không chắc là mail đến nhanh như mong đợi không) và tốn kém chi phí (nếu bạn sử dụng các dịch vụ Email Delivery như <strong>Sendgrid</strong> và <strong>Mailchimp</strong>…). Thử Google trên mạng thì có 2 giải pháp là dùng <strong>Mail Catcher</strong> để bắt hết tất cả Mail gửi đi trong môi trường Development và nhét về lại một chỗ - http://mailcatcher.me/. Cách thứ hai, đơn giản hơn nữa là Rails có hỗ trợ <strong>Action Mailer Previews</strong> giúp bạn nhanh chóng và dễ dàng để xem trước Email của bạn bằng trình duyệt Web.</p>
+
+<p>Ở đây, tôi giả định bạn đã có một class UserMailer với method new_user():</p>
+
+<p><small><strong>app/mailers/user_mailer.rb</strong></small>
+```
+class UserMailer &lt; ActionMailer::Base
+  default from: “from@example.com”</p>
+
+<p>def new_user(user)
+    @user = user
+    mail to: user.email, subject: “Hello!”
+  end
+end
+```</p>
+
+<p>và một Email Template tương ứng với Method đó tại:</p>
+
+<p><small><strong>app/views/user_mailer/new_user.html.erb</strong></small>
+```</p>
+<h1>Hello &lt;%= @user.first_name %&gt;!</h1>
+
+<p>
+  Welcome to my website!
+</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>
+Để Preview Mail này trên trình duyệt Web, ta tiến hành các bước sau:
+
+Tạo File **test/mailers/previews/user\_mailer\_preview.rb** với nội dung:
+
+</code></pre>
+</div>
+<p>class UserMailerPreview &lt; ActionMailer::Preview</p>
+
+<p>def new_user
+    user = User.first
+    UserMailer.new_user(user)
+  end</p>
+
+<p>end
+```
+Khởi động lại Server bằng <code class="highlighter-rouge">rails server</code> và truy cập <strong>http://localhost:3000/rails/mailers/user_mailer/new_user</strong> để xem kết quả.</p>
+
+<p>Nếu bạn không muốn Class <strong>UserMailerPreview</strong> phải đặt trong thư mục <strong>test/mailers/previews/</strong> (Trường hợp Dự án dùng rspec nên không có thư mục test chẳng hạn) thì bạn có thể đặt lại Path trong <strong>config/environments/development.rb</strong>
+<code class="highlighter-rouge">
+config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
+</code></p>
+
+<h5 id="bonus-tip">Bonus Tip</h5>
+
+<p><strong>#1</strong> - Để sử dụng <strong>Views Helpers</strong> trong Email Template, bạn thêm dòng sau vào trong class <code class="highlighter-rouge">UserMailer</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>add_template_helper(TimelineHelper)
+</code></pre>
+</div>
+<ul>
+  <li>TimelineHelper là tên Helper cần đưa vào</li>
+</ul>
+
+<p><strong>#2</strong> - Sử dụng chung một Layout cho nhiều loại Mail.</p>
+
+<p>Thêm dòng sau vào trong các class ActionMailer mà bạn sử dụng:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>layout 'mail_layout'
+</code></pre>
+</div>
+<p>(với mail_layout là tên File dùng làm Layout đặt trong thư mục <strong>app/views/layouts/</strong>)</p>
+
+<p>Nếu có sử dụng Devise thì thêm dòng sau vào <strong>config/application.rb</strong> để sử dụng chung Layout cho các Mail gửi từ Devise:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>config.to_prepare do
+  Devise::Mailer.layout "mail_layout"
+end
+</code></pre>
+</div>
+
+<blockquote>
+  <p><span style="color: #f92672;"> Bài viết trong loạt bài Today I Learned, ghi nhanh và tổng hợp các kiến thức, tips mới mà tôi học được trong ngày.</span></p>
+</blockquote>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Tìm hiểu về Git và Github</title>
+  <meta name="description" content="Trong bài viết trước, mình có nhắc đến Git – Hệ thống version control do chính cha đẻ của Hệ điều hành Linux - Linus Tovard tạo ra cho cộng đồng. Mọi lập trì...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/tim-hieu-ve-git-va-github">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Trong <a href="http://notes.viphat.work/toi-da-bat-dau-hoc-ruby-nhu-the-nao/">bài viết</a> trước, mình có nhắc đến Git – Hệ thống version control do chính cha đẻ của Hệ điều hành Linux - Linus Tovard tạo ra cho cộng đồng. Mọi lập trình viên đều nên biết cách sử dụng git để thuận lợi hơn trong công việc.</p>
+
+<p>Git là gì? Trước tiên thì mình cần nắm được khái niệm Version Control là gì đã.</p>
+
+<p>Bài viết này được đúc kết dựa trên những gì mình đã tìm hiểu về Git, có lẽ nó chỉ dừng lại ở mức căn bản, phục vụ cho công việc thường ngày của Lập trình viên. Nếu bạn đang mong đợi được biết đầy đủ về git thì có lẽ bạn sẽ tìm thấy nó ở một hoặc nhiều quyển sách viết về git.</p>
+
+<h4 id="version-control-l-g">Version Control là gì?</h4>
+
+<p>Bạn có thể nghĩ hệ thống Version Control như là một dạng “database”, Nó lưu các ảnh (snapshot) của dự án bạn đang làm tại bất kì thời điểm nào bạn muốn. Và khi cần, VCS sẽ cho bạn biết chính xác giữa 2 thời điểm, dự án của bạn đã thay đổi và khác nhau ở những điểm nào.</p>
+
+<h5 id="why-use-a-version-control-system">Why use a version control system?</h5>
+
+<ul>
+  <li>Collaboration</li>
+  <li>Storing Versions</li>
+  <li>Restore Previous Versions</li>
+  <li>Understanding What happend</li>
+  <li>Backup</li>
+</ul>
+
+<blockquote>
+  <p>Git là một <strong><em>Version Control System</em></strong></p>
+</blockquote>
+
+<h4 id="vy-git-c-u-im-no--why-git">Vậy Git có ưu điểm nào? » Why git?</h4>
+
+<ul>
+  <li>Save time.</li>
+  <li>Work Offline. Với những hệ thống Version Control khác như Subversion hoặc CVS, bạn phải liên tục kết nối đến Repo trung tâm. Còn với Git, bạn có thể làm hoàn toàn trên máy tính của bạn: gửi commit, xem log, xem history, tạo hoặc merge branches. anchs</li>
+  <li>Undo Mistakes. Bạn có thể phục hồi lại những thứ đã commit trước đó, Có thể bổ sung thêm vào lần commit trước nếu bạn phát hiện ra bạn đã sót một thứ gì đó.</li>
+  <li>Don’t Worry.</li>
+  <li>Make useful Commits: Bạn có thể quyết định phần thay đổi nào được đưa vào “Staging area” và chỉ commit những thay đổi bạn mong muốn và giữ lại những thứ còn dở dang.</li>
+  <li>Work in your own way</li>
+  <li>Don’t mix things up</li>
+  <li>Go with the Flow – Ngày càng nhiều công ty sử dụng Git trong công việc hằng ngày. Còn bạn? Đừng đi ngược dòng nước.</li>
+</ul>
+
+<hr />
+
+<h4 id="basic-workflow-of-version-control">Basic Workflow of Version Control</h4>
+
+<p>Repository được hiểu nôm na là một dạng Database nơi Git lưu mọi version và metadata trong dự án của bạn. Trong Git, Repository chỉ là một thư mục ẩn có tên là “.git”, bạn chỉ cần biết vậy là đủ, không cần (và không nên) can thiệp gì vào thư mục huyền bí này.</p>
+
+<p>(1) <code class="highlighter-rouge">git init</code> (Tạo Git cho dự án của bạn – Nếu chưa có) hoặc <code class="highlighter-rouge">git clone</code> (Trong trường hợp bạn muốn tiếp tục một dự án khác đã có sẵn git)</p>
+
+<p>(2) Chỉnh sửa, di chuyển, sắp xếp lại dự án của bạn cho đến khi bạn cảm thấy hài lòng và Dự án đang ở trạng thái xứng đáng để commit lên Git. Ở thời điểm này, Git vẫn chưa hoạt động và theo dõi những thay đổi của bạn.</p>
+
+<blockquote>
+  <p>Commit</p>
+
+  <p>A commit is a wrapper for a specific set of changes. The author of a commit has to comment what he did in a short “commit message”. This helps other people (and himself) to understand later what his intention was when making these changes.</p>
+
+  <p>Every set of changes implicitly creates a new, different version of your project. Therefore, every commit also marks a specific version. It’s a snapshot of your complete project at that certain point in time (but saved in a much more efficient way than simply duplicating the whole project…). The commit knows exactly how all of your files and directories looked and can therefore be used, e.g., to restore the project to that certain state.</p>
+</blockquote>
+
+<p>(3) Trước khi commit, hãy xem trạng thái hiện tại bằng lệnh <code class="highlighter-rouge">git status</code> – Lệnh này sẽ list ra tất cả những thay đổi mà bạn đã thực hiện so với lần commit trước.</p>
+
+<p>(4) Bạn có thể chỉ ra những Thay đổi cần được commit bằng cách thêm chúng vào Staging Area</p>
+
+<p>(5) Lúc này, bạn có thể commit lên Git và đi kèm với thông điệp ngắn gọn mô tả những gì bạn đã thay đổi. Điều này tốt cho những người làm việc cùng dự án với bạn và cho chính bạn sau này.</p>
+
+<p>(6) <code class="highlighter-rouge">git log</code> liệt kê toàn bộ Commit của bạn.</p>
+
+<p>(7) Nếu bạn đang cộng tác với nhiều người, một Remote Repositories sẽ đóng vai trò là nơi tiếp nhận mọi sự thay đổi của bạn và mọi người.</p>
+
+<p><strong>Local &amp; Remote Repositories</strong></p>
+
+<blockquote>
+  <p>There are two kinds of repositories:</p>
+
+  <p>A “local” repository resides on your local computer, as a “.git” folder inside your project’s root folder. You are the only person that can work with this repository, by committing changes to it.</p>
+
+  <p>A “remote” repository, in contrast, is typically located on a remote server on the internet or in your local network. No actual working files are associated with a remote repository: it has no working directory but it exclusively consists of the “.git” repository folder. Teams are using remote repositories to share &amp; exchange data: they serve as a common base where everybody can publish their own changes and receive changes from their teammates.</p>
+</blockquote>
+
+<p><strong>What Makes a Good Commit?</strong></p>
+
+<blockquote>
+  <p>The better and more carefully you craft your commits, the more useful will version control be for you. Here are some guidelines about what makes a good commit:</p>
+
+  <p><strong>Related Changes</strong></p>
+
+  <p>As stated before, a commit should only contain changes from a single topic. Don’t mix up contents from different topics in the same commit. This will make it harder to understand what happened.</p>
+
+  <p><strong>Completed Work</strong></p>
+
+  <p>Never commit something that is half-done. If you need to save your current work temporarily in something like a clipboard, you can use Git’s “Stash” feature (which will be discussed later in the book). But don’t eternalize it in a commit.</p>
+
+  <p><strong>Tested Work</strong><br />
+ Related to the point above, you shouldn’t commit code that you think is working. Test it well – and before you commit it to the repository.</p>
+
+  <p><strong>Short &amp; Descriptive Messages</strong><br />
+ A good commit also needs a good message. See the paragraph above on how to “Write Good Commit Messages” for more about this.</p>
+
+  <p>Finally, you should make it a habit to commit often. This will automatically help you to keep your commits small and only include related changes.</p>
+</blockquote>
+
+<hr />
+
+<h4 id="saving-changes-temporarily--git-stash">Saving Changes Temporarily – Git Stash</h4>
+
+<blockquote>
+  <h5 id="the-golden-rules-of-version-control">THE GOLDEN RULES OF VERSION CONTROL</h5>
+
+  <p><strong>Never Commit Half-Done Work</strong></p>
+
+  <p>You should only commit code when it’s completed. This doesn’t mean you have to complete a whole, large feature before committing. Quite the contrary: split the feature’s implementation into logical chunks and remember to commit early and often. But don’t commit just to get half-done work out of your way when you need a “clean working copy”. For these cases, consider using Git’s “Stash” feature instead.</p>
+</blockquote>
+
+<p><strong>Use git stash when you want to record the current state of the working directory and the index, but want to go back to a clean working directory. The command saves your local modifications away and reverts the working directory to match the HEAD commit.</strong></p>
+
+<p>Think of the Stash as a clipboard on steroids: it takes all the changes in your working copy and saves them for you on a new clipboard. You’re left with a clean working copy, i.e. you have no more local changes.</p>
+
+<p>Later, at any time, you can restore the changes from that clipboard in your working copy – and continue working where you left off.</p>
+
+<p>You can create as many Stashes as you want – you’re not limited to storing only one set of changes. Also, a Stash is not bound to the branch where you created it: when you restore it, the changes will be applied to your current HEAD branch, whichever this may be.</p>
+
+<p><code class="highlighter-rouge">git stash</code> Để tạo stash mới. Lúc này, stash sẽ lưu lại trạng thái hiện tại của bạn, sau đó nó sẽ đưa bạn trở về lần commit mới nhất.</p>
+
+<p><code class="highlighter-rouge">git stash list</code> để xem danh sách các stash</p>
+
+<p>Khi cần restore một stash, bạn cần đến các lệnh dưới đây</p>
+
+<p><code class="highlighter-rouge">git stash pop</code>  Khôi phục lại trang thái ở stash mới nhất, và xóa stash đó ra khỏi danh sách.</p>
+
+<p><code class="highlighter-rouge">git stash apply &lt;stashname&gt;</code> – Khôi phục lại trạng thái ở , tuy nhiên stash đó chưa được xóa khỏi stash list, bạn cần remove nó bằng lệnh <code class="highlighter-rouge">git stash drop &lt;stashname&gt;</code></p>
+
+<p>Tham khảo thêm Document của <a href="http://git-scm.com/docs/git-stash"><strong>Git Stash</strong></a></p>
+
+<h5 id="tnh-hung-cn-dng-stash">Tình huống cần dùng stash</h5>
+
+<blockquote>
+  <p>A commit wraps up changes and saves them permanently in the repository. However, in your day-to-day work, there are a lot of situations where you only want to save your local changes temporarily. For example, imagine you’re in the middle of some changes for feature X when an important bug report comes in. Your local changes don’t belong to the bugfix you’re going to make. You have to get rid of them (temporarily, without losing them!) and continue working on them later.</p>
+
+  <p>Situations like this one happen all the time: you have some local changes in your working copy that you can’t commit right now – and you want or need to start working on something else. To get these changes out of your way and have a “clean” working copy, Git’s “Stash” feature comes in handy.</p>
+</blockquote>
+
+<h5 id="cc-tnh-hung-khc">Các tình huống khác</h5>
+
+<p><strong><em>When to Stash</em></strong></p>
+
+<p>Stashing helps you get a clean working copy. While this can be helpful in many situations, it’s strongly recommended…</p>
+
+<ul>
+  <li>before checking out a different branch.</li>
+  <li>before pulling remote changes.</li>
+  <li>before merging or rebasing a branch.</li>
+</ul>
+
+<hr />
+
+<h5 id="works-with-branches--git-branch">Works with Branches — Git Branch</h5>
+
+<p>Branch là gì, Tại sao Branch là một tính năng vô cùng quan trọng trong Git – Hãy xem thêm bài viết – <strong><a href="http://www.git-tower.com/learn/ebook/command-line/branching-merging/branching-can-change-your-life">Branching can change Your life</a></strong></p>
+
+<p>Tham khảo thêm các lệnh liên quan đến Branching tại <a href="http://www.git-tower.com/learn/ebook/command-line/branching-merging/working-with-branches"><strong>Git Tower</strong></a>.</p>
+
+<h5 id="works-with-remote-repository">Works with Remote Repository</h5>
+
+<p>Tham khảo thêm:</p>
+
+<ul>
+  <li>
+    <p><a href="https://www.atlassian.com/git/tutorial/remote-repositories">https://www.atlassian.com/git/tutorial/remote-repositories</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.git-tower.com/learn/ebook/command-line/remote-repositories/introduction#start">http://www.git-tower.com/learn/ebook/command-line/remote-repositories/introduction#start</a></p>
+  </li>
+</ul>
+
+<h5 id="gui-tools-for-git">GUI Tools for Git</h5>
+
+<ul>
+  <li><strong>gitk</strong> – graphical history browser, in Tcl/Tk, distributed with Git (usually in gitk package)</li>
+  <li><strong>git gui</strong> – graphical commit tool, in Tcl/Tk, distributed with Git (usually in git-gui package)</li>
+  <li><strong>qgit</strong> – uses Qt toolkit</li>
+  <li><strong>giggle</strong> – uses GTK+ toolkit</li>
+  <li><strong>git-cola</strong> – uses PyQt4</li>
+  <li><strong>gitg</strong> – GTK+/GNOME clone of GitX</li>
+  <li><strong>tig</strong> – text mode interface for git, is GUI and pager, uses ncurses</li>
+  <li><strong>GitForce</strong> - Git tool with Graphical user interface, available under GNU GPL license</li>
+</ul>
+
+<p><img src="http://dl.dropbox.com/u/1592778/viphat%3A%20master%20-home-eddie-viphat_006.png" alt="Git-Cola" /></p>
+
+<hr />
+
+<p>Git có rất nhiều lệnh mà đôi khi bạn sẽ không nắm hết tất cả được, nhưng để phục vụ cho công việc hàng ngày thì chỉ cần nhớ một số lệnh git sử dụng thường xuyên là đủ.</p>
+
+<p>Để biết tất tần tật về Git – Tham khảo <a href="http://git-scm.com/doc"><strong>Git Document</strong></a>.</p>
+
+<hr />
+
+<p>Bài được viết dựa trên Tutorial của <a href="https://www.git-tower.com/learn/git/ebook/command-line/introduction"><strong>Git Tower</strong></a>.</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

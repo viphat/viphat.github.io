@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Tổng quan về TCP/IP và Giao thức HTTP</title>
+  <meta name="description" content="Đây là bài tập về nhà của Khóa Linux Network Administrators">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/tong-quan-ve-tcp-ip-va-http">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p><small><em>Đây là bài tập về nhà của Khóa <strong>Linux Network Administrators</strong></em></small></p>
+
+<p>Để hiểu cấu trúc và hoạt động của Web Server (Quan trọng và cần thiết đối với một Web Developer như mình) thì việc nắm các kiến thức nền tảng liên quan như <strong>Giao thức liên mạng TCP/IP</strong>, <strong>TCP</strong>, <strong>UDP</strong>, <strong>Giao thức HTTP</strong>, <strong>Khác nhau giữa HTTP 0.9, 1.0, 1.1 và 2.0</strong>, <strong>Web Socket</strong>… là rất hữu ích. Dĩ nhiên, trong khuôn khổ một bài viết thì mình cũng không đi sâu vào từng phần, mà chỉ dừng lại ở mức tổng quan để có khái niệm về những thành phần trên.</p>
+
+<blockquote>
+  <p>TCP/IP và các tầng của nó nếu muốn hiểu rõ, hiểu cặn kẽ thì cần có nhiều kiến thức rất sâu về Mạng máy tính và mỗi tầng trong đó xứng đáng cả một khóa học.</p>
+</blockquote>
+
+<hr />
+
+<h4 id="tm-hiu-tng-quan-v-tcpip">Tìm hiểu tổng quan về TCP/IP</h4>
+
+<p>Bộ giao thức TCP/IP (Internet Protocol Suite) là bộ giao thức mà Internet và các mạng máy tính đang sử dụng và chạy trên đó. Nó gồm 2 giao thức chính là TCP (Transmission Control Protocol - Giao thức điều khiển giao vận) và IP (Internet Protocol - Giao thức liên mạng).</p>
+
+<p>Bộ giao thức TCP/IP được coi là một tập hợp các tầng. Mỗi tầng giải quyết một tập các vấn đề liên quan đến việc truyền tải dữ liệu, và cung cấp cho các giao thức tầng cấp trên một dịch vụ được định nghĩa rõ ràng dựa trên việc sử dụng các dịch vụ của các tầng thấp hơn. Hay nói cách khác, các tầng trên gần với người dùng hơn và làm việc với dữ liệu trừu tượng hơn, chúng dựa vào các tầng cấp dưới để biến đổi dữ liệu thành các dạng mà cuối cùng có thể truyền đi một cách vật lý.</p>
+
+<p><strong>4 tầng của TCP/IP</strong></p>
+
+<ul>
+  <li><strong>Tầng ứng dụng</strong> - Application Layer</li>
+  <li><strong>Tầng giao vận</strong> - Transport Layer</li>
+  <li><strong>Tầng mạng</strong> - Internet Layer</li>
+  <li><strong>Tầng liên kết</strong> - Link Layer</li>
+</ul>
+
+<p>Mô hình 4 tầng của TCP / IP và 7 tầng của mô hình OSI (Một giao thức liên mạng đã cũ và bị thay thế bởi TCP/IP)</p>
+
+<p><img src="http://i.imgur.com/sg8YWKU.png" alt="TCP/IP" /></p>
+
+<p>Mô hình vận chuyển dữ liệu qua giao thức TCP/IP</p>
+
+<p><img src="http://i.imgur.com/HW63g82.png" alt="TCP/IP Transmission Data" /></p>
+
+<p>Sơ lược về nhiệm vụ của mỗi tầng:</p>
+
+<p><img src="http://i.imgur.com/pnsP07D.png" alt="TCP/IP" /></p>
+
+<p><img src="http://i.imgur.com/xfnqCac.png" alt="TCP/IP" /></p>
+
+<p>Đọc thêm Bài viết <a href="http://notes.viphat.work/hanh-trinh-cua-mot-goi-tin/"><strong>Hành trình của một gói tin</strong></a></p>
+
+<h5 id="application-layer">Application Layer</h5>
+<p>Tầng cao nhất trong cấu trúc phân lớp của TCP/IP. Tầng này bao gồm tất cả các chương trình ứng dụng sử dụng các dịch vụ sẵn có thông qua một chồng giao thức TCP/IP như DHCP, DNS, HTTP, FTP, Telnet, SMTP, … Chúng sẽ tương tác với tầng vận chuyển để truyền hoặc nhận dữ liệu.</p>
+
+<h5 id="transport-layer">Transport Layer</h5>
+<p>Gồm 2 đại biểu chính là giao thức TCP và giao thức UDP mà mình giới thiệu tiếp đây.</p>
+
+<h5 id="tng-mng">Tầng mạng</h5>
+
+<p>IP (IPv4, IPv6)</p>
+
+<h5 id="tng-lin-kt">Tầng liên kết</h5>
+
+<p>Ethernet, Wifi, Token Ring, PPP, Frame Relay…</p>
+
+<h4 id="tcp-v-udp">TCP và UDP</h4>
+
+<p><strong>TCP</strong> và <strong>UDP</strong> thuộc tầng giao vận (Transport Layer) của TCP/IP. Trong đó TCP là giao thức định hướng kết nối và UDP (User Datagram Protocol) là giao thức phi kết nối.</p>
+
+<p><strong>TCP</strong> tạo ra các kết nối giữa 2 máy cần trao đổi dữ liệu (Tạo ra một “đường ống” riêng) mà qua đó các gói tin được bảo đảm chuyển tới nơi nhận một cách đáng tin cậy và đúng thứ tự. 
+<strong>Nguyên tắc hoạt động</strong>: TCP tại máy nguồn phân chia các byte dữ liệu cần truyền đi thành các đoạn (Segment) có kích thước thích hợp. Sau đó, TCP chuyển các gói tin này qua giao thức IP để gửi nó qua một liên mạng đến TCP ở máy đích. TCP nguồn kiểm tra để không có một gói tin nào bị thất lạc bằng cách gán cho mỗi gói tin một số thự tự (Sequence Number). Khi TCP đích nhận được, họ gửi về TCP nguồn một thông báo đã nhận (Acknowledgement) cho các gói tin đã nhận thành công. Một đồng hồ tại TCP nguồn sẽ báo time-out nếu không nhận được tin báo nhận trong khoản thời gian bằng một RRT (Round Trip Time), và dữ liệu (được coi như thất lạc) sẽ được gửi lại. TCP đích sẽ kiểm tra checksum xem có byte nào bị hỏng trong quá trình vận chuyển hay không, giá trị checksum này được tính toán cho mỗi gói dữ liệu tại nơi gửi trước khi nó được gửi và được kiểm tra tại nơi nhận.</p>
+
+<p><strong>UDP</strong> được dùng để gửi những dữ liệu ngắn (gọi là Datagram) tới những máy khác, UDP không cung cấp độ tin cậy và thứ tự truyền nhận như TCP làm. Các gói dữ liệu có thể đến không đúng thứ tự hoặc bị mất mà không có thông báo. Tuy nhiên, UDP nhanh và hiệu quả hơn đối với các mục tiêu như kích thước nhỏ và yêu cầu khắt khe về thời gian. Do bản chất không trạng thái của nó nên nó hữu dụng đối với việc trả lời các truy vấn nhỏ với số lượng lớn người yêu cầu. (Hèn chi mà Graylog lại sử dụng UDP để truyền tải các bản ghi Log từ Server Web đến Server Graylog và Tại sao UDP kém tin cậy hơn TCP nhưng vẫn tồn tại và được sử dụng.).</p>
+
+<p><strong>Ưu điểm của TCP so với UDP</strong>:</p>
+
+<ul>
+  <li>Truyền dữ liệu không lỗi (Do có cơ chế sữa lỗi / truyền lại).</li>
+  <li>Truyền các gói dữ liệu theo đúng thứ tự.</li>
+  <li>Truyền lại các gói dữ liệu mất trên đường truyền.</li>
+  <li>Loại bỏ các gói dữ liệu trùng lặp.</li>
+  <li>Cơ chế hạn chế tắc nghẽn đường truyền.</li>
+</ul>
+
+<p><strong>Danh sách các cổng TCP, UDP mặc định của một số ứng dụng mạng</strong></p>
+
+<p><a href="https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers">List of TCP and UDP Port Numbers</a></p>
+
+<p>HTTP - 80
+FTP - 20, 21
+SSH - 22
+Telnet - 23
+SMTPS - 465
+POP3s - 995
+…</p>
+
+<hr />
+
+<h4 id="ip---internet-protocol">IP - Internet Protocol</h4>
+
+<p>Xem thêm tại bài viết <a href="http://notes.viphat.work/so-luoc-ve-dia-chi-ip/"><strong>Tìm hiểu về IP</strong></a></p>
+
+<p>Trong Ipv4, Có 3 dải địa chỉ sử dụng trong Mạng riêng (và những địa chỉ còn lại được sử dụng cho mạng công cộng - Internet)</p>
+
+<p>10.0.0.0–10.255.255.255
+172.16.0.0–172.31.255.255
+192.168.0.0–192.168.255.255</p>
+
+<p>==Mở rộng: Tìm hiểu kỹ hơn IPv6==</p>
+
+<hr />
+
+<h4 id="http---hypertext-transfer-protocol-giao-thc-truyn-siu-vn-bn">HTTP - HyperText Transfer Protocol (Giao thức truyền siêu văn bản)</h4>
+
+<p>Giao thức này nằm trong tầng Application Layer, được sử dụng để truyền nội dung trang Web từ Web Server đến trình duyệt Web ở Client. Là giao thức Client/Server dùng cho Internet - World Wide Web, HTTP thuộc tầng ứng dụng của bộ giao thức TCP/IP (Các giao thức nền tảng cho Internet). Cơ chế hoạt động chính của HTTP là Request-Response: Web Client sẽ gửi Request đến Web Server, Web Server xử lý và trả về Response cho Web Client.</p>
+
+<p><strong>Lịch sử</strong>:</p>
+
+<p>Phiên bản hoàn chỉnh đầu tiên của HTTP là <strong>HTTP 0.9</strong> (Ra đời năm 1991), Tiếp theo là <strong>HTTP 1.0</strong> (Giới thiệu chính thức năm 1996), <strong>HTTP 1.1</strong> (1997) và mới đây nhất là <strong>HTTP 2.0</strong>. Các phiên bản sau ra đời nhằm thay thế phiên bản trước, kế thừa những chức năng cốt lõi của phiên bản trước nhưng có nhiều cải tiến và bổ sung. Hiện nay thì HTTP 2.0 chưa được dùng phổ biến do còn khá mới và do các doanh nghiệp Web cũng phần nào ngại chuyển đổi. Do vậy, HTTP 1.1 vẫn là giao thức HTTP phổ biến nhất. HTTP 1.0 vẫn còn được sử dụng nhiều trong hệ thống Proxy và một số ứng dụng cũ (wget). ==(Để tìm hiểu vì sao HTTP 1.0 vẫn còn được dùng nhiều trong các hệ thống Proxy thì ta phải nắm HTTP 1.0 và HTTP 1.1 cache dữ liệu như thế nào?)==</p>
+
+<p><strong>Request Method</strong> phổ dụng của HTTP:</p>
+
+<ul>
+  <li>GET</li>
+  <li>HEAD</li>
+  <li>POST</li>
+  <li>PUT</li>
+  <li>DELETE</li>
+  <li>TRACE</li>
+  <li>OPTIONS</li>
+  <li>CONNECT</li>
+  <li>PATCH</li>
+</ul>
+
+<p>Ngoài Method, URI (Địa chỉ định danh của tài nguyên), HTTP Version thì trong Request Header có một số trường thông dụng sau:</p>
+
+<ul>
+  <li><strong>Accept</strong>: loại nội dung có thể nhận được từ thông điệp response. Ví dụ: text/plain, text/html…</li>
+  <li><strong>Accept-Encoding</strong>: các kiểu nén được chấp nhận. Ví dụ: gzip, deflate, xz, exi…</li>
+  <li><strong>Connection</strong>: tùy chọn điều khiển cho kết nối hiện thời. Ví dụ: keep-alive, Upgrade…</li>
+  <li><strong>Cookie</strong>: thông tin HTTP Cookie từ server.</li>
+  <li><strong>User-Agent</strong>: thông tin về user agent của người dùng.</li>
+</ul>
+
+<p>Đọc thêm: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields"><strong>List of HTTP Headers</strong></a></p>
+
+<p><strong>Phân biệt GET và POST</strong></p>
+
+<p>Hai phương thức được sử dụng nhiều nhất trong HTTP request là GET và POST</p>
+
+<p>Với GET, câu truy vấn sẽ được đính kèm vào đường dẫn của HTTP request. Ví dụ: /?username=”abc”&amp;password=”def”</p>
+
+<p>Một số đặc điểm của phương thức GET:</p>
+
+<ul>
+  <li>GET request có thể được cached, bookmark và lưu trong lịch sử của trình duyệt.</li>
+  <li>GET request bị giới hạn về chiều dài, do chiều dài của URL là có hạn.</li>
+  <li>GET request không nên dùng với dữ liệu quan trọng, chỉ dùng để nhận dữ liệu.</li>
+</ul>
+
+<p>Ngược lại, với POST thì câu truy vấn sẽ được gửi trong phần message body của HTTP request, một số đặc điểm của POST như:</p>
+
+<ul>
+  <li>POST không thể cached, bookmark hay lưu trong lịch sử trình duyệt.</li>
+  <li>POST không bị giới hạn về độ dài.</li>
+</ul>
+
+<p><img src="http://i.imgur.com/UlG8n9u.png" alt="HTTP Request" /></p>
+
+<p><strong>Response Code</strong></p>
+
+<p>Response Code chỉ ra trạng thái của một Repsonse khi phản hồi một request từ Web Client - Thành công hay thất bại, có lỗi hay không? Lỗi của ai?</p>
+
+<p><img src="http://i.imgur.com/iudbPPz.png" alt="Ví dụ về HTTP Response" /></p>
+
+<ul>
+  <li>1xx - Informational</li>
+  <li>2xx - Success (200 - OK, 202 - Accepted, 204 - No Content)</li>
+  <li>3xx - Redirection (301 Moved Permanently: tài nguyên đã được chuyển hoàn toàn tới địa chỉ Location trong HTTP response. 303 See other: tài nguyên đã được chuyển tạm thời tới địa chỉ Location trong HTTP response. 304 Not Modified: tài nguyên không thay đổi từ lần cuối client request, nên client có thể sử dụng đã lưu trong cache.)</li>
+  <li>4xx - Client Error (400 - Bad Request, 401 - Unauthorized, 403 - Forbidden, 404 - Not Found, 405 - Method Not Allowed, 408 - Request Timeout, 429 - Too many requests)</li>
+  <li>5xx - Server Error (500 - Internal Server Error, 503 - Service Unavailable, 504 - Gateway Timeout, 509 - Bandwidth Limit Exceed)</li>
+</ul>
+
+<p>Tham khảo chi tiết từng mã HTTP Status Code - https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</p>
+
+<p><strong>Đặc điểm của HTTP</strong></p>
+
+<ul>
+  <li>Stateless Protocol - Phi trạng thái là một giao thức giao tiếp mà mỗi request được xem là một phiên giao dịch độc lập (nghĩa là nó không lưu giữ bất kỳ thông tin nào liên quan đến các request trước đó cũng như các phiên làm việc trước)</li>
+</ul>
+
+<p><strong>So sánh HTTP 1.0 và HTTP 1.1</strong></p>
+
+<p><strong>Sự khác biệt của HTTP 2.0</strong></p>
+
+<blockquote>
+  <p>Mở rộng: <a href="http://notes.viphat.work/phan-biet-http-va-https/"><strong>Tìm hiểu về HTTPS và SSL</strong></a></p>
+</blockquote>
+
+<blockquote>
+  <p>Mở rộng: Tìm hiểu kỹ hơn về HTTP 2.0 - Tương lai của Web</p>
+</blockquote>
+
+<p><strong>Dương Vì Phát</strong></p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

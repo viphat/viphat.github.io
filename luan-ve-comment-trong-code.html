@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Luận về Comment trong Code</title>
+  <meta name="description" content="Comment code luôn là vấn đề gây tranh cãi sứt đầu mẻ trán trong giới võ lâm. Xưa kia, thuở còn mài đít trên ghê nhà trường, ta thường được các thầy dặn rằng:...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/luan-ve-comment-trong-code">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Comment code luôn là vấn đề gây tranh cãi sứt đầu mẻ trán trong giới võ lâm. Xưa kia, thuở còn mài đít trên ghê nhà trường, ta thường được các thầy dặn rằng: Code nhớ phải comment. Thuở mới đi làm, sơ nhập gian hồ, mỗi khi đọc code không hiểu, ta cũng hay đập bàn mà chửi: “Thằng này code ngu quá chẳng comment gì cả”.</p>
+
+<p>Thế nhưng, lưu lạc giang hồ bao năm, đọc code cũng nhiều; từ code không comment cho tới code comment đầy đủ và sạch sẽ; ta vẫn băn khoăn không biết thật sự phải comment thế nào mới đúng. Thế rồi, sau khi đọc Clean Code (https://toidicodedao.wordpress.com/2015/04/09/review-sach-clean-code-a-handbook-of-agile-software-craftsmanship/), ta như lượm được bí tịch võ công trong truyền thuyết. Ta ngộ ra được cái gọi là “đạo code”, “đạo comment”, đặt 1 bước chân vào con đường võ đạo đỉnh cao (Đạo ở đây là đạo lý, ko phải đạo tặc trộm cướp nhé).</p>
+
+<p>Thần Điêu Đại Hiệp của Kim Dung có đoạn: Dương Quá bị lạc vào kiếm mộ của Độc Cô Cầu Bại. Thuở còn sống, Độc Cô cầu bại là người kiếm thuật vô song, danh chấn thiên hạ. Trước khi chết, ông chôn 4 thanh kiếm ở nơi gọi là kiếm mộ. Tại hạ muốn quý vị chú ý chi tiết này:</p>
+
+<blockquote>
+  <p>Một hồi sau, chàng mới đặt thanh kiếm nặng đó xuống, nhấc thanh kiếm thứ ba lên, lần này chàng lại bị lầm. Chàng cứ tưởng thanh kiếm này phải nặng hơn thanh kiếm vừa rồi, nên vận lực ra cánh tay. Nào ngờ nó nhẹ tênh như không, chàng ngưng thần xem kỹ, hóa ra đó là một thanh kiếm gỗ, chôn dưới đá lâu năm, thân và cán kiếm đều đã bị mục, đọc dưới mặt đá có khắc dòng chữ:</p>
+</blockquote>
+
+<blockquote>
+  <p>Sau bốn mươi tuổi, không mang binh khí,</p>
+</blockquote>
+
+<blockquote>
+  <p>Thảo mộc trúc thạch đều có thể dùng làm kiếm.</p>
+</blockquote>
+
+<blockquote>
+  <p>Cứ thế tinh tu, đạt tới cảnh giới vô kiếm thắng hữu kiếm.</p>
+</blockquote>
+
+<p>Tổng kết lại, cuộc đời tu kiếm của Độc Cô Cầu Bại bao gồm ba giai đoạn:</p>
+
+<ul>
+  <li>Lúc trai trẻ lòng đầy nhiệt huyết mà thiếu sự chín chắn thì sử dụng tử vi kiếm là thanh bảo kiếm sắc, nhẹ và linh hoạt.</li>
+  <li>Khi đạt độ chín của suy nghĩ và sức lực, sử dụng thanh kiếm sắt nặng nề mà không sắc bén.</li>
+  <li>Khi bắt đầu về già, suy nghĩ và kiếm thuật đạt trình độ cao, vũ khí chỉ còn là thanh kiếm gỗ và đạt mức thượng thừa thì không kiếm mà thắng đối thủ, bất cứ thứ gì cũng là kiếm.</li>
+</ul>
+
+<p>Ta tự thấy hầu như <strong>lập trình viên nào cũng sẽ phải trải qua ba giai đoạn này</strong> trên con đường “cầu đạo”. Kẻ nào ngộ tính cao thì chỉ cần làm việc một hai năm đã đạt tới cảnh giới cuối. Kẻ nào đầu óc u mê lạc lối thì cả đời vẫn cứ ở giai đoạn hai mà thôi.</p>
+
+<h4 id="giai-on-tr-tru-y-nhit-huyt-code-khng-comment-hoc-comment-lung-tung">Giai đoạn trẻ trâu đầy nhiệt huyết (Code không comment hoặc comment lung tung)</h4>
+
+<p>Kẻ nào sơ nhập giang hồ đều trải qua giai đoạn này. Đây là khi ta còn ngồi trên ghế nhà trường,  hoặc mới đi làm. Code chạy được là mừng, đôi khi code cho xong là nộp, chả cần comment. Nhiều khi ta nghe lời các sư phụ, thêm comment vào code. Đống comment này nhiều nhưng khá vô dụng, đọc rất buồn cười, như thể mấy kẻ mới học võ công mà bày trò múa máy bắt chước các chiêu thức cao siêu trong võ học.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//Chia đôi toàn bộ các phần tử của mảng đưa vào
+public int[] half(int[] y){
+  int[] x; //Tạo một array mới chứa kết quả
+  for (int i = 0; i &amp;amp;lt; y.length ; i++)  //Duyệt các phần tử của mảng y
+  {
+     x[i] = y[i]/2;  //Gán trá trị vào array chứa kết quả
+  };
+  return x; //Trả kết quả ra
+}
+</code></pre>
+</div>
+
+<p>Ta thấy code tuy comment khá đầy đủ, nhưng chẳng có ý nghĩa mấy, thời gian viết comment còn nhiều hơn viết code. Một số coder thường dùng trò: Thêm comment để biết ngày giờ sửa code, comment lại 1 số code không dùng nữa. Xin lỗi, cho phép tại ha nói thẳng:</p>
+
+<ul>
+  <li>Code không dùng nữa thì xóa đi, đừng comment. Có Source Version Control rồi khi cần code cũ chỉ việc restore lại là xong.</li>
+  <li>Đừng comment theo kiểu: //02/03/1992 Sửa tên class. Sử dụng Source Version Control có thể tra ra log rõ ràng và tiện dụng hơn nhiều.</li>
+</ul>
+
+<h4 id="giai-on-tm-chn-chn-trong-suy-ngh-bit-cch-comment">Giai đoạn tạm chín chắn trong suy nghĩ (Biết cách comment)</h4>
+
+<p>Code một thời gian, hầu như mọi ltv sẽ đạt đến giai đoạn này. Ở giai đoạn này, ta đã cảm thụ được một chân lý võ học : <strong>Comment nên là what, không phải how.</strong> Comment để nói code làm gì, không phải để giải thích việc code làm. Lúc này, lập trình viên đã hiểu rõ hơn về cách comment. Với những đoạn code phức tạp, dài dòng, 1 dòng comment ngắn gọn sẽ giúp người sau dễ dàng hiểu đoạn code làm gì</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public object DoThing(){
+//Lấy 1 phần tử random từ database
+//Một đống code phức tạp
+  return obj;
+}
+</code></pre>
+</div>
+
+<p>Tuy vậy, các bậc cao nhân xưa đã rút ra được một điều: <strong>Comment là thứ dối trá</strong>. Khi sửa code, comment thường không được sửa, sẽ dẫn tới tình trạng: code một đằng, comment một nẻo. Ta phải đọc cả code lẫn comment để biết code làm gì, phí gấp đôi thời gian. <strong>Cách comment tốt nhất chính là dùng code, chính code sẽ nói code làm gì</strong>. Ngộ ra được điều này, các đạo hữu sẽ đạt tới cảnh giới cuối cùng trong “code học”.</p>
+
+<h4 id="cnh-gii-v-kim-thng-hu-kim-v-comment-thng-hu-comment">Cảnh giới vô kiếm thắng hữu kiếm (Vô comment thắng hữu comment)</h4>
+
+<p>Đây là cảnh giới mà ta hy vọng các đạo hữu có thể đạt được</p>
+
+<p>Ở cảnh giới này, ta code không cần comment nhiều. Giống như Độc Cô Cầu Bại có thể lấy kiếm gỗ làm kiếm, lấy lá cỏ làm kiếm, lấy tay làm kiếm; ta thấy bất cứ thứ gì cũng có thể làm comment: tên biến cũng là comment, tên hàm cũng là comment, tên database cũng là comment. Code cũng như comment, comment cũng như code, code và comment tuy hai mà một.</p>
+
+<p>Tuy nhiên, đôi khi <strong>bắt buộc phải dùng comment</strong>: Khi viết JavaDoc, API v…v, ta bắt buộc phải comment và document, vì người dùng API chỉ được đọc document chứ không đọc code. Một số trường hợp khác: comment là why chứ không phải what. Ta viết comment để người khác (hoặc ta sau này) biết vì sao ta lại viết code như vậy. Comment có tác dụng <strong>nói những điều bản thân code không nói được</strong>. Còn việc code làm gì, chạy như thế nào, chỉ cần đọc code là hiểu.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//Chỉ cần nhìn tên hàm là biết hàm làm gì
+public object GetRandomObjectFromDatabase(){
+  return randomObj;
+}
+ 
+public int[] HalfAllNumbersFromInput(int[] input){
+   int[] output; //Nhìn tên biến là biết biến làm gì
+   for (int i = 0; i &lt; input.length ; i++)
+   {
+      output[i] = input[i]/2;
+      //Viết để debug, sau này phải remove
+      //Đây là comment bắt buộc phải viết, để giải thích lý do ta viết code
+      Console.Write("Call this");
+   };
+   return output;
+}
+</code></pre>
+</div>
+
+<p>Ở đây, ta không phủ nhận độ hữu dụng của comment. Nhưng vấn đề là: <strong>Nhiều gã coder lợi dụng comment để viết code không rõ ràng, khó hiểu, sau đó sử dụng comment để lấp liếm</strong>. Điều ta muốn các bằng hữu hiểu là: Hãy cố gắng** viết code một cách rõ ràng nhất có thể**, bằng cách đặt tên biến, tên hàm, tách code, … Đó mới là cảnh giới tối cao của “code đạo”. Đừng học đòi theo lũ trẻ trâu mà viết code kiểu “càng ngắn càng tốt”, càng khó hiểu càng tốt, đó chỉ là cái dũng của kẻ thất phu mà thôi. Chúc các bằng hữu sớm thành cao thủ trên con đường cầu đạo, nhầm, cầu code của mình.</p>
+
+<hr />
+
+<p>Bài viết lấy từ nguồn:</p>
+
+<p>https://toidicodedao.wordpress.com/2015/07/09/luan-ve-comment-code-phong-cach-kiem-hiep/</p>
+
+<p>Đọc thêm:</p>
+
+<ul>
+  <li><a href="http://vinacode.net/2015/07/22/lap-trinh-khong-co-comment/"><strong>Lập trình không có comment</strong></a></li>
+  <li><a href="http://vinacode.net/2014/12/10/lap-trinh-vien-toi-uu-code/"><strong>Liệu có nên xóa phần code không dùng nữa?</strong></a></li>
+</ul>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

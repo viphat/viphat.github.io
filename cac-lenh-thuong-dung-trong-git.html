@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Branching with GIT</title>
+  <meta name="description" content="Bài này mình tổng hợp một số lệnh Git dùng để branching thường dùng. Branching là kỹ thuật quan trọng khi dùng git, mà khi làm việc với Git, Dev cần phải nằm...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/cac-lenh-thuong-dung-trong-git">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Bài này mình tổng hợp một số lệnh Git dùng để branching thường dùng. Branching là kỹ thuật quan trọng khi dùng git, mà khi làm việc với Git, Dev cần phải nằm lòng:</p>
+
+<blockquote>
+  <p>Branch early, branch often</p>
+</blockquote>
+
+<p>Tại sao lại phải branching thường xuyên, mời bạn đọc qua bài viết này trên CodeDaily, khá dễ hiểu và không kém hài hước - https://codedaily.vn/2014/12/kinh-nghiem-git-branch-early-branch-often/</p>
+
+<p><strong>Tạo Branch mới</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git branch [new_branch_name]
+</code></pre>
+</div>
+
+<p><strong>Chuyển đến Branch khác</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout [branch_name]
+</code></pre>
+</div>
+
+<p><strong>Chuyển đến một commit trước đây (đồng thời sẽ tạo một branch tạm mới)</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout [commit]
+</code></pre>
+</div>
+
+<p><strong>Nếu muốn lưu lại branch tạm khi checkout commit, dùng lệnh:</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout -b [new_branch_name]
+</code></pre>
+</div>
+
+<p><strong>Fetch Branch mới từ Remote về Local</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout -b  [local_new_branch_name] [origin/new_branch_name]
+</code></pre>
+</div>
+
+<p><strong>Push Branch mới lên Remote Server và thiết lập Track branch đó</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git push -u origin [new_branch_name]
+</code></pre>
+</div>
+
+<p><strong>Push toàn bộ Branch từ Local sang Remote</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git push --all -u
+</code></pre>
+</div>
+
+<p><strong>Delete Branch Local</strong>
+<code class="highlighter-rouge">
+git branch -d [branch_name]
+</code></p>
+
+<p><strong>Delete Branch Remote</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git push origin :[branch_name]
+</code></pre>
+</div>
+
+<p><strong>List all local Branch</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git branch
+</code></pre>
+</div>
+
+<p><strong>List all Remote Branch</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git branch -r
+</code></pre>
+</div>
+
+<p><strong>List all Branch (Remote and Local)</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git branch -a
+</code></pre>
+</div>
+
+<p><strong>Rename Local Branch</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git branch -m [old_name] [new_name]
+</code></pre>
+</div>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

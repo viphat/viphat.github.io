@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SRP - Single Responsibility Principle</title>
+  <meta name="description" content="Một trong những Design Pattern để viết code chất lượng mà các Developer giỏi thường hay áp dụng chính là SRP (The Single Responsibility Principle), Nguyên tắ...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/single-responsibility-principle">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Một trong những <strong>Design Pattern</strong> để viết code chất lượng mà các Developer giỏi thường hay áp dụng chính là <strong>SRP</strong> (The Single Responsibility Principle), Nguyên tắc trách nhiệm duy nhất, hiểu nôm na là một lớp chỉ (và nên) có một trách nhiệm duy nhất mà nó được giao - <strong>SRP</strong> cũng là chữ cái S trong bộ <a href="http://viphat.me/1JrHhC1"><strong>Nguyên tắc SOLID</strong></a> (<strong>S</strong>ingle responsibility, <strong>O</strong>pen/closed, <strong>L</strong>iskov substitution, <strong>I</strong>nterface segregation, <strong>D</strong>ependency inversion) nhuần nhuyễn nguyên tắc này đảm bảo bạn sẽ trở thành một lập trình viên ‘cứng’. Bất kì phần code nào không có khả năng bảo trì (maintainable) và không thể thích nghi với những yêu cầu thay đổi thì sẽ nhanh chóng bị lỗi thời, Do vậy SRP rất cần thiết và tối quan trọng để viết code tốt và dễ bảo trì.</p>
+
+<blockquote>
+  <p>Tản mạn ngoài lề một chút, mình kiếm cơm bằng nghề coder chưa lâu, từ lúc bắt đầu đến thời điểm hiện tại thì chỉ theo xuyên suốt có 1 dự án. Dự án vừa rồi cũng mới trãi qua đợt Refactor lớn, tách Front-End khỏi Back-End. Do vừa Refactor, cleaning code, vừa optimize lại mới thấy rằng chỉ mới vài tháng trước đây thôi: Code mình viết bừa bộn hết sức, từ cách đặt tên method, tên biến tùy tiện, tham số thì truyền vào không theo một thứ tự hay quy chuẩn nào, các lớp không được phân tách rõ ràng mà trộn lẫn vào nhau… cho đến việc cố gắng nhét một mớ nhiệm vụ vào trong 1 method, dẫn đến code cuối cùng dài ngoằng, người khác e ngại và đọc không hiểu nổi, còn bản thân thì cũng mất kha khá thời gian để đọc lại những gì mình đã từng viết. (việc một controller hay một model hơn cả ngàn dòng code không phải hiếm gặp.) - Cũng nhờ đợt Refactor này mà mình mới thấy rõ cái dở của bản thân mình trước đây và thấm thía được tầm quan trọng của việc làm thế nào để code trở nên tốt hơn và dễ bảo trì hơn. (Vâng, Tôi còn rất nhiều thứ phải học để trở thành Developer giỏi)</p>
+</blockquote>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="c1"># When I wrote this, only God and I understood what I was doing</span>
+<span class="c1"># Now, God only knows</span>
+</code></pre>
+</div>
+<hr />
+
+<h5 id="what-is-a-responsibility">What is a Responsibility?</h5>
+
+<p>Quay trở lại chủ đề của bài viết hôm nay, có một câu hỏi được đặt ra là trách nhiệm là gì? Và tại sao việc phân tách và chia nhỏ trách nhiệm cho từng lớp theo <strong>SRP</strong> lại quan trọng?</p>
+
+<p>Vâng, có thể coi <strong>một trách nhiệm</strong> là một lý do để thay đổi. Bất kỳ thay đổi nhỏ nào của yêu cầu có thể dễ dàng dẫn đến nhiều thay đổi ở các phần khác nhau của code. SRP giúp các lập trình viên viết code đó được tách riêng biệt ra, nơi mà mỗi lớp có công việc riêng của nó. Nếu các đặc tả kỹ thuật của công việc này thay đổi, thì các lập trình viên chỉ cần thay đổi những lớp xác định. Sự thay đổi này ít có khả năng phá vỡ toàn bộ ứng dụng, và các lớp khác vẫn sẽ làm công việc của chúng như trước. Nếu một tester thông báo cho Developer biết chức năng nào bị lỗi, Developer sẽ nhanh chóng xác định được lớp nào đang đảm nhận chức năng đó và chỉ cần sửa nó, rebuild, retest, redeploy lại riêng lớp đó mà thôi.</p>
+
+<p>Ví dụ, xét một module biên soạn và in một báo cáo. Một module như vậy có thể bị sửa vì hai lý do. Thứ nhất, nội dung của báo cáo có thể thay đổi. Thứ hai, định dạng của báo cáo có thể thay đổi. Hai thứ đó thay đổi vì những nguyên nhân rất khác nhau; một bên mang tính nội dung, bên kia mang tính hình thức. Nguyên tắc trách nhiệm duy nhất nói rằng hai khía cạnh đó của cùng một bài toán thực sự là hai trách nhiệm riêng biệt, và do đó nên nằm trong hai lớp hay module khác nhau. Sẽ là một thiết kế tồi nếu ghép cặp lại với nhau hai thứ có thể thay đổi vì những lý do khác nhau tại những thời điểm khác nhau, nó có thể gây ra những lỗi không mong đợi.</p>
+
+<p>Như đã định nghĩa ở trên, một trách nhiệm là một lý do để thay đổi. Nếu bạn có thể thấy nhiều hơn 1 lý do để thay đổi thì lớp đó không còn là Single Responsibility nữa. Điều này đôi lúc rất khó để nhận ra, xét ví dụ về một Interface Modem như sau, bạn nghĩ rằng trông nó có thực sự hoàn hảo?</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>interface Modem {
+  public void dial(String pno);
+  public void hangup();
+  public void send(char c);
+  public char recv();
+}
+</code></pre>
+</div>
+<p>Tuy nhiên, chúng ta có thể nhận thấy 2 trách nhiệm đang được nhét vào Interface Modem này. Trách nhiệm đầu tiên là <em>connection management</em>, trách nhiệm thứ hai là <em>data management</em>. Hàm <em>dial</em> và <em>hangup</em> quản lý kết nối của modem trong khi hàm <em>send</em> và <em>recv</em> có chức năng trao đổi dữ liệu. 2 tập chức năng hầu như không có gì chung cả, vậy nên ta hoàn toàn có thể tách chúng ra thành 2 lớp con riêng biệt.</p>
+
+<p><img src="http://i.imgur.com/QSmDC0l.pnghttp://i.imgur.com/QSmDC0l.png" alt="Separated Modem Interface" /></p>
+
+<blockquote>
+  <p>The SRP is one of the simplest of the principle, and one of the hardest to get right. Con-joining responsibilities is something that we do naturally. Finding and separating those responsibilities from one another is much of what software design is really about.</p>
+</blockquote>
+
+<p>Việc phát triển code bằng cách sử dụng các kỹ thuật này và nguyên tắc trách nhiệm duy nhất (Single Responsibility Principle) có thể dường như là một nhiệm vụ khó khăn, nhưng những nỗ lực này chắc chắn sẽ mang lại lợi ích to lớn khi dự án ngày càng lớn lên và tiếp tục phát triển.</p>
+
+<p><strong>Đọc thêm</strong>:</p>
+
+<ul>
+  <li>
+    <p><a href="http://viphat.me/1JrEQPJ">Nguyên tắc trách nhiệm duy nhất - Techmaster</a></p>
+  </li>
+  <li>
+    <p><a href="http://viphat.me/1JrHhC1">Solid là gì - Áp dụng SOLID để trở thành lập trình viên code ‘cứng’</a></p>
+  </li>
+  <li>
+    <p><a href="http://viphat.me/1JrHx3Z">Giới thiệu khái quát về nguyên tắc SOLID - Lê Quang Khải’s Blog</a></p>
+  </li>
+  <li>
+    <p><a href="http://viphat.me/1JrH8hP">Những nguyên tắc, những định luật lập trình mà chúng ta nên có sẵn trong đầu - Viblo.asia</a></p>
+  </li>
+</ul>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

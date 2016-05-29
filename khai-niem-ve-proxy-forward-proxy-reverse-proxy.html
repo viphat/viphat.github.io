@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Khái Niệm Về Proxy - Forward Proxy - Reverse Proxy</title>
+  <meta name="description" content="Proxy là gì?">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/khai-niem-ve-proxy-forward-proxy-reverse-proxy">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <h4 id="proxy-l-g">Proxy là gì?</h4>
+
+<p>Proxy trong tiếng anh có nghĩa là “người được ủy nhiệm, ủy quyền”.</p>
+
+<p>Proxy là một Internet server làm nhiệm vụ chuyển tiếp, kiểm soát thông tin giữa client (bên truy cập tài nguyên) và server (cung cấp tài nguyên mà client cần). Proxy có một địa chỉ IP và một cổng truy cập cố định.</p>
+
+<p>Nhờ chức năng chuyển tiếp và kiểm soát, proxy được sử dụng để giúp ngăn chặn kẻ tấn công xâm nhập vào mạng nội bộ và proxy cũng là một công cụ để xây dựng tường lửa trong hệ thống mạng của các tổ chức có nhu cầu truy cập Internet.</p>
+
+<p>Cách thức hoạt động: Tất cả các yêu cầu từ client gửi đến server trước hết phải qua proxy,  proxy kiểm tra xem yêu cầu nếu được phép, sẽ gửi đến server. Và cũng tương tự khi server gửi yêu (response) lại cho client, proxy sẽ kiểm tra và gửi cho client nếu yêu cầu đó được phép.</p>
+
+<h4 id="forward-proxy">Forward proxy</h4>
+
+<p>Đây là khái niệm proxy mà chúng ta thường dùng hằng ngày, nó là một thiết bị đứng giữa một client và tất cả các server mà client đó muốn truy cập vào.</p>
+
+<p>Bản thân Forward Proxy sẽ đóng vai trò là bộ lọc nội dung (chặn truy cập các Website bị cấm) và hỗ trợ việc giám sát và báo cáo cho Quản trị viên của Hệ thống.</p>
+
+<p><img src="http://i.imgur.com/7MQJU2X.png" alt="Forward Proxy" /></p>
+
+<h4 id="reverse-proxy">Reverse proxy</h4>
+
+<p><img src="http://i.imgur.com/HnYxPPX.png" alt="Reverse Proxy" /></p>
+
+<p>Làm công việc ngược lại với Forward proxy, nó đứng giữa một server và tất cả các client và server này phải phục vụ. Nói đơn giản hơn, nó như một nhà ga kiêm một trạm kiểm soát, các request (yêu cầu) từ client gửi lên server bắt buộc phải ghé vào reverse proxy, tại đây request sẽ được kiểm soát, lọc bỏ nếu không hợp lệ, nếu hợp lệ sẽ được luân chuyển đến đích cuối cùng là server.</p>
+
+<p>Ưu điểm lớn nhất của việc sử dụng Reverse proxy là khả năng quản lý tập trung. Nó giúp chúng ta kiểm soát mọi request do client gửi lên server mà chúng ta muốn bảo vệ.</p>
+
+<p>Reverse Proxy đóng vai trò tường lửa, cân bằng tải, caching, compression, bộ điều hướng nội dung, xác thực…</p>
+
+<p>Thực tế là System Admin hay sử dụng Mod Security làm Reverse Proxy để bảo vệ máy chủ cũng như ứng dụng Web. Bản thân các HTTP Server như Nginx, Apache có thể kiêm luôn vai trò của một Reverse Proxy.</p>
+
+<p><small><strong>Nguồn bài viết: http://www.stdio.vn/articles/read/175/khai-niem-ve-proxy-forward-proxy-reverse-proxy</strong></small></p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

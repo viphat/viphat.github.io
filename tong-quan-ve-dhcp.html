@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>DHCP là gì?</title>
+  <meta name="description" content="Mục đích của mình là trở thành Full-Stack Web Developer. Do đang tập trung vào mảng Server nên mình tìm hiểu luôn một số khái niệm hay ứng dụng cơ bản liên q...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/tong-quan-ve-dhcp">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Mục đích của mình là trở thành Full-Stack Web Developer. Do đang tập trung vào mảng Server nên mình tìm hiểu luôn một số khái niệm hay ứng dụng cơ bản liên quan đến mảng Network hay TCP/IP. Nếu đã đọc về <a href="http://notes.viphat.work/tong-quan-ve-tcp-ip-va-http/"><strong>Tổng quan về TCP/IP</strong></a>, <a href="http://notes.viphat.work/so-luoc-ve-dia-chi-ip/"><strong>Sơ lược về Địa chỉ IP</strong></a> hay <a href="http://notes.viphat.work/hanh-trinh-cua-mot-goi-tin/"><strong>Hành trình của một gói tin</strong></a>, bạn đã được biết tầm quan trọng của IP trong hệ thống mạng là như thế nào, bạn cũng phân biệt được Public IP và Private IP, bạn cũng biết cách chia lớp mạng, chia lớp mạng con như thế nào… Vậy ai là người gán IP cho từng máy con trong mạng. Bạn có thể làm một cách thủ công, tự gán IP cho từng máy hoặc nhờ một dịch vụ cấp phát IP như là <strong>DHCP</strong>. Bài này mình chỉ đi qua để biết DHCP là gì, nó sẽ không đề cập đến việc cài đặt hay cấu hình DHCP Server như thế nào, bạn có thể tìm đọc thêm trên Internet nếu muốn.</p>
+
+<h4 id="dhcp-l-g">DHCP là gì?</h4>
+
+<p>Giao thức Cấu hình Host Động DHCP được thiết kế làm giảm thời gian chỉnh cấu hình cho mạng TCP/IP bằng cách tự động gán các địa chỉ IP cho máy khách khi họ vào mạng.</p>
+
+<p>DHCP tập trung việc quản lý địa chỉ IP ở các Server chạy DHCP. Mặc dù có thể gán địa chỉ IP vĩnh viễn cho bất cứ máy tính nào trên mạng, DHCP cho phép gán tự động. Để khách có thể nhận địa chỉ IP từ máy chủ DHCP, bạn khai báo cấu hình để khách “nhận địa chỉ tự động từ một máy chủ”. Tùy chọn nầy xuất hiện trong vùng khai báo cấu hình TCP/IP của đa số hệ điều hành. Một khi tùy chọn nầy được thiết lập, khách có thể “thuê” một địa chỉ IP từ máy chủ DHCP bất cứ lúc nào. Phải có ít nhất một máy chủ DHCP trên mạng. Sau khi cài đặt DHCP, bạn tạo một phạm vi DHCP (scope), là vùng chứa các địa chỉ IP trên máy chủ, và máy chủ cung cấp địa chỉ IP trong vùng này.</p>
+
+<p>DHCP là một thuận lới rất lớn đối với người điều hành mạng. Nó làm yên tâm về các vấn đề cố hữu phát sinh khi phải khai báo cấu hình thủ công. Hãy xem bảng so sánh dưới đây để biết DHCP làm nhẹ bớt công việc như thế nào:</p>
+
+<p><strong>Không có DHCP</strong>: Khi cấu hình thủ công, bạn phải gán địa chỉ cho mọi máy trạm trên mạng. Người dùng phải gọi đến bạn để biết địa chỉ IP vì bạn không muốn phụ thuộc vào họ để cấu hình địa chỉ IP. Cấu hình nhiều địa chỉ IP có khả năng dẫn đến lỗi, rất khó theo dõi và sẽ dẫn đến lỗi truyền thông trên mạng. Cuối cùng bạn sẽ hết địa chỉ IP đối với mạng con nào đó hoặc đối với toàn mạng nếu bạn không quản lý cẩn thận các địa chỉ IP đã cấp phát. Bạn phải thay đổi địa chỉ IP ở máy trạm nếu nó chuyển sang mạng con khác. Người dùng di động đi từ nơi nầy đến nơi khác, có nhu cầu thay đổi địa chỉ IP nếu họ nối với mạng con khác trên mạng.</p>
+
+<p><strong>Có DHCP</strong>: Máy chủ DHCP tự động cho người dùng thuê địa chỉ IP khi họ vào mạng. Bạn chỉ cần đặc tả phạm vi các địa chỉ có thể cho thuê tại máy chủ DHCP. Bạn sẽ không bị ai quấy rầy về nhu cầu biết địa chỉ IP.</p>
+
+<p>DHCP tự động quản lý các địa chỉ IP và loại bỏ được các lỗi có thể làm mất liên lạc. Nó tự động gán lại các địa chỉ chưa được sử dụng. DHCP cho thuê địa chỉ trong một khoảng thời gian, có nghĩa là những địa chỉ nầy sẽ còn dùng được cho các hệ thống khác. Bạn hiếm khi bị hết địa chỉ. DHCP tự động gán địa chỉ IP thích hợp với mạng con chứa máy trạm nầy. Cũng vậy, DHCP tự động gán địa chỉ cho người dùng di động tại mạng con họ kết nối.</p>
+
+<p>Một máy chủ DHCP có thể đánh địa chỉ IP cho nhiều mạng con.</p>
+
+<p><img src="http://i.imgur.com/75hE5tD.png" alt="DHCP" /></p>
+
+<p>Quá trình cấp phát IP được mô tả như sau:</p>
+
+<p><strong>Bước 1</strong>: Máy trạm khởi động với “địa chỉ IP rỗng” cho phép liên lạc với máy chủ DHCP bằng giao thức TCP/IP. Nó chuẩn bị một thông điệp chứa địa chỉ MAC (ví dụ địa chỉ của card Ethernet) và tên máy tính. Thông điệp nầy có thể chứa địa chỉ IP trước đây đã thuê. Máy trạm phát tán liên tục thông điệp này lên mạng cho đến khi nhận được phản hồi từ máy chủ.</p>
+
+<p><strong>Bước 2</strong>: Mọi máy chủ DHCP có thể nhận thông điệp và chuẩn bị địa chỉ IP cho máy trạm. Nếu máy chủ có cấu hình hợp lệ cho máy trạm, nó chuẩn bị thông điệp “chào hàng” (<strong>DHCP Offer</strong>) chứa địa chỉ MAC của khách, địa chỉ IP “chào hàng”, mặt nạ mạng con (subnet mask), địa chỉ IP của máy chủ và thời gian cho thuê. Địa chỉ “chào hàng” được đánh dấu là “reserve” (để dành). Máy chủ DHCP phát tán thông điệp chào hàng này lên mạng.</p>
+
+<p><strong>Bước 3</strong>: Khi khách nhận thông điệp chào hàng và chấp nhận một trong các địa chỉ IP, máy trạm phát tán thông điệp này để khẳng định nó đã chấp nhận địa chỉ IP và từ máy chủ DHCP nào.</p>
+
+<p><strong>Bước 4</strong>: Cuối cùng, máy chủ DHCP khẳng định toàn bộ sự việc với máy trạm. Để ý rằng lúc đầu máy trạm phát tán yêu cầu về địa chỉ IP lên mạng, nghĩa là mọi máy chủ DHCP đều có thể nhận thông điệp này. Do đó, có thể có nhiều hơn một máy chủ DHCP tìm cách cho thuê địa chỉ IP bằng cách gởi thông điệp chào hàng. Máy trạm chỉ chấp nhận một thông điệp chào hàng, sau đó phát tán thông điệp khẳng định lên mạng. Vì thông điệp này được phát tán (broadcast), tất cả máy chủ DHCP có thể nhận được nó. Thông điệp chứa địa chỉ IP của máy chủ DHCP vừa cho thuê, vì thế các máy chủ DHCP khác rút lại thông điệp chào hàng của mình và hoàn trả địa chỉ IP vào vùng địa chỉ, để dành cho khách hàng khác.</p>
+
+<h4 id="cc-thut-ng-trong-dhcp">Các thuật ngữ trong DHCP</h4>
+
+<ul>
+  <li><strong>DHCP Server</strong>: máy quản lý việc cấu hình và cấp phát địa chỉ IP cho Client</li>
+  <li><strong>DHCP Client</strong>: máy trạm nhận thông tin cấu hình IP từ DHCP Server</li>
+  <li><strong>Scope</strong>: phạm vi liên tiếp của các địa chỉ IP có thể cho một mạng.</li>
+  <li><strong>Exclusion Scope</strong>: là dải địa chỉ nằm trong Scope không được cấp phát động cho Clients.</li>
+  <li><strong>Reservation</strong>: Địa chỉ đặt trước dành riêng cho máy tính hoặc thiết bị chạy các dịch vụ (tùy chọn này thường được thiết lập để cấp phát địa chỉ cho các Server, Printer,…..)</li>
+  <li><strong>Scope Options</strong>: các thông số được cấu hình thêm khi cấp phát IP động cho Clients như DNS Server, Router…</li>
+</ul>
+
+<h4 id="cc-thng-ip-trong-dhcp">Các thông điệp trong DHCP</h4>
+
+<ul>
+  <li>
+    <p><strong>DHCP Discover</strong>: Thời gian đầu tiên một máy tính DHCP Client nỗ lực để gia nhập mạng, nó yêu cầu thông tin địa chỉ IP từ DHCP Server bởi việc broadcast một gói DHCP Discover. Địa chỉ IP nguồn trong gói là 0.0.0.0 bởi vì client chưa có địa chỉ IP.</p>
+  </li>
+  <li>
+    <p><strong>DHCP Offer</strong>: Mỗi DHCP server nhận được gói DHCP Discover từ client đáp ứng với gói DHCP Offer chứa địa chỉ IP không thuê bao và thông tin định cấu hình TCP/IP bổ sung(thêm vào), chẳng hạn như subnet mask và gateway mặc định. Nhiều hơn một DHCP server có thể đáp ứng với gói DHCP Offer. Client sẽ chấp nhận gói DHCP Offer đầu tiên nó nhận được.</p>
+  </li>
+  <li>
+    <p><strong>DHCP Request</strong>: Khi DHCP client nhận được một gói DHCP Offer, nó đáp ứng lại bằng việc broadcast gói DHCP Request mà chứa yêu cầu địa chỉ IP, và thể hiện sự chấp nhận của địa chỉ IP được yêu cầu.</p>
+  </li>
+  <li>
+    <p><strong>DHCP Acknowledge</strong>: DHCP server được chọn lựa chấp nhận DHCP Request từ Client cho địa chỉ IP bởi việc gửi một gói DHCP Acknowledge. Tại thời điểm này, Server cũng định hướng bất cứ các tham số định cấu hình tuỳ chọn. Sự chấp nhận trên của DHCP Acknowledge, Client có thể tham gia trên mạng TCP/IP và hoàn thành hệ thống khởi động.</p>
+  </li>
+  <li>
+    <p><strong>DHCP Nak</strong>: Nếu địa chỉ IP không thể được sữ dụng bởi client bởi vì nó không còn giá trị nữa hoặc được sử dụng hiện tại bởi một máy tính khác, DHCP Server đáp ứng với gói DHCP Nak, và Client phải bắt đầu tiến trình thuê bao lại. Bất cứ khi nào DHCP Server nhận được yêu cầu từ một địa chỉ IP mà không có giá trị theo các Scope mà nó được định cấu hình với, nó gửi thông điệp DHCP Nak đối với Client.</p>
+  </li>
+  <li>
+    <p><strong>DHCP Decline</strong>: Nếu DHCP Client quyết định tham số thông tin được đề nghị nào không có giá trị, nó gửi gói DHCP Decline đến các Server và Client phải bắt đầu tiến trình thuê bao lại.</p>
+  </li>
+  <li>
+    <p><strong>DHCP Release</strong>: Một DHCP Client gửi một gói DHCP Release đến một server để giải phóng địa chỉ IP và xoá bất cứ thuê bao nào đang tồn tại.</p>
+  </li>
+</ul>
+
+<p><small>Bài viết được lấy từ <a href="http://www.lacviet.com.vn">www.lacviet.com.vn</a> và tổng hợp thêm từ một số nguồn khác</small></p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

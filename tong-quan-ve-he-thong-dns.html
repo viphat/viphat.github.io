@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Tổng quan về Hệ thống DNS</title>
+  <meta name="description" content="Do không có nhu cầu trở thành System Administrator nên mình không đi sâu vào việc cài đặt và cấu hình DNS. Bài này chỉ nhằm bổ sung kiến thức nền tảng về hệ ...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/tong-quan-ve-he-thong-dns">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Do không có nhu cầu trở thành System Administrator nên mình không đi sâu vào việc cài đặt và cấu hình DNS. Bài này chỉ nhằm bổ sung kiến thức nền tảng về hệ thống DNS nói riêng cũng như Network, Bộ giao thức TCP/IP, Mô hình Client-Server nói chung.</p>
+
+<p>Như đã biết, Mỗi máy khi tham gia vào Internet đều phải có địa chỉ IP (Nó giống như địa chỉ nhà của máy đó vậy - với máy tính thuộc một hệ thống mạng riêng thì cũng phải chia sẻ chung một Public IP nào đó để truy xuất ra bên ngoài mạng riêng đó). Nhưng mà Địa chỉ IPv4 với 32 bit sẽ rất khó nhớ đối với người dùng bình thường (Địa chỉ IPv6 còn khó nhớ hơn IPv4 rất nhiều.). Do đó xuất hiện khái niệm tên miền (Domain Name), một cái tên dễ nhớ thay cho địa chỉ IP loằng ngoằng. Còn DNS (Domain Name System - Hệ thống phân giải tên miền) như là một danh bạ điện thoại vậy, sẽ giúp máy tính nhận biết tên miền này sẽ ứng với địa chỉ IP nào.</p>
+
+<p>Xung quanh bạn sẽ có rất nhiều máy chủ DNS vây quanh đảm nhận việc phân giải tên miền. Bản thân máy con cũng có hệ thống file hosts đảm nhận công việc phân giải tên miền như một DNS thực thụ, tiếp đó là DNS của hệ thống mạng riêng nếu có (LAN,WAN), DNS của ISP (Internet Service Provider), DNS hoạt động ở từng khu vực, từng quốc gia, DNS cấp TLD, Root DNS.</p>
+
+<p>Ở mỗi tầng, các máy chủ DNS đều có hệ thống cache riêng (Để giảm tải việc truy vấn cho DNS ở tầng cao hơn). Ở máy con (máy gửi truy vấn phân giải tên miền) cũng có hệ thống Cache. Do đó, chúng ta cần nắm cơ chế hoạt động, đường đi và thứ tự ưu tiên của toàn bộ hệ thống DNS khi một máy con muốn phân giải một tên miền để xác định được sự cố hay lỗi có thể nằm ở tầng nào.</p>
+
+<p>==Một câu hỏi được đặt ra là How many root servers are there?==</p>
+
+<p>Theo Wikipedia (https://en.wikipedia.org/wiki/Root_name_server) thì đến Tháng 2/2013, hiện có 13 cụm máy chủ đóng vai trò là Root Name Server.</p>
+
+<ul>
+  <li>DNS cấp ISP hay DNS cấp Quốc gia thường thiết lập ngăn không cho phân giải một số tên miền hay website nào đó mà họ muốn.</li>
+</ul>
+
+<p><img src="http://i.imgur.com/PGDMKBO.png" alt="DNS Works" /></p>
+
+<p><img src="http://i.imgur.com/Bzz34s4.png" alt="Hoạt động của hệ thống DNS" /></p>
+
+<p><img src="http://i.imgur.com/Q7cyyYU.png" alt="Các tầng của Hệ thống DNS" /></p>
+
+<p><img src="http://i.imgur.com/q4WXXAL.png" alt="How DNS Works" /></p>
+
+<p>Xem bài viết đầy đủ về lý thuyết DNS trên <a href="https://technet.microsoft.com/en-us/library/cc772774(v=ws.10).aspx"><strong>MSDN</strong></a></p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

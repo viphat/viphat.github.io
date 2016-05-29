@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Cài đặt Graylog trên CentOS 6.6</title>
+  <meta name="description" content="Bài này mình chỉ ghi nhận lại những bước mình đã làm, các câu lệnh đã dùng cùng những tùy chỉnh trong quá trình cài đặt thử nghiệm Graylog 1.0.x (Nâng cấp từ...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/cai-dat-graylog-tren-centos-6-6">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Bài này mình chỉ ghi nhận lại những bước mình đã làm, các câu lệnh đã dùng cùng những tùy chỉnh trong quá trình cài đặt thử nghiệm Graylog 1.0.x (Nâng cấp từ Graylog2). Mình sẽ dành thời gian chỉn chu bài viết hơn cũng như đánh giá hiệu quả, chia sẻ kinh nghiệm về sử dụng Graylog để quản lý, phân tích Log cho các ứng dụng Web sau thời gian thử nghiệm Graylog thực tế.</p>
+
+<p>Graylog là một trong những Open Source Log Management được nhiều người biết đến (Bên cạnh <strong>LogStash</strong> của Elastic Co và các SaaS như <strong>Loggly</strong>, <strong>Papertrail</strong>). Bạn có thể sử dụng Graylog để xây dựng một hệ thống quản lý Log tập trung: Log của ứng dụng Web, Log của Web Server, Log của SSH, Log của Hệ thống (Syslog)…</p>
+
+<h4 id="mi-trng">Môi trường</h4>
+
+<ul>
+  <li>CentOS 6.6</li>
+  <li>Graylog 1.0.x</li>
+  <li>ElasticSearch 1.5 trở lên</li>
+  <li>MongoDB 2.0 trở lên</li>
+</ul>
+
+<p><strong>Tìm tất cả các tập tin có tên nginx.conf bắt đầu từ thư mục root</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>find / -name nginx.conf
+</code></pre>
+</div>
+
+<p><strong>Stop Rails Application đang chạy (Nginx and Phusion Passenger)</strong></p>
+
+<p>Remove các dòng liên quan đến App XYZ trong File cấu hình nginx.conf, restart service nginx (Phusion Passenger sẽ tự stop app đó, không cần cấu hình gì thêm).</p>
+
+<p>Stop Postgresql</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/etc/init.d/postgresql-9.4 stop
+</code></pre>
+</div>
+
+<p>Stop Redis</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/etc/init.d/redis_6379 stop
+</code></pre>
+</div>
+
+<p>Clear Cronjob</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>crontab -e
+</code></pre>
+</div>
+
+<p><strong>Cập nhật lại Logrotate</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>vi /etc/logrotate.conf
+</code></pre>
+</div>
+
+<p><strong>Cài đặt Errbit</strong> (Ứng dụng quản lý các Exception)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/errbit/errbit.git
+bundle install
+RAILS_ENV=production bundle exec rake errbit:bootstrap
+vi .env.default
+vi config/initializers/action_mailer.rb
+</code></pre>
+</div>
+<p>#### Cài đặt Elasticsearch</p>
+
+<p>Graylog sử dụng ElasticSearch để thực hiện Full-Text-Search</p>
+
+<p>Tham khảo đường dẫn - https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-4-on-centos-7</p>
+
+<ul>
+  <li>Kiểm tra ElasticSearch đã cài đặt thành công và đã được chạy hay chưa?</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl localhost:9200/_nodes/process?pretty
+</code></pre>
+</div>
+
+<h4 id="ci-t-mongodb">Cài đặt MongoDB</h4>
+
+<p>Tham khảo đường dẫn - http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/</p>
+
+<p>Khởi động dịch vụ MongoDB</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>service mongod start
+chkconfig mongod on
+</code></pre>
+</div>
+
+<h4 id="ci-t-graylog">Cài đặt Graylog</h4>
+
+<p>Graylog có cung cấp Image đã cài đặt và cấu hình sẵn Graylog-Server cũng như Graylog-Web-Interface dành cho các distribution như Ubuntu, CentOS và Docker… nhưng việc restore Image lên VPS của Linode là thuộc phạm vi của một bài viết khác, với lại, mình thấy cài đặt thủ công sẽ thú vị hơn, chủ động hơn… do đó, mình chọn cách làm này.</p>
+
+<h5 id="ci-t-graylog-server">Cài đặt Graylog-Server</h5>
+
+<p>Làm theo hướng dẫn tại http://docs.graylog.org/en/latest/pages/installation.html#manual-setup-graylog-server-on-linux</p>
+
+<p>Khởi động Graylog-Server</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>./graylogctl start
+</code></pre>
+</div>
+
+<p>Đọc Log của Graylog để Debug khi gặp lỗi</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tail -f /opt/graylog-1.0.2/log
+</code></pre>
+</div>
+
+<h5 id="ci-t-graylog-web-interface">Cài đặt Graylog-Web-Interface</h5>
+
+<p>Làm theo hướng dẫn tại http://docs.graylog.org/en/latest/pages/installation.html#manual-setup-graylog-web-interface-on-linux</p>
+
+<p>Khởi động Graylog-Web-Interface</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>nohup /opt/graylog-web-interface-1.0.2/bin/graylog-web-interface &amp;
+</code></pre>
+</div>
+
+<h4 id="cu-hnh-graylog-v-elasticsearch">Cấu hình Graylog và ElasticSearch</h4>
+
+<p>Cấu hình Graylog và ElasticSearch, tham khảo tại http://docs.graylog.org/en/latest/pages/configuring_es.html</p>
+
+<p>Increase File Open Limit của CentOS 6.6 theo khuyến nghị của GrayLog - Tham khảo tại
+http://pro.benjaminste.in/post/318453669/increase-the-number-of-file-descriptors-on-centos</p>
+
+<p>Kiểm tra Health Status của ElasticSearch Cluster:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -XGET 'http://localhost:9200/_cluster/health/twitter?level=shards'
+</code></pre>
+</div>
+<p>Nếu là <strong>Red</strong> thì Graylog-Server sẽ không thể Start được, còn cách để chuyển Health Status từ Red về Yellow hay Green thì mình sẽ tìm hiểu thêm.</p>
+
+<p><strong>Cấu hình Firewall</strong></p>
+
+<p>Hệ thống của mình sử dụng Iptables nên mình sẽ mở các cổng 12201, 12301, 12302 (UDP) để các ứng dụng có thể gửi Log về Server, Mở cổng 9000 (TCP) để mình có thể truy cập vào Graylog bằng Web Interface.</p>
+
+<p>Lưu và phục hồi lại cấu hình Iptables:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>iptables-save &gt; /etc/sysconfig/iptables
+iptables-restore &lt; /etc/sysconfig/iptables
+service iptables restart
+</code></pre>
+</div>
+
+<p><img src="http://i.imgur.com/Gg2nLA7.png" alt="Thành Quả" /></p>
+
+<hr />
+
+<p>Có thể thay thế <strong>Graylog + Mongodb + Elasticsearch</strong> bằng <strong>Logstash + Elasticsearch + Kibana 4 + Logstash Forwarder</strong></p>
+
+<p>==<strong>Tìm hiểu về Log Data Mining - Log Analysis</strong>== - Dù có sử dụng Log Management thì nếu không biết cách khai thác các dữ liệu đã log một cách hiệu quả thì cũng như thật lãng phí, tốn tài nguyên của hệ thống.</p>
+
+<blockquote>
+  <p>Cập nhật tình hình là mình muốn gỡ Graylog-Server ra vì nó ngốn quá nhiều tài nguyên của Hệ thống quá. Process Graylog-Server hay bị ngắt giữa chừng (Chắc mình phải tìm cách thiết lập Hệ thống Alert khi một Process bị interrupt). Log ghi nhận nhiều nhưng mình chưa biết cách khai thác nên không thấy hữu ích.</p>
+</blockquote>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Tìm hiểu về Meteor Framework (Phần 1)</title>
+  <meta name="description" content="Đây là những ghi chép nhanh trong quá trình tìm hiểu về Meteor Framework, nếu có thời gian mình sẽ hệ thống và biên tập lại kỹ hơn. Mục đích mình muốn học nh...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/tim-hieu-ve-meteor-framework-1">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Đây là những ghi chép nhanh trong quá trình tìm hiểu về Meteor Framework, nếu có thời gian mình sẽ hệ thống và biên tập lại kỹ hơn. Mục đích mình muốn học nhanh Meteor là để viết Hybird App cho một cuộc thi bên Vietnamworks.com</p>
+
+<p><img src="http://i.imgur.com/8iJaiXj.png" alt="Meteor" /></p>
+
+<p><strong>Nguồn tham khảo chính để biên soạn và tổng hợp nên tài liệu này</strong>:</p>
+
+<ul>
+  <li>Meteor Tutorial</li>
+  <li>Meteor Documents</li>
+  <li>Discover Meteor</li>
+</ul>
+
+<p><strong>Nếu bạn quan tâm đến vấn đề Coding Style Guide cho Meteor thì đây là một nguồn đáng tham khảo</strong>:</p>
+
+<ul>
+  <li>https://github.com/meteor/meteor/wiki/Meteor-Style-Guide</li>
+</ul>
+
+<p><strong>Một số Development Tools cần chuẩn bị</strong></p>
+
+<ul>
+  <li>IDE (Code Editor), Database Tools, Remote Collaboration Utilities, REST Clients, Debuggers: 
+https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/development-tools.md</li>
+</ul>
+
+<hr />
+
+<h4 id="meteor-l-g-v-u-im-ca-meteor">Meteor là gì và ưu điểm của Meteor</h4>
+
+<p>Meteor là một nền tảng được xây dựng trên môi trường Node.js, cho phép tạo ra các ứng dụng web theo thời gian thực. Nó đảm bảo việc đồng bộ thông tin giữa cơ sở dữ liệu của ứng dụng và giao diện người dùng.</p>
+
+<p>Chính vì được xây dựng trên nền Node.js nên Meteor sử dụng JavaScript trên cả máy khách và máy chủ. Hơn thế nữa, Meteor còn cho phép chia sẻ code giữa hai môi trường này.</p>
+
+<p>Có thể nói, Meteor là một nền tảng vừa đơn giản lại mạnh mẽ khi xóa bỏ hầu hết mọi phiền phức và cạm bẫy thông thường hay gặp phải khi phát triển ứng dụng web.</p>
+
+<h5 id="ti-sao-nn-s-dng-meteor">Tại sao nên sử dụng Meteor?</h5>
+
+<ul>
+  <li>==Easy to Learn==</li>
+</ul>
+
+<h5 id="nguyn-tc-nn-tng-ca-meteor-hay-cc-u-im-ca-meteor">7 nguyên tắc nền tảng của Meteor (Hay các Ưu điểm của Meteor)</h5>
+
+<ol>
+  <li>
+    <p><strong>Data on the Wire.</strong> Meteor doesn’t send HTML over the network. The server sends data and lets the client render it.</p>
+  </li>
+  <li>
+    <p><strong>One Language.</strong> Meteor lets you write both the client and the server parts of your application in JavaScript.</p>
+  </li>
+  <li>
+    <p><strong>Database Everywhere.</strong> You can use the same methods to access your database from the client or the server.</p>
+  </li>
+  <li>
+    <p><strong>Latency Compensation.</strong> On the client, Meteor prefetches data and simulates models to make it look like server method calls return instantly.</p>
+  </li>
+  <li>
+    <p><strong>Full Stack Reactivity.</strong> In Meteor, realtime is the default. All layers, from database to template, update themselves automatically when necessary.</p>
+  </li>
+  <li>
+    <p><strong>Embrace the Ecosystem.</strong> Meteor is open source and integrates with existing open source tools and frameworks.</p>
+  </li>
+  <li>
+    <p><strong>Simplicity Equals Productivity.</strong> The best way to make something seem simple is to have it actually be simple. Meteor’s main functionality has clean, classically beautiful APIs.</p>
+  </li>
+</ol>
+
+<p>Tham khảo tại:</p>
+
+<p><a href="http://docs.meteor.com/#/full/sevenprinciples">Seven Principles of Meteor Framework</a></p>
+
+<p><a href="http://vi.discovermeteor.com/chapters/introduction">Tổng quan về Meteor Framework</a></p>
+
+<hr />
+
+<h4 id="iu-kin-bt-u-hc-meteor">Điều kiện bắt đầu học Meteor:</h4>
+
+<ul>
+  <li>Đã nắm thành thạo và từng có thời gian làm việc với một ngôn ngữ lập trình trước đó (Sẽ tốt hơn nếu đó là ngôn ngữ chuyên về Web theo mô hình client - server như PHP, Ruby on Rails, ASP.NET…).</li>
+  <li>Cơ bản về HTML, CSS (HTML 5, CSS 3 thì càng cool).</li>
+  <li>Cơ bản về Javascript (Truly mastering JavaScript is a difficult task. But learning enough to get by isn’t that hard, and shouldn’t take long especially if you already have some experience with other programming languages. - Theo nguyên tắc 80/20, bạn chỉ cần nắm được 20% của Javascript thì đã có thể cover hết 80% trường hợp rồi.)</li>
+</ul>
+
+<p>Cách tốt nhất để bắt đầu là nên dùng thử Meteor bằng cách làm theo bộ Tutorial của Meteor trên trang chủ. Bạn có thể đi qua nhanh, hiểu được nó hoạt động như thế nào mà không cần phải biết sâu về các khái niệm của Meteor.</p>
+
+<p>https://www.meteor.com/try (Nếu không hoặc chưa muốn cài đặt Meteor vào máy tính, bạn có thể sử dụng Cloud IDE như Nitrous.io)</p>
+
+<h5 id="ti-liu-hc-meteor">Tài liệu học Meteor</h5>
+
+<p>Sau khi lướt qua Meteor Tutorial ở Link trên, Bạn sẽ cài đặt được Meteor vào máy tính, cài đặt Java SDK, Android hoặc iOS Platform (nếu đang sử dụng MacOSX) và có ứng dụng đơn giản đầu tiên - Một “to do lists” viết bằng Meteor</p>
+
+<p>What’s next:</p>
+
+<ul>
+  <li>Discover Meteor - http://vi.discovermeteor.com/ - Ebook và có bản dịch tiếng Việt miễn phí, sẽ thiếu các Chapter nâng cao so với Bản đầy đủ.</li>
+  <li>Meteor Documents - http://docs.meteor.com/ - Tài liệu chính thức của Meteor, nên đọc nếu bạn muốn hiểu một cách bài bản và tường tận về Meteor (hoặc tham khảo nếu bạn thích học theo kiểu đụng là trụng)</li>
+  <li>Meteor Manual - https://manual.meteor.com/ - Tài liệu chuyên sâu về Meteor.</li>
+  <li>Evented Mind - https://www.eventedmind.com - Học Meteor qua Video (dành cho những bạn thích học theo kiểu xem Video và thực hành), Trang này theo dạng thuê bao (Subscription) - 29$ / month.</li>
+</ul>
+
+<p>Xem thêm Bài viết <a href="http://notes.viphat.work/meteor-framework-learning-resources/"><strong>Meteor Learning Resources</strong></a> trên notes.viphat.work.</p>
+
+<hr />
+
+<h4 id="mt-s-khi-nim-cn-nm-khi-lm-quen-vi-meteor">Một số khái niệm cần nắm khi làm quen với Meteor:</h4>
+
+<p>Mình xin liệt kê một số điểm đặc biệt của Meteor, Phần này còn khá sơ sài, mình sẽ được bổ sung và sắp xếp lại sau.</p>
+
+<h5 id="gii-thch-thm-v-latency-compensation">Giải thích thêm về Latency compensation</h5>
+
+<p>So why do we want to define our methods on the client and on the server? We do this to enable a feature called latency compensation.</p>
+
+<p>When you call a method on the client using Meteor.call, two things happen in parallel:</p>
+
+<p>The client sends a request to the server to run the method in a secure environment, just like an AJAX request would work
+A simulation of the method runs directly on the client to attempt to predict the outcome of the server call using the available information
+What this means is that a newly created task actually appears on the screen before the result comes back from the server.</p>
+
+<p>If the result from the server comes back and is consistent with the simulation on the client, everything remains as is. If the result on the server is different from the result of the simulation on the client, the UI is patched to reflect the actual state of the server.</p>
+
+<p>With Meteor methods and latency compensation, you get the best of both worlds — the security of server code and no round-trip delay.</p>
+
+<h5 id="meteor-package-tng-t-h-thng-gem-ca-ruby-v-npm-package-ca-nodejs">Meteor Package (Tương tự hệ thống Gem của Ruby và npm Package của NodeJS)</h5>
+
+<p>Không giống như cách thêm vào tài nguyên từ bên ngoài theo cách “truyền thống”, chúng ta đã không phải liên kết tới bất kỳ tập tin CSS hoặc JavaScript, vì Meteor sẽ quản lý tất cả những việc đó cho chúng ta! Đó chỉ là một trong nhiều ưu điểm của Package trong Meteor.</p>
+
+<p><strong>Add Package Bootstrap 3 vào Project Meteor</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>meteor add mizzao:bootstrap-3 
+</code></pre>
+</div>
+
+<p><strong>Add Package Underscore</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>meteor add underscore
+</code></pre>
+</div>
+
+<p>==Vậy hỏi, chúng ta sẽ tìm các Package cho Meteor ở đâu? - http://atmosphere.meteor.com/==</p>
+
+<p>Meteor có thể sử dụng các Package của NodeJS (Không sử dụng trực tiếp, chỉ có thể sử dụng gián tiếp thông qua các Meteor Package)</p>
+
+<p>==Câu hỏi bài tập là Có bao nhiêu loại Package trong Meteor, hãy nhớ lại loạt bài Tutorial của Meteor.com đã hướng dẫn bạn sử dụng những Package nào?==</p>
+
+<h5 id="file-structure-trong-mt-ng-dng-meteor">File Structure trong một Ứng dụng Meteor</h5>
+
+<p><code class="highlighter-rouge">/client</code>
+Any files here are only served to the client. This is a good place to keep your HTML, CSS, and UI-related JavaScript code.</p>
+
+<p><code class="highlighter-rouge">/server</code>
+Any files in this directory are only used on the server, and are never sent to the client. Use /server to store source files with sensitive logic or data that should not be visible to the client.</p>
+
+<p><code class="highlighter-rouge">/public</code>
+Files in /public are served to the client as-is. Use this to store assets such as images. For example, if you have an image located at /public/background.png, you can include it in your HTML with <code class="highlighter-rouge">&lt;img src='/background.png'/&gt;</code> or in your CSS with background-image:
+url(/background.png). Note that /public is not part of the image URL.</p>
+
+<p><code class="highlighter-rouge">/private</code>
+These files can only be accessed by server code through Assets API and are not accessible to the client.</p>
+
+<p><em>Xem thêm - http://docs.meteor.com/#/full/structuringyourapp</em></p>
+
+<p>Các Files ngoài những thư mục được gọi là Special Directories kể trên, đều được gọi ở cả 2 phía Server và Client - do đó bạn nên wrap chúng trong Meteor.isClient hoặc Meteor.isServer.</p>
+
+<p>(<code class="highlighter-rouge">/lib</code> được dùng như common code giữa client và server)</p>
+
+<p><strong>Example File Structure</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>lib/                      # common code like collections and utilities
+lib/methods.js            # Meteor.methods definitions
+lib/constants.js          # constants used in the rest of the code
+
+client/compatibility      # legacy libraries that expect to be global
+client/lib/               # code for the client to be loaded first
+client/lib/helpers.js     # useful helpers for your client code
+client/body.html          # content that goes in the &lt;body&gt; of your HTML
+client/head.html          # content for &lt;head&gt; of your HTML: &lt;meta&gt; tags, etc
+client/style.css          # some CSS code
+client/&lt;feature&gt;.html     # HTML templates related to a certain feature
+client/&lt;feature&gt;.js       # JavaScript code related to a certain feature
+
+server/lib/permissions.js # sensitive permissions code used by your server
+server/publications.js    # Meteor.publish definitions
+
+public/favicon.ico        # app icon
+
+settings.json             # configuration data to be passed to meteor --settings
+mobile-config.js          # define icons and metadata for Android/iOS
+</code></pre>
+</div>
+<p>Đọc thêm tại http://docs.meteor.com/#/full/structuringyourapp</p>
+
+<h5 id="th-t-load-file-ca-meteor">Thứ tự Load File của Meteor</h5>
+
+<p>Rất quan trọng nếu bạn muốn hiểu cách một ứng dụng Meteor làm việc như thế nào?</p>
+
+<blockquote>
+  <ol>
+    <li>HTML template files are always loaded before everything else</li>
+    <li>Files beginning with main. are loaded last</li>
+    <li>Files inside any lib/ directory are loaded next</li>
+    <li>Files with deeper paths are loaded next</li>
+    <li>Files are then loaded in alphabetical order of the entire path</li>
+  </ol>
+</blockquote>
+
+<p>Chúng ta nên đề cập đến việc một số thư mục này là đặc biệt. Khi nói đến mã chạy, Meteor có một vài quy tắc:</p>
+
+<ul>
+  <li>Mã trong thư mục /server chỉ chạy trên máy chủ.</li>
+  <li>Mã trong thư mục /client chỉ chạy trên máy khách.</li>
+  <li>Mọi thứ khác chạy trên cả máy khách và máy chủ.</li>
+  <li>Tài nguyên tĩnh của bạn (font chữ, hình ảnh, vv) nằm trong thư mục /public.</li>
+</ul>
+
+<p>Và cũng sẽ hữu ích nếu biết làm thế nào Meteor quyết định thứ tự nạp các file:</p>
+
+<ul>
+  <li>Các tập tin trong /lib được nạp trước bất cứ điều gì khác.</li>
+  <li>Bất kỳ tập tin main.* nào cũng được nạp sau tất cả mọi thứ khác.</li>
+  <li>Mọi thứ khác tải trong thứ tự chữ cái dựa trên tên file.</li>
+</ul>
+
+<hr />
+
+<p>Mình tạm kết thúc phần một ở đây.</p>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Int32 to IPv4</title>
+  <meta name="description" content="Mấy bữa nay, khi rãnh thì mình hay vào Codewars để chiến, tìm vài bài trình độ 5 kyu, 6 kyu làm để giải trí (Độ khó của những bài này không cao, nói chung là...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/int32-to-ipv4">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Mấy bữa nay, khi rãnh thì mình hay vào Codewars để chiến, tìm vài bài trình độ 5 kyu, 6 kyu làm để giải trí (Độ khó của những bài này không cao, nói chung là vừa sức với Beginner). Công nhận, khi bắt tay vào làm thì học được thêm nhiều thứ, nâng Skill Problem Solving, Skills về Ruby nữa, khi đụng đến những thứ liên quan là phải google tìm hiểu về Array, String, Enumerable, Regular Expression… Có những bài tưởng đơn giản nhưng làm hoài không ra, phải nói với Codewars là Tui bó tay để xem bài giải gợi ý, hic hic. Những bài mình giải được thì cũng có những người đã đi trước, cách làm của họ hay hơn, thông minh hơn, ngắn gọn hơn nữa… Đọc Code của họ, mình biết thêm nhiều thứ mới: như những methods mình không biết chẳng hạn. Và sau đây là một ví dụ – Bài Convert một Chuỗi Int32 thành Chuỗi IPv4.</p>
+
+<blockquote>
+  <p>Description</p>
+
+  <p>Take the following IPv4 address: 128.32.10.1</p>
+
+  <p>This address has 4 octets where each octet is a single byte (or 8 bits).</p>
+
+  <p>1st octet 128 has the binary representation: 10000000 <br />
+ 2nd octet 32 has the binary representation: 00100000 <br />
+ 3rd octet 10 has the binary representation: 00001010 <br />
+ 4th octet 1 has the binary representation: 00000001 <br />
+ So 128.32.10.1 == 10000000.00100000.00001010.00000001</p>
+
+  <p>Because the above IP address has 32 bits, we can represent it as the 32 bit number: 2149583361</p>
+
+  <p>Write a function int32_to_ip(int32) that takes a 32 bit number and returns a string representation of its IPv4 address.</p>
+</blockquote>
+
+<p>int32_to_ip(2149583361) =&gt; “128.32.10.1”</p>
+
+<p>Đây là bài mình làm (sau khi Google những method cần thiết)</p>
+
+<p>def int32_to_ip(int32) str_binary = int32.to_s(2) str_binary.rjust(32,’0’) str_array = [] 4.times do str_array.push str_binary.slice!(0..7).to_i(2) end str_array.join(“.”) end</p>
+
+<p>Nhận xét là nó dùng các lệnh khá cơ bản, dễ hiểu nhưng chưa catch trường hợp lớn hơn 255.</p>
+
+<p>Và cùng một hướng ấy, lại có nhiều cách giải khác nhau, có những cách mà mình khi đọc Solutions của những người khác cũng phải há hốc vì những kiến thức (methods) này lạ quá, người mới học Ruby được 1~2 tháng như mình, chưa hề biết tới, hic &gt;.&lt;</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>def int32_to_ip(int32) [24, 16, 8, 0].collect {</td>
+      <td>b</td>
+      <td>(int32 » b) &amp; 255}.join(‘.’) end</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>def int32_to_ip(int32) [int32].pack(‘N’).unpack(‘C*’) * ‘.’ end</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>def int32_to_ip(int32) int32.to_s(2).rjust(32, ‘0’).scan(/w{8}/).collect {</td>
+      <td>oct</td>
+      <td>oct.to_i(2) }.join(‘.’) end</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>def int32_to_ip(int32) first = (int32 &amp; 0xFF000000) » 24 second = (int32 &amp; 0x00FF0000) » 16 third = (int32 &amp; 0x0000FF00) » 8 fourth = (int32 &amp; 0xFF) return “#{first}.#{second}.#{third}.#{fourth}” end</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>def int32_to_ip int32 int32 == 0 ? “0.0.0.0” : int32.to_s(2).scan(/.{1,8}/).map {</td>
+      <td>i</td>
+      <td>i.to_i(2) }.join(‘.’) end</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>def int32_to_ip(int32) 4.times.collect do</td>
+      <td>i</td>
+      <td>int32. to_s(2). rjust(32, ‘0’)[i*8..-1]. chars. take(8). join. to_i(2). to_s end.join(‘.’) end</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>def int32_to_ip(int32) # your solution str = [] 4.times do str.unshift((int32.to_i &amp; 255)) int32 = int32.to_i() » 8 end return str.join(‘.’) end</p>
+
+<p>…</p>
+
+<p>và còn Nhiều nhiều nữa. <a href="http://www.codewars.com/kata/int32-to-ipv4/solutions/ruby">More</a></p>
+
+<p>Mình Post bài này để lưu lại những đoạn Code này là chủ yếu, và cũng cho các bạn thấy, Ruby thiên biến vạn hóa như thế nào, nó có quá nhiều methods viết sẵn, mà bản thân người lập trình viên, muốn nắm rõ và tường tận những methods của nó thật không đơn giản.</p>
+
+<blockquote>
+  <p>Làm bài “Int32 to Ipv4″ này trong lúc ngồi chờ Data của bạn Xuân Trang, hỗ trợ bạn ấy cắt dán bằng Macro của VBA – Haizz, nói đến chuyện này thì tội Xuân Trang quá, Công việc thì chồng chất và khó khăn, Sếp thì thiếu trách nhiệm nên bỏ mặc, hậu quả là cháy gần đến đít… đến cả người ở bộ phận không liên quan như mình phải nhảy vào giúp sức – Cũng là vì cái tình đồng nghiệp. (Bạn Xuân Trang tính tình khá dễ thương, hay giúp đỡ người khác nên bây giờ khi bạn ấy cần, nhiều người sẵn sàng giúp lại)</p>
+</blockquote>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

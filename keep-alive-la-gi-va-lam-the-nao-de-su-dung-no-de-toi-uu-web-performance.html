@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Keep Alive là gì, và làm thế nào để sử dụng nó để tối ưu Web Performance?</title>
+  <meta name="description" content="Keep Alive là gì?">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/keep-alive-la-gi-va-lam-the-nao-de-su-dung-no-de-toi-uu-web-performance">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <h4 id="keep-alive-l-g">Keep Alive là gì?</h4>
+
+<p>Nếu bạn đã đọc qua bài viết <a href="http://notes.viphat.work/http-succinctly/"><strong>HTTP Succinctly</strong></a> thì hẳn có nghe qua Keep Alive Connection. Ở đây, mình cũng xin được ôn lại, Keep Alive là một phương thức cho phép sử dụng cùng một kết nối TCP cho một chuỗi các phiên giao dịch HTTP thay vì cứ phải tạo mới từng connection cho mỗi một HTTP Request. Bạn có thể hiểu nôm na là Web Server có thể trả về nhiều hơn một file trong cùng một kết nối. (Keep alive còn được biết đến với cái tên persistent connection.)</p>
+
+<p><img src="http://i.imgur.com/yjksohR.png" alt="Keep Alive Enabled" /></p>
+
+<h4 id="lm-th-no--enable-keep-alive">Làm thế nào để Enable Keep Alive</h4>
+
+<ul>
+  <li>Keep Alive có thể được enable bằng cách sử dụng HTTP header <code class="highlighter-rouge">Connection: Keep-Alive</code>.</li>
+  <li>Nếu Keep Alive không được enable thì HTTP Header của bạn sẽ giống như thế này <code class="highlighter-rouge">connection:close</code></li>
+  <li>Cách để enable Keep Alive khác nhau tùy thuộc vào Web Server mà bạn đang sử dụng. Ở đây, mình chỉ quan tâm đến 2 Web Server thông dụng là <strong>Apache</strong> và <strong>Nginx</strong>.</li>
+</ul>
+
+<h5 id="enable-keep-alive-bng-htaccess">Enable Keep Alive bằng .htaccess</h5>
+
+<p>Chỉ cần thêm dòng sau vào file .htaccess của bạn</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;ifModule mod_headers.c&gt; Header set Connection keep-alive &lt;/ifModule&gt;
+</code></pre>
+</div>
+
+<h5 id="enable-keep-alive-trong-apache">Enable Keep Alive trong Apache</h5>
+
+<p>Trường hợp này áp dụng khi bạn có toàn quyền cấu hình Server Apache của bạn:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#
+# KeepAlive: Whether or not to allow persistent connections (more than
+# one request per connection). Set to "Off" to deactivate.
+#
+KeepAlive On
+
+#
+# MaxKeepAliveRequests: The maximum number of requests to allow
+# during a persistent connection. Set to 0 to allow an unlimited amount.
+# We recommend you leave this number high, for maximum performance.
+#
+MaxKeepAliveRequests 100
+
+#
+# KeepAliveTimeout: Number of seconds to wait for the next request from the
+# same client on the same connection.
+#
+KeepAliveTimeout 100
+</code></pre>
+</div>
+
+<h5 id="enable-keep-alive-trong-nginx">Enable Keep Alive trong Nginx</h5>
+
+<p>Trong cài đặt và cấu hình mặc định thì Nginx luôn Enable Keep Alive, trừ khi chính bạn muốn tắt nó bằng cách dùng directive <code class="highlighter-rouge">keepalive_disable</code>, chúng ta có thể chỉ định disable keep alive cho từng User Agent (Browser cụ thể).</p>
+
+<p>Xem thêm - http://wiki.nginx.org/HttpCoreModule#keepalive_disable</p>
+
+<h4 id="kt-lun">Kết luận</h4>
+<p>Keep Alive được dùng để tối ưu hóa tốc độ tải trang nhằm đem lại trải nghiệm tốt hơn cho người dùng. Mặc định thì Keep Alive luôn được mở khi cài đặt Apache hoặc Nginx, nhưng một số nhà cung cấp dịch vụ shared hosting có thể đã tắt nó nhằm tránh quá tải cho hệ thống của họ, vì vậy, luôn để ý và test kỹ xem Server của mình có enable keep alive không nhé. (Bằng cách quan sát HTTP Response hoặc sử dụng <a href="https://varvy.com/pagespeed/">PageSpeed Tool</a> để kiểm tra).</p>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

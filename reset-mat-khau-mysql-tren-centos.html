@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>[TIL] Upgrade JDK Version và Reset mật khẩu MySQL trên CentOS</title>
+  <meta name="description" content=":), Mùng 2 tết, rãnh rỗi sinh nông nỗi nên muốn tìm việc gì đó hay hay để làm. Sực nhớ một thứ mà mình dự định làm trong tết là ngồi cài Jira lên con Cloud V...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/reset-mat-khau-mysql-tren-centos">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>:), Mùng 2 tết, rãnh rỗi sinh nông nỗi nên muốn tìm việc gì đó hay hay để làm. Sực nhớ một thứ mà mình dự định làm trong tết là ngồi cài Jira lên con Cloud VPS đang trống của Công ty để dùng thử và tiết kiệm chi phí (thay vì phải trả phí hàng tháng cho Atlassian thì sẽ tự host và trả phí bản quyền 1 lần thôi.). Vậy là phải đọc <a href="https://confluence.atlassian.com/adminjiraserver070/installing-jira-applications-on-linux-749382634.html">Installation Guide</a> rồi tiến hành thôi.</p>
+
+<p>Đọc requirements, mình thấy rằng có 2 việc cần phải làm trước, đó là upgrade JDK từ 1.7 lên 1.8 và sau đó là reset mật khẩu root của mysql (mình không nắm pass root của mysql, do một chú đồng nghiệp set nhưng không viết lại cho Core Team.)</p>
+
+<h3 id="nng-cp-jdk">Nâng cấp JDK</h3>
+
+<p>Xem phiên bản JDK hiện tại</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>java -version
+</code></pre>
+</div>
+
+<p>Download bản JDK 1.8 mới nhất từ Oracle về và giải nén:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /opt/
+wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u72-b15/jdk-8u72-linux-x64.tar.gz"
+tar xzf jdk-8u72-linux-x64.tar.gz
+</code></pre>
+</div>
+
+<p>Tiến hành nâng cấp bằng lệnh <code class="highlighter-rouge">alternatives</code> (Lệnh này nằm trong gói <code class="highlighter-rouge">chkconfig</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /opt/jdk1.8.0_72/
+alternatives --install /usr/bin/java java /opt/jdk1.8.0_72/bin/java 2
+alternatives --config java
+</code></pre>
+</div>
+
+<p>(Chọn phiên bản Java muốn sử dụng)</p>
+
+<p>Thay thế các thành phần khác như <code class="highlighter-rouge">jar</code> và <code class="highlighter-rouge">javac</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_72/bin/jar 2
+alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_72/bin/javac 2
+alternatives --set jar /opt/jdk1.8.0_72/bin/jar
+alternatives --set javac /opt/jdk1.8.0_72/bin/javac
+</code></pre>
+</div>
+
+<p>Kiểm tra lại xem việc nâng cấp đã thành công hay chưa?</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>java -version
+</code></pre>
+</div>
+
+<p>Export các biến môi trường của Java
+<code class="highlighter-rouge">
+export JAVA_HOME=/opt/jdk1.8.0_72
+export JRE_HOME=/opt/jdk1.8.0_72/jre
+export PATH=$PATH:/opt/jdk1.8.0_72/bin:/opt/jdk1.8.0_72/jre/bin
+</code></p>
+
+<p>Kiểm tra</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>printenv
+</code></pre>
+</div>
+
+<hr />
+
+<h3 id="reset-mt-khu-root-ca-mysql">Reset Mật khẩu Root của MySQL</h3>
+
+<p>Stop dịch vụ mysqld</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo /etc/init.d/mysqld stop
+</code></pre>
+</div>
+<p>Vào Safemode</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo mysqld_safe --skip-grant-tables &amp;
+</code></pre>
+</div>
+
+<p>Đăng nhập vào Root (sẽ không bị hỏi mật khẩu  vì đang ở Safemode)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mysql -uroot
+</code></pre>
+</div>
+<p>Reset mật khẩu:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>use mysql;
+update user set authentication_string=PASSWORD("mynewpassword") where User='root';
+flush privileges;
+quit
+</code></pre>
+</div>
+
+<p>Stop Safemode và khởi động lại Mysqld:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo /etc/init.d/mysqld stop
+sudo /etc/init.d/mysqld start
+</code></pre>
+</div>
+
+<p>Đăng nhập thử với mật khẩu đã set</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mysql -u root -p
+</code></pre>
+</div>
+
+<p>Have fun!</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

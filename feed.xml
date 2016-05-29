@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>notes.viphat.work</title>
+    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</description>
+    <link>http://notes.viphat.work/</link>
+    <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 29 May 2016 22:44:12 +0700</pubDate>
+    <lastBuildDate>Sun, 29 May 2016 22:44:12 +0700</lastBuildDate>
+    <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>[TIL] Paperclip Fingerprint</title>
+        <description>&lt;h3 id=&quot;paperclip-fingerprint&quot;&gt;Paperclip Fingerprint&lt;/h3&gt;
+
+&lt;p&gt;Tình huống của hôm nay là Sếp bỗng dưng muốn chuyển tất cả assets của ứng dụng từ &lt;strong&gt;Amazon S3&lt;/strong&gt; về &lt;strong&gt;VCCloud CDN&lt;/strong&gt; (đang khuyến mãi gói 100 GB miễn phí, giá tính ra không đắt hơn Amazon S3 nhiều lắm và được khoản Servers đặt ở Hà Nội - Đà Nẵng - Hồ Chí Minh nên thích hợp cho App có lượng lớn truy cập từ VN.)&lt;/p&gt;
+
+&lt;p&gt;Sử dụng CDN của VCCloud cũng đơn giản, chẳng phải setup nhiều, chỉ add domain của S3 Bucket vào là chạy được ngay (Enable Static Web Hosting cho Bucket S3 để có sub-domain riêng). Nhưng đẻ ra một vấn đề là trước đây, dùng Paperclip để upload users’s file lên S3 mà không có fingerprint, giờ mà dùng CDN thì hỏng bét, nếu file ở S3 có thay đổi thì CDN vẫn serve file cũ. »&amp;gt; Enable Fingerprint vào tên file cho Paperclip&lt;/p&gt;
+
+&lt;p&gt;1 . Tạo &lt;em&gt;Migration&lt;/em&gt;  cho tất cả các cột có sử dụng Paperclip handle attachment&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AddAvatarFingerPrintToUsers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Migration&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;change&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;add_column&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:users&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:avatar_fingerprint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:string&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;2 . Thêm Fingerprint vào tên file (đây là ví dụ cho trường hợp của mình)&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;config/initializers/paperclip.rb&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Paperclip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Attachment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;default_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;merge!&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;:class/:attachment/:id_:style_:fingerprint.:extension&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Xong bước này thì tất cả file mới upload sau này đều có fingerprint.&lt;/p&gt;
+
+&lt;p&gt;3 . Xử lý file đã upload trước đây bằng cách chạy rake sau:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RAILS_ENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;production&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rake&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;paperclip&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:refresh&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CLASS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;3b . Nếu không muốn chạy Rake trên thì có thể xử lý thủ công bằng:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;users_to_reprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;avatar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reprocess!&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;viphat@13-05-2016&lt;/p&gt;
+</description>
+        <pubDate>Thu, 12 May 2016 22:52:26 +0700</pubDate>
+        <link>http://notes.viphat.work/paperclip-fingerprint</link>
+        <guid isPermaLink="true">http://notes.viphat.work/paperclip-fingerprint</guid>
+        
+        <category>ruby-on-rails</category>
+        
+        <category>til</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Happiness Now - Andrew Matthews (Sống trọn vẹn mỗi ngày)</title>
+        <description>&lt;p&gt;Mình xin tóm tắt lại phần “Sống trọn vẹn mỗi ngày” của Quyển Happiness Now - Andrew Matthews. Quyển này cũng ngắn và dễ đọc thôi. Xin mời bạn.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/mOXyJUS.png&quot; alt=&quot;The Rest of Your Life&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;ti-sao&quot;&gt;Tại sao?&lt;/h3&gt;
+
+&lt;p&gt;Khi bi kịch xảy ra, khi chúng ta mất tất cả, hoặc khi  người ta yêu rời bỏ ta, câu hỏi ta thường hỏi là “Tại sao?”&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;“Tại sao lại là tôi?”&lt;/li&gt;
+  &lt;li&gt;“Tại sao lại là bây giờ?”&lt;/li&gt;
+  &lt;li&gt;“Tại sao cô ta lại bỏ tôi vì một tên chẳng ra gì?”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Nếu cứ hỏi “Tại sao”, chúng ta sẽ điên mất. Thông thường sẽ không có câu trả lời cho câu hỏi “Tại sao?” và thật ra lý do là gì cũng không quan trọng!&lt;/p&gt;
+
+&lt;p&gt;Người thành công sẽ hỏi câu với từ “Gì?” …&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;“Tôi sẽ làm gì để giải quyết vấn đề này?”&lt;/li&gt;
+  &lt;li&gt;“Tôi học được gì từ vấn đề này?”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Khi tình hình thật sự rất khó khăn họ sẽ đặt câu hỏi: “Trong 24 giờ tới, tôi có thể làm gì để có thể cải thiện tình hình?”&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Những người hạnh phúc không quan tâm cuộc sống có công bằng hay không. Họ chỉ sống trọn vẹn với những gì đang có. Đời có công bằng không? Có thể không. Nhưng thế thì đã sao!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;nhn-cch&quot;&gt;Nhân cách&lt;/h3&gt;
+
+&lt;p&gt;Những đức tính được tất cả chúng ta xem trọng hơn tất cả là: &lt;strong&gt;THẬT THÀ&lt;/strong&gt;, &lt;strong&gt;CAN ĐẢM&lt;/strong&gt;, &lt;strong&gt;KIÊN NHẪN&lt;/strong&gt;, &lt;strong&gt;RỘNG RÃI&lt;/strong&gt; VÀ &lt;strong&gt;NHÂN HẬU&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Đây được gọi là &lt;strong&gt;nhân cách&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Bạn là người tạo ra nhân cách bản thân mình.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;hy-loi-b-thi-quen-lo-lng&quot;&gt;Hãy loại bỏ thói quen lo lắng&lt;/h3&gt;
+
+&lt;p&gt;Lo lắng là hoàn toàn vô ích.&lt;/p&gt;
+
+&lt;p&gt;Mỗi khi bạn cảm thấy lo lắng, hãy tự hỏi, “Vấn đề ở ngay giây này là gì?” Cứ sống trong hiện tại! Hãy làm tất cả những gì có thể trong ngày hôm nay và loại bỏ lo lắng ra khỏi đầu..&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Khi bạn lo lắng, hãy ngăn nó lại. Khi ai đó hỏi bạn, “Anh không lo về điều đó à?” hãy nói với họ, “Lẽ ra tôi đang lo lắng - nhưng tôi không có thời gian!”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;sc-mnh-tinh-thn&quot;&gt;Sức mạnh tinh thần&lt;/h3&gt;
+
+&lt;p&gt;Khi cuộc sống trở nên khó khăn, hãy tự nhủ: “Đây chỉ là sự rèn luyện về tinh thần. Vượt qua và mình sẽ sống hạnh phúc hơn!”&lt;/p&gt;
+
+&lt;p&gt;“Không có thất bại, chỉ là một BÀI HỌC KINH NGHIỆM thôi… không có thất bại, chỉ là một BÀI HỌC KINH NGHIỆM  thôi…”&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Cuộc sống dễ dàng không cho bạn cảm giác hạnh phúc, mà thường ngược lại cuộc sống nhiều khó khắn sẽ giúp bạn học cách sống hạnh phúc.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;hnh-phc&quot;&gt;Hạnh phúc&lt;/h3&gt;
+
+&lt;p&gt;Đừng chờ đợi cuộc sống sẽ dễ dàng hơn. Bạn phải lựa chọn để sống hạnh phúc trước đã.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Bạn không cảm thấy hạnh phúc khi không gặp vấn đề gì, mà bạn hạnh phúc cho dù có gặp bất cứ vấn đề gì.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Hạnh phúc không phụ thuộc ở tuổi tác của bạn, mà ở thái độ của bạn&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;sng-trn-vn-mi-ngy&quot;&gt;Sống trọn vẹn mỗi ngày&lt;/h3&gt;
+&lt;p&gt;Bạn luôn có thể sống trọn vẹn từng ngày. Nếu đến một lúc nào đó, một ngày đã là quá dài, hãy sống trọn vẹn từng phút thôi.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Hãy nỗ lực hết mình đến khi bạn đi ngủ. Những gì xảy ra ngày mai thì ngày mai hãy tính.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;ci&quot;&gt;Cười&lt;/h3&gt;
+
+&lt;p&gt;“TÔI KHÔNG BUỒN ĐAU VÌ BẤT CỨ CHUYỆN GÌ!”&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Đừng cứ mãi sống nghie6mm túc như vậy. Bạn cần phải cười nhiều hơn!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;khi-mi-vic-ngoi-tm-kim-sot-ca-bn&quot;&gt;Khi mọi việc ngoài tầm kiểm soát của bạn&lt;/h3&gt;
+
+&lt;p&gt;Đây là cách sống khiến bạn khổ cả đời
+a) Tự đưa ra quan niệm thế giới quanh bạn PHẢI như thế này thế nọ
+b) Tự đặt ra nguyên tắc rằng mọi người PHẢI cư xử như thế&lt;/p&gt;
+
+&lt;p&gt;Rồi khi thế giới xung quanh bạn không tuân theo nguyên tắc của bạn. Bạn thấy 
+khó chịu! Đó là cách sống của người bất hạnh!&lt;/p&gt;
+
+&lt;p&gt;Có một cách khác tốt hơn. Đừng đòi hỏi nhiều quá. Thay vào đó hãy xem bạn thích cái nào hơn! Đối với những điều bạn không thể kiểm soát thì hãy tự nhủ: “Tôi thích A, nhưng nếu B xảy ra thì cũng tốt thôi” - Hãy gieo suy nghĩ này thành thói quen, bạn sẽ sống thanh thản.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Điều gì xảy ra với bạn đi nữa cũng không ảnh hưởng tới hạnh phúc của bạn. Cách bạn nghĩ về những gì xảy đế mới quyết định mức độ hạnh phúc của bạn.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;ni-nng&quot;&gt;Nổi nóng&lt;/h3&gt;
+
+&lt;p&gt;Thường thì không phải chúng ta nổi nóng với sự việc đã xảy ra. Chúng ta nổi điên lên khi mong đợi một cái gì đó thì cái khác lại xảy đến.&lt;/p&gt;
+
+&lt;p&gt;Có 3 cách để giữ được bình tĩnh:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;NHÂN NHƯỢNG - Đôi lúc nên cho phé những người khác có được cái họ muốn.&lt;/li&gt;
+  &lt;li&gt;HÃY XÁC ĐỊNH CÁI GÌ THỰC SỰ QUAN TRỌNG &amp;gt; Không khó chịu vì những việc nhỏ nhặt.&lt;/li&gt;
+  &lt;li&gt;CỨ CHẤP NHẬN SỰ THẬT - Đừng cố gắng chống đối hiện tại - chấp nhận hiện tại.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;ti-ang-i-u&quot;&gt;Tôi đang đi đâu?&lt;/h3&gt;
+
+&lt;p&gt;Hãy làm việc hết mình, bởi vì:
+- Bạn cảm thấy tốt hơn về bản thân.
+- Bạn phát triển được những kỹ năng của mình
+- Bạn xây dựng được tiếng tăm
+- Lúc nào đó sẽ có người để ý đến bạn và đề nghị bạn một việc làm tốt hơn, hoặc
+- Một ngày nào đó bạn sẽ có đủ tự tin để tự thực hiện kinh doanh.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Cuộc sống đền đáp cho những nỗ lực, chứ không phải những lời ngụy biện.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;kin-nhn&quot;&gt;Kiên nhẫn&lt;/h3&gt;
+
+&lt;p&gt;Nếu bạn có một mục tiêu, dù làm gì đi nữa, đây là phương pháp… hãy rèn luyện mỗi ngày, nhưng đừng mong đợi thấy sự tiến bộ mỗi ngày. Hãy lập kế hoạch và thực hiện nó mỗi ngày và cho phép bản thân có thời gian để tiến bộ, rồi chắc chắn bạn sẽ thấy kết quả…&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Đây là thứ tự những gì bạn cần để thành công:
+1. kiên nhẫn và bền chí
+2. tài năng.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;tht-tuyt-vi&quot;&gt;Thật tuyệt vời&lt;/h3&gt;
+
+&lt;p&gt;Có những thứ đã xảy ra hết sức tuyệt vời nhưng chúng ta thì đã phớt lờ chúng, thậm chí chối bỏ chúng. Hãy học cách trân trọng.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 04 May 2016 21:35:00 +0700</pubDate>
+        <link>http://notes.viphat.work/happiness-now-song-tron-ven-moi-ngay</link>
+        <guid isPermaLink="true">http://notes.viphat.work/happiness-now-song-tron-ven-moi-ngay</guid>
+        
+        <category>bai-hoc-cuoc-song</category>
+        
+        <category>song-tron-ven</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>[ReadStation] Làm sao để đọc 1 cuốn sách mỗi tuần?</title>
+        <description>&lt;p&gt;Bạn cảm thấy tuyệt vọng khi ngập lội giữa muôn vàn sách vở và tri thức mà không biết lấy đâu ra đủ thời gian để đọc hết những gì bạn muốn? Bạn đọc một cuốn sách kỹ năng làm giàu và cảm thấy chán nản khi nó lặp lại quá nhiều kiến thức bạn đã biết; muốn bỏ dở giữa chừng nhưng sợ không biết mình có lỡ mất điều gì không? Hay bạn đã dành biết bao công sức thời gian đọc hết một cuốn sách, để đến cuối nhận ra mình không hề nắm rõ nó như mình nghĩ khi một người khác hỏi bạn cuốn sách nói về điều gì? Bạn nhận ra rằng mình đã quên phần lớn quyển sách, chỉ nhớ vài mẩu chuyện lặt vặt, hiểu chung chung quyển sách nói về cái gì nhưng không có khả năng trình bày lại hệ thống lập luận của tác giả?&lt;/p&gt;
+
+&lt;p&gt;Bất cứ vấn đề gì bạn đã từng gặp ở trên, bài viết này là dành cho bạn. Bài viết được Read Station chuyển ngữ từ bài “&lt;strong&gt;How to read a book a week&lt;/strong&gt;” trên tạp chí Harvard Business Review. Tác giả của bài viết là Peter Bregman, chuyên gia tư vấn về năng lực lãnh đạo cho các tổ chức hàng đầu thế giới như Goldman Sachs, Morgan Stanley, Deutsche Bank, JPMorgan Chase, Nike, UNICEF…Ông tốt nghiệp đại học trường Princeton, và học cao học tại trường Columbia.&lt;/p&gt;
+
+&lt;h3 id=&quot;lm-sao--c-1-cun-sch-mi-tun&quot;&gt;Làm sao để đọc 1 cuốn sách mỗi tuần?&lt;/h3&gt;
+
+&lt;p&gt;Đó là vào cuối những năm thập niên 1980, tôi đang ngồi trong giảng đường trường đại học nghe Abbie Hoffman - một nhà hoạt động xã hội - phê phán và lên án sự thờ ơ của thế hệ chúng tôi. Cạnh tôi là Gloria Emerson - một nhà báo tài năng và cá tính. Chúng tôi đang bàn luận về bài nói chuyện của Hoffman khi tôi nói với cô tôi yêu thích cảm giác ngập lặn giữa vô vàn những ý tưởng này như thế nào. “Quả là một cơ hội hiếm có để được ngồi ở đây,” tôi nói, “lắng nghe chia sẻ từ những con người thông minh và sâu sắc như thế này.” “Ôi, làm gì đến nỗi,” cô đáp. “Bất cứ ai cũng đều có thể tham dự những cuộc nói chuyện kiểu này. Chỉ cần đọc vài quyển sách thôi!” Hài hước thay, là một sinh viên chuyên ngành lịch sử, tôi thường phải đọc ba đến bốn cuốn sách mỗi tuần. Và Gloria nói đúng: nhờ có những cuốn sách đó mà tôi có một chỗ ngồi ở đây, được tham gia cuộc nói chuyện lý thú giữa những bộ óc lớn như thế này. Quay trở về cuộc nói chuyện, từ khi bắt đầu làm một kênh podcast (1 kiểu radio online) của riêng mình, tôi luôn cố đọc sách phi hư cấu (non-fiction) nhiều nhất có thể - ít nhất một cuốn mỗi tuần. Đó là yêu cầu tối thiểu để, thứ nhất, quyết định xem tôi có muốn trò chuyện với tác giả cuốn sách và chia sẻ ý tưởng của họ không; thứ hai, làm cuộc nói chuyện trở nên ý nghĩa nếu tôi quyết định sẽ mời họ làm khách mời cho chương trình podcast số tiếp theo. (Nghe thì có vẻ hiển nhiên, nhưng bạn sẽ bất ngờ vô cùng khi biết bao nhiêu lần tôi được mời phỏng vấn bởi những người chưa hề đọc sách của mình.) Tôi làm giàu bản thân nhờ việc đọc. Tôi biết nhiều hơn và bản lĩnh hơn, dũng cảm sẵn sàng áp dụng những gì tôi đã học vào đời sống. Tôi cũng tự tin hơn cả trong quan điểm và hành động, đồng thời trở nên thấu hiểu và đồng cảm hơn với người khác. Nhưng việc đọc quả là tốn thời gian. Tôi đã quá bận rộn ngay cả trước khi tôi quyết định đọc vài cuốn sách mỗi tuần. Không những thế tôi lại còn là một người đọc chậm nữa. Tôi đã thử nhiều giải pháp mọi người vẫn làm, nhưng chẳng cái nào có ích cả. Đọc mỗi đoạn giới thiệu cuốn sách là không thể đủ, và các bài tóm tắt của chúng thì thật tệ hại. Tôi chưa từng đọc một bài tóm tắt nào mà có thể thực sự truyền tải sự hấp dẫn thú vị và ý nghĩa của tác phẩm. Vậy làm sao mà tôi có thể đọc một hay vài cuốn sách mỗi tuần? Cuối cùng, thứ giải quyết được vấn đề của tôi là những lời khuyên tôi có khi vẫn còn ngồi trên giảng đường đại học. Michael Jimenez - giáo sư lịch sử Mỹ Latin - là một trong những giáo viên tuyệt vời nhất tôi từng được học. Một ngày tôi tâm sự với ông về vấn đề tôi có với khối lượng sách tôi cần phải đọc. “Tôi hy vọng cậu không đọc chúng từng từ từng từ như đọc tiểu thuyết,” ông nói. Tôi thú nhận đúng là tôi đọc sách như thế thật. Ông nhìn một vòng quanh phòng, một vài học sinh ngượng ngùng gật đầu đồng ý với những gì tôi nói. Vậy là ông gọi bọn tôi lại một chỗ và dạy cho chúng tôi cách đọc sách non-fiction ra sao. “Nghe này,” ông nói, “các bạn không cần phải đọc những quyển sách này. Các bạn cần hiểu chúng.” Ông giải thích thêm: Tiểu thuyết hư cấu yêu cầu chúng ta phải nhập tâm vào thế giới mà tác giả tạo ra, nó truyền cảm và đem đến cho chúng ta một trải nghiệm sống động. Nhưng sách non-fiction - ít nhất là những gì chúng ta đọc để phục vụ cho công việc của chúng ta - đề cập một quan điểm về một vấn đề mà yêu cầu chúng ta hiểu nó. Ở vị trí những người đọc, chúng ta có thêm động lực sau mỗi cuốn sách đọc xong. Đọc càng nhiều, ta càng nhanh chóng nắm bắt được góc nhìn và ý tưởng của cuốn sách, hay sự liên hệ của nó với các tác phẩm khác. Và ta càng hiểu cuốn sách rõ hơn khi ta áp dụng lời khuyên và góc nhìn của nó vào cuộc sống thường nhật. Nói cách khác, đọc càng nhiều, chúng ta đọc càng nhanh.Đây là tổng hợp lời khuyên của giáo sư Jimenez về cách đọc sách non-fiction, với một vài bổ sung của tôi:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Hãy bắt đầu với tác giả.&lt;/strong&gt; 
+Ai đã viết quyển sách? Hãy đọc qua tiểu sử của họ. Nếu không tìm được trên mạng một bài phỏng vấn hay bài viết ngắn về tác giả, hãy đọc nó thật nhanh thôi, không cần quá chi tiết. Nó sẽ giúp ta có được một cảm nhận và mường tượng về quan điểm và khuynh hướng của người viết.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Đọc tên sách, tiêu đề, bìa, và mục lục quyển sách.&lt;/strong&gt; Cố gắng nắm bắt xem bức tranh chung của lập luận của cuốn sách là gì. Lập luận đó đi theo hướng nào? Chỉ với việc này, bạn đã có thể miêu tả ý tưởng và chủ đề chính của quyển sách cho những người chưa từng đọc nó.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. Đọc giới thiệu và kết luận.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Tác giả dẫn dắt vấn đề ở đầu cuốn sách, và chốt quan điểm của họ ở cuối cuốn sách. Hãy đọc kỹ (nhưng nhanh) 2 phần này. Bạn đã có mường tượng về quan điểm của tác giả rồi, 2 phần này sẽ cho bạn biết họ sẽ đi đến luận điểm đó như thế nào (giới thiệu) và họ hy vọng bạn nhận ra được gì từ đó (kết luận).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4. Đọc/lướt qua các chương.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Đọc đầu đề của chương, sau đó là vài đoạn hoặc vài trang của mỗi chương để biết được tác giả viết chương này với mục đích gì và nó có vai trò gì trong luận điểm chính của quyển sách. Sau đó đọc lướt qua các phần in đậm, các mục nhỏ hơn trong chương (nếu có) để nắm bắt được dòng chảy của chương sách. Đọc câu đầu tiên và câu cuối cùng của mỗi đoạn văn. Nếu bạn hiểu nó đang nói gì thì cứ tiếp tục, nếu không, bạn có thể muốn dừng lại để đọc cả đoạn. Một khi bạn đã hiểu chương này viết về cái gì, bạn có thể lướt qua cả trang rất nhanh mà vẫn nắm rõ được lý lẽ, lập luận trong chương.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5. Kết thúc bằng đọc lại mục lục một lần nữa.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Khi đã hoàn thành cuốn sách, quay trở lại đọc mục lục và tóm tắt lại nó trong đầu. Dành một khoảng thời gian để ngẫm lại dòng chảy của cuốn sách, những lý lẽ luận điểm làm bạn quan tâm, những câu chuyện bạn ấn tượng, và cuộc hành trình bạn vừa trải qua với tác giả.
+Khi đọc, tôi không quên ghi chép để chuẩn bị cho cuộc trò chuyện với tác giả. Tôi đồng ý ở điểm nào? Không đồng ý ở điểm nào? Có những điều gì vẫn làm tôi băn khoăn thắc mắc? Có những điều thú vị gì tôi muốn tranh luận thêm với nhiều người khác để hiểu hơn cuốn sách trong những ngày sắp tới? Tất cả những ghi chép đó đều giúp ích rất nhiều cho tôi. Đây là điều thú vị khi đọc sách theo cách này: không những bạn đọc nó nhanh hơn cách đọc thông thường (mất của tôi khoảng 1 - 2 tiếng để đọc một quyển sách, trong khi bình thường phải là 6 - 8 tiếng), bạn sẽ nhớ nó lâu hơn. Đó là vì bạn không chỉ đang đọc cuốn sách; bạn đang chủ động giao tiếp với nó, thâm nhập vào nó. Đầu óc bạn lúc nào cũng phải trong trạng thái tỉnh táo và bạn có thể hiểu quyển sách một cách toàn cảnh hơn. Bạn không chỉ tiếp thu nó - một trạng thái bị động, bạn đang chủ động tìm hiểu nó. Khi tôi bắt đầu chương trình podcast của mình, tôi mong muốn có thể đem đến cho mỗi người nghe một “ghế ngồi” trong cuộc đàm đạo với những con người thông minh và sâu sắc về đam mê nhiệt huyết của họ, quá trình học và góc nhìn của họ. Điều làm tôi ngạc nhiên đó là bằng cách nào đó chúng ta đã có thể hiểu và chạm được vào những con người này chỉ đơn giản bằng việc đọc sách của họ. Đúng là trải nghiệm của tôi trở nên phong phú hơn khi trò chuyện với tác giả, nhưng 90% những gì tôi có đến từ việc đọc những gì họ viết. Chúng ta đều có thể đọc và nghe podcast các cuộc hội thoại của những con người thông minh sâu sắc này. Chúng ta đều có thể truy cập vào những ý tưởng tuyệt vời và ứng dụng chúng để thay đổi cuộc sống của chúng ta. Nói cách khác, với một chút nỗ lực thôi, chúng ta đều có thể có một tấm vé để trở lại giảng đường đại học.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 19 Apr 2016 15:53:26 +0700</pubDate>
+        <link>http://notes.viphat.work/lam-sao-de-doc-1-cuon-sach-moi-tuan</link>
+        <guid isPermaLink="true">http://notes.viphat.work/lam-sao-de-doc-1-cuon-sach-moi-tuan</guid>
+        
+        <category>doc-sach</category>
+        
+        <category>tu-hoc</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Bí quyết đọc sách cho những kẻ thế mà đần</title>
+        <description>&lt;p&gt;Bài này nằm trong chuỗi bài viết về đề tài Tự học của Blog, Tham khảo các bài viết trước:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://notes.viphat.work/doc-nhanh-nho-lau/&quot;&gt;&lt;strong&gt;Đọc nhanh nhớ lâu - Victoria Quỳnh Giang&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://notes.viphat.work/hoc-tu-sach-tran-xuan-hai/&quot;&gt;&lt;strong&gt;Học từ Sách - Trần Xuân Hải&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://notes.viphat.work/luyen-tap-co-chu-dich-deliberate-practice-bi-mat-cua-su-xuat-sac/&quot;&gt;&lt;strong&gt;Luyện tập có chủ đích&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://notes.viphat.work/toi-tu-hoc-nguyen-duy-can&quot;&gt;&lt;strong&gt;Tôi tự học - Thu Giang, Nguyễn Duy Cần&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Tự học - một nhu cầu thời đại - Nguyễn Hiến Lê&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Phương pháp đọc sách hiệu quả&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://notes.viphat.work/15-cach-giup-ban-doc-nhieu-hon&quot;&gt;&lt;strong&gt;15 cách giúp bạn đọc nhiều hơn&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://notes.viphat.work/minh-doc-sach-de-lam-gi/&quot;&gt;&lt;strong&gt;Mình đọc sách để làm gì?&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://notes.viphat.work/10-quy-tac-giup-ban-doc-sach-hieu-qua/&quot;&gt;&lt;strong&gt;10 quy tắc giúp bạn đọc sách hiệu quả&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;cc-mc--c-sch&quot;&gt;Các mức độ đọc sách:&lt;/h4&gt;
+
+&lt;p&gt;Bạn định đọc một quyển sách trong bao lâu: 2 tiếng hay 8 năm? (2 tiếng là thời gian cần để bạn có thể đọc hết một quyển sách trung bình nhưng để thực sự hiểu một quyển sách, đòi hỏi mất nhiều thời gian hơn - Để đọc đi đọc lại, để trải nghiệm rồi chiêm nghiệm lại).&lt;/p&gt;
+
+&lt;h4 id=&quot;c-nht-thit-phi-c-sch-ph-hp-vi-trnh--v-la-tui&quot;&gt;Có nhất thiết phải đọc sách phù hợp với trình độ và lứa tuổi?&lt;/h4&gt;
+
+&lt;p&gt;Nếu chỉ đọc sách về những gì mình đã biết, cái mình tiếp thu chỉ là thông tin, không phải là kiến thức. (Đọc sách cao hơn tầm hiểu biết của mình một bậc, đó mới là sự học).&lt;/p&gt;
+
+&lt;h4 id=&quot;xc-nh-mc-ch-c-sch&quot;&gt;Xác định mục đích đọc sách&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Đọc sách để giải trí, để thư giãn.&lt;/li&gt;
+  &lt;li&gt;Đọc sách chỉ đơn giản là phải đọc.&lt;/li&gt;
+  &lt;li&gt;Chuyên gia “dùng sách để ngủ”. (Là mình đây &amp;gt;.&amp;lt;)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Đọc sách để thêm hiểu biết&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Tùy theo mục đích mà bạn sẽ có cách tiếp cận phù hợp, bài viết này nhắm đến việc đọc sách một cách có chủ đích, có thói quen, có kế hoạch, có thu hoạch và có tính mở mang.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Chúng ta đọc để học&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;c-sch-nh-th-no&quot;&gt;Đọc sách như thế nào&lt;/h4&gt;
+
+&lt;p&gt;Nếu cứ đọc như đã từng thì trình độ đọc của bạn không hơn học sinh tiểu học!!! (Tác giả ví von vậy thôi, Thực tế thì một học sinh đến cuối cấp II mới hoàn thiện khả năng đọc sơ cấp - Đọc sơ cấp nghĩa là đọc và biết được - ở mặt nổi - quyển sách nói về điều gì? mà không phải dừng lại để tra nghĩa của từ khi đọc).&lt;/p&gt;
+
+&lt;p&gt;Muốn đọc sách đúng cách là phải luyện tập, không thể khác được.&lt;/p&gt;
+
+&lt;h5 id=&quot;lm-sao--c-c-nhiu&quot;&gt;Làm sao để đọc được nhiều&lt;/h5&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Sách phải sẵn&lt;/strong&gt; - Luôn mang theo một quyển sách giấy (Hoặc Tablet / Kindle) bên cạnh bạn mọi nơi - Mình nhớ lại một thói quen rất tốt của người Do Thái, đó là không để thời gian bị đánh cắp (và không để ai đánh cắp thời gian của mình), họ luôn đem sách theo và đọc khi chờ đợi một ai đó hoặc khi rãnh).&lt;/p&gt;
+
+&lt;p&gt;Sai lầm phổ biến của việc Tự học bằng cách đọc sách là khi bạn cố gắng đọc một quyển sách ngoại ngữ và dừng lại quá nhiều lần để tra nghĩa. Bạn phải đạt được mức độ đọc sơ cấp trước đã…&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Đọc sách mọi lúc&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Đọc trước khi đi ngủ, Đọc khi vừa dậy lúc sáng sớm, đọc khi nghỉ trưa ở sở làm (người phương Tây không dùng thời gian nghỉ trưa để ngủ hoặc giao tiếp quá nhiều) » Nếu bạn cho rằng quá bận rộn và không thể đọc sách được thì đó chỉ là bạn cho rằng như thế mà thôi.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. Đừng dừng lại, mà phải đọc như ăn cướp&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Sai lầm thứ nhất: Đọc từ nọ sang từ kia, dòng nọ nối dòng kia.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Sai lầm thứ hai: Cố hiểu cho kỹ rồi mới đọc tiếp. (Quan điểm thì mình đồng ý nhưng cách diễn giải thì không? Gặp chỗ nào quá khó hiểu thì bạn cứ bỏ qua, không được dừng lại hay thụt lùi bởi vì việc này ảnh hưởng đến việc đọc rất nhiều, rất dễ làm bạn nản chí, thấy cây mà không thấy rừng, việc đọc hết quyển sách sẽ giúp ích cho bạn nhiều, khi bạn cố gắng quay trở lại đọc những chỗ bị bỏ qua.)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Sai lầm thứ ba: Cứ phải là tuần tự từ đầu đến cuối thì mới là đọc đúng cách.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;4. Đọc như trai tân tán gái&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Nhìn vào cấu trúc cuốn sách (Lời nói đầu, lời cuối, Lời giới thiệu, mục lục, các tiểu mục…) để nắm sơ bộ, tìm hiểu về tác giả để xem phong cách, bối cảnh của cuốn sách mình định đọc đây… (Cái này sẽ nói được nói rõ hơn trong quyển “&lt;strong&gt;Phương pháp đọc sách hiệu quả&lt;/strong&gt;”)&lt;/p&gt;
+
+&lt;p&gt;** 5. Đọc sách như thể chụp X-Quang**&lt;/p&gt;
+
+&lt;p&gt;** 6. Đọc liên văn bản đồng chủ đề**&lt;/p&gt;
+
+&lt;p&gt;Việc đọc liên văn bản đồng chủ đề giúp người đọc tăng tốc độ đọc sách đáng kể bằng cách đồng thời đọc nhiều cuốn về cùng một chủ đề, quá trình đọc có sự so sánh, phân tích cái chung, những điểm mâu thuẫn hay bổ sung cho nhau… Việc đọc đồng chủ đề là mức độ cao nhất trong các mức độ đọc, đòi hỏi não bộ hoạt động nhiều và tập trung cao độ, giúp bạn nhớ lâu hơn và chắc hơn.&lt;/p&gt;
+
+&lt;p&gt;** 7. Đọc có kế hoạch**&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/XD0QWpY.jpg&quot; alt=&quot;Agile&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;lm-sao--c-cht-hay-lm-sao--c-tht-su&quot;&gt;Làm sao để đọc chất hay làm sao để đọc thật sâu&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Bí quyết đầu tiên: &lt;strong&gt;Đọc lại, Đọc lại, đọc lại&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Đơn giản phải không? Mỗi lần đọc lại, là một lần ngộ ra thêm. Đó là sự thật.&lt;/p&gt;
+
+&lt;p&gt;Phàm sách nào hay và quan trọng, phải đọc đi đọc lại nhiều lần.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Bí quyết thứ hai: &lt;strong&gt;Tổ chức lại thông tin sau khi đọc&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Củng cố thông tin để não bộ lưu vào bộ nhớ dài hạn bằng cách ôn lại thông tin vừa đọc. Viết Blog, ghi cảm nhận, lập sơ đồ tư duy, trả lời các câu hỏi có trong sách hoặc câu hỏi mà bản thân tự đặt ra. Nghi vấn, phản biện hoặc liên kết với những kinh nghiệm của bản thân hoặc với những quyển sách khác.&lt;/p&gt;
+
+&lt;p&gt;(Đọc quyển Phương Pháp đọc sách hiệu quả có đưa ra 4 câu hỏi mà bạn luôn phải đặt ra và tìm câu trả lời khi đọc bất kỳ quyển sách nào).&lt;/p&gt;
+
+&lt;h5 id=&quot;lm-th-no--vic-c-tht-hu-ch&quot;&gt;Làm thế nào để việc đọc thật hữu ích?&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Chia sẻ, chia sẻ, chia sẻ&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Nhận xét&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Kể về nó, thuyết trình về nó&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Vận dụng nó vào công việc và cuộc sống&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Hành động, biến những kiến thức đã học thành tiền, thành giải pháp, thành ý tưởng&lt;/strong&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;PHẢI HÀNH ĐỘNG ĐỂ BIẾN KIẾN THỨC TRONG SÁCH THÀNH CỦA MÌNH&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Trích lược từ bài viết gốc cùng tên: https://duongtrongtan.wordpress.com/2016/03/03/bi-quyet-doc-sach-cho-nhung-ke-the-ma-dan/&lt;/p&gt;
+
+&lt;p&gt;Mọi người có thể đọc thêm slide “Học cách học” của cùng tác giả trên Slideshare:&lt;/p&gt;
+
+&lt;p&gt;http://www.slideshare.net/duongtrongtan/hc-cch-hc-learning-how-to-learn&lt;/p&gt;
+
+&lt;p&gt;(Có thể tham gia khóa học cùng tên trên &lt;strong&gt;Coursera&lt;/strong&gt; nếu quan tâm đến chủ đề này.).&lt;/p&gt;
+</description>
+        <pubDate>Sat, 19 Mar 2016 16:17:55 +0700</pubDate>
+        <link>http://notes.viphat.work/bi-quyet-doc-sach-cho-nhung-ke-the-ma-dan</link>
+        <guid isPermaLink="true">http://notes.viphat.work/bi-quyet-doc-sach-cho-nhung-ke-the-ma-dan</guid>
+        
+        <category>doc-sach</category>
+        
+        <category>tu-hoc</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Scale Server cho ứng dụng Web Ruby On Rails.</title>
+        <description>&lt;p&gt;Hiện tại, mình đang phụ trách việc chuyển Server từ Linode sang sử dụng hệ sinh thái của AWS, đồng thời thiết lập cân bằng tải nhằm tránh tình trạng quá tải vào lúc cao điểm như giai đoạn vừa qua.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Multiple Load Balancer&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Dự phòng khi 1 Server Load Balancer bị sập hoặc quá tải - chưa cần thiết.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Setup CDN for Assets&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;OK (Đang dùng S3 nhưng S3 không có chức năng của một CDN, có thể chuyển sang Cloudfront)&lt;/p&gt;
+
+&lt;p&gt;http://thachpham.com/hosting-domain/cdn-la-gi-va-khi-nao-nen-dung-cdn-cho-website.html&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Application Server&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Unicorn vs Puma vs Passenger&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Quyết định vẫn dùng &lt;strong&gt;Passenger&lt;/strong&gt; (Và tiếp tục dùng bản OSS).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Web Server&lt;/strong&gt; (Nginx 1.9.x )&lt;/p&gt;
+
+&lt;p&gt;TODO: Tìm hiểu các thủ thuật để Improve Performance của Nginx.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Cân bằng tải&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Load Balancing bằng Nginx hay dùng Haproxy, hay dịch vụ Load Balancer của Amazon&lt;/p&gt;
+
+&lt;p&gt;http://cloudacademy.com/blog/aws-elb-vs-haproxy/&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Quyết định dùng Dịch vụ Load Balancing của AWS (Vì tuy không thể cấu hình linh hoạt, cũng không có nhiều lựa chọn về thuật toán như HaProxy nhưng rất tiện lợi).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Database Server&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Theo mô hình một Database Server riêng và tập trung, hay là replicate theo Master-Slave, và để chung với Web Server?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tách ra một Database Server riêng thì có nên Replicate thêm một Server để dự phòng hay không?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dùng Amazon RDS hay tự cài Postgres trên Amazon EC2.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Dùng dịch vụ của Amazon RDS (và Replication + Multiple A-Z nếu cầu thiết để phòng rủi ro)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;http://www.laurencegellert.com/2013/05/pros-and-cons-of-rds-vs-ec2-for-mysql-with-aws/&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Redis Server&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Có nên tách Redis ra riêng một Server chuyên dùng để Caching hay không?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Tách ra một Server riêng và dùng dịch vụ của AWS.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Caching&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;https://github.com/Shopify/identity_cache để cache ActiveRecord (cụ thể là Course, Unit, Lesson, Exam…)&lt;/p&gt;
+
+&lt;p&gt;https://devcenter.heroku.com/articles/caching-strategies#fragment-caching&lt;/p&gt;
+
+&lt;p&gt;http://guides.rubyonrails.org/caching_with_rails.html&lt;/p&gt;
+
+&lt;p&gt;Action Controller Caching - https://github.com/rails/actionpack-action_caching&lt;/p&gt;
+
+&lt;p&gt;Fragment Cache? - Không dùng, Vì UBrand sẽ cache trên Front-End (AngularJS)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Deployment Progress&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Mina, Capistrano, CodeDeploy của AWS&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Automated Server Configuration&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Chef, Puppet…&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Chưa có thời gian tìm hiểu, tạm thời cài đặt thủ công và dùng chức năng Clone Server của AWS&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Background Jobs Processing Framework&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Chỉ cho một Server chạy Sidekiq để tránh xung đột, dùng Data ở Redis nên không lo vấn đề phân tán.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Sử dụng Redis làm Sessions Store&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;http://www.justinweiss.com/articles/how-rails-sessions-work/&lt;/p&gt;
+
+&lt;p&gt;https://www.happybearsoftware.com/almost-protect-yourself-from-cookie-session-store.html&lt;/p&gt;
+
+&lt;p&gt;http://blog.togo.io/introducing/redis-store/&lt;/p&gt;
+
+&lt;p&gt;Lợi ích?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ElasticSearch&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Hiện tại, chắc vẫn để ElasticSearch ở một con có cấu hình cao thay vì tách riêng (sử dụng dịch vụ của AWS) vì chưa có nhu cầu dùng nhiều.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Slow SQL Query&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;(&amp;gt;100ms), Viết lại Query khác hoặc bí lắm là Caching Results.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;http://www.slideshare.net/kigster/12step-program-for-scaling-web-applications-on-postgresql&lt;/p&gt;
+
+&lt;p&gt;http://www.slideshare.net/kigster/from-obvious-to-ingenius-incrementally-scaling-web-apps-on-postgresql&lt;/p&gt;
+
+&lt;p&gt;http://www.slideshare.net/pgconf/five-steps-perform2009&lt;/p&gt;
+
+&lt;p&gt;http://www.slideshare.net/kigster/scaling-wanelocom-100x-in-six-months&lt;/p&gt;
+
+&lt;p&gt;http://nickcraver.com/blog/2016/02/17/stack-overflow-the-architecture-2016-edition/?utm_source=twitterfeed&amp;amp;amp;utm_medium=facebook&lt;/p&gt;
+</description>
+        <pubDate>Thu, 17 Mar 2016 14:15:38 +0700</pubDate>
+        <link>http://notes.viphat.work/server-scaling</link>
+        <guid isPermaLink="true">http://notes.viphat.work/server-scaling</guid>
+        
+        <category>ruby-on-rails</category>
+        
+        <category>server</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Đọc nhanh nhớ lâu</title>
+        <description>&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/ws7oUndUWtY&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;strong&gt;tl;dr&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Các loại sách được nhắc đến ở đây là Sách Self-help, sách về kỹ năng, chuyên môn chứ không nói về Báo / tạp chí, truyện tranh, tiểu thuyết văn học, truyện ngắn nhé.&lt;/p&gt;
+
+&lt;h4 id=&quot;bc-chun-b&quot;&gt;3 bước chuẩn bị&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mục đích đọc sách.&lt;/li&gt;
+  &lt;li&gt;Nơi chốn đọc sách (Đủ ánh sáng, chỗ ngồi thoải mái, không gian yên tĩnh giúp khả năng tập trung cao hơn).&lt;/li&gt;
+  &lt;li&gt;Tư thế đọc sách (Ngồi thẳng, mắt cách sách 20-30 cm - Việc nằm đoc sách chỉ phù hợp đọc sách báo giải trí).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Đọc sách hiệu quả thì nên tập trung 40-45 phút liên tục, sau đó cần nghỉ ngơi khoảng 10 phút trước khi quay trở lại đọc tiếp.&lt;/p&gt;
+
+&lt;h4 id=&quot;bc-c-sch&quot;&gt;4 bước đọc sách&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Đọc tổng quát (Đọc mục lục để nắm được bức tranh lớn của Quyển sách)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Cưỡi ngựa xem hoa  (Đọc lời mở đầu và các đề mục nhỏ, các đoạn summarize của các Chapter)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Cặp đôi hoàn hảo (Sau bước cưỡi ngựa xem hoa, xác định các chapter yêu thích, nhảy ngay vào đọc các chương đó trước, đọc lướt lấy ý chính, nên đọc một lúc 2 chương một và lưu ý nghỉ ngơi hợp lý, Lập sơ đồ tư duy cho những kiến thức đã đọc trong Chapter.)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Lưu ý rằng ta không nhất thiết phải đọc hết một quyển sách…&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tổng kết (Để nhớ lâu và kỹ hơn, ghi lại những câu văn, đoạn văn hay và tâm đắc. 3~5 điều mà ta đã học được từ quyển sách)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Đọc chủ động =&amp;gt; Hành động (Lập ra 1~2 bước hành động để áp dụng ngay hôm nay và biến những kiến thức trong sách thành kiến thức của mình.)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sat, 27 Feb 2016 13:57:16 +0700</pubDate>
+        <link>http://notes.viphat.work/doc-nhanh-nho-lau</link>
+        <guid isPermaLink="true">http://notes.viphat.work/doc-nhanh-nho-lau</guid>
+        
+        <category>doc-sach</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>[Infographic] Phương pháp tăng cường động lực</title>
+        <description>&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/usk24PO.png&quot; alt=&quot;1&quot; /&gt;
+&lt;img src=&quot;http://imgur.com/kabeVYx.png&quot; alt=&quot;2&quot; /&gt;
+&lt;img src=&quot;http://imgur.com/AGAQADw.png&quot; alt=&quot;3&quot; /&gt;
+&lt;img src=&quot;http://imgur.com/p96Uu16.png&quot; alt=&quot;4&quot; /&gt;
+&lt;img src=&quot;http://imgur.com/jPj4W3V.png&quot; alt=&quot;5&quot; /&gt;
+&lt;img src=&quot;http://imgur.com/5KPWL8q.png&quot; alt=&quot;6&quot; /&gt;
+&lt;img src=&quot;http://imgur.com/HGGDmI5.png&quot; alt=&quot;7&quot; /&gt;
+&lt;img src=&quot;http://imgur.com/jy6Paby.png&quot; alt=&quot;8&quot; /&gt;
+&lt;img src=&quot;http://imgur.com/pjpH2wv.png&quot; alt=&quot;9&quot; /&gt;
+&lt;img src=&quot;http://imgur.com/VZIgZf2.png&quot; alt=&quot;10&quot; /&gt;
+&lt;img src=&quot;http://imgur.com/uZMtZKg.png&quot; alt=&quot;11&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;#tl;dr&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Có 2 loại động lực là &lt;strong&gt;nội lực&lt;/strong&gt; (xuất phát từ nội tại) và &lt;strong&gt;ngoại lực&lt;/strong&gt; (có tác động bên ngoài, dễ tạo ra khi có phần thưởng). » Một phương pháp để tìm động lực đó là cần đến ý chí và một chút phần thưởng (kết hợp cả nội động lực và ngoại động lực).&lt;/p&gt;
+
+&lt;p&gt;7 ngụy biện, bào chữa thường thấy và cách để động viên bản thân vượt qua chúng:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Tôi sợ thất bại&lt;/strong&gt; - Hãy tưởng tượng tất cả các kết quả có thể xảy ra? Bao gồm cả kết quả tệ nhất, nếu bạn thực sự thất bại, liệu nó có tồi tệ như bạn tưởng? Còn nếu bạn không hoàn thành công việc thì hậu quả gì sẽ xảy đến? Những kết quả tiêu cực ấy sẽ tái khởi động nguồn động lực của bạn.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Nó quá nhàm&lt;/strong&gt; - Tập trung vào công việc và tạm quên đi thời gian: Bằng cách suy nghĩ xem bạn cần những gì để hoàn thành công việc hơn là công việc này cần bao lâu để làm xong + theo dõi tiến độ đạt mục tiêu của bạn. Thử so sánh xem: Bạn đã làm được gì và chưa làm được gì?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Đơn giản là tôi không muốn làm&lt;/strong&gt; - Lên kế hoạch cho ngày của bạn: Sắp xếp công việc của bạn vào khoảng thời gian bạn cảm thấy hiệu quả nhất. Đếm ngược từ 1 đến 10. Khi đếm đến 1 thì hãy bắt đầu công việc ngay nhé. Một khi đã bắt đầu thì mọi việc sẽ trở nên dễ dàng hơn thôi. (Bởi vì đối với người hay trì hoãn thì họ luôn ngại đi những bước đầu tiên.)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Tôi quá mệt&lt;/strong&gt; - Quan tâm đến bản thân từ thể chất đến tinh thần. Hãy Lắng nghe cơ thể của bạn và điều chỉnh thói quen ăn uống, nghỉ ngơi cũng như tập thể dục.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Tôi chẳng biết bắt đầu từ đâu cả&lt;/strong&gt; - Tạo danh sách những việc cần làm (Sắp xếp theo độ ưu tiên). Bắt đầu luôn là bước khó hơn cả nhưng một khi bạn thấy cần phải khởi động như thế nào cho phù hợp tức là bạn đang đi đúng hướng rồi đó.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Tôi có quá nhiều việc để làm&lt;/strong&gt; - Loại bỏ những gì không cần thiết và tập trung vào những điều quan trọng hơn để tiết kiệm năng lượng  ý chí. Nếu khối lượng công việc quá lớn, hãy chia nhỏ ra thành nhiều bước và chinh Phục từng thành công nhỏ.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Tôi không hiểu sao mình phải làm việc này nữa (tụt hứng giữa chừng)&lt;/strong&gt; - Xác định rõ mục tiêu ngay từ đầu. Hãy tưởng tượng mình là một người thành công Nếu là con người ấy thì trong tình huống này sẽ làm gì?&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;Xem thêm&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=mIGrvio69NQ&quot;&gt;&lt;strong&gt;Làm thế nào để không trì hoãn&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=c9nytLcbOng&quot;&gt;&lt;strong&gt;11 cách tập trung hiệu quả&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Fri, 26 Feb 2016 22:47:42 +0700</pubDate>
+        <link>http://notes.viphat.work/phuong-phap-tang-cuong-dong-luc</link>
+        <guid isPermaLink="true">http://notes.viphat.work/phuong-phap-tang-cuong-dong-luc</guid>
+        
+        <category>bai-hoc-cuoc-song</category>
+        
+        <category>dong-luc</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>[Đọc Sách] - Học cách tiêu tiền - Larry Winget (Phần Bổ sung)</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Không để thẻ tín dụng trong ví và những chỗ dễ lấy » hạn chế sử dụng thẻ tín dụng một cách tối đa. Nếu bạn không thể thanh toán các khoản nợ ngay khi nhận được sao kê hoặc ít nhất là trong tháng sau thì bạn không nên ghi nợ cho chúng nữa.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dừng các khoản chi tiêu ngu ngốc (bắp rang trong rạp chiếu phim chẳng hạn)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Có ít nhất 1 tờ 500k trong người, bạn sẽ cảm thấy mình là một người giàu có. Và bạn sẽ không bao giờ cháy túi. Người giàu có, người không bị khánh kiệt hành động rất tự tin. (Nếu bạn sử dụng nó trng trường hợp khẩn cấp, thì hãy nhanh chóng thay thế bằng một tờ 500K khác vào ngay khi có thể)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hãy ăn ít đi, Hãy giảm cân và dọn dẹp nhà cửa - Hãy nghiêm túc nhìn lại kế hoạch tài chính cho việc chi tiêu ăn uống của bạn. Những người không kiểm soát được chi tiêu cũng không kiểm soát được chế độ ăn uống. Những người tiêu nhiều thường ăn uống nhiều. Những người không kiểm soát được chi tiêu cũng không kiểm soát được các mối quan hệ. Những người không kiểm soát được chi tiêu thường không chịu dọn dẹp nhà cửa gọn gàng và giữ cho xe được sạch sẽ. Thiếu kỷ luật trong một lĩnh vực gần như luôn thể hiện ở các lĩnh vực khác. Khi bạn kiểm soát được một lĩnh vực trong cuộc sống thì những lĩnh vực khác cũng đồng thời được kiểm soát. Hãy quản lý, sắp xếp mọi thứ theo ý bạn nếu có thể bằng việc kiểm soát từng lĩnh vực trong cuộc sống của bạn.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Thay câu nói “Tôi không có đủ khả năng mua món đồ đó” thành “Tôi không có ý định chi tiền để mua món đồ đó ngay bây giờ”. Dù bạn không có tiền đi chăng nữa, câu nói này nhắc nhở rằng &lt;strong&gt;chi tiêu là một sự lựa chọn&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Đừng chờ đợi khi tình huống khẩn cấp xảy ra thì mới nhận ra rằng bạn cần một khoản tiền để phòng. Hãy chuẩn bị ngay từ bây giờ. Hãy mở một tài khoản tiết kiệm chỉ để phòng trường hợp khẩn cấp và thêm vào đó vài đồng mỗi khi bạn có thể. Đây không phải là một món tiền để dành để nghỉ ngơi hay tiết kiệm cho vui. Món tiền này là để dành cho trường hợp khẩn cấp xảy đến và khi bạn cần sự giúp đỡ.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hãy tiết kiệm tiền lẻ: Khi mua một thứ gì đó và trả bằng tiền mặt, tôi không bao giờ sử dụng tiền lẻ. Tôi luôn đưa một đô la và nhận lại tiền thừa. Khi về đến nhà, tôi bỏ số tiền lẻ đó vào một vỏ chai một lít và để trong phòng riêng. Tích cóp dần thì nó cũng trở thành một khoản đáng kể đấy Và tôi dùng nó để mua thứ mình thích. (Dùng tài khoản tiền lẻ này để mua Sách, Ví, Quần Áo)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 25 Feb 2016 20:39:23 +0700</pubDate>
+        <link>http://notes.viphat.work/hoc-cach-tieu-tien-larry-winget-phan-2</link>
+        <guid isPermaLink="true">http://notes.viphat.work/hoc-cach-tieu-tien-larry-winget-phan-2</guid>
+        
+        <category>doc-sach</category>
+        
+        <category>tai-chinh-ca-nhan</category>
+        
+        <category>chi-tieu</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>[TED] - Chìa khóa của Thành công - Angela Lee Duckworth</title>
+        <description>&lt;p&gt;&lt;strong&gt;tl;dr&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Không phải là vẻ ngoài ưa nhìn, thể lực tốt, cũng không phải là IQ hay trí thông minh xã hội (social intelligence) sẽ báo hiệu cho sự thành công mà chính là sự BẾN CHÍ. Sự bền chí bao gồm lòng đam mê và sự kiên trì để đạt tới một mục tiêu dài hạn. Bền chí nghĩa là có sức chịu đựng tốt.&lt;/p&gt;
+
+&lt;p&gt;Bền chí là luôn hướng tới tương lai của bạn, ngày này qua ngày khác, không chỉ trong một tuần, không phải trong một tháng mà trong nhiều năm liền, và luôn cố gắng làm việc để biến tương lai đó thành hiện thực. Bền chí nghĩa là sống như thể cuộc đời là một cuộc chạy marathon, chứ không phải một cuộc chạy nước rút.&lt;/p&gt;
+
+&lt;p&gt;Phương pháp rèn luyện sự bền chí - &lt;strong&gt;CHƯA CÓ&lt;/strong&gt;, tuy nhiên, có thể tham khảo về &lt;strong&gt;Tư duy cầu tiến&lt;/strong&gt; của tiến sĩ Carol Dweck. Vì tư tưởng cầu tiến là một tư tưởng tuyệt vời cho việc xây dựng tính bền bỉ.&lt;/p&gt;
+
+&lt;p&gt;Tham khảo khóa học Sức mạnh của Tư duy cầu tiến trên UBrand.cool - http://ubrand.cool/c/377&lt;/p&gt;
+</description>
+        <pubDate>Thu, 25 Feb 2016 20:24:34 +0700</pubDate>
+        <link>http://notes.viphat.work/chia-khoa-cua-thanh-cong-angela-lee-duckworth</link>
+        <guid isPermaLink="true">http://notes.viphat.work/chia-khoa-cua-thanh-cong-angela-lee-duckworth</guid>
+        
+        <category>bai-hoc-cuoc-song</category>
+        
+        <category>ted</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>[Đọc sách] - Người Việt tự ngẫm mình</title>
+        <description>&lt;p&gt;Một thiếu nữ, nếu không biết thẹn về sự hở hang cơ thể của mình thì làm gì mong với được đến đức trinh tiết? Một người đàn ông không biết xấu hổ về sự nhút nhát của mình, làm sao có được lòng dũng cảm? Một người không biết xấu hổ về sự dốt nát của mình, chẳng muốn vươn lên, cố gắng học hỏi, sao có được ngày trở nên thông tuệ?&lt;/p&gt;
+</description>
+        <pubDate>Thu, 25 Feb 2016 20:19:44 +0700</pubDate>
+        <link>http://notes.viphat.work/doc-sach-nguoi-viet-tu-ngam-minh-2</link>
+        <guid isPermaLink="true">http://notes.viphat.work/doc-sach-nguoi-viet-tu-ngam-minh-2</guid>
+        
+        <category>doc-sach</category>
+        
+        <category>bai-hoc-cuoc-song</category>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

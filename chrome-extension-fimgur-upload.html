@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chrome Extension - fImgUr Upload</title>
+  <meta name="description" content="Từ lâu, mình đã có ý định viết một Chrome Extension đơn giản để vọc chơi mà chưa có ý tưởng gì thiết thực và hữu ích. Trong quá trình làm Project Công ty thì...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/chrome-extension-fimgur-upload">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Từ lâu, mình đã có ý định viết một Chrome Extension đơn giản để vọc chơi mà chưa có ý tưởng gì thiết thực và hữu ích. Trong quá trình làm Project Công ty thì có biết và tìm hiểu qua về API của Imgur, thấy rằng Dịch vụ upload ảnh miễn phí của nó rất tốt, account free được tối đa 1250 upload / ngày và 12500 requests / ngày. Như thế là rất dư dùng cho người dùng cá nhân rồi. Cộng thêm qua Kipalog.com, mới biết một chức năng khá hay của HTML5 (và chỉ tương thích với Google Chrome) là Copy Ảnh từ Web Page và xử lý Ảnh đó thành chuỗi Base64, mà Imgur thì có hỗ trợ upload Ảnh bằng chuỗi Base64. Woa, các yếu tố này gợi đến ý tưởng, vậy sao mình không viết một chrome extension vậy ta, dù sao thì đoạn Code nó cũng chỉ chạy được trên Google Chrome thôi mà. Vậy là sau 1 buổi hí hoáy ngồi code code và thêm 1 buổi nữa cải tiến, thêm thắt chức năng, thế là ==Chrome Extension fImgUr Upload== ra đời.</p>
+
+<p><strong>Link Project</strong></p>
+
+<p>https://github.com/viphat/fImgur</p>
+
+<p><strong>Một số kinh nghiệm rút ra được</strong>:</p>
+
+<ul>
+  <li>Code một Chrome Extension khá đơn giản, vì mình sẽ khai báo các thông tin về Extension cũng như Browser Action / Page Action và Permission mà Extension của mình sẽ sử dụng.</li>
+  <li>Sử dụng HTML, CSS, Javascript (phải include File .js trực tiếp trong Project, không thông qua Direct Link hay CDN vì vấn đề bảo mật).</li>
+  <li>Nếu Browser Action hay Page Action là Popup thì khi Popup bị lost focus, nó sẽ bị tắt. Có một Trick để khắc phục việc này, và mình đã áp dụng, là sử dụng Popup của Chrome Extension để gọi lên một Tab hay một Window khác)</li>
+</ul>
+
+<p><strong>Thành phẩm</strong></p>
+
+<p><img src="http://i.imgur.com/b2IRq4a.png" alt="Screenshot 1" /></p>
+
+<p><img src="http://i.imgur.com/9Lq8Erw.png" alt="Screenshot 2" /></p>
+
+<p><strong>Nguồn tham khảo</strong></p>
+
+<ul>
+  <li><a href="http://strd6.com/2011/09/html5-javascript-pasting-image-data-in-chrome/">HTML5 JavaScript Pasting Image Data in Chrome</a></li>
+  <li><a href="http://html5doctor.com/drag-and-drop-to-server/">HTML5 Drag &amp; Drop File to Upload with Progress</a></li>
+  <li>Cùng StackOverflow và một số trang khác…</li>
+</ul>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

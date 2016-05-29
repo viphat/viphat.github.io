@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Nên bắt đầu với CoffeeScript hay JavaScript?</title>
+  <meta name="description" content="Những dòng suy nghĩ sau khi đọc bài viết Có nên dùng CoffeeScript trên Blog RubyTechList.com – Blog của một công ty chuyên về Ruby tại Việt Nam. (Hiện đã đón...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/coffeescript-hay-javascript">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Những dòng suy nghĩ sau khi đọc bài viết 
+<a href="http://wtfthis.me/1m2b5Pn"><strong>Có nên dùng CoffeeScript</strong></a> trên Blog RubyTechList.com – Blog của một công ty chuyên về Ruby tại Việt Nam. (Hiện đã đóng cửa và không nhớ là mình có lưu lại nội dung bài này trên Pocket không nhỉ?)</p>
+
+<p>Ban đầu mình có dự định học CoffeeScript, đã tải về một vài quyển sách, xem qua một slides khá cơ bản – “A sip of Coffee Script” (Nếu bạn vẫn có ý định tìm hiểu về CoffeeScript thì cũng nên xem qua). Cộng đồng Ruby khá ưa thích CoffeeScript có lẽ phần nào vì cú pháp của CoffeeScript gần gũi với Ruby. Nhưng mình đang cân nhắc lại ý định đó vì …</p>
+
+<p><strong>Có nên dùng CoffeeScript?</strong></p>
+
+<p>Dùng CoffeeScript có vẻ không hơn gì một nightmare! Mặc dù CoffeeScript có nhiều ưu điểm trong cú pháp, giúp cho cách viết trở nên ngắn gọn hơn nhưng sự đánh đổi giữa việc học một ngôn ngữ mới và một chút hoa mỹ có vẻ như là quá nhiều!</p>
+
+<blockquote>
+  <p>Câu này mình thấy rất chuẩn, việc phải học thêm vô số các quy tắc chỉ để làm cho Code trở nên ngắn gọn hơn đúng là cái giá đắt. Hơn nữa, cú pháp JavaScript mình còn chưa rành rẽ mà.</p>
+</blockquote>
+
+<p>Nguyên nhân vì sao CoffeeScript đối với tôi chẳng hấp dẫn chút nào là vì:</p>
+
+<ul>
+  <li>Bản thân Javascript đã là 1 ngôn ngữ rất đơn giản, đôi khi ta quên sót một số dấu “,”, thừa thiếu 1 số dấu “)” làm code ta bung bét, thì việc đó cũng chẳng khó khăn hơn sửa lỗi căn lề hoặc thiếu dấu trong CoffeeScript</li>
+</ul>
+
+<blockquote>
+  <p>Nếu xuất phát điểm của mình là không rành về JavaScript thì liệu có nên bắt đầu bằng CoffeeScript???</p>
+</blockquote>
+
+<ul>
+  <li>Phải viết lại 1 hàm nào đó từ Javascript sang CoffeeScript là một cực hình, viết ngược từ CoffeeScript sang Javascript thì như còn cực hình hơn.</li>
+</ul>
+
+<blockquote>
+  <p>Có một số công cụ để chuyển đổi trực tuyến? Dành cho bạn nào lười hoặc cần làm nhanh gọn lẹ. (http://Js2.coffee)</p>
+</blockquote>
+
+<ul>
+  <li>Hầu hết các library hoặc legacy code đã được viết bằng Javascript, trộn lẫn CoffeeScript sẽ khiến cho ta phải nhảy từ mã này sang mã kia liên tục.</li>
+</ul>
+
+<blockquote>
+  <p><del>Mình gặp rắc rối với việc trộn lẫn JavaScript và CoffeeScript trong App đầu tiên mình viết dẫn đến cuối cùng là mình phải gỡ CoffeeScript ra, Vì các Plugin mình xài đều không có version CoffeeScript.</del> (Giờ biết được là không cần phải chuyển các thư viện jQuery hay Javascript khác sang CoffeeScript làm gì.)</p>
+</blockquote>
+
+<ul>
+  <li>Debug code CoffeeScript có vẻ khó hơn, vì đôi khi ta không chắc magic của nó hoạt động có đúng hay không.</li>
+</ul>
+
+<blockquote>
+  <p>Theo mình được biết thì Debug trong CoffeeScript là nỗi đau đầu của nhiều lập trình viên, nhưng đó là chuyện của những năm trước. Còn bây giờ thì CoffeeScript đã hỗ trợ SourceMaps để Debug. <a href="http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/">http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/</a></p>
+</blockquote>
+
+<ul>
+  <li><del>Cập nhật ngày 05/01/2015 – Do dự án UBrand dùng chủ yếu là AngularJS trên nền CoffeeScript nên mình cũng có thời gian làm quen với CoffeeScript, tuy không được bài bản … Chủ yếu là người ta viết sẵn như thế nào thì mình viết tiếp vậy, đọan nào không biết thì vào trang js2.coffee để chuyển từ JavaScript sang CoffeeScript.</del></li>
+</ul>
+
+<p>Tham khảo thêm một số ý kiến trên mạng: 
+https://lostechies.com/bradcarleton/2013/10/23/coffeescript-vs-javascript-dog-eat-dog/</p>
+
+<p><img src="http://loopinfinito.com.br/images/posts/2012-09-18-coffeescript.jpg" alt="CoffeeScript" /></p>
+
+<p>==<strong>Hãy pha một tách Cà Phê và thưởng thức nó cùng CoffeeScript</strong>==</p>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

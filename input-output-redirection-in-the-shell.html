@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Input/Output Redirection in the Shell</title>
+  <meta name="description" content="Khi chúng ta gõ lệnh vào terminal, chúng đều trả về một output. Ví dụ:">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/input-output-redirection-in-the-shell">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Khi chúng ta gõ lệnh vào terminal, chúng đều trả về một output. Ví dụ:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ echo hello
+hello
+</code></pre>
+</div>
+
+<h4 id="standard-output">Standard output</h4>
+
+<p>Nếu bạn nghĩ lệnh <code class="highlighter-rouge">echo hello</code> dùng để xuất chữ <code class="highlighter-rouge">hello</code> ra màn hình terminal thì bạn chỉ đúng một phần thôi. Mỗi hệ điều hành dựa trên nền tàng Unix có một khái niệm là “a default place for output to go” - hay còn gọi lại Standard Output (hay stdout). Là một nơi để chứa những output dùng để hiển thị lên màn hình cho bạn được thấy.</p>
+
+<h4 id="standard-input">Standard input</h4>
+
+<p>Standard input (hay stdin) là một nơi mặc định mà commands sẽ lắng nghe để nhận tham số input. Ví dụ, nếu bạn gõ <code class="highlighter-rouge">cat</code> mà không có tham số, nó sẽ lắng nghe input trong stdin và xuất ra những gì bạn đã gõ vào đó, cho đến khi gặp ký tự EOF (<strong>CTRL+D</strong>).</p>
+
+<p>Bất kì lệnh nào trong Unix đều có stdout và stdin.</p>
+
+<p>Để không trả về output nào, bạn có thể redirect output đó về một tập tin đặc biệt là <code class="highlighter-rouge">&gt; dev/null</code>. <code class="highlighter-rouge">dev/null</code> sẽ nuốt chửng mọi thứ truyền vào cho nó và không làm gì cả.</p>
+
+<h4 id="pipes">Pipes</h4>
+
+<p>Pipes làm trung gian và kết nối standard output của một lệnh thành standard input của một lệnh khác. Ví dụ:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$echo "hello there"
+hello there
+$echo "hello there" | sed "s/hello/hi"
+hi there
+</code></pre>
+</div>
+
+<p>Ở đây, standard output “hello there” của lệnh echo đã trở thành đầu vào của lệnh sed và sed đã thay chữ <code class="highlighter-rouge">hello</code> bằng chữ <code class="highlighter-rouge">hi</code> và in kết quả vào stdout (rồi hiển thị lên màn hình).</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ echo "hello there" | sed "s/hello/hi/" | sed "s/there/robots/"
+hi robots
+</code></pre>
+</div>
+
+<h4 id="standard-error">Standard error</h4>
+
+<p>Standard Error (hay stderr) cũng giống như standard output và standard input, nó là nơi mặc định để các thông điệp lỗi đi đến. Để xem một số stderr output, bạn thử catting một file không tồn tại xem.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$cat does-not-exist
+cat: does-not-exist: No such file or directory
+</code></pre>
+</div>
+
+<p>stderr khá giống stdout nhưng nếu nó vô hiệu khi bạn muốn dùng stderr với Pipes</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cat does-not-exist | sed 's/No such/ROBOT SMASH/'
+cat: does-not-exist: No such file or directory
+</code></pre>
+</div>
+
+<p>Bởi vì Pipes lấy stdout chứ không phải stderr. Vậy ngoài cách sử dụng Pipes, còn cách nào để redirect output.</p>
+
+<h4 id="redirecting-output">Redirecting output</h4>
+
+<p>Mặc định, stdout và stderr đều được in lên màn hình terminal, đó là lý do vì sao mà chúng ta có thể thấy được chúng. Nhưng chúng ta có thể redirect output vào một file bằng cách sử dụng dấu <code class="highlighter-rouge">&gt;</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ echo hello
+hello
+$ echo hello &gt; new-file
+$ cat new-file
+hello
+</code></pre>
+</div>
+<p>Ở đây lệnh <code class="highlighter-rouge">&gt; new-file</code> thực hiện 2 công việc cùng lúc:</p>
+
+<ul>
+  <li>Tạo tập tin new-file nếu tập tin này chưa tồn tại.</li>
+  <li>Thay thế nội dung của tập tin new-file bằng output của lệnh <code class="highlighter-rouge">echo hello</code></li>
+</ul>
+
+<p>Thay vì ghi đè, bạn có thể ghi nối (append) bằng cách dùng dấu <code class="highlighter-rouge">&gt;&gt;</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cat new-file
+hello
+$ echo hello again &gt;&gt; new-file
+$ cat new-file
+hello
+hello again
+</code></pre>
+</div>
+
+<h4 id="file-descriptors">File descriptors</h4>
+
+<p>File descriptors là một biến số nguyên dương tham chiếu đến một nguồn input/output cụ thể: 0 là stdin, 1 là stdout, 2 là stderr. Xem thêm tại <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/stdin.html">đây</a>. Sử dụng dấu <code class="highlighter-rouge">&gt;&amp;</code> để redirect input/output bằng File descriptors.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Redirect stdout to stdout (FD 1)
+$ echo "hello there" &gt;&amp;1
+hello there
+# Redirect stdout to stderr (FD 2)
+$ echo "hello there" &gt;&amp;2
+hello there
+</code></pre>
+</div>
+
+<p><strong>Ứng dụng của File Descriptors</strong>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Redirect to stdout, so it comes through the pipe
+$ echo "no changes" &gt;&amp;1 | sed "s/no/some/"
+some changes
+# Redirect to stderr, so it does not come through
+$ echo "no changes" &gt;&amp;2 | sed "s/no/some/"
+no changes
+</code></pre>
+</div>
+
+<h4 id="advanced-file-descriptors">Advanced file descriptors</h4>
+
+<p>Giả sử chúng ta muốn thêm <code class="highlighter-rouge">Robot says</code> vào nội dung của các file - file1, file2, file3 nhưng do file2 là stderr, nó không thể được nhận bởi lệnh <code class="highlighter-rouge">sed</code> nên chúng ta phải redirect <code class="highlighter-rouge">stderr</code> thành <code class="highlighter-rouge">stdout</code> bằng <strong>File descriptors</strong>, cụ thể cách làm như sau - chuyển 2 (stderr) về 1 (stdout) bằng <code class="highlighter-rouge">2&gt;&amp;1</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ ./command file1 file2 file3 2&gt;&amp;1 | sed "s/std/Robot says: std/"
+Robot says: stderr file2
+Robot says: stdout file1
+Robot says: stdout file3
+</code></pre>
+</div>
+
+<h4 id="ng-dng-thc-t">Ứng dụng thực tế</h4>
+
+<p>Chuyển tất cả stdout và stderr vào một log-file.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ ./command file1 file2 file3 &gt; log-file 2&gt;&amp;1
+$ cat log-file
+stderr file2
+stdout file1
+stdout file3
+</code></pre>
+</div>
+
+<p>Bạn cần chú ý về thứ tự của lệnh trên sẽ dẫn đến kết quả hoàn toàn khác, thứ tự đúng phải là</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; log-file 2&gt;&amp;1
+</code></pre>
+</div>
+
+<p>chứ không phải là</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>2&gt;&amp;1 &gt; log-file
+</code></pre>
+</div>
+
+<p>Vì lệnh này sẽ redirect stderr về stdout (vốn được in ra màn hình) và stdout được redirect đến <code class="highlighter-rouge">log-file</code>, nhưng stderr sẽ không đi theo vì stderr được chỉ đến stdout “cũ”.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Redirect stdout, because it's plain `&gt;`
+$ ./command file1 file2 file3 &gt; log-file
+stderr file2
+# Redirect stderr, because it's `2&gt;`
+$ ./command file1 file2 file3 2&gt; log-file
+stdout file1
+stdout file3
+</code></pre>
+</div>
+
+<p>Nguồn bài viết: https://robots.thoughtbot.com/input-output-redirection-in-the-shell.</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

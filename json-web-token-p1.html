@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Tìm hiểu về JSON Web Token</title>
+  <meta name="description" content="JSON Web Token là gì?">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/json-web-token-p1">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <h4 id="json-web-token-l-g">JSON Web Token là gì?</h4>
+
+<p>JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JavaScript Object Notation (JSON) object that is used as the payload of a JSON Web Signature (JWS) structure or as the plaintext of a JSON Web Encryption (JWE) structure, enabling the claims to be digitally signed or MACed and/or encrypted.</p>
+
+<p>Sau khi mình đọc định nghĩa về JWT (Hay JIT) trên http://jwt.io xong là ù ù cạc cạc, giống như chưa đọc vậy. Thôi thì, liều mạng tìm hiểu tiếp, xem có ngộ ra được miếng nào về JWT nữa không? Đây có phải là một cách authenticate hiệu quả trong lập trình ứng dụng API mà mình đang tìm không?</p>
+
+<p>Một ví dụ về JWT Token:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjEzODY4OTkxMzEsImlzcyI6ImppcmE6MTU0ODk1OTUiLCJxc2giOiI4MDYzZmY0Y2ExZTQxZGY3YmM5MGM4YWI2ZDBmNjIwN2Q0OTFjZjZkYWQ3YzY2ZWE3OTdiNDYxNGI3MTkyMmU5IiwiaWF0IjoxMzg2ODk4OTUxfQ.uKqU9dTB6gKwG6jQCuXYAiMNdfNRw98Hw_IWuA5MaMo
+</code></pre>
+</div>
+
+<p>Thoạt trông phức tạp là thế nhưng nếu hiểu, cấu trúc của một JWT chỉ đơn giản như sau:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;base64-encoded header&gt;.&lt;base64-encoded payload&gt;.&lt;base64-encoded signature&gt;
+</code></pre>
+</div>
+
+<p>Nói một cách khác, JWT là sự kết hợp (bởi dấu .) một Object Header dưới định dạng JSON được encode base64, một payload object dưới định dạng JSOn được encode base64 và một Signature cho URI cũng được mã hóa base64 nốt.</p>
+
+<h5 id="gii-thch-thm-v-3-thnh-phn-ca-jwt">Giải thích thêm về 3 thành phần của JWT</h5>
+
+<p><strong>Header</strong></p>
+
+<p>Header bao gồm hai phần chính: loại token (mặc định là JWT - Thông tin này cho biết đây là một Token JWT) và thuật toán đã dùng để mã hóa (HMAC SHA256 - HS256 hoặc RSA).</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HS256"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><strong>Payload</strong></p>
+
+<p>Payload chứa các claims. Claims là một các biểu thức về một thực thể (chẳng hạn user) và một số metadata phụ trợ. Có 3 loại claims thường gặp trong Payload: reserved, public và private claims.</p>
+
+<ul>
+  <li><strong>Reserved claims</strong>: Đây là một số metadata được định nghĩa trước, trong đó một số metadata là bắt buộc, số còn lại nên tuân theo để JWT hợp lệ và đầy đủ thông tin: <strong>iss</strong> (issuer), <strong>iat</strong> (issued-at time) <strong>exp</strong> (expiration time), <strong>sub</strong> (subject), <strong>aud</strong> (audience), <strong>jti</strong> (Unique Identifier cho JWT, Can be used to prevent the JWT from being replayed. This is helpful for a one time use token.) …</li>
+</ul>
+
+<p>Ví dụ:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jira:1314039"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1300819370</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1300819380</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"qsh"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8063ff4ca1e41df7bc90c8ab6d0f6207d491cf6dad7c66ea797b4614b71922e9"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"batman"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"userKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"batman"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bwayne"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bruce Wayne"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scotch.io"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1300819380</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chris Sevilleja"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<ul>
+  <li>
+    <p><strong>Public Claims</strong> - Claims được cộng đồng công nhận và sử dụng rộng rãi.</p>
+  </li>
+  <li>
+    <p><strong>Private Claims</strong> - Claims tự định nghĩa (không được trùng với Reserved Claims và Public Claims), được tạo ra để chia sẻ thông tin giữa 2 parties đã thỏa thuận và thống nhất trước đó.</p>
+  </li>
+</ul>
+
+<p><strong>Signature</strong></p>
+
+<p>Chữ ký Signature trong JWT là một chuỗi được mã hóa bởi header, payload cùng với một chuỗi bí mật theo nguyên tắc sau:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret)
+</code></pre>
+</div>
+
+<p>Do bản thân Signature đã bao gồm cả header và payload nên Signature có thể dùng để kiểm tra tính toàn vẹn của dữ liệu khi truyền tải.</p>
+
+<h5 id="when-should-you-use-json-web-tokens">When should you use JSON Web Tokens?</h5>
+
+<p>Một trong những tình huống ứng dụng JWT thường gặp, đó là:</p>
+
+<ul>
+  <li>
+    <p><strong>Authentication</strong>: Tình huống thường gặp nhất, khi user logged in, mỗi request tiếp đó đều kèm theo chuỗi token JWT, cho phép người dùng có thể truy cập đường dẫn, dịch vụ và tài nguyên được phép ứng với token đó. <strong>Single Sign On</strong> cũng là một chức năng có sử dụng JWT một cách rộng rãi, bởi vì chuỗi JWT có kích thước đủ nhỏ để đính kèm trong request và sử dụng ở nhiều hệ thống thuộc các domain khác nhau.</p>
+  </li>
+  <li>
+    <p><strong>Information Exchange</strong>: JSON Web Token cũng là một cách hữu hiệu và bảo mật để trao đổi thông tin giữa nhiều ứng dụng, bởi vì JWT phải được ký (bằng cặp public / private key), bạn có thể chắc rằng người gửi chính là người mà họ nói rằng họ là (nói tóm tắt hơn là không hoặc khó để mạo danh bằng JWT), ngoài ra, chữ ký cũng được tính toán dựa trên nội dung của header và nội dung payload, nhờ đó, bạn có thể xác thực được nội dung là nguyên bản, chưa được chỉnh sửa hoặc can thiệp. Tuy nhiên, một lưu ý hết sức quan trọng là do cấu trúc của JWT đơn giản nên JWT có thể dễ dàng bị decode, do vậy, bạn không nên dùng JWT để transfer các thông tin nhạy cảm.</p>
+  </li>
+</ul>
+
+<h4 id="how-do-json-web-tokens-work">How do JSON Web Tokens work?</h4>
+
+<p>Ở đây, mình ví dụ cụ thể ứng dụng của JWT trong bài toán Authenticate (xác thực) - Trong việc xác thực, khi user đăng nhập thành công (Browser sẽ post username và mật khẩu về Server), Server sẽ trả về một chuỗi JWT về Browser, và Token JWT này cần được lưu lại trong Browser của người dùng (thường là LocalStorage hoặc Cookies), thay vì cách truyền thống là tạo một session trên Server và trả về Cookie.</p>
+
+<p>Bất cứ khi nào mà User muốn truy cập vào Route được bảo vệ (mà chỉ có User đã đăng nhập mới được phép), Browser sẽ gửi token JWT này trong Header <strong>Authorization</strong>, <strong>Bearer</strong> schema của request gửi đi.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Authorization: Bearer &lt;token&gt;
+</code></pre>
+</div>
+
+<p>Đây là cách mà <strong>stateless</strong> (phi trạng thái) <strong>authentication</strong> làm việc, trạng thái của user không được lưu trong bộ nhớ của Server mà được đóng gói hẳn vào trong HTTP Request. Server sẽ kiểm tra Token JWT này có hợp lệ hay không (Bởi vì JWT có tính chất self-contained, mọi thông tin cần thiết để kiểm tra JWT đều đã được chứa trong Token JWT).</p>
+
+<p>Do tính chất stateless nên chúng ta không còn phải lo lắng về domains nào được sử dụng cho API của bạn, không còn gặp rắc rối với CORS (Cross-Origin Resource Sharing) nữa.</p>
+
+<p><img src="http://i.imgur.com/u3qlZUm.png" alt="JWT Work" /></p>
+
+<p><strong>Tài liệu tham khảo</strong>:</p>
+
+<ul>
+  <li>
+    <p><strong>JWT Introduction</strong> - http://viphat.me/1S1SwIm</p>
+  </li>
+  <li>
+    <p><strong>Get Started with JWT</strong> - http://viphat.me/1S216a5</p>
+  </li>
+  <li>
+    <p><strong>Understanding JWT</strong> - http://viphat.me/1S1SnEJ</p>
+  </li>
+  <li>
+    <p><strong>The Anatomy of JWT</strong> - http://viphat.me/1S1SD6G</p>
+  </li>
+</ul>
+
+<p><strong>Further Reading:</strong></p>
+
+<ul>
+  <li><strong>Simple AngularJS JWT Authentication</strong> - http://viphat.me/1S1SyzU</li>
+</ul>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

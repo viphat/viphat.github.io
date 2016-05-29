@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Singleton Pattern</title>
+  <meta name="description" content="Đôi khi, trong quá trình phân tích thiết kế một hệ thống, chúng ta chắc chắn được rằng, có những đối tượng cần tồn tại duy nhất song có thể truy xuất mọi lúc...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/singleton-pattern">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Đôi khi, trong quá trình phân tích thiết kế một hệ thống, chúng ta chắc chắn được rằng, có những đối tượng cần tồn tại duy nhất song có thể truy xuất mọi lúc mọi nơi. Làm thế nào để hiện thực được một đối tượng như thế khi xây dựng mã nguồn? Bạn có thể nghĩ tới việc sử dụng một biến toàn cục, tuy nhiên, việc sử dụng biến toàn cục chỉ có thể đáp ứng được mặt “sử dụng mọi lúc mọi nơi”, còn khi xét về tính duy nhất của thể hiện thì biến toàn cục không làm được điều đó. Để giải bài toán trên, người ta hướng đến một giải pháp là sử dụng Singleton pattern – một mẫu thiết kế đáp ứng được cả hai yêu cầu trên.</p>
+
+<h4 id="design-pattern--mu-thit-k">Design Pattern – Mẫu thiết kế</h4>
+
+<p>Trong kỹ thuật phần mềm, mẫu thiết kế là một mô tả được áp dụng linh hoạt nhằm giải quyết một vấn đề trong nhiều tình huống thiết kế phần mềm cụ thể.</p>
+
+<p>Thực tế có rất nhiều mẫu thiết kế từ đơn giản đến phức tạp nhằm hỗ trợ giải quyết các trường hợp khác nhau khi xây dựng mã nguồn chương trình. Tuy nhiên, trong phạm vi bài viết, tôi chỉ đề cập tới một trong những mẫu thiết kế đơn giản nhất đó là singleton pattern.</p>
+
+<h4 id="singleton-pattern">Singleton Pattern</h4>
+
+<h5 id="khi-nim-v-c-im">Khái niệm và đặc điểm</h5>
+<p>Singleton là một trong những mẫu thiết kế đơn giản nhất trong các mẫu thiết kế. Đây là mẫu thiết kế được áp dụng nhằm mục đích:</p>
+
+<ul>
+  <li>
+    <p>Xây dựng các lớp Singleton mà mỗi lớp chỉ có duy nhất một thể hiện. (The <strong>singleton pattern</strong> is a design pattern that restricts the instantiation of a class to one object.)</p>
+  </li>
+  <li>
+    <p>Có thể truy xuất được các thể hiện duy nhất đó mọi lúc mọi nơi trong chương trình.</p>
+  </li>
+</ul>
+
+<h5 id="hin-thc">Hiện thực</h5>
+
+<p>Khi hiện thực singleton pattern phải đảm bảo rằng chỉ có một thể hiện (instance) duy nhất được tạo ra và thể hiện tại có thể dùng mọi lúc mọi nơi. Nói cách khác, khi xây dựng lớp cần một kỹ thuật để có thể truy xuất được vào các thành viên public của lớp mà không tạo ra một thể hiện nào (thông qua việc khởi tạo bên ngoài lớp).</p>
+
+<p>Để chắc chắn rằng, không có bất kỳ thể hiện nào bên ngoài lớp được tạo ra, constructor của lớp đó sẽ có phạm vi truy cập là private. Điều đó cũng có nghĩa là thể hiện duy nhất được tạo ra thông qua chính lớp mà chúng ta xây dựng. Vì vậy, ta sử dụng thành phần static để thực hiện điều này. Ta tạo một thể hiện của lớp kiểu private static và một refractor trả về đối tượng thuộc chính lớp đó.</p>
+
+<p>Trong C++, singleton định nghĩa một thuộc tính static là một con trỏ trỏ tới thể hiện duy nhất của lớp đó.</p>
+
+<h5 id="m-hnh">Mô hình</h5>
+
+<p><img src="http://i.imgur.com/LqHrQaM.png" alt="Singleton Class" /></p>
+
+<h5 id="m-ngun">Mã nguồn</h5>
+
+<p><strong>Khai báo lớp Singleton</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;iostream&gt;
+using namespace std;
+ 
+class Singleton
+{
+private:
+	static Singleton* m_instance;
+	Singleton();
+public:
+	static Singleton* getInstance();
+	void			method();
+};
+</code></pre>
+</div>
+
+<p><strong>Định nghĩa lớp Singleton</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#include "Singleton.h"
+ 
+//	Init static instance
+Singleton* Singleton::m_instance = NULL;
+ 
+Singleton* Singleton::getInstance()
+{
+	if (m_instance == NULL)
+	{
+		m_instance = new Singleton();
+	}
+ 
+	return m_instance;
+}
+ 
+void Singleton::method()
+{
+	cout &lt;&lt; "This is singleton parttern";
+}
+</code></pre>
+</div>
+
+<p>Như vậy, thông qua các truy cập Singleton::getInstance() ta luôn có một đối tượng duy nhất, đồng thời có thể sử dụng nó để truy cập mọi thành phần public trong lớp. Ví dụ để gọi phương thức method trong lớp ta dùng Singleton::getInstance()-&gt;method()</p>
+
+<p><small><strong>Nguồn bài viết: http://www.stdio.vn/articles/read/224/singleton-pattern</strong></small></p>
+
+<p>Đọc thêm các bài viết liên quan, nếu bạn vẫn còn khúc mắc nào về Singleton Pattern:</p>
+
+<p>http://www.daonho.com/2014/04/singleton-design-pattern.html (Giới thiệu về Singleton Pattern.)</p>
+
+<p>http://www.daonho.com/2014/04/singleton-design-pattern-trong-java.html (Triển khai Singleton Pattern bằng Java.)</p>
+
+<p>http://www.daonho.com/2014/04/design-patterns-la-gi.html</p>
+
+<p><strong>Một ứng dụng thường thấy của Singleton Pattern là Logging Class trong các ứng dụng.</strong></p>
+
+<p>http://stackoverflow.com/questions/228164/on-design-patterns-when-to-use-the-singleton</p>
+
+<p>==Anti-Pattern là gì?==</p>
+
+<p>Dự định của mình là đọc các quyển sách viết về Đạo lập trình cũng như xây dựng các thói quen tốt khi Lập trình trước khi đọc các quyển về Design Pattern. (Nếu bản thân mình không minh định được thế nào là tốt thì làm sao biết các Design Pattern này tốt ở điểm nào chứ?)</p>
+
+<p>Các quyển sách dự định sẽ đọc:</p>
+
+<ul>
+  <li>Code Complete (2nd Edititon)</li>
+  <li>Clean Code</li>
+  <li>Clean Coder</li>
+  <li>The Pragmatic Programmer - From Journeyman to Master</li>
+  <li>The Passionate Programmer, 2nd edition</li>
+  <li>Kỹ thuật &amp; tư duy lập trình - Craftman (Bản dịch tiếng Việt của HVA)</li>
+</ul>
+
+<p>Các quyển đã đọc</p>
+
+<ul>
+  <li>How to be a Programmer: A Short, Comprehensive, and Personal Summary.</li>
+  <li>PROGRAMMER’S MOTIVATION FOR BEGINNERS</li>
+</ul>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

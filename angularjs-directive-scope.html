@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>[AngularJS] Scope trong Directive</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/angularjs-directive-scope">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p><img src="http://i.imgur.com/EDiANT3.png" alt="Angular Scopes in Directives" /></p>
+
+<p><strong>Scope</strong> là một khái niệm quan trọng bậc nhất còn <strong>Directive</strong> lại là một trong những chức năng mạnh mẽ nhất trong AngularJS. Nếu không hiểu về Scope cũng như không biết cách tận dụng sức mạnh Directive (để DRY Code Front-End) thì không thể xem như Dev đó biết AngularJS rồi. Nếu bạn quan tâm đến AngularJS cũng như Directive trong AngularJS, bạn có thể tìm đọc qua các tài liệu đầy đủ như <a href="https://docs.angularjs.org/guide/directive"><strong>AngularJS Directive Guide</strong></a> hay qua Ebook này. Trong bài viết này, mình chỉ viết ngắn gọn về một khía cạnh nhỏ: Scope của Directive nhằm mục đích tra cứu và tham khảo của bản thân sau này.</p>
+
+<p>Tài liệu về Scope cho các bạn chưa quen với Scope: <a href="https://github.com/angular/angular.js/wiki/Understanding-Scopes"><strong>Understanding Scopes</strong></a>.</p>
+
+<h5 id="scope-trong-directive">Scope trong Directive</h5>
+
+<p>Mọi Directive đều có scope gắn liền với nó. Directive sử dụng scope để access data bên trong template, link, controller. Chúng ta có thể khai báo Scope trong phần định nghĩa Directive theo một trong các giá trị sau:</p>
+
+<ul>
+  <li>
+    <p><strong>Scope: false</strong> - Directive sẽ sử dụng chung Parent Scope. Mọi thay đổi của Scope bên trong Directive đều được phản ảnh trên Parent Scope của nó.</p>
+  </li>
+  <li>
+    <p><strong>Scope: true</strong> - Directive sẽ tạo một Scope mới của riêng nó và kế thừa lại Parent Scope của nó. Mọi thay đổi của Directive Scope sẽ không làm ảnh hưởng đến giá trị của Parent Scope, tuy nhiên thay đổi bên Parent Scope lại được phản ảnh bên trong Directive Scope.</p>
+  </li>
+  <li><strong>Scope: {}</strong> - Directive sẽ tạo một Scope cô lập (isolated) mới, đây là phần thú vị nhất trong Scope Directive. Một Scope bị cô lập mới, tách hẳn ra khỏi Parent Scope và không kế thừa giá trị nào từ Parent Scope. Bạn phải khai báo cụ thể nếu muốn truyền giá trị từ Parent Scope đến Directive Isolated Scope. Isolated Scope giúp cho Directive có thể tái sử dụng ở nhiều nơi khác nhau và không phụ thuộc vào Parent Scope chứa nó. Truyền giá trị cho một Isolated Scope bằng cách dùng một trong các Prefix sau:</li>
+  <li><strong>@</strong> (Text binding / one-way binding): Chỉ truyền Text hoặc giá trị của một model (Angular theo mô hình MVVM) vào Directive (chứ không phải bản thân model). Do vậy, khi sử dụng @ với model, phải thêm cặp dấu  để lấy giá trị của model đó. @ thường được sử dụng để khởi tạo giá trị ban đầu cho Directive Scope.</li>
+  <li><strong>=</strong> (Direct model binding / two-way binding): tại một binding 2 chiều giữa Directive Scope và Parent Scope, do vậy, nó luôn expect được truyền vào một model, điều đó có nghĩa là bạn không thể truyền một expression như là một giá trị vào thuộc tính được map bởi dấu =. = thường được sử dụng để chia sẻ dữ liệu và giao tiếp giữa Directive Scope và Parent Scope.</li>
+  <li><strong>&amp;</strong> (Behaviour Binding / Method Binding): Là một method binding nên đúng với tên gọi của nó, &amp; được dùng để truyền một method từ Parent Scope vào Directive Scope. Nó rất hữu dụng khi bạn muốn invoke một method của Parent Scope từ bên trong Directive Scope.</li>
+  <li>Nếu muốn tìm hiểu thêm về Prefixes trong Directive Isolated Scope, mời bạn đọc thêm tại <a href="https://umur.io/angularjs-directives-using-isolated-scope-with-attributes/">đây</a>.</li>
+</ul>
+
+<h5 id="phn-bit-compile---controller---link-function-trong-directive">Phân biệt compile - controller - link function trong Directive</h5>
+
+<p>Một câu hỏi khác cũng khá thú vị khi làm việc với Directive trong AngularJS và nảy ra khi mình đang viết bài này, đó là :</p>
+
+<blockquote>
+  <p>Phân biệt compile function, link function, controller function trong AngularJS Directive??</p>
+</blockquote>
+
+<p>Nhiều lúc mình dùng loạn cả lên, bình thường thì dùng controller, khi thích thì dùng link function. (Hiếm khi dùng compile function)</p>
+
+<p>Mình tìm được một bài khá chi tiết của một Dev người Việt trên <a href="https://angular-tutorial.quora.com/Angular-directive-functions-controller-vs-link-vs-compile"><strong>Quora</strong></a>. Và đây là đáp án - TLDR:</p>
+
+<p>Here is the rules for those functions</p>
+
+<ul>
+  <li>
+    <p><strong>compile</strong> should be used when you need modify directive template, like add new expression, append another directive inside this directive… You’ll need to use compile function to do those jobs.</p>
+  </li>
+  <li>
+    <p><strong>controller</strong> is used when you need to share or manipulate $scope data. Or when you want directive interactive with each other.</p>
+  </li>
+  <li>
+    <p><strong>link</strong> is the function which used when you need to attach event handler, modify DOM.</p>
+  </li>
+</ul>
+
+<p>Khác biệt cơ bản là Compile sẽ chạy trước tiên, trước khi DOM compile hoàn tất. Controller chạy sau Compile nhưng cũng trước khi DOM hoàn tất nhưng controller không can thiệp được vào DOM. Link chạy sau khi compile và có thể modify DOM.</p>
+
+<p>Một quy ước chung của Angular: <strong>Write business logic in controller and DOM manipulation in link</strong>.</p>
+
+<ul>
+  <li>Một bài viết khá chi tiết về compile &amp; controller &amp; link (pre-link, post-link) và Do / Don’t Do của chúng trên StackOverflow: http://stackoverflow.com/questions/24615103/angular-directives-when-and-how-to-use-compile-controller-pre-link-and-post/24615207#24615207</li>
+</ul>
+
+<p>Phiên bản AngularJS 2.0 cũng sắp chính thức ra mắt, mình vẫn chưa tìm hiểu nên không biết có thay đổi gì nhiều liên quan đến scope không. Phải tìm hiểu mới được, hẹn các bạn ở một dịp khác.</p>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Khoảng trắng trong Ruby</title>
+  <meta name="description" content="Trước giờ mình ngỡ khoảng trắng trong Ruby không quan trọng, nên cứ hay nhấn space vô tội vạ (Không theo convention) nhưng hôm nay đọc được bài các câu hỏi p...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/khoang-trang-trong-ruby">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Trước giờ mình ngỡ khoảng trắng trong Ruby không quan trọng, nên cứ hay nhấn space vô tội vạ (Không theo convention) nhưng hôm nay đọc được bài các câu hỏi phỏng vấn Ruby Developer thì mới ngộ ra rằng đúng là Ruby Parser sẽ không biên dịch những khoảng trắng thừa nhưng nếu bạn không hiểu cách Ruby parse như thế nào thì Chương trình của bạn sẽ dính bug hoặc cho ra kết quả không mong muốn.</p>
+
+<blockquote>
+  <p>Có lần, mình gõ đoạn Code y chang trong Ebook, nhưng khi biên dịch, lại báo lỗi ngay vị trí đó, thì ra là do mình bị dư một khoảng trắng.</p>
+</blockquote>
+
+<p>Mời bạn xem đoạn Code sau:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">times_two</span><span class="p">(</span><span class="n">arg1</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="n">arg1</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="n">arg1</span> <span class="o">+</span> <span class="n">arg2</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Điều gì sẽ xảy ra nếu ta gọi 2 hàm trên bằng những dòng lệnh sau:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">times_two</span> <span class="mi">5</span>
+<span class="n">times_two</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">times_two</span> <span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">sum</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+<span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">sum</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Như mong đợi, 3 dòng đầu tiên sẽ in kết quả là 10 <br />
+2 dòng tiếp theo in kết quả là 3</p>
+
+<p>Tuy nhiên, dòng cuối lại bị báo lỗi</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">syntax</span> <span class="n">error</span><span class="p">,</span> <span class="n">unexpected</span> <span class="s1">','</span><span class="p">,</span> <span class="n">expecting</span> <span class="s1">')'</span> <span class="n">sum</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Vấn đề là khoảng trắng giữa tên method và dấu ngoặc (, Bởi vì có khoảng trắng đó, trình dịch của Ruby sẽ nghĩ rằng (1, 2) là một biểu thức thể hiện cho một đối số. Nhưng (1, 2) lại không phải là một biểu thức đúng trong Ruby, do đó, nó sẽ gây lỗi.</p>
+
+<p>Lưu ý rằng lỗi này sẽ không xảy ra với trường hợp method chỉ có 1 đối số (như method times_two trong bài) nên dòng lệnh sau vẫn đúng</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">times_two</span> <span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">sum</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="no">ArgumentError</span><span class="p">:</span> <span class="n">wrong</span> <span class="n">number</span> <span class="n">of</span> <span class="n">arguments</span> <span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Tham khảo thêm <a href="http://www.toptal.com/ruby/interview-questions"><strong>Ruby Top 10 Interview Questions</strong></a></p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

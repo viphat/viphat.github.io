@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Tại sao bạn không nên viết lại Code</title>
+  <meta name="description" content="Viết lại code">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/tai-sao-ban-khong-nen-viet-lai-code">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <h4 id="vit-li-code">Viết lại code</h4>
+
+<p>Một việc mà các lập trình viên rất thường hay nghĩ đến khi gặp khó khăn trong khi đọc lại code của chính mình hay đồng nghiệp đó là muốn viết lại toàn bộ project từ đầu. Đó không hẳn là suy nghĩ hoàn toàn sai lầm, nhưng trong đa số trường hợp. Lợi ích nó đem lại không đáng để đánh đổi công sức của hàng tháng (thậm chí hàng năm) để làm việc đó. Một số cty từng mắc phải sai lầm chết người này và gần như không thể gượng dậy được sau sai lầm đó. Tiêu biểu là Netscape Communications Corporation với phần mềm Netscape Navigator hay Borland với Quattro Pro. Sau đây chúng ta hãy tìm hiểu tại sao.</p>
+
+<p>Hình như có một lý do rất mơ hồ nào đó làm cho lập trình viên chúng ta luôn muốn quẳng mớ code cũ và bắt đầu lại từ đầu. Thường thì lí do đó là chúng ta luôn nghĩ mớ code cũ mà chúng ta mất cả hàng tháng trời viết ra, sau 1 thời gian nhìn lại, thì nhìn bọn nó không khác gì 1 đống hỗn độn mà bạn nhiều khi không thể giải thích được. Và… vì thế bạn bắt đầu lại từ đầu với hy vọng rằng code mới sẽ đẹp và dễ hiểu cùng với hiệu năng cao hơn. Nhưng sự thật là hình như chúng ta đã sai. Điều đó là bởi vì một số điều cơ bản sau của lập trình.</p>
+
+<h4 id="c-code-kh-hn-l-vit">Đọc code khó hơn là viết</h4>
+
+<p>Đây là lý do mà tại sao việc tái sử dụng code lại khó đến vậy. Đây là lý do tại sao mọi người trong cùng 1 nhóm lại có cả mớ version khác nhau của 1 hàm để làm 1 việc đơn giản nào đó (xử lý string chẳng hạn). Mọi người viết riêng hàm của mình để dùng, đơn giản là bởi viết hàm mới nhanh hơn và (có thể) là vui hơn ngồi tìm hiểu cách hoạt động của 1 cái hàm cũ mà ai đó đã viết. 
+Hệ quả tất yếu của hiện tượng này, hầu hết lập trình viên khi nhìn lại đống code cũ của mình và đồng nghiệp, chỉ thấy một mớ to bự lộn xộn và chả mong gì hơn ngoài quẳng nó đi và bắt đầu lại từ đầu. 
+Nhưng chờ 1 chút, tại sao nó lại lộn xộn? Tôi đã hỏi 1 số người như vậy và họ trả lời “Đây, nhìn cái hàm này xem, nó dài tận 2 trang chỉ để làm công việc mà đáng lẽ chỉ tốn vài dòng code, tôi còn ko hiểu hết 1 nửa mấy cái API này đến từ đâu nữa”.</p>
+
+<h4 id="ti-sao-bn-khng-nn-vit-li-code">Tại sao bạn không nên viết lại code</h4>
+
+<p>Tôi cho rằng cái ý tưởng mà cho rằng code mới sẽ ngon hơn code cũ thật sự rất ngu dốt. Code cũ là code mà đã được sử dụng, được test rất nhiều lần. Hàng đống bug đã dc tìm ra và sửa. Bạn đừng mong bạn sẽ tìm được bug trong code mới bằng cách ngồi chờ bên cạnh cái ổ cứng của mình, và đợi bug chạy đến với bạn.</p>
+
+<p>Trở lại với cái hàm dài 2 trang ở trên. Tôi biết là nó chỉ làm mỗi việc là hiển thị cái cửa sổ thôi, nhưng nó có 1 đống thứ lèo nhèo trong đó mà chả ai hiểu gì hết trơn. Bạn biết cái mớ đó là để làm gì ko? Để fix bug đấy ạ. 1 cái trong đó là để fix 1 cái bug mà Nancy tìm ra khi cô cố cài đặt phần mềm lên 1 cái máy tính ko có Internet Explore. 1 cái khác nữa sửa lỗi xảy ra khi máy tính hết bộ nhớ. 1 cái khác nữa là để sửa lỗi khi mà phần mềm đang đọc file trên đĩa mềm thì đồng chí người dùng nổi hứng kéo cái đĩa ra. Còn cái hàm LoadLibrary này trông có hơi mất thẩm mỹ 1 chút nhưng có đảm bảo là phần mềm sẽ sống sót được trên Windows 95.</p>
+
+<p>Mỗi một cái bug này lấy đi hàng tuần trời dùng để phát hiện ra chúng, và tốn vài ngày để fix. Nhiều bug chỉ tốn vài dòng hoặc thậm chí vài kí tự để fix nhưng nó lấy đi rất nhiều thời gian và tóc của lập trình viên để nặn ra được mấy kí tự đó.</p>
+
+<p>Khi bạn vứt code cũ đi và làm lại từ đầu, nghĩa là bạn đã quẳng đi tất cả thứ trên. Hàng đống bug đã được sửa và hàng năm trời lập trình. Chẹp, suy nghĩ kỹ nhé.</p>
+
+<p>Không chỉ vậy, bạn còn vứt luôn lợi thế dẫn đầu của mình (giả sử mà bạn đang dẫn đầu thật). Bạn như nói với đối thủ của mình răng “Tao chấp bọn mày một vài năm đấy”. Và tin tôi đi, thời gian tính bằng năm trong lĩnh vực phần mềm này là hơi bị dài.</p>
+
+<p>Bạn đặt bạn vào một tình thế rất nguy hiểm khi mà bạn còn bận lo code lại từ đầu, thì bạn không thể đáp ứng được những yêu cầu nảy sinh của thị trường, rồi khi các đối thủ của bạn liên tục cập nhật tính năng mới thì bạn chả làm gì hơn ngoài ngồi nhìn và ân hận, đơn giản chỉ bởi vì bạn… code chưa xong.</p>
+
+<p>Bạn lãng phí quá nhiều thời gian, tiền bạc và công sức để viết lại 1 thứ có sẵn từ lâu rồi.</p>
+
+<h4 id="c-cch-no--sng-st-vi-code-xu-khng">Có cách nào để sống sót với code xấu không?</h4>
+
+<p>Vậy còn cách nào khác không. Câu trả lời là có, thường có 3 vấn đề bạn hay gặp với mớ code cũ của bạn đó là:
+* Cấu trúc của code
+* Tính hiệu quả của code
+* Code trông xấu vì cách đặt tên quá bừa bãi</p>
+
+<p>Vấn đề thứ 3, có thể dễ dàng sửa đổi với các editor hiện nay. Còn 2 vấn đề đầu tiên, nếu có thời gian, hãy chậm rãi sửa nó để không ảnh hưởng đến phần khác trong project. Đừng viết lại, hãy chỉ sửa phần nào không tốt thôi. Công việc này khá là đau đớn và mất thời gian, nhưng hãy còn tốt hơn nhiều so với việc xoá bỏ project và làm lại từ đầu.</p>
+
+<p>1 điều quan trọng nữa mà bạn nên nhớ khi bạn bắt đầu lại từ đầu đó là hoàn toàn không có gì đảm bảo là bạn sẽ làm tốt hơn lần trước. Có thể bạn sẽ lặp lại lỗi lầm trước đây thêm 1 lần nữa và nếu may mắn, bạn sẽ được “khuyến mãi” thêm vấn đề nữa mà bạn đã tránh được trong lần trước.</p>
+
+<h4 id="li-kt">Lời kết</h4>
+
+<p>Hãy nhớ rằng câu thần chú “Thà là bỏ đi hết ta làm lại từ đầu” thật sự rất nguy hiểm khi bạn áp dụng cho những hệ thống ứng dụng vừa và lớn. Nếu bạn có 1 vài project nhỏ, viết để lấy kinh nghiệm thì ok, bạn có thể viết lại nó hàng ngày theo cách bạn muốn. Nhưng nếu bạn đang có 1 project lớn và bạn đặt nhiều hy vọng vào nó thì hãy cân nhắc cẩn thận để chắc chắn rằng bạn sẽ không ân hận sau khi quyết định.</p>
+
+<hr />
+
+<p>Đọc nhân dịp mình và Team muốn viết lại hoàn toàn front-end của dự án đang làm theo hướng Single-Page applicatin ở Phase 2. (Hiện tại thì Project chỉ dùng AngularJS theo hướng dùng để render trang mà thôi.).</p>
+
+<p>Nguồn bài viết - <a href="http://kipalog.com/posts/Nhung-thu-ma-ban-dung-bao-gio-nen-lam---Part-1">Kipalog</a></p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

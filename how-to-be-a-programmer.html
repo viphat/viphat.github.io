@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>How to be a Programmer (Draft)</title>
+  <meta name="description" content="http://www.sitepoint.com/full-stack-developer/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/how-to-be-a-programmer">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>http://www.sitepoint.com/full-stack-developer/</p>
+
+<p><img src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/blob_de4t8nsuoi" alt="Full Stack Developer" /></p>
+
+<p>The idea of a “full-stack developer” isn’t about being fluent in every possible technology there is, because specialization exists for a reason. It’s more about having an understanding in each of the areas above, to communicate intelligently between team members and to be a good asset if the situation needs it.</p>
+
+<hr />
+
+<p>Những ghi chép khi đọc quyển “How to be a Programmer” - Một luận văn ngắn (chỉ 50+ trang và nói qua về rất nhiều khía cạnh nên không thể chi tiết được) và nên đọc với các bạn đang là Lập trình viên. Việc đọc sách là rất quan trọng đối với nghiệp Lập trình (Hay nôm na là Đạo Lập Trình và con đường trở thành Lập Trình Sư không thể thiếu các bí kíp võ công là những quyển sách được) - Đọc thêm bài viết <a href="http://vinacode.net/2014/11/03/lap-trinh-vien-khong-chiu-doc-sach/"><strong>Lập trình viên thường không chịu đọc Sách, nhưng bạn đừng giống họ</strong></a></p>
+
+<hr />
+
+<h3 id="how-to-be-a-programmer">How to be a Programmer</h3>
+
+<h4 id="personal-skills">1. Personal Skills</h4>
+
+<h5 id="learn-to-debug">1.1 - Learn to Debug</h5>
+
+<blockquote>
+  <p>A programmer that cannot debug effectively is blind.</p>
+</blockquote>
+
+<p>Có 3 cách thường dùng để Debug</p>
+
+<ul>
+  <li>Using a debugging tool</li>
+  <li>Printlining</li>
+  <li>Logging</li>
+</ul>
+
+<h5 id="how-to-debug-by-splitting-the-problem-space">1.2 - How to Debug by splitting the Problem space</h5>
+
+<p>Chia nhỏ, khoanh vùng để xác định lỗi nằm ở đâu là cách thường dùng khi debug</p>
+
+<h5 id="how-to-remove-an-error">1.3 - How to remove an Error</h5>
+
+<p>In fixing a bug, you want to make the smallest changes that fixes the bug. You may see other things that need improvement; but don’t fix those at the same time. Attempt to employ the scientific method of changing one thing and only one thing at a time.</p>
+
+<h5 id="how-to-debug-using-a-log">1.4 - How to Debug using a log</h5>
+
+<ol>
+  <li>Logs can provide useful information about bugs that are hard to reprocedure (Such as those that occur in the Production Environment but that cannot be reproduced in the Test environment)</li>
+  <li>Logs can provide statistics and data relevant to performance, such as the time passing between statements</li>
+  <li>When configurable, logs allow general information to be captured in order to debug unanticipated specific problems without having to modify and/or redeploy the code just to deal with those specific problems.</li>
+</ol>
+
+<p>The amount to output into the log is always a compromise between information and brevity. Nhiều thông tin quá làm Log trở nên thừa thãi và thật khó để kiếm được thông tin hữu ích từ log. Ít thông tin quá thì nó có thể sẽ không có thông tin mà bạn cần.</p>
+
+<p>1.5 - How to understand Performance Problems</p>
+
+<p>1.6 - How to Fix Performance Problems</p>
+
+<p>1.7 - How to Optimize Loops</p>
+
+<p>1.8 - How to Deal with I/O Expense</p>
+
+<h5 id="how-to-manage-memory">1.9 - How to Manage Memory</h5>
+
+<p><strong>Garbage</strong></p>
+
+<p><strong>Garbage Collector</strong></p>
+
+<p><strong>Memory Leak</strong> - In computer science, a memory leak is a type of resource leak that occurs when a computer program incorrectly manages memory allocations in such a way that memory which is no longer needed is not released. In object-oriented programming, a memory leak may happen when an object is stored in memory but cannot be accessed by the running code.</p>
+
+<h5 id="how-to-deal-with-intermittent-bugs">1.10 - How to deal with Intermittent Bugs</h5>
+
+<p><strong>Intermittent bug</strong> occurs so rarely that it is hard to observe, yet often enough that it can’t be ignored. You can’t debug it because you can’t find it. What makes it hard is that it occures only under unknown conditions.</p>
+
+<p>Intermittent (Adj) - Lúc có lúc không, gián đoạn.</p>
+
+<p>1.11 - How to learn design skills</p>
+
+<p>1.12 - Hot to conduct Experiments</p>
+
+<hr />
+
+<p><strong>Còn tiếp Chương 2,3,4</strong></p>
+
+<p>P/S: Có nhiều chương, mình chưa tiêu hóa được (với trình độ và hiểu biết hiện tại) hoặc đơn giản là nó quá ngắn gọn, không có gì để Note (nên mời bạn đọc sách nếu quan tâm đến những vấn đề đó)</p>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

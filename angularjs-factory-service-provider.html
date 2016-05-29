@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Những khác biệt giữa các loại Provider trong AngularJS</title>
+  <meta name="description" content="Khi quay lại với nghiệp Web Developer sau hơn 4 năm ra trường và gắn bó với công việc của một Data Processing trong lĩnh vực nghiên cứu thị trường. Số phận đ...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/angularjs-factory-service-provider">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Khi quay lại với nghiệp Web Developer sau hơn 4 năm ra trường và gắn bó với công việc của một Data Processing trong lĩnh vực nghiên cứu thị trường. Số phận đưa đẩy thế nào mà mình phải học và làm việc với framework bên Front-End là <strong>AngularJS</strong>. Tuy vậy, sau thời gian dài làm việc, mình vẫn chưa hệ thống hóa kiến thức AngularJS của mình một cách bài bản lắm. Ngẫm lại, mình chỉ sử dụng nhiều đến <code class="highlighter-rouge">module</code>, <code class="highlighter-rouge">$scope</code>, <code class="highlighter-rouge">controller</code>, <code class="highlighter-rouge">directive</code>, một ít <code class="highlighter-rouge">service</code> và các thể loại, dòng họ nhà <code class="highlighter-rouge">ng-xxx</code> (ng-app, ng-if, ng-show, ng-init, ng-click, ng-class…) trong AngularJS thôi chứ ít đụng đến các chức năng cao cấp hơn, cũng không tuân theo mô hình MVVM và tổ chức cấu trúc File một cách hợp lý và cũng không viết ứng dụng dạng Single Page. Đó thật là thiếu sót của mình khi không thể khai thác hết sức mạnh của AngularJS. Mình ấp ủ thực hiện loạt bài này đã lâu và đây là lúc bắt tay vào hành động. (Và hy vọng hoàn thành nó trước khi nó kịp lỗi thời vì AngularJS 2.0 sắp xuất hiện.)</p>
+
+<p>Nói thật, Mình quen thuộc <strong>AngularJS</strong> còn hơn cả jQuery, quen viết bằng <strong>CoffeeScript</strong> còn hơn cả viết bằng JavaScript. Do đó, hầu hết các ví dụ trong bài đều sử dụng <strong>CoffeeScript</strong>.</p>
+
+<p>Bài hôm nay giúp liệt kê các loại Provider mà AngularJS cung cấp cho chúng ta: ==constant, value, service, factory, decorator, provider==. Hiểu rõ sự khác biệt giữa chúng, bạn sẽ biết tùy nghi sử dụng chúng sao cho phù hợp với mục đích của mình. (Mình nhớ một câu nói, nếu bạn phải sử dụng đến $rootScope để chia sẻ Scope giữa các Controller, hay tệ hơn là không biết chia sẻ dữ liệu giữa các Controller với nhau. Vậy là bạn đang đi sai cách rồi đấy)</p>
+
+<p>Các dịch vụ này đều được cung cấp bởi $provide và bạn có thể dễ dàng inject chúng để sử dụng vào các Controller, Directive. (<strong>Dependency Injection</strong> là một trong những điểm mạnh của AngularJS - Nếu chưa biết DI là gì, bạn có thể tự tìm hiểu thêm, Mình cũng có dự định sẽ viết một bài về vấn đề này trong Loạt bài tìm hiểu về AngularJS.)</p>
+
+<h5 id="constant-hng-s">Constant (Hằng số)</h5>
+
+<p>Hằng số có thể được inject vào bất cứ đâu. Một Hằng số không thể thay đổi giá trị sau khi nó đã được khởi tạo</p>
+
+<p>Khởi tạo hằng số</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var app = angular.module('app', []);
+app.constant('movieTitle', 'The Matrix');
+app.controller('ctrl', function (movieTitle) {
+  expect(movieTitle).toEqual('The Matrix');
+});
+</code></pre>
+</div>
+<p><strong>Một cách khởi tạo khác</strong> (thông qua <code class="highlighter-rouge">$provide</code>)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>app.config(function ($provide) {
+  $provide.constant('movieTitle', 'The Matrix');
+});
+</code></pre>
+</div>
+
+<h5 id="value">Value</h5>
+
+<p>Khác với Hằng số, Value (Giá trị) có thể bị thay đổi sau khi đã khởi tạo. Value có thể là một chuỗi, một số hay một hàm</p>
+
+<p><strong>Khởi tạo Value</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var app = angular.module('app', []);
+app.value('movieTitle', 'The Matrix');
+app.controller('ctrl', function (movieTitle) {
+  expect(movieTitle).toEqual('The Matrix');
+});
+</code></pre>
+</div>
+
+<p><strong>Một cách khởi tạo khác</strong> (Thông qua <code class="highlighter-rouge">$provide</code>)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>app.config(function ($provide) {
+  $provide.value('movieTitle', 'The Matrix')
+});
+</code></pre>
+</div>
+
+<h5 id="decorator">Decorator</h5>
+<p>Decorator là một mẫu thiết kế được dùng để thay đổi giá trị hoặc bao đóng các Provider khác. Trừ trường hợp ngoại lệ là Decorator không can thiệp được Constant.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var app = angular.module('app', []);
+app.value('movieTitle', 'The Matrix');
+app.config(function ($provide) {
+  $provide.decorator('movieTitle', function ($delegate) {
+    return $delegate + ' - starring Keanu Reeves';
+  });
+});
+app.controller('myController', function (movieTitle) {
+  expect(movieTitle).toEqual('The Matrix - starring Keanu Reeves');
+});
+</code></pre>
+</div>
+
+<h5 id="service">Service</h5>
+<p>Service là một Injectable Constructor. Khi inject vào một controller nghĩa là bạn đã inject một instance của các function có trong Service đó vào controller.</p>
+
+<p>Service là cách tốt nhất để giao tiếp và chia sẻ dữ liệu giữa các Controller với nhau.</p>
+
+<p><strong>Khởi tạo Service</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var app = angular.module('app' ,[]);
+ 
+app.service('movie', function () {
+  this.title = 'The Matrix';
+});
+ 
+app.controller('ctrl', function (movie) {
+  expect(movie.title).toEqual('The Matrix');
+});
+</code></pre>
+</div>
+
+<p><strong>Cách khác để khởi tạo Service</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>app.config(function ($provide) {
+  $provide.service('movie', function () {
+    this.title = 'The Matrix';
+  });
+});
+</code></pre>
+</div>
+
+<h5 id="factory">Factory</h5>
+
+<p>Factory là một injectable function. Thoạt nhìn thì nó khá giống Service nhưng điểm khác nhau chính giữa chúng là Factory Inject một plain function còn Service inject contructor. Ứng dụng của Factory: Could be useful for returning a ‘class’ function that can then be new’ed to create instances.</p>
+
+<p>Có vẻ khó hiểu nhỉ, vô tư đi, không sao cả. Chúng ta sẽ xem qua cách khởi tạo một Factory và sau đó bằng nhiều ví dụ, chúng ta sẽ thấy được sự khác biệt giữa Factory và Service cũng như Factory và Provider.</p>
+
+<p><strong>Khởi tạo Factory</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var app = angular.module('app', []);
+ 
+app.factory('movie', function () {
+  return {
+    title: 'The Matrix';
+  }
+});
+ 
+app.controller('ctrl', function (movie) {
+  expect(movie.title).toEqual('The Matrix');
+});
+</code></pre>
+</div>
+<p><strong>Cách khác để khởi tạo Factory</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>app.config(function ($provide) {
+  $provide.factory('movie', function () {
+    return {
+      title: 'The Matrix';
+    }
+  });
+});
+</code></pre>
+</div>
+<p>##### Provider</p>
+
+<p>Provider là trường hợp phức tạp nhất (và cũng mạnh mẽ nhất) trong số các Provider, Nó giống Factory nhưng cho phép bạn cấu hình bằng các configuration option (Nói nôm na Provider là một Configurable Factory).</p>
+
+<p><strong>Khởi tạo Provider</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var app = angular.module('app', []);
+ 
+app.provider('movie', function () {
+  var version;
+  return {
+    setVersion: function (value) {
+      version = value;
+    },
+    $get: function () {
+      return {
+          title: 'The Matrix' + ' ' + version
+      }
+    }
+  }
+});
+ 
+app.config(function (movieProvider) {
+  movieProvider.setVersion('Reloaded');
+});
+ 
+app.controller('ctrl', function (movie) {
+  expect(movie.title).toEqual('The Matrix Reloaded');
+});
+</code></pre>
+</div>
+<p>##### Service vs Factory vs Provider</p>
+
+<p>Một ví dụ hoàn chỉnh để thấy được sự khác nhau giữa Service - Factory - Provider:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var app = angular.module( 'app', [] );
+var MyFunc = function() {
+  this.name = "default name";
+  this.$get = function() {
+    this.name = "new name"
+    return "Hello from MyFunc.$get(). this.name = " + this.name;
+  };
+  return "Hello from MyFunc(). this.name = " + this.name;
+};
+</code></pre>
+</div>
+<p>Bây giờ ta có một hàm MyFunc đã khởi tạo trước, sẽ ra sao nếu Ta khởi tạo Service, Factory và Provider bằng hàm MyFunc này</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// returns the actual function
+app.service( 'myService', MyFunc );
+// returns the function's return value
+app.factory( 'myFactory', MyFunc );
+// returns the output of the function's $get function
+app.provider( 'myProv', MyFunc );
+</code></pre>
+</div>
+
+<p><strong>Kết quả là</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>function MyCtrl( $scope, myService, myFactory, myProv ) {
+  $scope.serviceOutput = "myService = " + myService;
+  $scope.factoryOutput = "myFactory = " + myFactory;
+  $scope.providerOutput = "myProvider = " + myProv;
+}
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>myService = [object Object] 
+myFactory = Hello from MyFunc(). this.name = default name 
+myProvider = Hello from MyFunc.$get(). this.name = new name
+</code></pre>
+</div>
+
+<p><strong>Một ví dụ khác</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>provide.value('a', 123);
+function Controller(a) {
+  expect(a).toEqual(123);
+}
+</code></pre>
+</div>
+<p>Ở đây, chúng ta khởi tạo một value là a với giá trị 123, Nhưng nếu bạn muốn tính toán giá trị đó? Đây là lúc sử dụng <strong>Factory</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>provide.factory('b', function(a) {
+  return a*2;
+});
+
+function Controller(b) {
+  expect(b).toEqual(246);
+}
+</code></pre>
+</div>
+
+<p>Bây giờ, bạn có một Lớp Greeter</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>function Greeter(a) {
+  this.greet = function() {
+    return 'Hello ' + a;
+  }
+}
+</code></pre>
+</div>
+
+<p>Và nếu sử dụng Factory cho Greeter này, bạn sẽ phải viết như sau:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>provide.factory('greeter', function(a) {
+  return new Greeter(a);
+});
+</code></pre>
+</div>
+<p>Sử dụng trong Controller</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>function Controller(greeter) {
+  expect(greeter instanceof Greeter).toBe(true);
+  expect(greeter.greet()).toEqual('Hello 123');
+}
+</code></pre>
+</div>
+<p>Rườm rà nhỉ, nếu sử dụng Service cho mục đích này, bạn sẽ thấy code sẽ clean hơn mà kết quả vẫn tương tự:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>provider.service('greeter', Greeter);
+</code></pre>
+</div>
+
+<p>Nhưng nếu muốn cấu hình lớp Greeter trước khi inject, bạn phải sử dụng Provider:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>provide.provider('greeter2', function() {
+  var salutation = 'Hello';
+  this.setSalutation = function(s) {
+    salutation = s;
+  }
+
+  function Greeter(a) {
+    this.greet = function() {
+      return salutation + ' ' + a;
+    }
+  }
+
+  this.$get = function(a) {
+    return new Greeter(a);
+  };
+});
+</code></pre>
+</div>
+
+<p>Và có thể cấu hình chúng (thiết lập lại salutation) như sau:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>angular.module('abc', []).config(function(greeter2Provider) {
+  greeter2Provider.setSalutation('Halo');
+});
+
+function Controller(greeter2) {
+  expect(greeter2.greet()).toEqual('Halo 123');
+}
+</code></pre>
+</div>
+
+<h4 id="tm-tt">Tóm tắt</h4>
+
+<ul>
+  <li>All the providers are instantiated only once. That means that they are all singletons.</li>
+  <li>All the providers except constant can be decorated.</li>
+  <li>A constant is a value that can be injected everywhere. The value of a constant can never be changed.</li>
+  <li>A value is just a simple injectable value.</li>
+  <li>A service is an injectable constructor.</li>
+  <li>A factory is an injectable function.</li>
+  <li>A decorator can modify or encapsulate other providers except a constant.</li>
+  <li>A provider is a configurable factory.</li>
+</ul>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

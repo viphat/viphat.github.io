@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Giới thiệu về Docker</title>
+  <meta name="description" content="1. Cài đặt môi trường - Vấn đề muôn thuở của lập trình viên">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/gioi-thieu-ve-docker">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <h4 id="ci-t-mi-trng---vn--mun-thu-ca-lp-trnh-vin">1. Cài đặt môi trường - Vấn đề muôn thuở của lập trình viên</h4>
+
+<p>Tôi đã sử dụng hệ điều hành Ubuntu 13.04 được 3 năm, từ đó đến giờ để lập trình thì tôi đã phải cài đủ thứ:</p>
+
+<ul>
+  <li>LAMP stack dành cho lập trình web.</li>
+  <li>Python cho xử lý ngôn ngữ và crawl dữ liệu.</li>
+  <li>Java để lầp trình PC game.</li>
+  <li>…</li>
+</ul>
+
+<p>Kết quả là sau một thời gian, khi cài một số thư viện, ngôn ngữ mới thì gặp những lỗi build conflict giữa các thư viện, không biết giải quyết thế nào.</p>
+
+<h4 id="docker-xut-hin">2. Docker xuất hiện</h4>
+<p>Docker giống như một loại máy ảo, có thể cô lập được môi trường bên trong và bên ngoài nên nếu tối có thể cài đặt nó lên và vào trong để cài môi trường phát triển thì sẽ giải quyết được vấn đề conflict bên trên.</p>
+
+<h4 id="vy-thc-cht-docker-l-g">3. Vậy thực chất Docker là gì?</h4>
+<p>Để nói về docker tôi nghĩ có thể mô tả nó thông qua 3 thứ sau:</p>
+
+<ul>
+  <li>VM (Virtual Machine)</li>
+  <li>Java</li>
+  <li>Git</li>
+</ul>
+
+<h5 id="docker-vs-virtual-machine">Docker vs Virtual Machine</h5>
+
+<p>Về cơ bản docker giống như một VM, nhưng kiến trúc bên dưới của nó hơi khác một chút. Nếu như với VM bạn sẽ phải xác định rõ tài nguyên RAM, ổ cứng cho nó và tất cả những gì VM sử dụng sẽ bị hạn chế theo cấu hình đó. Nhưng với docker thì không bị hạn chế như vậy.</p>
+
+<p>Thêm 1 điểm khác biệt nữa là tiến trình của VM thì là của VM, còn tiến trình của docker thì là tiến trình của cả hệ thống. Vì vậy nếu bạn chạy apache trong 1 container thì ra bên ngoài liệt kê vẫn thấy có tiến trình tên apache. Trong khi điều này với VM là không thể. Nhìn vào hình minh họa bên dưới bạn sẽ thấy điều đó.</p>
+
+<p><img src="http://i.imgur.com/omL8PTn.png" alt="Containers vs VMs" /></p>
+
+<h5 id="docker-ging-java">Docker giống Java?</h5>
+
+<p>Nếu bạn đã từng lập trình thì hẳn sẽ thích Java ở điểm là bạn chỉ cần viết chương trình một lần và chạy ở mọi nơi, mọi môi trường. Và với docker bạn cũng có thể làm điều tương tự: cài môi trường một, deploy mọi nơi!</p>
+
+<p>Docker Engine nằm bên dưới cũng đóng vai trò tương tự Java Virtual Machine để tạo nên điều kì diệu đó.</p>
+
+<h5 id="cn-git">Còn git?</h5>
+
+<p>Git là một loại chương trình dùng để quản lý source code rất phổ dụng trong giới lập trình. Docker coi môi trường lập trình cũng giống như một loại souce code có thể quản lý thông qua các commit. Với mỗi thay đổi của môi trường lập trình bạn đều có thể commit ghi lại sự thay đổi đó.</p>
+
+<p>Và sau cùng bạn cũng có thể push những thay đổi đó lên một nơi gọi là docker hub, tương tự như github vậy. Và ngược lại bạn cũng có thể pull một image (môi trường lập trình bao gồm hệ điều hành và phần mềm bên trong, ở dạng nén) từ đâu đó về. Ví dụ:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker pull deplop/lamp
+</code></pre>
+</div>
+
+<p>Lệnh này sẽ pull một image tên là lamp (bên trong đã cài sẵn LAMP stack) từ một registry tên deplop (tên tài khoản của tôi trên dockerhub) về.</p>
+
+<p>Nhờ sự tiện dụng này mà người ta có thể chia sẻ cho nhau các docker image đóng gói sẵn mà người dùng lại sẽ chẳng cần phải biết cách tạo ra nó như thế nào. (Thật ra cũng dễ thôi)</p>
+
+<p>Hiện nay các opensource, hoặc các nhà phát triển ngôn ngữ lập trình đều có công bố các docker image chính thức cho các phiên bản ở trên trang Docker Hub.</p>
+
+<h4 id="cho-ngi-bt-u-s-dng-docker">4. Cho người bắt đầu sử dụng Docker</h4>
+
+<p>Có một khái niệm rất quan trọng mà tôi chưa nhắc đến ở phần trên. Đó là docker container. Nếu như docker image là file nén của HĐH mà bạn muốn cài thì docker container chính là một thực thể sống của HĐH ấy. (Giống class và instance)</p>
+
+<p>Việc đầu tiên để bạn làm quen với docker là hãy thử dùng nó. Sẽ rất khó để bạn tự build một môi trường theo đúng ý ở thời điểm này. Vậy hãy tập cách dùng đồ của người khác đã. Hãy pull thử một image nào đó trên docker hub, ví dụ như:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker pull mysql/mysql-server
+</code></pre>
+</div>
+<p>(hãy chắc chắn là bạn đang dùng quyền root, nếu không thì phải thêm sudo ở đầu câu lệnh).</p>
+
+<p>Bật console lên và gõ:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker images
+</code></pre>
+</div>
+
+<p>bạn sẽ thấy danh sách các docker image trên máy của mình, trong đó có <code class="highlighter-rouge">mysql/mysql-server</code></p>
+
+<p>Để tạo được docker container từ image này thì bạn cần dùng lệnh docker run như sau:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker run -it mysql/mysql-server /bin/bash
+</code></pre>
+</div>
+
+<p>Bạn sẽ thấy mình được chuyển vào trong container, bằng chứng là tại prompt của terminal bạn đã thấy mình đang đăng nhập là root trên một host khác rồi.</p>
+
+<p>Gõ mysql bạn sẽ có thể sử dụng được mysql ngay trong container đó.</p>
+
+<p>Gõ exit bạn sẽ trở lại với terminal ở host bên ngoài (hệ điều hành bạn đang dùng).</p>
+
+<p>Bây giờ hãy gõ lệnh <code class="highlighter-rouge">docker ps -a</code> bạn sẽ thấy danh sách các container mình đã tạo ra. Trạng thái của nó có thể là <strong>Up</strong> hoặc <strong>Exited</strong> hoặc <strong>Created</strong>. Để vào lại container lúc nãy bạn cần gõ lệnh:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker exec -it [container_id] bash
+</code></pre>
+</div>
+
+<p>Trong trường hợp container của bạn chưa ở trạng thái Up thì bạn cần start container lên trước:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker start [container_id]
+</code></pre>
+</div>
+
+<h4 id="kt-lun">5. Kết luận</h4>
+
+<p>Dựa vào nội dung bên trên bạn đã hiểu docker là gì và cách sử dụng cơ bản của docker rồi chứ?</p>
+
+<p>Docker thật tuyệt vời để tách biệt các môi trường lập trình và deploy môi trường cũng thật dễ dàng. Hãy thử tưởng tượng khi bạn tham gia vào 1 dự án, đáng ra bạn sẽ phải cài rất nhiều thứ để có thể chạy được môi trường lập trình trên máy mình thì bạn chỉ cần đơn giản là pull docker image của môi trường lập trình ấy về và start nó lên là xong!</p>
+
+<p>Tuy nhiên nếu chỉ để dùng với mục đích ấy thì chắc hẳn người ta chỉ cần viết 1 cái script cài đặt chứ chẳng nhọc công tạo ra một thứ như docker. Trong bài sau, tôi sẽ giới thiệu với bạn ý nghĩa thực sự của docker khi áp dụng trong các hệ thống lớn, cần scale liên tục.</p>
+
+<hr />
+
+<p>Nguồn <strong><a href="http://deplop.me/docker-introduction/">Blog Dép lốp</a></strong>.</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

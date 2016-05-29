@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>PostgreSQL Cookbook</title>
+  <meta name="description" content="Chương 1 - Managing Databases and the PostgreSQL Server">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/postgresql-cookbook">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <h4 id="chng-1---managing-databases-and-the-postgresql-server">Chương 1 - Managing Databases and the PostgreSQL Server</h4>
+
+<p><strong>Postgres CLI</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>psql -h localhost -U postgres (-p PORT)
+</code></pre>
+</div>
+
+<p>\q để thoát khi đang trong Postgres CLI</p>
+
+<h5 id="create-database">Create Database</h5>
+
+<p><strong>SQL STATEMENT</strong>
+<code class="highlighter-rouge">
+CREATE DATABASE hrdb WITH ENCODING='UTF-8' OWNER=hr CONNECTION LIMIT=25;
+</code>
+<strong>CLI</strong>
+<code class="highlighter-rouge">
+createdb -h localhost -U postgres testdb1
+</code>
+<strong>List all Database in Postgres</strong>
+<code class="highlighter-rouge">
+SELECT datname from pg_database where datistemplate = false;
+</code>
+##### Create Users
+<code class="highlighter-rouge">
+CREATE USER hr with PASSWORD 'hr';
+</code>
+##### Create Schema
+Schemas are among the most important objects with in a database. A schema is a named collecction of tables. A schema may also contain views, indexes, sequences, data types, operators, and functions. Schemas help organize database objects into logical groups, which helps make these object more manageable.
+<code class="highlighter-rouge">
+CREATE SCHEMA employee;
+CREATE SCHEMA university AUTHORIZATION bob; (A schema named univerisy and is owned by bob)
+</code>
+Default Schema is public schema.</p>
+
+<p><strong>List all schema</strong></p>
+
+<p><code class="highlighter-rouge">\dn</code> in psql</p>
+
+<p><code class="highlighter-rouge">\du</code> in psql (List all User)</p>
+
+<h5 id="create-groups">Create Groups</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CREATE GROUP dept;
+ALTER GROUP dept ADD USER agovi1, nchabbra; 
+SELECT * FROM pg_group;
+</code></pre>
+</div>
+
+<h5 id="destroying-database">Destroying Database</h5>
+<div class="highlighter-rouge"><pre class="highlight"><code>DROP DATABASE hrdb;
+</code></pre>
+</div>
+<p><strong>CLI</strong>
+<code class="highlighter-rouge">
+dropdb hrdb
+</code>
+##### Tablespaces
+A tablespace is a location on the disk where PostgreSQL stores data files containing database objects, for example indexes, tables, and so on.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CREATE TABLESPACE HRMS LOCATION '/var/lib/pgsql/data/hrms';
+</code></pre>
+</div>
+
+<p><strong>Moving Objects between tablespaces</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ALTER DATABASE testdb1 SET default_tablespaces='hrms';
+ALTER TABLE employee SET TABLESPACE hrms;
+ALTER INDEX emp_idx SET TABLESPACE hrms;
+</code></pre>
+</div>
+<p>##### Database Cluster</p>
+
+<p>Database cluster is a collection of databases that are managed by a single server instance</p>
+
+<p><strong>Start and Stop SERVER</strong></p>
+
+<p>Các cách để khởi động và tắt SERVER (Trong đó có cách tắt khẩn cấp, Halt ngay lập tức, không kịp hoàn tất I/O ra Disk.)</p>
+
+<p><strong>Display the Server Status</strong></p>
+
+<p><strong>Terminating connections</strong></p>
+
+<p>Có thể dùng để ngắt các phiên kết nối đang làm chậm Performance của Database.</p>
+
+<p>Ngắt tất cả các phiên kết nối đến Database testdb1</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT pg_terminate_backend(pid) FROM pg_stat_activity where datnam='testdb1'
+</code></pre>
+</div>
+
+<p>Also useful in free memory from idle postgress processes 
+(pg_cancel_backend(pid) dùng để cancel running queries and not to terminate existing sessions)</p>
+
+<h4 id="chng-2---controlling-security">Chương 2 - Controlling Security</h4>
+
+<h5 id="securing-database-objects">Securing Database Objects</h5>
+
+<p>Bảo đảm chỉ có những authenticated users mới được truy cập đến data mà họ được cấp phép để truy cập.</p>
+
+<p>Revoke - Thu hồi
+Grant - Cấp quyền</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>REVOKE ALL on testusers from testdb1;
+REVOKE insert, update, delete, truncate on testusers from testdb1; 
+</code></pre>
+</div>
+
+<p>Các quyền có thể revoke hoặc grant là: SELECT, UPDATE, INSERT, DELETE, TRUNCATE, TRIGGER</p>
+
+<h5 id="controlling-access-via-firewalls">Controlling access via firewalls</h5>
+
+<p>Cổng mặc định của PostgreSQL là 5432 (Cấu hình Firewall - Iptables open Port này)</p>
+
+<h5 id="controlling-access-via-configuration-files">Controlling access via configuration files</h5>
+
+<p>PostgreSQL có 2 file cấu hình chính</p>
+
+<p>postgresql.conf - contains a single entry that controls on which network interfaces PostgreSQL listens for connections</p>
+
+<p>pg_hba.conf - used to define which clients can connect to which database and using which login role</p>
+
+<p><strong>Show location of hba_files in Psql</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SHOW hba_file;
+SHOW data_directory;
+</code></pre>
+</div>
+
+<h5 id="auditing-database-changes">Auditing Database Changes</h5>
+
+<p>Một bảng theo dõi toàn bộ sự thay đổi (Insert,Update,Delete) của các bảng khác, cái này rất tiện khi dùng để truy vết và blame cũng như restore lại một vài record.</p>
+
+<p>Xem thêm tại - <a href="https://wiki.postgresql.org/wiki/Audit_trigger_91plus"><strong>Audit Trigger Plus</strong></a></p>
+
+<h5 id="enabling-ssl-in-postgresql">Enabling SSL in PostgreSQL</h5>
+<p>##### Testing SSL Encryption
+chưa rõ cụ thể là SSL để bảo vệ kết nối giữa client / server trong PostgreSQL hữu ích ra sao và nên sử dụng trong trường hợp nào, Tốc độ và hiệu suất có tốt hơn hay kém hơn? vì đa phần mình đều dùng localhost.</p>
+
+<h5 id="encrypting-confidential-data">Encrypting confidential data</h5>
+
+<ul>
+  <li>Các ngôn ngữ Backend khác đã làm giúp việc này. Dữ liệu cần phải được mã hóa khi lưu vào Database.</li>
+</ul>
+
+<h5 id="cracking-postgresql-passwords">Cracking PostgreSQL Passwords</h5>
+<ul>
+  <li>Đừng đặt password quá ngắn, quá đơn giản để tránh brute force và dictionary attack</li>
+</ul>
+
+<hr />
+
+<h4 id="chng-3---backup-and-recovery">Chương 3 - Backup and Recovery</h4>
+
+<p><strong>Logical Backups</strong> - Dump File được tạo ra bởi pg_dump</p>
+
+<p><strong>Physical Backups</strong> - OS level backup of a database directory and its associated files</p>
+
+<h5 id="logical-backup">Logical Backup</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>pg_dump -U username -W -Fc database_name &gt; [Backup Location Path].dump
+</code></pre>
+</div>
+
+<p>-W (Prompt for Password)
+-F (Output File -Fc for Custom Format)</p>
+
+<p><strong>Logical backup of all PostgreSQL databases</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>pg_dumpall -U postgres &gt; [Backup Location Path]
+</code></pre>
+</div>
+
+<p>option –schema-only, –roles-only, –tablespaces-only</p>
+
+<p><strong>Logical backup of specific objects</strong>
+<code class="highlighter-rouge">
+pg_dump -U postgres -W -F t ubrand &gt; 1.tar -n audit
+</code></p>
+
+<p>Xem thêm tại http://www.postgresql.org/docs/9.1/static/app-pgdump.html</p>
+
+<h5 id="file-system-level-backup">File system level backup</h5>
+
+<p>The easiest way to do this is to make an archive of the PostgreSQL data directory or the directory defined by the $PGDATA environment variable.</p>
+
+<p>Nhưng có một lưu ý là The database must be shutdown completely in order to get a useful backup. A File System backup is meaningful only when the database is in a consistent state.</p>
+
+<p>Một cách khác hay hơn là tận dụng Logical Volume Manager để backup Data của PostgreSQL (Tham khảo thêm trong Sách)</p>
+
+<h5 id="taking-a-base-backup">Taking a base backup</h5>
+
+<p><strong>pg_basebackup</strong> tool takes base backups of a running PostgreSQL database Server. These backups are initiated without affecting other PostgreSQL database clients and can be used for both point-in-time recovery, as well as the start point for log shipping or to stream replication standby servers.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>pg_basebackup -h localhost -D directory
+</code></pre>
+</div>
+
+<p>user phải có quyền replication trước khi thực hiện pg_basebackup</p>
+
+<p>Cần phải config postgresql.conf
+max_wal_senders &gt; 1
+wal_level must be set to archive</p>
+
+<blockquote>
+  <p>pg_dump có cách sử dụng đơn giản nhưng Performance không tốt bằng pg_basebackup, đặc biệt là với Database lớn (&gt;50GB), pg_dump trả về dump file</p>
+</blockquote>
+
+<p>Backup và Archive Log của PostgreSQL dùng để Roll forward, hỗ trợ thêm cho Point-In-Time Recovery</p>
+
+<h5 id="hot-physical-backup-and-continous-archiving">Hot Physical Backup and Continous Archiving</h5>
+
+<p>Cho dù chúng ta backup thường xuyên đến cỡ nào thì khi sự cố xảy ra, nhiều khả năng là bản Backup gần nhất đã lỗi thời, và bạn không thể restore lại nguyên hiện trạng trước khi xảy ra sự cố được.</p>
+
+<p>Enable WAL (Write-ahead Log)</p>
+
+<p><strong>Thay đổi cấu hình trong file postgresql.conf</strong></p>
+
+<p>wal_level = hot_standby
+archive_mode = on
+archive_command = ‘test ! -f 
+/home/abcd/pgsql/backup_in_progress || (test ! -f 
+/home/abcd/pgsql/archive/%f &amp;&amp; cp %p
+/home/abcd/pgsql/archive/%f)
+‘</p>
+
+<p>==Phần này đọc thêm trong Sách và Xây dựng thành Một bài viết khác, đầy đủ, chi tiết hơn==</p>
+
+<h5 id="point-in-time-recovery">Point-in-time Recovery</h5>
+
+<p>Phục hồi lại với bản Backup gần nhất
+Sử dụng Kỹ thuật Point-in-time Recovery để hồi phục Database đến checkpoint mong muốn.</p>
+
+<p>Restoring databases and specific database objects
+Thông qua <strong>pg_restore</strong> Utility</p>
+
+<p><strong>pg_dump / pg_restore</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>pg_dump -U username -f backup.dump database_name -Fc 
+</code></pre>
+</div>
+
+<p>switch -F specify format of backup file:</p>
+
+<p>c will use custom PostgreSQL format which is compressed and results in smallest backup file size
+d for directory where each file is one table
+t for TAR archive (bigger than custom format)</p>
+
+<h5 id="restore-backup">Restore backup</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>pg_restore -d database_name -U username -C backup.dump
+</code></pre>
+</div>
+
+<p>Parameter -C should create database before importing data. If it doesn’t work you can always create database eg. with command (as user postgres or other account that has rights to create databases) createdb db_name -O owner</p>
+
+<p><strong>pg_dump/psql</strong></p>
+
+<p>In case that you didn’t specify the argument -F default plain text SQL format was used (or with -F p). Then you can’t use pg_restore. You can import data with psql.</p>
+
+<p><strong>backup:</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>pg_dump -U username -f backup.sql database_name
+</code></pre>
+</div>
+
+<p><strong>restore:</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>psql -d database_name -f backup.sql
+</code></pre>
+</div>
+
+<h2 id="chng-4---routine-maintenance-tasks">Chương 4 - Routine Maintenance Tasks</h2>
+
+<p>(Có thời gian sẽ đọc thêm)</p>
+
+<h2 id="chng-5---monitoring-the-system-using-unix-utilities">Chương 5 - Monitoring the System Using Unix Utilities</h2>
+
+<blockquote>
+  <p>Mình đã viết thành bài riêng tại http://notes.viphat.work/monitoring-linux-system/</p>
+</blockquote>
+
+<p>Tham khảo thêm cách cài sysstat - http://www.thegeekstuff.com/2011/03/sar-examples/</p>
+
+<p>Các chương còn lại cũng hay nhưng ở mức độ Advance nên mình chưa hiểu hết, sẽ đọc lại sau (Cũng hy vọng là mình sẽ có dịp làm việc với một Hệ thống Database lớn, lúc đó thì mới được dịp áp dụng các kiến thức ở những Chương sau):</p>
+
+<p><strong>Chương 6 - Monitoring Database Activity and Investigating Performance Issues</strong> (Theo dõi hoạt động của Database và điều tra các vấn đề về Performance)</p>
+
+<p><strong>Chương 7 - High Availability and Replication</strong> (Nhân bản Database để mang lại độ sẵn sàng cao cho các ứng dụng Database lớn và nhiều người sử dụng)</p>
+
+<p>Chương 8 - Connection Pooling</p>
+
+<p><strong>Chương 9 - Table Partioning</strong> (Phân vùng các Table, tách riêng và chia nhỏ Table nếu Table quá lớn, chứa nhiều dữ liệu)</p>
+
+<p>Chương 10 - Accessing PostgreSQL from Perl</p>
+
+<p>Chương 11 - Accessing PostgreSQL from Python 
+(Nếu có thời gian và có dịp, mình sẽ học thêm về Python. Hiện mình chủ yếu làm việc với Rails, còn Ruby thực ra còn nhiều cái chưa rành lắm… chẳng hạn, block_given? là gì?)</p>
+
+<p>Chương 12 - <strong>Data Migration from Other Databases and Upgrading PostgreSQL Cluster</strong></p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

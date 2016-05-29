@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Tìm hiểu về Meteor Framework (Phần 2)</title>
+  <meta name="description" content="Phần 2 của Loạt bài “Tìm hiểu về Meteor Framework”:">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/tim-hieu-ve-meteor-framework-2">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Phần 2 của Loạt bài “<strong>Tìm hiểu về Meteor Framework</strong>”:</p>
+
+<ul>
+  <li>Templates</li>
+  <li>Collections</li>
+  <li>Publications &amp; Subscriptions</li>
+</ul>
+
+<p><img src="http://i.imgur.com/8iJaiXj.png" alt="Meteor" /></p>
+
+<blockquote>
+  <p><strong>Meteor có phải theo mô hình MVC không?</strong><br />
+Nếu bạn đến từ thế giới của Ruby On Rails, có thể bạn sẽ tự hỏi là Meteor có theo mô hình MVC (như Ruby On Rails không) hay MVVM (như AngularJS)… Câu trả lời đơn giản là không, Meteor không áp đặt bất kỳ cấu trúc nào đối với ứng dụng của bạn mà nó hoàn toàn linh hoạt và thông minh.</p>
+</blockquote>
+
+<hr />
+
+<blockquote>
+  <p><strong>Tìm kiếm file</strong> <br />
+Meteor rất giỏi trong việc tìm kiếm file. Bất kể bạn đặt code ở đâu trong thư mục /client, Meteor sẽ tìm và biên dịch nó theo đúng chuẩn. Điều này có nghĩa là, bạn sẽ không cần phải viết đoạn mã để thêm vào đường dẫn cho các file JavaScript hay là CSS.<br />
+Điều này cũng có nghĩa là bạn có thể đặt tất cả file trong cùng một thư mục, hoặc thậm trí tất cả code trong cùng một file. Nhưng vì Meteor sẽ biên dịch mọi thứ thành một file đơn nhất đã được làm nhỏ (minify), chúng ta nên giữ cho mọi thứ được cấu trúc và sẽ dùng cấu trúc file sạch sẽ hơn.</p>
+</blockquote>
+
+<hr />
+
+<blockquote>
+  <p><strong>Hot Code Reload</strong><br />
+Bạn có thể thấy rằng bạn thậm chí không cần phải tự tải lại cửa sổ trình duyệt của bạn bất cứ khi nào bạn thay đổi một tập tin.
+Điều này là bởi vì Meteor theo dõi tất cả các file trong thư mục dự án của bạn, và tự động làm mới trình duyệt của bạn mỗi khi nó phát hiện ra sự thay đổi nào đó.
+Hot Code Reload của Meteor khá là thông minh, nó thậm trí còn cung cấp trang thái của ứng dụng giữa mỗi lần làm mới</p>
+</blockquote>
+
+<hr />
+
+<h4 id="meteor-templates">Meteor Templates</h4>
+
+<p><em>Phần Templates chúng ta nên chia nhỏ theo chức năng và đặt trong Thư mục /client/templates/</em></p>
+
+<p>Đọc thêm tại về Templates của Meteor - http://vi.discovermeteor.com/chapters/templates/</p>
+
+<p>Thành phần cơ bản của Meteor Templates chính là <strong>Spacebars</strong>, Do đó chúng ta sẽ bắt đầu bằng <strong>Spacebars</strong>.</p>
+
+<h5 id="spacebars">Spacebars</h5>
+
+<p>Xem một ví dụ sau:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;head&gt;
+  &lt;title&gt;Microscope&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="container"&gt;
+    &lt;header class="navbar navbar-default" role="navigation"&gt; 
+      &lt;div class="navbar-header"&gt;
+        &lt;a class="navbar-brand" href="/"&gt;Microscope&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+    &lt;div id="main" class="row-fluid"&gt;
+      
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+</div>
+<p>Hầu hết đều là các thẻ html bình thường, ngoại trừ thẻ `` mục đích để chỉ cho Meteor thay thế thẻ này bằng template tương ứng là postsList (nên lưu trong posts_list.html)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;template name="postsList"&gt;
+  &lt;div class="posts"&gt;
+    
+      
+    
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+</div>
+<p>Tương tự trong Template “postsList” lại gọi tiếp một template khác là postItem (post_item.html)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;template name="postItem"&gt;
+  &lt;div class="post"&gt;
+    &lt;div class="post-content"&gt;
+      &lt;h3&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/h3&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+</div>
+
+<p>Các thành phần của Spacebars</p>
+
+<p>`` - Được sử dụng để chèn dữ liệu (dạng Text, Non-HTML) vào DOM. Dữ liệu ở đây là các thuộc tính của Document hoặc được lấy Helper tương ứng trong Template (Có thể truyền thêm đối số cho Helper.)</p>
+
+<p><code class="highlighter-rouge">}</code> - Tương tự cái trên nhưng được sử dụng để chèn code HTML vào DOM. (It’s your job to make sure the HTML is safe, either by generating it yourself or sanitizing it if it came from a user input.)</p>
+
+<p>`` - Inclusion template tags dùng để chèn một template có tên là nav.</p>
+
+<p>`` - Block template tags dùng để duyệt tất cả các phần tử hay kiểm tra điều kiện. Các Block Tags được định nghĩa sẵn là #if, #each, #with, #unless, #let. Bạn có thể tự định nghĩa thêm các Block Tags khác cho dự án của bạn.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;div class="donenotdone"&gt;
+  ...
+&lt;/div&gt;
+</code></pre>
+</div>
+
+<p><strong>Block Tag If/Unless</strong></p>
+
+<p>Any falsy JavaScript value (including null, undefined, 0, “”, and false) is considered false, as well as the empty array, while any other value is considered true.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+  &lt;p&gt;It's true&lt;/p&gt;
+
+  &lt;p&gt;It's false&lt;/p&gt;
+
+</code></pre>
+</div>
+
+<p>Còn Block tag #with giống #each nhưng làm việc với object đơn thay vì một tập các object như #each (#with và #each cũng có else trong trường hợp object truyền vào là falsy hoặc empty - Cool phết)</p>
+
+<p>Đọc thêm về Spacebars - https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md</p>
+
+<h5 id="template-helpers">Template Helpers</h5>
+
+<p>Như trên, Chúng ta có thể dùng  để hiển thị dữ liệu thô (Thuộc tính của Documents) và cũng có thể mở rộng (chế biến, xào nấu) nó bằng Template Helper. Bạn có thể nghĩ helper như là những người đầu bếp lấy nguyên liệu thô (dữ liệu của bạn) và chuẩn bị chúng, trước khi truyền ra đĩa (template) tới người phục vụ, là người sẽ đưa ra cho bạn.</p>
+
+<p>Một ví dụ về Helpers:</p>
+
+<p>Object postItem chỉ có 2 thuộc tính là url và title… còn Domain sẽ được bào chế bằng helper (trong Template.postItem.helpers - domain)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Template.postItem.helpers({
+  domain: function() {
+    var a = document.createElement('a');
+    a.href = this.url;
+    return a.hostname;
+  }
+});
+</code></pre>
+</div>
+<hr />
+
+<h4 id="meteor-collections">Meteor Collections</h4>
+
+<p>Hãy nhớ lại ở Phần 1, Meteor có một tính năng cốt lõi (và hay ho) là sự đồng bộ tự động giữa client và server.</p>
+
+<p>Collection là một dạng cấu trúc dữ liệu đặc biệt. Nó giúp chúng ta quản lý việc lưu trữ dữ liệu thường trực, chính là cơ sở dữ liệu MongoDB ở phía server, sau đó đồng bộ nó với từng kết nối từ trình duyệt web của người dùng trong thời gian thực.</p>
+
+<p><strong>Các dạng lưu dữ liệu của ứng dụng Web</strong></p>
+
+<ul>
+  <li>
+    <p><strong>Bộ nhớ của trình duyệt</strong> - Lưu trữ các biến và đối tượng của Javascript. Chúng chỉ mang tính cục bộ với tab hiện hành và cũng chỉ mang tính chất tạm thời, sẽ biến mất khi http://docs.meteor.com/#/full/meteor_publishbạn tắt tab trình duyệt.</p>
+  </li>
+  <li>
+    <p><strong>Bộ lưu trữ của trình duyệt</strong> - Có thể được lưu trữ lâu dài nhờ và Cookies hoặc LocalStorage. Nó có thể tồn tại giữa các phiên làm việc nhưng mang tính cục bộ đối với người dùng hiện tại và không thể dễ dàng chia sẻ với người dùng khác.</p>
+  </li>
+  <li>
+    <p><strong>Cơ sở dữ liệu phía Server</strong> - Nơi tốt nhất để lưu trữ dữ liệu lâu dài, mà bạn muốn khả dụng cho nhiều hơn một người dùng chính là Database. (MongoDB là giải pháp DB mặc định cho ứng dụng Meteor).</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>console.log() bên phía Server sẽ xuất hiện ở Terminal <br /> console.log() bên phía Client sẽ xuất hiện trong DevTools Console</p>
+</blockquote>
+
+<h5 id="collections-pha-server">Collections phía Server</h5>
+
+<p>Collections bên phía Server có nhiệm vụ nói chuyện với cơ sở dữ liệu MongoDB, đọc và viết những thay đổi. (Có thể xem Collection phía Server là một thư viện cơ sở dữ liệu chuẩn)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Posts.insert()
+Posts.update()
+Posts.remove()
+</code></pre>
+</div>
+
+<h5 id="collections-pha-client">Collections phía Client</h5>
+
+<p>Collections bên phía Client chứa tập hợp con của tất cả dữ liệu được lưu trong Mongo collection (Được gọi là MiniMongo và chúng được lưu trữ vào bộ nhớ của trình duyệt). Collection ở phía client giữ liên lạc trong thời gian thực và đồng bộ hóa với dữ liệu trên Server một cách thường xuyên.</p>
+
+<p>Ưu điểm của việc lưu collection phía client là chúng ta có thể truy cập đến dữ liệu ngay lập tức (mà không phải đi một con đường đến Server).</p>
+
+<p>==Vậy hỏi, làm sao để collection phía client đồng bộ dữ liệu với collection có cùng tên ở phía server, tìm hiểu cơ chế Meteor làm việc này như thế nào?==</p>
+
+<p>Đây là một dạng Magic của Meteor, chúng ta không cần yêu cầu cập nhật hay đồng bộ nào từ phía client đến server và ngược lại mà tự Meteor đã đảm nhận việc đó thay chúng ta.</p>
+
+<p><img src="http://i.imgur.com/R37Df6U.png" alt="Collection Client &amp; Server" /></p>
+
+<hr />
+<p>Mở rộng:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Collection.find([selector],[options])
+</code></pre>
+</div>
+<p>Trả về một cursor tới dữ liệu phù hợp với selector (Hay nói cách khác cursor là một reactive data source)…</p>
+
+<p><code class="highlighter-rouge">Collection.find().fetch()</code> mới trả về một mảng chứa dữ liệu nhưng Meteor cũng đủ thông minh để biết làm thế nào để lấy dữ liệu từ con trỏ mà không cần chuyển đổi thành mảng dữ liệu trước. Do đó, bạn sẽ thấy <code class="highlighter-rouge">fetch()</code> ít khi được dùng tới.</p>
+
+<p>Xem thêm tại http://docs.meteor.com/#/full/find</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>meteor reset # Xóa toàn bộ cơ sở dữ liệu Mongo của App, rất hữu ích trong quá trình phát triển dự án
+</code></pre>
+</div>
+<p>#### Meteor Publications &amp; Subscriptions</p>
+
+<p>Package <strong>AutoPublish</strong> (Được nhắc đến trong Step 11 của Meteor Tutorial - lúc đó, mình làm theo nhưng vẫn chưa thật rõ AutoPublish hay Publications trong Meteor có nhiệm vụ gì?). Mặc định khi bạn khởi tạo một dự án Meteor mới, Package Autopublish luôn được chạy, và nó rất không thích hợp với môi trường Production hay một dự án thương phẩm bởi Autopublish sẽ gửi toàn bộ Data về client. Để gỡ Autopublish, bạn cần gõ lệnh sau vào Terminal:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>meteor remove autopublish
+</code></pre>
+</div>
+
+<p>Và lưu ý rằng, khi đã gỡ autopublish thì bạn phải thêm các lệnh gọi <code class="highlighter-rouge">Meteor.publish()</code> và <code class="highlighter-rouge">Meteor.subscribe()</code> vào mỗi collection bạn muốn client hiển thị.</p>
+
+<p>Mục đích ban đầu của autopublish là để giúp cho việc bắt đầu code với Meteor được dễ dàng, bạn không cần hiểu về publications hay subscriptions để viết một ứng dụng meteor đơn giản và không quan trọng tới tốc độ cũng như hiệu suất. Dữ liệu tồn tại khắp nơi, và mọi thứ rất đơn giản.</p>
+
+<p><img src="http://i.imgur.com/uxpcPFl.png" alt="Autopublish" /></p>
+
+<p>Tiếp theo, chúng ta sẽ làm rõ hơn về Meteor Publications &amp; Meteor Subscriptions.</p>
+
+<h5 id="publications">Publications</h5>
+
+<p>Hãy bắt đầu từ một issue thực tế là Our app might contain tens of thousands of documents, some of which might even be private or sensitive. So we obviously shouldn’t just mirror our whole database on the client, for security and scalability reasons. 
+Như bạn biết thì khi tạo collection bên phía Client thì Meteor sẽ tạo một bản sao gồm toàn bộ dữ liệu của Collection đó ở máy client, vậy làm cách nào để ngăn chặn điều đó. Làm sao để chỉ Meteor subset of data cần gửi đến Client thay vì toàn bộ?</p>
+
+<p>Hình dung rằng chúng ta có một tập các Post như trong hình sau:</p>
+
+<p><img src="http://i.imgur.com/FKUiOri.png" alt="All Posts" /></p>
+
+<p>Làm sao để Dữ liệu gửi về client sẽ không bao gồm các Post bị đánh dấu flagged = true?</p>
+
+<p><img src="http://i.imgur.com/x1YMyfj.png" alt="Filtered" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// on the server
+Meteor.publish('posts', function() {
+  return Posts.find({flagged: false}); 
+});
+</code></pre>
+</div>
+
+<p>Bạn có thể viết một method isAdmin() để kiểm tra nếu Current User là Admin thì sẽ hiển thị toàn bộ bài Post như sau:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// on the server
+Meteor.publish('posts', function() {
+    if(isAdmin(this.userId)){
+        return Posts.find();
+    }else{
+      return Posts.find({flagged: false});
+    }
+});
+</code></pre>
+</div>
+<p>##### Subscriptions</p>
+
+<p>Mặc dù chúng ta đã filter bớt các bài Post có flagged=true nhưng chúng vẫn còn đến hàng ngàn bài và chúng ta không thể gửi ngần ấy bài cùng lúc cho phía Client. Chúng ta cần một cách cho client xác định cụ thể subset data mà họ cần tại một thời điểm nào đó và đó chính xác là nơi subscriptions được ra mắt.</p>
+
+<p>==Ví dụ, chúng ta chỉ muốn gửi về Client những bài Post của User viphat thì phải làm như thế nào?==</p>
+
+<p><img src="http://i.imgur.com/sHczNws.png" alt="Subset" /></p>
+
+<p>Đầu tiên là publications của chúng ta cần nhận thêm tham số</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// on the server
+Meteor.publish('posts', function(author) {
+  return Posts.find({flagged: false, author: author});
+});
+</code></pre>
+</div>
+
+<p>Và sau đó, bên phía client, chúng ta cần phải xác định author đó là ai và subscribe nó đến publications trên:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// on the client
+Meteor.subscribe('posts', 'viphat');
+</code></pre>
+</div>
+
+<h5 id="finding">Finding</h5>
+
+<p>Tiếp tục, Khi chúng ta đã có tất cả các bài Post của viphat và bạn muốn tìm kiếm sâu hơn, theo chuyên mục “meteor” chẳng hạn.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// on the client
+Template.posts.helpers({
+    meteorPosts: function(){
+      return Posts.find(author: 'viphat', category: 'meteor');
+    }
+});
+</code></pre>
+</div>
+<p>ở HTML Template, gọi `` để hiển thị.</p>
+
+<p><strong>Một ví dụ thực tế về Meteor Publications &amp; Meteor Subscriptions</strong></p>
+
+<p><img src="http://i.imgur.com/VYmKJZD.png" alt="Subscribe Twice" /></p>
+
+<p>Đọc thêm một bài viết khác về Publications và Subscriptions tại đây - <a href="https://www.discovermeteor.com/blog/understanding-meteor-publications-and-subscriptions/">Understanding Meteor Publications &amp; Subscriptions</a></p>
+
+<p>Tài liệu đầy đủ về publications &amp; subscriptions trên Meteor Document - <a href="http://docs.meteor.com/#/full/meteor_publish">Meteor Publish</a></p>
+
+<hr />
+
+<p>Mời các bạn đón xem phần 3 - Tập trung vào việc Định tuyến và Session trong Meteor nhé.</p>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

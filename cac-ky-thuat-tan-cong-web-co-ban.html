@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Các kỹ thuật Tấn công web cơ bản</title>
+  <meta name="description" content="Biết để phòng và chống.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/cac-ky-thuat-tan-cong-web-co-ban">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Biết để phòng và chống.</p>
+
+<h4 id="i-tng-quan">I. Tổng quan</h4>
+
+<p><img src="http://i.imgur.com/eY0s3wQ.png" alt="Thống kê" /></p>
+
+<h5 id="cc-nguy-c-i-vi-ng-dng-web">Các nguy cơ đối với ứng dụng web</h5>
+<ul>
+  <li>Tấn công vào hệ thống vận hành</li>
+  <li>Tấn công vào ứng dụng web</li>
+  <li>Tấn công vào công tác vận hành, quản trị: Khai thác điểm yếu trong cơ chế quản trị, người dùng.</li>
+  <li>Tấn công vào nền tảng phục vụ ứng dụng web: Khai thác vào lỗ hổng Web Server, máy chủ OS, DB, dịch vụ đang chạy trên máy chủ.</li>
+</ul>
+
+<h5 id="cc-li-an-ton-thng-tin-thng-gp">Các lỗi an toàn thông tin thường gặp</h5>
+
+<ul>
+  <li>SQL Injection.</li>
+  <li>XSS.</li>
+  <li>CSRF.</li>
+  <li>Kiểm soát các thao tác với file.</li>
+  <li>Mã hóa dữ liệu nhạy cảm.</li>
+  <li>Kiểm tra quyền truy cập của người dùng.</li>
+  <li>User Enumeration (lý do là mặc dù đã lỗi thời nhưng hiện giờ khi bạn đăng nhập vào các website sẽ vẫn báo một lỗi chung chung là “Incorrect email/password combination” thay vì cụ thể hơn như “The email you entered does not exist” bởi vì không cần thiết để một người có ý định tấn công website của bạn biết là họ đang đối diện với vấn đề nào.)</li>
+  <li>Session Fixation.</li>
+  <li>Session Hijacking.</li>
+  <li>Sử dụng Cookie an toàn.</li>
+  <li>Sử dụng Captcha an toàn.</li>
+</ul>
+
+<h5 id="mt-s-cng-c-ph-bin-dng-h-tr-pht-hin-li-an-ton-thng-tin-attt">Một số công cụ phổ biến dùng hỗ trợ phát hiện lỗi an toàn thông tin (ATTT)</h5>
+
+<ul>
+  <li>BurpSuite</li>
+  <li>Firebug</li>
+  <li>Temper Data</li>
+  <li>Hackbar</li>
+</ul>
+
+<h4 id="ii-gii-thiu-mt-s-li-attt">II. Giới thiệu một số lỗi ATTT</h4>
+
+<h6 id="csrf-cross-site-request-forgery">1. CSRF (Cross-Site Request Forgery)</h6>
+
+<ul>
+  <li>
+    <p><strong>Nguy cơ</strong>: là kiểu tấn công lừa người dùng thực hiện một hành động mà họ không mong muốn lên ứng dụng web, bằng chính quyền người dùng đó.</p>
+  </li>
+  <li><strong>Biện pháp</strong>: Sử dụng token (sinh ngẫu nhiên) trong các xử lý quan trọng, server kiểm tra tính hợp lệ của token này.</li>
+  <li><strong>Dò lỗi</strong> (Áp dụng cho các chức năng thêm, sửa, xóa dữ liệu):</li>
+  <li>Bước 1: xác định request thêm, sửa, xóa CSDL</li>
+  <li>Bước 2: kiểm tra cách chống CSRF token(token, bpid, state..)</li>
+  <li>Bước 3: Thực hiện các case như không có token, token khác null, token cũ.</li>
+  <li>Bước 4: Kiểm tra kết quả, nếu thực hiện thành công thì mắc lỗi CSRF.</li>
+</ul>
+
+<p><img src="http://i.imgur.com/nh7sC1p.png" alt="CSRF" /></p>
+
+<ul>
+  <li><strong>Fix lỗi</strong>:</li>
+  <li>Phía server: Tạo giá trị token và lưu vào session.</li>
+  <li>Trong các chức năng quan trọng: Viết code xử lý khi gửi request sẽ gửi kèm giá trị token.</li>
+  <li>Phía Server: kiểm tra tính hợp lệ của request bằng cách so sánh giá trị token gửi lên từ client và token lưu trong session.</li>
+  <li>Hợp lệ: Thực thi code, reset lại token và lưu lại trong session.</li>
+</ul>
+
+<h5 id="kim-sot-file-upload-ln-h-thng">2. Kiểm soát file upload lên hệ thống</h5>
+
+<ul>
+  <li><strong>Nguy cơ</strong>: Các chức năng upload file, dữ liệu lên server nếu không kiểm soát tốt dẫn đến upload các file không hợp lệ (như webshell, file cấu hình,…)</li>
+  <li><strong>Biện pháp</strong>: Kiểm soát phía server</li>
+  <li>Extension của file</li>
+  <li>Lọc các ký tự ‘/’, ‘\’, ký tự null</li>
+  <li>Sinh ngẫu nhiên tên file</li>
+  <li><strong>Fix lỗi</strong>
+<img src="http://i.imgur.com/8jGQ0ap.png" alt="File Upload 1" />
+<img src="http://i.imgur.com/2Qbt3In.png" alt="File Upload 2" /></li>
+</ul>
+
+<h5 id="path-traversal--download-file">3. Path Traversal – Download file</h5>
+
+<ul>
+  <li><strong>Nguy cơ</strong>: Các xử lý download qua action truyền filename nếu không xử lý filename dẫn đến attacker có thể download các file config của ứng dụng hay cấu hình server.</li>
+  <li><strong>Biện pháp</strong>: Trước khi xử lý, cần lọc các ký tự ‘/’, ‘\’, ký tự null.</li>
+  <li><strong>Fix lỗi</strong>:
+<img src="http://i.imgur.com/xQmy0Zr.png" alt="Path Traversal 1" />
+<img src="http://i.imgur.com/2Qbt3In.png" alt="Path Traversal 2" /></li>
+</ul>
+
+<h5 id="m-ha-d-liu-nhy-cm">4. Mã hóa dữ liệu nhạy cảm</h5>
+
+<ul>
+  <li>
+    <p><strong>Nguy cơ</strong>: Bằng một cách nào đó (khai thác lỗ hổng hoặc có quyền truy cập DB), Attacker lấy được các thông tin nhạy cảm trong DB. Các thông tin sẽ bị lộ nếu không mã hóa hoặc mã hóa không an toàn.</p>
+  </li>
+  <li>
+    <p><strong>Biện pháp</strong>: Mã hóa dữ liệu nhạy cảm trong DB, các hàm mã hóa 1 chiều phải dùng Salt.</p>
+  </li>
+  <li>
+    <p><strong>Fix lỗi</strong>:</p>
+  </li>
+</ul>
+
+<p><img src="http://i.imgur.com/17oldHm.png" alt="Encrypt" />
+<img src="http://i.imgur.com/suIWgFH.png" alt="Encrypt" /></p>
+
+<h5 id="phn-quyn">5. Phân quyền</h5>
+
+<ul>
+  <li><strong>Nguy cơ</strong>: Một hệ thống phân quyền không tốt, dẫn đến người dùng có thể truy cập đến các chức năng, dữ liệu không được phép.</li>
+  <li><strong>Biện pháp</strong>:</li>
+  <li>Kiểm tra quyền trong request gửi lên server</li>
+  <li>Người dùng có được phép thực hiện chức năng?</li>
+  <li>Người dùng thực hiện chức năng trên vùng dữ liệu cho phép?</li>
+  <li><strong>Fix lỗi</strong>:</li>
+</ul>
+
+<p><img src="http://i.imgur.com/uTCkln9.png" alt="Get List Users" />
+<img src="http://i.imgur.com/1Iom5lW.png" alt="User Details" /></p>
+
+<h5 id="s-dng-captcha-an-ton">6. Sử dụng captcha an toàn</h5>
+
+<ul>
+  <li>
+    <p><strong>Nguy cơ</strong>: Với các chức năng quan trọng, attacker có thể sử dụng công cụ tự động đến khi đạt được mục đích.</p>
+  </li>
+  <li>
+    <p><strong>Biện pháp</strong>: Sử dụng Captcha cho các chức năng quan trọng này.</p>
+  </li>
+</ul>
+
+<h5 id="user-enumeration">7. User enumeration</h5>
+
+<ul>
+  <li><strong>Nguy cơ</strong>:</li>
+  <li>Trong chức năng đăng nhập, nếu thông báo lỗi quá chi tiết dẫn đến attacker có thể thử và tìm ra thông tin user có trên hệ thống.</li>
+  <li>
+    <p>Với chức năng như reset password, forgot password, đăng ký cho phép thông báo user đúng hay sai dẫn đến attacker có thể thử và tìm ra thông tin user có trên hệ thống.</p>
+  </li>
+  <li><strong>Biện pháp</strong>:</li>
+  <li>Sử dụng chung thông báo lỗi cho trường hợp login sai username hay password.</li>
+  <li>
+    <p>Sử dụng captcha cho các chức năng đăng ký, reset, forgot password.</p>
+  </li>
+  <li><strong>Fix lỗi</strong>:
+<img src="http://i.imgur.com/K1ioVme.png" alt="User Enumeration" /></li>
+</ul>
+
+<h4 id="iii-kt-lun">III. Kết Luận</h4>
+
+<p>Có rất nhiều lỗ hổng và các kỹ thuật tấn công trong quá trình lập trình và phát triển một website đòi hỏi developer cần phải nắm chắc kiến thức lập trình cũng như có khả năng điều khiển tốt mã nguồn của mình.</p>
+
+<p>Trên đây, tôi nêu ra một số kỹ thuật tấn công cơ bản và cách fix nó. Bên cạnh đó, developer cần:</p>
+
+<p>Tiếp tục nghiên cứu những nguy cơ và cách phòng chống cho các nguy cơ đó. Tìm hiểu thêm về các công cụ kiểm tra lỗi bảo mật đang được phát triển hiện nay và học cách ứng dụng chúng vào trong thực tiễn công việc của mình.</p>
+
+<p><strong>Nguồn bài viết</strong>: 
+https://viblo.asia/nguyen.thi.hong.nhung/posts/7ymwGXLYG4p1</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

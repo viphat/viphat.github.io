@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>[TIL] Paperclip Fingerprint</title>
+  <meta name="description" content="Paperclip Fingerprint">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/paperclip-fingerprint">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <h3 id="paperclip-fingerprint">Paperclip Fingerprint</h3>
+
+<p>Tình huống của hôm nay là Sếp bỗng dưng muốn chuyển tất cả assets của ứng dụng từ <strong>Amazon S3</strong> về <strong>VCCloud CDN</strong> (đang khuyến mãi gói 100 GB miễn phí, giá tính ra không đắt hơn Amazon S3 nhiều lắm và được khoản Servers đặt ở Hà Nội - Đà Nẵng - Hồ Chí Minh nên thích hợp cho App có lượng lớn truy cập từ VN.)</p>
+
+<p>Sử dụng CDN của VCCloud cũng đơn giản, chẳng phải setup nhiều, chỉ add domain của S3 Bucket vào là chạy được ngay (Enable Static Web Hosting cho Bucket S3 để có sub-domain riêng). Nhưng đẻ ra một vấn đề là trước đây, dùng Paperclip để upload users’s file lên S3 mà không có fingerprint, giờ mà dùng CDN thì hỏng bét, nếu file ở S3 có thay đổi thì CDN vẫn serve file cũ. »&gt; Enable Fingerprint vào tên file cho Paperclip</p>
+
+<p>1 . Tạo <em>Migration</em>  cho tất cả các cột có sử dụng Paperclip handle attachment</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">AddAvatarFingerPrintToUsers</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">change</span>
+    <span class="n">add_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:avatar_fingerprint</span><span class="p">,</span> <span class="ss">:string</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>2 . Thêm Fingerprint vào tên file (đây là ví dụ cho trường hợp của mình)</p>
+
+<p><code class="highlighter-rouge">config/initializers/paperclip.rb</code></p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="no">Paperclip</span><span class="o">::</span><span class="no">Attachment</span><span class="p">.</span><span class="nf">default_options</span><span class="p">.</span><span class="nf">merge!</span> <span class="p">{</span>
+  <span class="ss">:path</span> <span class="o">=&gt;</span> <span class="s2">":class/:attachment/:id_:style_:fingerprint.:extension"</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>Xong bước này thì tất cả file mới upload sau này đều có fingerprint.</p>
+
+<p>3 . Xử lý file đã upload trước đây bằng cách chạy rake sau:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="no">RAILS_ENV</span><span class="o">=</span><span class="n">production</span> <span class="n">rake</span> <span class="n">paperclip</span><span class="ss">:refresh</span> <span class="no">CLASS</span><span class="o">=</span><span class="n">model_name</span>
+</code></pre>
+</div>
+
+<p>3b . Nếu không muốn chạy Rake trên thì có thể xử lý thủ công bằng:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">users_to_reprocess</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="n">user</span><span class="p">.</span><span class="nf">avatar</span><span class="p">.</span><span class="nf">reprocess!</span>
+<span class="k">end</span>
+
+</code></pre>
+</div>
+
+<p>viphat@13-05-2016</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Become Better Ruby Developer</title>
+  <meta name="description" content="Practice Ruby outside of Rails">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/become-better-ruby-developer">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <h4 id="practice-ruby-outside-of-rails">Practice Ruby outside of Rails</h4>
+
+<ul>
+  <li>
+    <p>Rất nhiều Ruby Developers bỏ qua Ruby mà làm quen trực tiếp với Rails và sau đó thường không phân biệt được method nào là một phần của Rails và method nào là Ruby thuần (<code class="highlighter-rouge">nil?</code> - <code class="highlighter-rouge">present?</code>, <code class="highlighter-rouge">include?</code> vs <code class="highlighter-rouge">in?</code>, <code class="highlighter-rouge">blank?</code> vs <code class="highlighter-rouge">empty?</code>). Nên nhớ, Rails chỉ là một phần của Ruby chứ không phải tất cả. Lời khuyên dành cho tôi cũng như cho các bạn nếu muốn trở thành một lập trình viên Ruby giỏi hơn đó là hãy tạo nhiều dự án thuần ruby, hoặc sử dụng những framework khác (như Lotus, Sinatra) để tránh lệ thuộc vào Rails.</p>
+  </li>
+  <li>
+    <p>Nếu bạn không biết bắt đầu từ đâu, đơn giản là có thể tìm và giải các bài tập nhỏ trên <a href="http://viphat.me/1T1NHwY">codewars.com</a> (ngày trước mình cũng tập tành Ruby trong Codewars, được 4 kyu rồi thì phải), <a href="http://viphat.me/1mo95SK">projecteuler.net</a>, <a href="http://viphat.me/227s2tA">exercism.io</a> bằng ngôn ngữ Ruby.</p>
+  </li>
+</ul>
+
+<h4 id="master-your-editor">Master your Editor</h4>
+
+<ul>
+  <li>Cho dù Code Editor yêu thích của bạn là gì cũng đều ổn cả: vim, sublime, notepad, atom, brackets… Nhưng hãy cố gắng sử dụng thuần thục và tận dụng được những thứ tốt nhất của Code Editor mà bạn đã chọn. Nó có một hệ thống plugins phong phú hay không? Nó có hệ thống snippet/macro để giúp bạn làm việc hiệu quả hơn hay không? Nó có làm cho cuộc sống và công việc của bạn trở nên dễ dàng hơn?</li>
+</ul>
+
+<h4 id="read-source-code">Read Source Code</h4>
+
+<ul>
+  <li>Làm việc trong dự án của riêng bạn thì cũng tốt thôi nhưng để tiến bộ hơn bản thân bạn của ngày hôm qua, một cách hữu hiệu là học từ người khác, review code của người làm chung cũng là một cách, đọc và phân tích code của các Open Source Project trên Github để thấy cách mà những người giỏi họ tổ chức, đặt tên và giải quyết vấn đề như thế nào?</li>
+  <li>Một số câu hỏi dùng để định hướng khi bạn đọc Code của người khác:</li>
+  <li><strong>What is this code doing?</strong></li>
+  <li><strong>What can I learn from it?</strong></li>
+  <li>
+    <p><strong>Can it be improved?</strong></p>
+  </li>
+  <li>Một tip hay là đừng đơn giản chỉ sử dụng các Gem của Ruby mà hãy sử dụng chức năng <code class="highlighter-rouge">gem open</code>, đọc code của gem, vọc vạch nó nếu có thể.</li>
+</ul>
+
+<h4 id="read-the-docs">Read the Docs</h4>
+
+<ul>
+  <li>Nếu có thời gian thì chịu khó dành ra mỗi ngày một chút để đọc <a href="http://viphat.me/1P8ah7Z"><strong>Ruby Document</strong></a> hoặc Ruby Document offline bằng <a href="http://viphat.me/1k2IPM4"><strong>Zeal</strong></a>. Phương pháp mỗi ngày một ít này có thể giúp bạn tiến bộ nhanh hơn là bạn tưởng.</li>
+</ul>
+
+<h4 id="improve-your-programming-style">Improve your programming style</h4>
+
+<ul>
+  <li>Nói thật, mình vốn là người code rất bừa bãi, và hay bất tuân theo các convention hoặc best practice và đó là điều mình cải thiện trong thời gian tới. Việc định hình phong cách lập trình của bạn cũng là một cách để xây dựng thương hiệu cá nhân trong giới lập trình viên: phải làm thế nào để code bạn trở nên dễ đọc hơn? nếu chưa, chịu khó refactor lại hen?</li>
+</ul>
+
+<p><img src="http://i.imgur.com/8DRnaz1.png" alt="Readable Code" /></p>
+
+<ul>
+  <li>Với Ruby thì có một bộ style guide được nhiều người follow và đóng góp hoàn thiện là <a href="http://viphat.me/1OwgOVo"><strong>bbatsov’s Ruby Style Guide</strong></a> và công cụ <strong>Rubocop</strong> (có plugins cho các Code Editor phổ biến) sử dụng ruby-style-guide trên để tự động kiểm tra code của bạn và nhắc nhở khi vi phạm.</li>
+</ul>
+
+<p>Lược dịch từ tài liệu trang web <a href="http://viphat.me/1Qsqeal"><strong>www.blackbytes.info</strong></a>.</p>
+
+<p>Tham khảo thêm:</p>
+
+<ul>
+  <li>
+    <p><a href="http://viphat.me/1RoGAkF"><strong>Write Elegant and Readable Code</strong></a></p>
+  </li>
+  <li>
+    <p><a href="http://viphat.me/1Yh7cs8"><strong>Slides - Best Practices for writing super readable code</strong></a></p>
+  </li>
+</ul>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

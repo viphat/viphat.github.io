@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 3 - Measuring & Monitoring Performance - Lean Websites</title>
+  <meta name="description" content="Một trong những kiến thức quan trọng trong việc tối ưu Performance là bạn phải biết cách đo và theo dõi chúng.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/chapter-3-measuring">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Một trong những kiến thức quan trọng trong việc tối ưu Performance là bạn phải biết cách đo và theo dõi chúng.</p>
+
+<h4 id="http-archive-tracking-performance-trends">HTTP Archive: Tracking Performance Trends</h4>
+
+<p><a href="http://httparchive.org/">HTTP Archive</a> là dịch vụ miễn phí, nó thu thập dữ liệu từ các Website trong top 1 triệu của Alexa để xác định các xu hướng như PageSize, thời gian tải (load time), CDN Usage,  distribution of different content types (Hình ảnh, javaascript…), và nhiều thông kê thú vị khác (xem thêm - http://httparchive.org/interesting.php).</p>
+
+<h4 id="useful-performance-tools">Useful Performance Tools</h4>
+
+<p>Các dịch vụ có thu phí để đo performance của website:</p>
+
+<ul>
+  <li><a href="http://newrelic.com/application-monitoring">New Relic</a></li>
+  <li><a href="http://www.keynote.com/">Keynote</a></li>
+  <li><a href="http://www.neustar.biz/">Neustar</a></li>
+</ul>
+
+<p>Các ứng dụng OpenSource hoặc miễn phí để thay thế là</p>
+
+<ul>
+  <li>Developer Tool của các trình duyệt Web.</li>
+  <li><a href="http://www.webpagetest.org/">WebPageTest</a></li>
+</ul>
+
+<p><strong>Firefox Developer Tools</strong>
+<img src="http://i.imgur.com/y6dtVAX.png" alt="Firefox" /></p>
+
+<p><strong>Chrome Timeline Tab</strong>
+<img src="http://i.imgur.com/HQVFXee.png" alt="Google Chrome" /></p>
+
+<p><strong>Chrome Audit Tab</strong>
+<img src="http://i.imgur.com/RLxNvou.png" alt="Google Chrome Audit" /></p>
+
+<p>Thẻ Audit của Google Chrome có thể phân tích trang trong khi tải, và đưa ra một số lời khuyến nghị để cải thiện Performance.</p>
+
+<h5 id="resource-waterfall">Resource Waterfall</h5>
+
+<p>Optimizing performance is about knowing how and when to load assets and avoiding any blocking of content: that’s where the resource waterfall comes in handy.</p>
+
+<p>Most of the performance tools I’ve mentioned so far include a resource waterfall (accessible via the Network tab in the developer tools of your browser). You got a glimpse of the resource waterfall when we looked at the basic information about sitepoint.com in Firefox’s Network tab previously. So why is this view so important? Each web page consists of HTTP transactions (requests and responses). Bundled together, these make a website appear in your browser. They comprise the assets and resources of your website. The easiest way to visually represent all these HTTP requests is to plot them onto a so-called “waterfall”. The reason why the resources are aligned in a waterfall is because the browser can’t download all the resources at once. The browser follows rules for downloading each component, either in parallel or sequentially.</p>
+
+<p><img src="http://i.imgur.com/bAcIAnD.png" alt="Resource Waterfall" /></p>
+
+<h5 id="webpagetest">WebPagetest</h5>
+
+<p>Như đã giới thiệu ở trên WebPageTest là công cụ miễn phí giúp bạn phân tích performance của Trang Web của bạn. Ở WPT, có một số thông số trong kết quả phân tích mà bạn cần nắm:</p>
+
+<ol>
+  <li>
+    <p>Load Time
+The Load Time is measured as the time from the start of the initial navigation until the beginning of the window load event (onload).</p>
+  </li>
+  <li>
+    <p>First Byte
+The First Byte time is measured as the time from the start of the initial navigation until the first byte of the base page is received by the browser (after following redirects).</p>
+  </li>
+  <li>
+    <p>Start Render
+The Start Render time is the first point in time that content starts to appear in the browser. This could even just be the background color, or the logo at the top corner of the page. The Start Render time is also plotted in the waterfall as a green line, which ideally should appear as early as possible.</p>
+  </li>
+  <li>
+    <p>Document Complete (or Page Load Time)
+Document Complete (often also referred to as Page Load Time) records when the initial page loading process is complete. You can also capture this moment via JavaScript’s window.onload() event. For heavy websites, page load can take significant amount of time. Images and content not pushed via JavaScript will be fully loaded at this point in time, including non-visible elements. However, if JavaScript is being used to trigger the push of content (via Ajax calls, for example), they may not be included. To count these events, you should be looking at the “Fully Loaded” figures.</p>
+  </li>
+  <li>
+    <p>Fully Loaded
+Fully Loaded time occurs when all assets of the page have been loaded, including any activity that is triggered by JavaScript after the main content has loaded.</p>
+  </li>
+</ol>
+
+<h5 id="dedicated-perceived-performance-metrics">Dedicated Perceived Performance Metrics</h5>
+
+<p>Ngoài các thông số mà WPT cung cấp, có một số đơn vị đo lường khác trong WPT Performance mà bạn cũng nên biết qua:</p>
+
+<p><strong>Above Fold Time</strong></p>
+
+<p>The Above Fold Time (AFT) is an important metric that can be used to quantify the perceived performance of a website.</p>
+
+<p>AFT is a measure of the time required to fully render just the part of the page users can initially see on their screen. The browser may still be loading assets further down the page below the fold. AFT can provide a better indication of how the user experiences performance than page load time (PLT).</p>
+
+<p><strong>Speed Index</strong></p>
+
+<p>The average time at which visible parts of the page are displayed. The results are presented in milliseconds. The smaller the number, the better the site’s performance.</p>
+
+<p>Speed Index data can be used for A/B testing or general competitor comparison.</p>
+
+<table border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Website</th><th>Speed Index</th></tr></thead><tbody><tr><td>facebook.com</td><td>3524</td></tr><tr><td>twitter.com</td><td>2604</td></tr><tr><td>sitepoint.com</td><td>1342</td></tr><tr><td>time.com</td><td>10784</td></tr></tbody></table>
+
+<blockquote>
+  <p><strong>A/B Testing</strong></p>
+
+  <p>A/B testing involves presenting different users with two different versions (A and B) of your site. This process lets you compare the results between the two versions.</p>
+</blockquote>
+
+<p><strong>PageSpeed</strong></p>
+
+<p>Google’s answer to Speed Index is the PageSpeed score. It goes from 0 to 100 points, where a higher score is better. Google considers a score of 85 to be a page that is performing well. The PageSpeed score can be obtained by running the PageSpeed Insights tool on your page:</p>
+
+<table border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Website</th><th>PageSpeed</th></tr></thead><tbody><tr><td>facebook.com</td><td>99</td></tr><tr><td>twitter.com</td><td>99</td></tr><tr><td>sitepoint.com</td><td>95</td></tr><tr><td>time.com</td><td>82</td></tr></tbody></table>
+
+<p>As you can see from the results of both performance tests above, PageSpeed and Speed Index seem not to match up fully with their judging criteria. While Speed Index focuses mostly on the ATF visibility and interactivity, Page Speed also factors in the time it takes to load the page fully.</p>
+
+<h4 id="anatomy-of-an-http-transaction">Anatomy of an HTTP Transaction</h4>
+
+<p>Let’s have a closer look at how each asset of a page is loaded.</p>
+
+<p>Each item in the resource waterfall represents a network transaction, also called an HTTP transaction. An HTTP transaction describes the process of a client making a single request for HTTP content. When we talk about HTTP content, we normally refer to anything that can be received by the browser, in so-called content types.</p>
+
+<p>Content types can be scripts, images, HTML, text, Flash, Excel or Word documents etc.—basically anything that can be served to, and displayed by, the browser. Any other content type that is not supported and can’t be displayed will be offered as a download. The various content types are color-coded in the waterfall, as we saw previously.</p>
+
+<p>Dưới đây là hình ảnh Waterfall của Trang time.com:</p>
+
+<p><img src="http://i.imgur.com/MPJfrIZ.png" alt="Time.com" /></p>
+
+<p>Nếu như bạn chú ý thì Time.com có sử dụng Twitter Widget, và không hay là nó được tải về khá sớm so với các thành phần quan trọng khác của trang.</p>
+
+<p><img src="http://i.imgur.com/8akYhG1.png" alt="Twitter Javascript" /></p>
+
+<p>Overall, it took the browser 334ms to load this file. The transaction shown in this waterfall consists of five different bars, each color-coded. The third one is the longest. This bar shows the time that was spent for the SSL negotiation.</p>
+
+<p>So what does that all mean? Why did this event take the longest amount of time? And what do the other bars represent? Let’s take a closer look. The image below breaks down this HTTP transaction:</p>
+
+<p><img src="http://i.imgur.com/fKGUoSB.png" alt="Chi tiết" /></p>
+
+<p>Let’s examine these from the left to right.</p>
+
+<p><strong>DNS Lookup</strong></p>
+
+<p>DNS stands for Domain Name System. During the DNS lookup, the browser attempts to look up the domain of the asset it is trying to load. Each human-friendly URL has a computer-friendly IP address. You can use both in your browser. For example, www.sitepoint.com maps to 54.221.218.251.</p>
+
+<p>There are many variables that can cause a <a href="https://www.igvita.com/posa/high-performance-networking-in-google-chrome/">delay</a> during this event.</p>
+
+<p><strong>Initial Connection</strong></p>
+
+<p>The initial connection occurs when the client and server perform a “handshake” to start communicating with each other over Transmission Control Protocol (TCP). The browser basically says “Hello, I want to request some stuff, are you available?” and the server says “Yes, I’m here, send away.”</p>
+
+<p>So what could cause a delay for this event? Each party needs to wait until the other party “has spoken”. The server can’t send anything until the browser has received the “Yes, I’m here, send away.”</p>
+
+<p>The travel time to communicate from sender to receiver is governed by speed of light limitations: the further they are apart from each other, the longer it will take to set up the TCP connection.</p>
+
+<p><strong>SSL Negotiation</strong></p>
+
+<p>Secure Socket Layer (SSL) enables secure communication. It’s a protocol for encrypting information over the Internet (using https:// instead of http://). HTTPS in the scheme instructs the browser to perform a secure handshake.</p>
+
+<p><strong>Time to First Byte</strong></p>
+
+<p>Time to First Byte (TTFB) occurs after the TCP handshake has successfully been executed, and after the browser and server have started talking to each other—when the first byte is actually sent to the browser.</p>
+
+<p>This metric also represents latency. The bigger the green bar, the higher the latency. Depending on your location and/or the device you’re using, you will notice smaller or bigger latency.</p>
+
+<p><strong>Latency</strong></p>
+
+<p>Latency is the time it takes for the content to be requested by, and sent to, your browser. Latency can vary. It is affected by the distance the data has to travel and the medium that conducts it. You experience higher latency particularly on mobile networks. Why? The radio of your device needs to find the closest tower to establish a connection. If the device is idle, it can take even longer.</p>
+
+<p>TTFB comprises two factors: the actual physical distance from the browser to the server, and the processing time of the server. It can be summed up in the following formula: TTFB = Round trip network latency + back-end processing time.</p>
+
+<p>Research that tested around 300 uncached websites showed the largest web page load time component to be TTFB, followed by DNS lookup, connection time, and download time. Even for cached websites, TTFB was still the biggest load time component, followed by connection time, download time and DNS lookup. Hence it’s worth focusing on optimizing TTFB.</p>
+
+<p>If the TTFB is slow, other metrics will suffer from this delay, creating a chain reaction.</p>
+
+<p><strong>Content Download</strong></p>
+
+<p>This event occurs when the asset you requested actually starts to show up in your browser. You sometimes can guess by looking at the length of the blue bar how big the asset actually is. Images, for example, tend to have a bigger blue bar. The bigger the blue bar, the larger the actual asset, and hence the more time it takes to be sent over the wire.</p>
+
+<p>Minimizing the file size of the asset is key to optimizing the amount of time spent on Content Download.</p>
+
+<p><strong>Unpredictable Side Effects: Connection Speed, Bandwidth and Latency</strong></p>
+
+<p>While we can influence the performance factors mentioned above, those we’ll discus in this section are mostly beyond our control, but are still important to keep in mind when developing lean websites.</p>
+
+<p><strong>Bandwidth and Latency</strong></p>
+
+<p>It’s important to consider your users’ average bandwidth (connection speed)—which varies a lot between regions—when developing your website. The greater your users’ bandwidth, the faster they’re likely to retrieve your website.</p>
+
+<p><a href="http://www.akamai.com/dl/akamai/akamai-soti-q114.pdf?WT.mc_id=soti_Q114">Akamai State of Internet Report</a></p>
+
+<p>However, while bandwidth will likely improve in years to come, the latency that comes with it is not an easy problem to solve. Improving latency requires updates and enhancements—such as shorter cables through the oceans.</p>
+
+<p><strong>Last Mile Latency</strong></p>
+
+<p>Last mile latency refers to the latency between your request and your Internet service provider (ISP). Although you may think most of the latency comes from the travel time between the cabling from continent A to B, it’s actually on the way from your browser to your ISP where most of the latency bottleneck resides. This latency depends on the cabling from the end user’s house to the provider, the technology being deployed, and the time of the day. Picking a provider based on these criteria will help to reduce latency for the end user. However, this is something you can’t much influence as a website owner.</p>
+
+<p><code class="highlighter-rouge">traceroute</code> is a command line tool for measuring latency (for example, between you and your ISP). Here’s an example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>traceroute to bbinto.me (23.229.170.160), 64 hops max, 52 byte 
+➥packets
+1  7.11.164.201 (7.11.164.201)  22.272 ms  8.525 ms  8.197 ms
+2  7.11.164.201 (7.11.164.201)  7.846 ms  11.971 ms  33.085 ms
+3  209.148.243.105 (209.148.243.105)  24.445 ms  13.891 ms  11.978 
+➥ms // my ISP
+...
+13 be38.trmc0215-01.ars.mgmt.phx3.gdg (184.168.0.69)  100.097 ms  
+➥67.337 ms  74.092 ms
+</code></pre>
+</div>
+
+<p>Line #3 shows the latency to my ISP, measured three times, ranging from around 12ms to 25ms. The first column describes the hops that the request has to “go through” to get to bbinto.me. It took 13 hops to get to bbinto.me: line #13 describes the GoDaddy server, the final destination.</p>
+
+<h4 id="monitoring-performance">Monitoring Performance</h4>
+
+<p>Nếu như phần đầu tiên của chương là nhằm giới thiệu các thang đo của Web Performance thì ở phần còn lại này, chúng ta sẽ dùng các công cụ chuyên dụng: đọc kết quả từ chúng, phân tích và phát hiện vấn đề về Performance mà Web đang gặp phải.</p>
+
+<p>Có 2 kiểu Monitor chính là <strong>Synthetic Measurements</strong> (Synthetic testing is the most common and controllable measurement tool available to developers. As opposed to real user monitoring, synthetic testing is done by you and is in your control. You decide when and how to run a test on your website. You can choose the specific conditions, such as the browser, network condition and/or geographical location.) và <strong>Real User Monitoring</strong> (While synthetic testing focuses on one particular setup and doesn’t show the “real” experience of a user, real user monitoring (RUM) tells you what an actual user is experiencing. It can’t tell you how the user feels about the performance, but it will give you a good sense of how long it took them to view your page.)</p>
+
+<h5 id="synthetic-measurements">Synthetic Measurements</h5>
+
+<p>2 công cụ chính được mọi người sử dụng thường xuyên là <a href="http://www.webpagetest.org/"><strong>WebPageTest</strong></a> và <a href="https://developers.google.com/speed/pagespeed/insights/"><strong>Google PageSpeed Insight</strong></a>.</p>
+
+<ul>
+  <li>
+    <p>Học cách sử bằng các công cụ trên hiệu quả nhất chính là thực hành rồi tự kiểm nghiệm, đọc hiểu kết quả mà <strong>WebPageTest</strong> hay <strong>Google PageSpeed Insight</strong> chỉ ra cho bạn.</p>
+  </li>
+  <li>
+    <p><a href="https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/quick-start-quide"><strong>Tài liệu về WebPageTest</strong></a>.</p>
+  </li>
+  <li>
+    <p>Nếu bạn có nhu cầu sử dụng <strong>WebPageTest</strong> thường xuyên thì bạn có thể cân nhắc việc tự cài một Instance của WPT trên Server của mình thay vì xếp hàng đợi đến lượt của mình trên WebPageTest.org - Tham khảo thêm cách <a href="https://sites.google.com/a/webpagetest.org/docs/private-instances"><strong>Tự cài đặt WPT Instance</strong></a>.</p>
+  </li>
+  <li>
+    <p><strong>Google PageSpeed Insight</strong> có module dành riêng cho Apache và Nginx để tự động apply các web performance best practices mà không yêu cầu bạn phải làm thêm bất cứ can thiệp nào vào ứng dụng Web của bạn. Đọc thêm:</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/pagespeed/ngx_pagespeed"><strong>PageSpeed Nginx</strong></a></p>
+  </li>
+  <li>
+    <p><a href="https://moz.com/ugc/use-googles-pagespeed-module-to-dramatically-increase-the-speed-of-your-website"><strong>Use Google’s PageSpeed Module to Dramatically increase the speed of your Website</strong></a></p>
+  </li>
+  <li>
+    <p><a href="http://xmodulo.com/speed-nginx-web-server-pagespeed.html"><strong>How to speed up Nginx web server with PageSpeed</strong></a></p>
+  </li>
+  <li>
+    <p>Có thể sử dụng API của WebPageTest và Google PageSpeed Insight.</p>
+  </li>
+</ul>
+
+<p>Các công cụ khác: Firebug, Developer Tools của các trình duyệt, YSlow, PageSpeed Insight plugin for Chrome &amp; Firefox, ShowSlow (tổng hợp kết quả từ các công cụ chính như YSlow, PageSpeed và WebPageTest).</p>
+
+<h5 id="real-user-monitoring">Real User Monitoring</h5>
+
+<p>RUM can help you collect a lot of information about your users that synthetic testing can’t, such as:</p>
+
+<ul>
+  <li>
+    <p>Cache: RUM helps to better understand how much of your content is being cached by users.</p>
+  </li>
+  <li>
+    <p>Hardware: RUM can reveal detailed information about the user’s CPU, GPU and memory performance.</p>
+  </li>
+  <li>
+    <p>Browsers: RUM can identify what kind of browsers load different pages.</p>
+  </li>
+  <li>
+    <p>Connectivity: Internet connections can drop any moment (especially on mobile). RUM can help figure out where connections are slower.</p>
+  </li>
+</ul>
+
+<p>Load times can vary a lot, based on several outside factors that you can’t influence as a web developer. With RUM, you can get a better sense of what your actual users are experiencing in this regard. My own RUM experiences have revealed surprising data on how many people have lower or higher bandwidth than I originally expected.</p>
+
+<p>So, how does RUM work? In order to perform real user monitoring, you need access to the user’s browser data. There are two main APIs that help us collect and evaluate performance data coming right from our user’s browser.</p>
+
+<p><strong>Navigation Timing</strong></p>
+
+<p>The Navigation Timing API allows developers to inquire about the page’s performance via JavaScript. It’s a great way to understand the end-to-end latency that your user experiences. The good news is that it’s supported by most browsers.</p>
+
+<p><img src="http://i.imgur.com/UL5mAXe.png" alt="Navigation Timing API" /></p>
+
+<p>All of the above commands can be accessed via JavaScript to retrieve timing information for your page. Measuring the time of the events helps you assess the different phases of loading a page.</p>
+
+<p>For example, imagine you want to retrieve the total page load time (PLT) via JavaScript. The following example does exactly that:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var page = performance.timing,
+    plt = page.loadEventStart - page.navigationStart,
+
+console.log(plt); // 34986, PLT output for specific user in ms;
+</code></pre>
+</div>
+
+<p>Navigation timing only covers data concerning the entire page. So using this API might reveal that your page is slow, but what do you do then? To actually identify and diagnose performance issues with it, you need to look closer at each individual resource.</p>
+
+<p>That’s where the Resource Timing API comes in handy. It makes it possible to examine performance data for specific resources.</p>
+
+<p><strong>Resource Timing</strong></p>
+
+<p>The Resource Timing API is a bit newer and not as well supported as the Navigation Timing API. With the Resource Timing API, you can dig deeper into understanding the behaviour of individual resources. Imagine you put an image on your page but you aren’t sure how it performs in the real world. You want to know the TTFB data for this image.</p>
+
+<p>As an example, let’s pick the sitepoint.com logo:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var img = window.performance.getEntriesByName("http://www.sitepoint.
+➥com/wp-content/themes/sitepoint/assets/svg/sitepoint.svg")[0];
+var ttfb = parseInt(img.responseStart - img.startTime),
+total = parseInt(img.responseEnd - img.startTime);
+console.log(ttfb); // output 85 (in ms)
+console.log(total); // output 98 (in ms)
+
+// you could now log this somewhere in a database 
+//or send an image beacon to your server
+logPerformanceData('main logo', ttfb, total);
+
+</code></pre>
+</div>
+
+<p><strong>Free RUM Tools</strong></p>
+
+<p><strong>Boomerang</strong></p>
+
+<p>Boomerang is an open source RUM tool that you are free to use under the GNU license.</p>
+
+<p>Boomerang is based on the Navigation and Resource Timing APIs, collecting all information needed for assessing the performance and user experience of your site. For example, it can do anything that I’ve mentioned about the timing APIs above. You can examine such things as how long the DNS lookup took for a particular user, or what issues arose for a particular user demographic.</p>
+
+<p>You can process and funnel RUM data into a beacon parsed by a script from your web server log files. This could then be put into a database or any other data storage. In Chapter 4, I’ll show you how to analyze RUM data via boomerang.</p>
+
+<p><strong>Google Analytics</strong></p>
+
+<p>Most performance measurements are recorded in median averages rather than mean. Google Analytics (GA), however, is measured in mean. This approach might not seem too well suited to your goal, as it could also include outliers that skew your results. In addition, Google’s RUM sample rate is low, potentially not providing you with accurate real measurements.</p>
+
+<p>However, if you already use GA and don’t want to pay for a RUM service, or don’t want to build your own RUM tracking tool, it’s a great place to start.</p>
+
+<hr />
+
+<p><strong>Arithmetic Mean (average)</strong>: take all values in your data set, and divide it by the total number of data points you summed up. Outliers are included in the calculation and this could result in skewing your data by pulling you away from the centre. Be aware that calculating outliers might change the entire meaning of your numbers and could cause false interpretations.</p>
+
+<p><strong>Median</strong>: the most common measurement used in web performance. Line up each value in a selected data set in ascending order, and the single value in the middle of those values is your median. This approach gives you a more accurate representation of the load time of your website, seen by actual visitors.</p>
+
+<p><strong>95th percentile</strong>: In order to measure performance, some also use the high percentiles like 80th, 90th or 95th percentile instead of the median (50th percentile). For example, if the 95th percentile of a response time is 1000ms, that means that 5% of the collected data points are slower than 1000ms and 95% are faster than 1000ms</p>
+
+<p><strong>A/B Testing</strong></p>
+
+<p>For the purposes of RUM, you can use A/B testing to check if an enhancement you made to your website actually ends up enhancing your users’ experience of the site. With some real data for both versions of the site, you can identify which is more successful and act accordingly.</p>
+
+<h5 id="comparing-rum-and-synthetic">Comparing RUM and Synthetic</h5>
+
+<table border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>&nbsp;</th><th>Synthetic</th><th>RUM</th></tr></thead><tbody><tr><td><span class="strong"><strong>Who?</strong></span></td><td>You run the test</td><td>The user runs the test</td></tr><tr><td><span class="strong"><strong>What?</strong></span></td><td>Measures the experience of one selected configuration
+              (more like a lab environment)</td><td>Measures experience of “actual user” (casts a wide net, 
+              gives peace of mind), and you get to know your user
+              better</td></tr><tr><td><span class="strong"><strong>Why?</strong></span></td><td>Establishes a baseline performance level</td><td>Get concrete information about users' latency, bandwidth,
+              page load time, etc.</td></tr><tr><td><span class="strong"><strong>How?</strong></span></td><td>Tools: private/public WebPagetest (API), PageSpeed
+              Insights (API), and commercial products</td><td>Tools:  Boomerang.js, Google Analytics, and commercial
+              products</td></tr></tbody></table>
+
+<p><strong>Đọc thêm về Real User Monitoring và Synthetic Monitoring</strong></p>
+
+<ul>
+  <li>
+    <p>http://rigor.com/blog/2015/02/hidden-cost-real-user-monitoring-rum</p>
+  </li>
+  <li>
+    <p>https://blogs.akamai.com/2012/12/situational-performance-measurement-with-a-splash-of-rum.html</p>
+  </li>
+</ul>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

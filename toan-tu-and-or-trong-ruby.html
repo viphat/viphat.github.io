@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Toán tử and, &&, or, || trong Ruby</title>
+  <meta name="description" content="Thời gian trôi qua nhanh thật, từ cái bài Post ‘Tôi đã bắt đầu học Ruby như thế nào” là vừa đúng 2 tháng, 27/08/2014 -&gt; 27/10/2014, Vậy là từ lúc bắt đầu ...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/toan-tu-and-or-trong-ruby">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Thời gian trôi qua nhanh thật, từ cái bài Post ‘Tôi đã bắt đầu học Ruby như thế nào” là vừa đúng 2 tháng, 27/08/2014 -&gt; 27/10/2014, Vậy là từ lúc bắt đầu học Ruby, tính ra là gần 3 tháng rồi. Trình độ của mình vẫn gà gà như thường. Chỉ mới xong một Project nhỏ bằng Sinatra, Code vài bài trên Codewars.com và hiện bắt đầu làm quen với Rails. Trong 2 tháng này, có nhiều sự kiện xảy ra, đó là việc mình quyết định từ bỏ con đường Data Processing, rời khỏi vùng thoải mái của mình để trở thành <strong>Ruby On Rails Developer</strong> Full time – Cảm ơn Anh Khoa đã đặt niềm tin vào Em.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Quay lại chủ đề hôm nay, Khi học Ruby, có một việc mình khá confuse là sự khác nhau giữa <strong>and</strong> và <strong>&amp;&amp;</strong> (hay sự khác nhau giữa <strong>or</strong> và **</td>
+      <td> </td>
+      <td><strong>) – mình đọc trên một số Blog cũng như StackOverFlow, thì giữa tụi nó khác nhau ở mức độ ưu tiên, mức độ ưu tiên của **and</strong> sẽ thấp hơn <strong>&amp;&amp;</strong> và mình thấy mọi người dặn là hạn chế dùng <strong>and</strong>, <strong>or</strong> khi không cần thiết. Nhưng mức độ ưu tiên của nó ảnh hưởng như thế nào thì không ai cho mình một ví dụ cụ thể để dễ nắm cả. Mãi đến hôm nay, đọc bài viết trên Toptal thì mình đã sáng tỏ.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>val1 = true and false 
+val2 = true &amp;&amp; false
+</code></pre>
+</div>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Although these two statements might appear to be equivalent, they are not, due to the order of operations. Specifically, the and and or operators have lower precedence than the = operator, whereas the &amp;&amp; and</td>
+      <td> </td>
+      <td>operators have higher precedence than the = operator, based on order of operations.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To help clarify this, here’s the same code, but employing parentheses to clarify the default order of operations:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>(val1 = true) and false # results in val1 being equal to true 
+val2 = (true &amp;&amp; false) # results in val2 being equal to false
+</code></pre>
+</div>
+
+<p><strong><em>Ôn bài</em></strong>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> &amp;&amp;=
+
+ ||=
+</code></pre>
+</div>
+<p>Trích từ bài viết 10 câu hỏi phỏng vấn về Ruby hay gặp nhất – <a href="http://www.toptal.com/ruby/interview-questions">http://www.toptal.com/ruby/interview-questions</a></p>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

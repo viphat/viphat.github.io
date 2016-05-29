@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Xử lý Background Job trong Ruby bằng Sidekiq</title>
+  <meta name="description" content="Sidekiq là một trong những Background Processing Libraries được nhiều người sử dụng nhất trong Ruby. So với các lão làng như Delayed Job, Resque hay Active J...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/sidekiq">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p><a href="https://github.com/mperham/sidekiq"><strong>Sidekiq</strong></a> là một trong những Background Processing Libraries được nhiều người sử dụng nhất trong Ruby. So với các lão làng như <a href="https://github.com/collectiveidea/delayed_job">Delayed Job</a>, <a href="https://github.com/resque/resque">Resque</a> hay <a href="http://edgeguides.rubyonrails.org/active_job_basics.html">Active Job</a> vốn có sẵn kể từ Rails 4.2 thì Sidekiq được nhiều người tin dùng bởi tính lightweight (Do sử dụng Redis thay vì ActiveRecord và Performance, Memory Efficient cũng tốt hơn Resque). Tuy vậy, Sidekiq cũng khó sử dụng hơn so với Delayed Job và Active Job nên nếu bạn chưa quen với Sidekiq, bạn có thể sẽ mau nản.</p>
+
+<p>Trước đây, khi nhận dự án UBrand về thì Team Develop trước đã dùng Delayed Job, nhưng sau khi go live thì mình thấy Delayed Job khá chậm, lại tốn nhiều resource của hệ thống nên đã tìm giải pháp khác thay thế, và do đó đã tìm đến Sidekiq.</p>
+
+<p>Sidekiq có 3 phiên bản là Sidekiq OSS, Sidekiq Pro, Sidekiq Enterprise, bạn có thể tham khảo chi tiết tại trang chủ của Sidekiq tại http://sidekiq.org. Riêng với cá nhân mình thì thấy rằng phiên bản OpenSource của Sidekiq là khá đủ dùng, nếu cần thêm các chức năng Advanced mà Sidekiq OSS không có thì hoàn toàn có thể cài thêm một số gem khác phụ trợ (Ví dụ dùng Sidetiq cho Recurring Job).</p>
+
+<p>Bài viết này nhằm ghi lại một số kinh nghiệm khi dùng Sidekiq cho dự án.</p>
+
+<hr />
+<p>#### Sidekiq Web UI</p>
+
+<p>Theo dõi và quản trị các Jobs/Worker trên Sidekiq bằng giao diện Web.</p>
+
+<p>Link: https://github.com/mperham/sidekiq/wiki/Monitoring</p>
+
+<p>Cài đặt Sidekiq Web UI cho dự án Rails:</p>
+
+<ul>
+  <li>Thêm gem sinatra vào dự án của bạn:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>gem 'sinatra', :require =&gt; nil
+</code></pre>
+</div>
+
+<ul>
+  <li>Thêm vào routes.rb (Nếu Authenticate bằng Devise - Chỉ có quyền Admin mới được phép truy cập vào đường dẫn /sidekiq):</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>require 'sidekiq/web'
+authenticate :user, lambda { |u| u.admin? } do
+  mount Sidekiq::Web =&gt; '/sidekiq'
+end
+
+</code></pre>
+</div>
+
+<hr />
+
+<h4 id="mt-s-gem-hu-ch--b-sung-cho-sidekiq">Một số Gem hữu ích để bổ sung cho Sidekiq</h4>
+
+<h5 id="sidekiq-throttler">Sidekiq Throttler</h5>
+
+<p>Sidekiq-throttler, một middleware cho sidekiq để thêm chức năng giới hạn số lượng job thực thi trên mỗi worker tại một thời điểm.</p>
+
+<p>Link: https://github.com/gevans/sidekiq-throttler (đã lâu không cập nhật nhưng mình vẫn dùng tốt ở thSidetiqời điểm hiện tại - (Ruby 2.2, Rails 4.2 và Sidekiq 3.4)</p>
+
+<h5 id="sidekiq-failures">Sidekiq Failures</h5>
+
+<ul>
+  <li>Bổ sung Tab Failures vào Sidekiq Web UI để bạn có thể track các failed job trực tiếp ngay trên giao diện.</li>
+</ul>
+
+<p>Link: https://github.com/mhfs/sidekiq-failures</p>
+
+<h5 id="sidekiq-statistic">Sidekiq Statistic</h5>
+
+<ul>
+  <li>Bổ sung tab Statistic vào Sidekiq Web UI để coi các thống kê của các Worker theo thời gian thực.</li>
+</ul>
+
+<p>Link: https://github.com/davydovanton/sidekiq-statistic</p>
+
+<p><img src="http://i.imgur.com/gTWmeeX.png" alt="Sidekiq Statistic" /></p>
+
+<h5 id="sidetiq">Sidetiq</h5>
+
+<p>Nếu bạn có một hay vài Job cần chạy recurring thì không thể bỏ qua Sidetiq</p>
+
+<p>Link: https://github.com/tobiassvn/sidetiq</p>
+
+<hr />
+
+<h5 id="mt-s-lnh-sidekiq-t-gp-nhng-i-lc-s-cn-n">Một số lệnh Sidekiq ít gặp nhưng đôi lúc sẽ cần đến</h5>
+
+<ul>
+  <li><strong>Clear các Jobs trong Sidekiq Queue / RetrySet / ScheduledSet</strong>: Cái này mình đã dùng trong tình huống Project của mình có một  Bug khiến một loạt các Jobs “AutoLike” bị lỗi, mà Sidekiq gặp một Job bị failed sẽ cố gắng thử chạy lại Job đó nhiều lần. Để tiết kiệm tài nguyên hệ thống, mình đã buộc phải xóa hết các Jobs đang còn trong Queue, cũng như trong RetrySet và ScheduledSet (vì mình đã thiết lập chỉ cho phép chạy tối đa 25 jobs / phút nên các job còn lại sẽ được Sidekiq đưa vào Scheduled.)</li>
+</ul>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'sidekiq/api'</span>
+<span class="no">Sidekiq</span><span class="o">::</span><span class="no">Queue</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"infinity"</span><span class="p">).</span><span class="nf">clear</span>
+<span class="no">Sidekiq</span><span class="o">::</span><span class="no">RetrySet</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">clear</span>
+<span class="no">Sidekiq</span><span class="o">::</span><span class="no">ScheduledSet</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">clear</span>
+</code></pre>
+</div>
+
+<ul>
+  <li><strong>Reset Sidekiq Counter</strong>: đôi lúc thấy con số job failed ngứa mắt quá nên reset nó về 0. (Bạn cũng có thể làm được việc này ngay trong Web UI bằng gem <strong>Sidekiq Failures</strong>)</li>
+</ul>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="no">Sidekiq</span><span class="p">.</span><span class="nf">redis</span> <span class="p">{</span><span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="p">.</span><span class="nf">del</span><span class="p">(</span><span class="s1">'stat:failed'</span><span class="p">)</span> <span class="p">}</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>Clear Counter theo ngày cụ thể:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Sidekiq.redis {|c| c.del('stat:processed:2015-07-02') }
+Sidekiq.redis {|c| c.del('stat:failed:2015-07-02') }
+</code></pre>
+</div>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

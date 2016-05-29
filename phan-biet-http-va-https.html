@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Phân biệt HTTP và HTTPS</title>
+  <meta name="description" content="HTTP">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/phan-biet-http-va-https">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <h4 id="http">HTTP</h4>
+
+<p>HTTP (Hyper Text Transfer Protocol) là giao thức tầng ứng dụng của bộ giao thức TCP/IP. (Đọc thêm về Bộ Giao thức TCP/IP cũng như về HTTP tại <a href="http://notes.viphat.work/tong-quan-ve-tcp-ip-va-http/">#TCP/IP</a>),  thường sử dụng port 80 để trao đổi thông tin giữa Web Server và Web Client – thường là các Web Browser. Giao thức này được sử dụng rất phổ biến nên khi nhìn vào thanh địa chỉ của trình duyệt, nếu không ghi rõ giao thức được sử dụng thì mặc định sẽ là HTTP.</p>
+
+<p><img src="http://i.imgur.com/c2r4u6I.png" alt="HTTP" /></p>
+
+<p>Một đặc điểm của HTTP đó là thông tin trao đổi giữa Web Server và Web Browser sẽ được gửi đi ở dạng nguyên bản, kể cả ID và PASSWORD của các tài khoản online, nếu một máy tính trung gian có thể lấy được các gói tin này, thông tin quan trọng có thể bị rò rỉ.</p>
+
+<p>Ví dụ: Lân la trên mạng tôi tìm được một trang Login vẫn đang sử dụng giao thức HTTP http://page.zaloapp.com/manage/login của Zalo:</p>
+
+<p>Nhập ID 123456789 và Password: abcdefghijk và ấn đăng nhập, cùng lúc đó sử dụng Wireshark để bắt gói tin đăng nhập này ta được:</p>
+
+<p><img src="http://i.imgur.com/2WnI37c.png" alt="Zalo" /></p>
+
+<p>Nếu đây là tài khoản quan trọng thì việc này thực sự rất nguy hiểm. Vì thế một giao thức HTTP an toàn hơn được sử dụng khi cần phải trao đổi thông tin quan trọng, đó là <strong>HTTPS</strong>.</p>
+
+<h4 id="https">HTTPS</h4>
+
+<p>HTTPS (Hyper Text Transfer Protocol Secure) ngay chữ Secure cũng nói lên giao thức này là phiên bản an toàn hơn của HTTP. HTTPS thường sử dụng port 443 thay vì port 80 của HTTP để giao tiếp các tầng dưới của TCP/IP. Khi giao thức này được sử dụng, URL trên thanh địa chỉ của trình duyệt sẽ bắt đầu bằng https://:</p>
+
+<p><img src="http://i.imgur.com/5TxXhDj.png" alt="Google" /></p>
+
+<p>Đặc điểm của HTTP là thông tin được truyền đi ở dạng nguyên bản mà không được mã hóa, HTTPS sẽ khắc phục được điều này bằng cách mã hóa thông tin giữa hai bên thông qua SSL, nhưng thay vào đó, tốc độ sẽ không được như HTTP.</p>
+
+<p><img src="http://i.imgur.com/EV3qxxC.png" alt="Encrypted" /></p>
+
+<p>Thông tin được mã hóa khi sử dụng HTTPS.</p>
+
+<p><img src="http://i.imgur.com/2ufItWs.png" alt="HTTP" /></p>
+
+<p><img src="http://i.imgur.com/affURFp.png" alt="HTTPS" />
+####SSL</p>
+
+<p>SSL (Secure Socket Layer ) được tạo ra bởi Netscape để đảm bảo an toàn trong việc trao đổi thông tin giữa Web Servers và Browsers. Để có thể tạo kết nối bằng SSL trên Web Server cần phải cung cấp một chứng chỉ SSL (SSL Certificate), để có được chứng chỉ này, Web Server cần phải đăng ký với một Certificate Authority (CA) để xác minh danh tính Web Server đó. Một số CA phổ biến hiện nay như VeriSign, Entrust, Comodo…</p>
+
+<h5 id="hot-ng-ca-ssl">Hoạt động của SSL</h5>
+
+<p>Khi đã đăng ký một chứng chỉ SSL, Web Server sẽ tạo ra hai key mã hóa: một Private Key và một Public Key. Public Key dùng để mã hóa thông tin gốc thành thông tin đã mã hóa, và bên nhận sử dụng Private Key để giải mã thông tin đã mã hóa này thành thông tin ban đầu.</p>
+
+<p>Khi trình duyệt yêu cầu tới một trang sử dụng HTTPS:</p>
+
+<ul>
+  <li>Web Server sẽ gửi SSL Certificate của mình, và Web Browser sẽ gửi SSL Certificate này đến Certificate Authority và kiểm tra nó có hợp lệ hay không.</li>
+  <li>Nếu hợp lệ, Web Browser sẽ thông báo SSL của Web Server đã được chấp nhận và Web Server sẽ gửi lại bộ Key để mã hóa và giải mã trong quá trình truyền tin. Các bộ Key này giữ nguyên trong quá trình trao đổi và sẽ thay đổi trong phiên trao đổi tiếp theo.</li>
+  <li>Web Server và Browser trao đổi dữ liệu đã được mã hóa.</li>
+</ul>
+
+<p>Khi SSL Certificate là hợp lệ, thì trên thanh địa chỉ của trình duyệt sẽ xuất hiện thêm biểu tượng ổ khóa, Nếu không hợp lệ, hoặc nghi ngờ bị giả mạo (Tấn công Man in the Middle) thì trình duyệt Web sẽ cảnh báo và chặn không cho truy cập.</p>
+
+<p>#####SSL Extended Validation
+Extended Validation (EV) là một hình thức xác thực SSL đặc biệt, không chỉ chứng thực cho tên miền của Web Server mà còn chứng thực cho doanh nghiệp, công ty sở hữu. Để có thể có SSL EV, doanh nghiệp phải cung cấp các giấy phép kinh doanh, thông tin cụ thể của doanh nghiệp và sẽ được kiểm tra kỹ càng có đầy đủ tư cách pháp luật, không gặp những vấn đề về tài chính, thuế… Sở hữu SSL EV sẽ tăng mức độ uy tín của doanh nghiệp với khách hàng, vì thế các công ty, tập đoàn, ngân hàng… đều sử dụng SSL EV.
+Khi Web Server sử dụng SSL EV, thanh địa chỉ của trình duyệt sẽ có thêm phần thông tin của SSL EV này:</p>
+
+<p><img src="http://i.imgur.com/mAzLiAx.png" alt="SSL Extended Validation" /></p>
+
+<p>#####Public Key – Private Key</p>
+
+<p>Việc mã hóa thông tin trong HTTPS sử dụng một cặp khóa Public Key và Private Key, thông tin được mã hóa bởi một khóa thì chỉ có thể được giải mã bằng khóa còn lại. Vì thế, một khóa sẽ được giữ bí mật (Private Key) và khóa còn lại sẽ được công khai với mọi người(Public Key). Bất kỳ ai cũng có thể gửi thông tin đã được mã hóa, nhưng chỉ ai có Private Key mới có thể giải mã được. Ở chiều ngược lại, nếu dữ liệu được mã hóa bằng Private Key thì nên nhớ, ai cũng có thể sở hữu Public Key và dữ liệu sẽ không được bảo mật:</p>
+
+<p><img src="http://i.imgur.com/1CzykJZ.png" alt="Public - Private Key" /></p>
+
+<p><strong>Cụ thể hơn</strong></p>
+
+<p>Alice sẽ Generate một cặp Public-Private Key
+<img src="http://i.imgur.com/amHhFmy.png" alt="Alice 1" /></p>
+
+<p>Khi Alice muốn trao đổi với Bob, Alice phải gửi Public Key của mình cho Bob. Khi Bob muốn gửi thông điệp đến Alice, Bob sẽ mã hóa thông điệp bằng Public Key của Alice.</p>
+
+<p><img src="http://i.imgur.com/MVl0blD.png" alt="Alice 2" /></p>
+
+<p>Tuy nhiên, trong trường hợp Alice trả lời cho Bob, nếu Alice sử dụng Private Key của mình để mã hóa thông điệp và gửi cho Bob thì Không chỉ Bob mà bất kì ai có được Public Key của Alice đều có thể giải mã được (Do nó được public).</p>
+
+<p>(Trong Thực tế thì thường 2 bên muốn giao tiếp với nhau đều có Public Key của nhau… ví dụ trong SSH, Khi lần đầu tiên truy cập vào Server, Bạn sẽ được hỏi có muốn tải Public Key của Server về máy tính hay không?)</p>
+
+<p>Do đó có một cách khác để tránh được sự hớ hênh này là sử dụng Combine Keys của cả Alice và Bob (<strong>Diffie–Hellman key exchange</strong>).</p>
+
+<p><img src="http://i.imgur.com/JWmKa9P.png" alt="Combine Key" /></p>
+
+<h5 id="public-key-infrastructure">Public Key Infrastructure</h5>
+<p>Mô hình của HTTPS, Sử dụng Public/Private Key Có chứng thực từ CA.</p>
+
+<p><img src="http://i.imgur.com/I3YNrxz.png" alt="Public Key Infrastructure" /></p>
+
+<blockquote>
+  <p>Mô hình Mã hóa bất đối xứng Public Key / Private Key được sử dụng khá nhiều trong những giao thức đòi hỏi tính bảo mật do an toàn hơn (Dù vẫn có hạn chế).</p>
+</blockquote>
+
+<p>#####Symmetric Key
+Ngược lại với Public - Private Key, Symmetric Key sử dụng cùng một khóa cho việc mã hóa lẫn giải mã, nên được gọi là Mã hóa đối xứng. Thuật toán Mã hóa đối xứng nhanh hơn nhiều so với Mã hóa bất đối xứng như Public Key, nhưng sẽ kém an toàn hơn vì nếu để lọt Symmetric Key thì thông tin xem như không còn được bảo vệ nữa. (Vì mã hóa và giải mã cùng một Key nên khi giao tiếp với nhau, bên Request phải gửi Key cho bên nhận để giải mã và có nguy cơ Key này bị lộ nếu gói tin bị chặn lại.)</p>
+
+<p>Một cách để hạn chế tình trạng này là sử dụng kết hợp Symmetric Key và Public Key</p>
+
+<ul>
+  <li>Đóng gói Symmetric Key bên trong một thông điệp được mã hóa bằng Public Key/ Private Key:</li>
+</ul>
+
+<p><img src="http://i.imgur.com/YPZl8LK.png" alt="Đóng gói" /></p>
+
+<ul>
+  <li>Sau đó dữ liệu sẽ được mã hóa bằng Symmetric Key để trao đổi:</li>
+</ul>
+
+<p><img src="http://i.imgur.com/ReH8gzw.png" alt="Dữ liệu" /></p>
+
+<p>Như vậy là chúng ta đã tìm hiểu những kiến thức cơ bản về HTTP và HTTPS và độ an toàn của chúng, tuy nhiên trong thời đại hiện nay thì không có gì là an toàn tuyệt đối cả. Đặc biệt là với những hệ thống mạng công cộng như WIFI, LAN… ngay cả khi bạn có sử dụng HTTPS thì Hacker vẫn có thể giả mạo chứng chỉ và lấy cắp thông tin của bạn (Man in the Middle Attack).</p>
+
+<p><small><strong>Bài viết được lấy từ nguồn</strong> <a href="http://www.stdio.vn/articles/read/232/phan-biet-http-va-https"><strong>STDIO.VN</strong></a>. Đã được chỉnh sửa,bổ sung.</small></p>
+
+<p>==Question: Như bạn đã biết trong PKI (Public Key Infrastructure), chúng ta cần Certificate Authority (CA) để xác định A là A, B là B, chứ không bị giả mạo. Vậy sẽ ra sao nếu chính CA mà chúng ta đã gửi yêu cầu xác thực đến bị giả mạo?!?==</p>
+
+<p>Tìm hiểu thêm về Root Certification Authority và Digital Signature sẽ giúp bạn trả lời câu hỏi này. 
+https://en.wikipedia.org/wiki/Root_certificate</p>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

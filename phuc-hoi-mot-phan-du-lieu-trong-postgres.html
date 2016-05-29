@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Phục hồi một phần dữ liệu trong Postgres</title>
+  <meta name="description" content="Đây là bài học xương máu rút ra được khi can thiệp database trực tiếp trên Production vì làm mất data của một Table (may là phát hiện kịp nên đã break câu lệ...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/phuc-hoi-mot-phan-du-lieu-trong-postgres">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Đây là bài học xương máu rút ra được khi can thiệp database trực tiếp trên Production vì làm mất data của một Table (may là phát hiện kịp nên đã break câu lệnh destroy data). Sau khi rà soát thiệt hại thì mình thống kê là cần phải khôi phục lại khoảng 1000 record đầu tiên của Table đó trên Postgres. Vậy làm thế nào để khôi phục một phần dữ liệu của một table thay vì bung bản backup ra và restore lại toàn bộ database?</p>
+
+<p>Thật may là Postgres có hỗ trợ lệnh COPY data và đây là cách mình đã khôi phục lại 1000 record bị xóa nhầm:</p>
+
+<ul>
+  <li>Restore lại file dump (có chứa 1000 record đấy) của database hiện tại sang một database khác.</li>
+  <li>Khoanh vùng thiệt hại (CONDITION X) và sử dụng lệnh COPY của postgres để copy dữ liệu bị mất và lưu vào file.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>COPY (SELECT * FROM mytable WHERE [_CONDITION X_]...) TO '/tmp/myfile.tsv'
+</code></pre>
+</div>
+<ul>
+  <li>Restore lại file đó vào database production</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>COPY mytable FROM 'myfile.tsv'
+</code></pre>
+</div>
+<ul>
+  <li>Trong quá trình này, lưu ý cập nhật lại id_seq của table nếu cần thiết.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>-- Login to psql and run the following
+-- What is the result?
+SELECT MAX(id) FROM your_table;
+
+-- Then run...
+-- This should be higher than the last result.
+SELECT nextval('your_table_id_seq');
+
+-- If it's not higher... run this set the sequence last to your highest pid it. 
+-- (wise to run a quick pg_dump first...)
+SELECT setval('your_table_id_seq', (SELECT MAX(id) FROM your_table));
+-- if your tables might have no rows
+-- false means the set value will be returned by the next nextval() call    
+SELECT setval('your_table_id_seq', COALESCE((SELECT MAX(id)+1 FROM your_table), 1), false);
+</code></pre>
+</div>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

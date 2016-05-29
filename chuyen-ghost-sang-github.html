@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chuyển Blog sang Github Static Pages</title>
+  <meta name="description" content="Đã lâu không có thời gian chăm chút đến Blog do quỹ thời gian đã dành phần lớn cho UBrand và giải quyết một số vấn đề cá nhân. Nhận thấy, tuy mình đã hoàn th...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/chuyen-ghost-sang-github">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>Đã lâu không có thời gian chăm chút đến Blog do quỹ thời gian đã dành phần lớn cho UBrand và giải quyết một số vấn đề cá nhân. Nhận thấy, tuy mình đã hoàn thành việc Refactor và nâng cấp Front-End của Project nhưng xét thấy sắp tới vẫn còn nhiều features lớn để làm vì năm 2016 sẽ là một năm cực kỳ quan trọng, đây là một năm “to be or not to be” và cũng không có nhiều thời gian dành cho Blog cũng như vọc vạch cái VPS đang xài ở Ramnode nữa nên quyết định cancel account ở Ramnode, dời Blog về một Host free mà nhanh, ổn định. Và Github Pages quả là một sự lựa chọn xứng đáng.</p>
+
+<p>Tuy nhiên, có một trở ngại là Github Pages chỉ hỗ trợ Jekyll và các Blog Framework dạng Static Pages, còn Ghost thì chạy trên nền Node.js. Sau một hồi đi tìm tòi trên Google thì phát hiện <a href="https://github.com/axitkhurana/buster"><strong>Buster</strong></a>, viết bằng Python là một tools generate static pages từ Ghost, super simple and awesome. Vậy là vấn đề đã được giải quyết, chiến tiếp thôi.</p>
+
+<p>Cài đặt Buster:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>pip install buster
+</code></pre>
+</div>
+
+<p>Chuyển đến thư mục chứa Source của Ghost ở localhost và chạy lệnh Setup (Paste Link Repository của Github)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>buster setup
+</code></pre>
+</div>
+
+<p>Start Ghost ở Localhost</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm start
+</code></pre>
+</div>
+
+<p>Viết bài trên Localhost bằng Editor của Ghost như bình thường, Sau đó dùng Buster để generate ra static page</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>buster generate --domain=http://127.0.0.1:2368 
+</code></pre>
+</div>
+<p>Chuyển đến thư mục static (Đây là thư mục chứa các trang static được generate từ buster) và push changes trong thư mục static này lên Github. It’s done!</p>
+
+<ul>
+  <li>
+    <p>Mọi người vẫn có thể truy cập blog ở Domain <a href="http://notes.viphat.work"><strong>notes.viphat.work</strong></a>, bên cạnh tên miền <a href="http://viphat.github.io"><strong>viphat.github.io</strong></a> nhé.</p>
+  </li>
+  <li>
+    <p>Tham khảo <a href="http://briank.im/i-see-ghosts/"><strong>I see ghosts</strong></a>.</p>
+  </li>
+</ul>
+
+<p><strong>Chúc mọi người năm mới với nhiều thắng lợi vẻ vang</strong>.</p>
+
+<p>Ngày 29 tháng củ mật. ^^</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>
