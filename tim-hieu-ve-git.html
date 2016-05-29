@@ -4,8 +4,8 @@
   <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Tìm hiểu về Git và Github</title>
-  <meta name="description" content="Trong bài viết trước, mình có nhắc đến Git – Hệ thống version control do chính cha đẻ của Hệ điều hành Linux - Linus Tovard tạo ra cho cộng đồng. Mọi lập trì...">
+  <title>Tìm hiểu về Git</title>
+  <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#157878">
   <!-- Add to homescreen for Chrome on Android -->
@@ -28,7 +28,7 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/css/cayman.css">
   <link rel="stylesheet" href="/css/cayman.css">
-  <link rel="canonical" href="http://notes.viphat.work/tim-hieu-ve-git-va-github">
+  <link rel="canonical" href="http://notes.viphat.work/tim-hieu-ve-git">
   <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
 </head>
 
@@ -45,17 +45,23 @@
 
     <section class="main-content">
       
-      <p>Trong <a href="http://notes.viphat.work/toi-da-bat-dau-hoc-ruby-nhu-the-nao/">bài viết</a> trước, mình có nhắc đến Git – Hệ thống version control do chính cha đẻ của Hệ điều hành Linux - Linus Tovard tạo ra cho cộng đồng. Mọi lập trình viên đều nên biết cách sử dụng git để thuận lợi hơn trong công việc.</p>
+      <p><img src="http://i.imgur.com/hUASZQY.jpg" alt="Git" /></p>
 
-<p>Git là gì? Trước tiên thì mình cần nắm được khái niệm Version Control là gì đã.</p>
+<p>Trong bài viết <a href="http://notes.viphat.work/toi-da-bat-dau-hoc-ruby-nhu-the-nao"><strong>Tôi đã học Ruby như thế nào</strong></a>, mình có nhắc đến git – Hệ thống version control do chính cha đẻ của hệ điều hành Linux - Linus Tovard phát triển. Khi git xuất hiện, đã làm thay đổi hoàn toàn cuộc chơi của <strong>version control system</strong> và <strong>Git</strong> ngày càng được giới lập trình viên - đặc biệt là trong cộng đồng OSS ưa chuộng vì những đặc tính nổi trội của nó.</p>
 
-<p>Bài viết này được đúc kết dựa trên những gì mình đã tìm hiểu về Git, có lẽ nó chỉ dừng lại ở mức căn bản, phục vụ cho công việc thường ngày của Lập trình viên. Nếu bạn đang mong đợi được biết đầy đủ về git thì có lẽ bạn sẽ tìm thấy nó ở một hoặc nhiều quyển sách viết về git.</p>
+<p><strong>Git là gì?</strong> Để nắm được thì mình cần nắm được khái niệm <strong>Version Control</strong> là gì trước đã.</p>
+
+<p>Bài viết này được đúc kết dựa trên những gì mình đã tìm hiểu về Git, có lẽ nó chỉ dừng lại ở mức độ căn bản nhất, chỉ đáp ứng cho nhu cầu công việc thường nhật của một lập trình viên.</p>
+
+<p>Bài viết là nền tảng để bạn tìm hiểu sâu hơn về Git thông qua các liên kết tham khảo khác có nhắc đến trong bài.</p>
 
 <h4 id="version-control-l-g">Version Control là gì?</h4>
 
-<p>Bạn có thể nghĩ hệ thống Version Control như là một dạng “database”, Nó lưu các ảnh (snapshot) của dự án bạn đang làm tại bất kì thời điểm nào bạn muốn. Và khi cần, VCS sẽ cho bạn biết chính xác giữa 2 thời điểm, dự án của bạn đã thay đổi và khác nhau ở những điểm nào.</p>
+<p>Bạn có thể coi Version Control System (VCS) như là một dạng “database” đặc biệt, lưu lại hình ảnh (snapshot) của dự án bạn đang làm tại bất kì thời điểm nào bạn muốn. Và khi cần, VCS sẽ cho bạn biết chính xác giữa 2 thời điểm, dự án của bạn đã thay đổi và khác nhau ở những điểm nào.</p>
 
 <h5 id="why-use-a-version-control-system">Why use a version control system?</h5>
+
+<p>Tại sao chúng ta lại cần sử dụng VCS, bởi một VCS tốt, sẽ cho bạn những đặc tính ưu việt sau:</p>
 
 <ul>
   <li>Collaboration</li>
@@ -66,34 +72,54 @@
 </ul>
 
 <blockquote>
-  <p>Git là một <strong><em>Version Control System</em></strong></p>
+  <p>Git là một <strong><em>Version Control System</em></strong> mà theo tôi là tốt nhất và phổ biến nhất.</p>
 </blockquote>
 
 <h4 id="vy-git-c-u-im-no--why-git">Vậy Git có ưu điểm nào? » Why git?</h4>
 
 <ul>
-  <li>Save time.</li>
-  <li>Work Offline. Với những hệ thống Version Control khác như Subversion hoặc CVS, bạn phải liên tục kết nối đến Repo trung tâm. Còn với Git, bạn có thể làm hoàn toàn trên máy tính của bạn: gửi commit, xem log, xem history, tạo hoặc merge branches. anchs</li>
-  <li>Undo Mistakes. Bạn có thể phục hồi lại những thứ đã commit trước đó, Có thể bổ sung thêm vào lần commit trước nếu bạn phát hiện ra bạn đã sót một thứ gì đó.</li>
-  <li>Don’t Worry.</li>
-  <li>Make useful Commits: Bạn có thể quyết định phần thay đổi nào được đưa vào “Staging area” và chỉ commit những thay đổi bạn mong muốn và giữ lại những thứ còn dở dang.</li>
-  <li>Work in your own way</li>
-  <li>Don’t mix things up</li>
-  <li>Go with the Flow – Ngày càng nhiều công ty sử dụng Git trong công việc hằng ngày. Còn bạn? Đừng đi ngược dòng nước.</li>
+  <li>
+    <p>Save time.</p>
+  </li>
+  <li>
+    <p>Work Offline. Với những VCS khác như Subversion hoặc CVS, bạn phải liên tục kết nối đến Repo trung tâm. Còn với Git, bạn có thể work locally, work offline: commit, xem log, xem history, tạo hoặc merge branches. Bạn chỉ cần kết nối mạng hoặc Internet khi cần push dữ liệu lên Server.</p>
+  </li>
+  <li>
+    <p>Undo Mistakes. Bạn có thể phục hồi lại những thứ đã commit trước đó, Có thể bổ sung thêm vào lần commit trước nếu bạn phát hiện ra bạn đã sót một thứ gì đó.</p>
+  </li>
+  <li>
+    <p>Don’t Worry.</p>
+  </li>
+  <li>
+    <p>Make useful Commits: Bạn có thể quyết định phần thay đổi nào được đưa vào “Staging area” và chỉ commit những thay đổi bạn mong muốn và giữ lại những thứ còn dở dang.</p>
+  </li>
+  <li>
+    <p>Work in your own way.</p>
+  </li>
+  <li>
+    <p>Don’t mix things up.</p>
+  </li>
+  <li>
+    <p>Go with the Flow – Ngày càng nhiều công ty sử dụng Git trong công việc hằng ngày. Còn bạn thì sao? - đừng đi ngược dòng nước chảy xiết.</p>
+  </li>
 </ul>
 
 <hr />
 
 <h4 id="basic-workflow-of-version-control">Basic Workflow of Version Control</h4>
 
-<p>Repository được hiểu nôm na là một dạng Database nơi Git lưu mọi version và metadata trong dự án của bạn. Trong Git, Repository chỉ là một thư mục ẩn có tên là “.git”, bạn chỉ cần biết vậy là đủ, không cần (và không nên) can thiệp gì vào thư mục huyền bí này.</p>
-
-<p>(1) <code class="highlighter-rouge">git init</code> (Tạo Git cho dự án của bạn – Nếu chưa có) hoặc <code class="highlighter-rouge">git clone</code> (Trong trường hợp bạn muốn tiếp tục một dự án khác đã có sẵn git)</p>
-
-<p>(2) Chỉnh sửa, di chuyển, sắp xếp lại dự án của bạn cho đến khi bạn cảm thấy hài lòng và Dự án đang ở trạng thái xứng đáng để commit lên Git. Ở thời điểm này, Git vẫn chưa hoạt động và theo dõi những thay đổi của bạn.</p>
+<p>Phần này trình bày một Git WorkFlow căn bản nhất. Có nhiều Git workflow khác, quy định cụ thể hơn về việc chức năng mới thì được phát triển trên nhánh nào, đặt tên nhánh ra sao, code review và merge vào nhánh nào, deploy staging bằng nhánh nào, deploy production bằng nhánh nào v.v… <strong>Workflow</strong> sẽ khác nhau tùy theo team, công ty…</p>
 
 <blockquote>
-  <p>Commit</p>
+  <p>Repository được hiểu nôm na là một dạng Database nơi Git lưu mọi version và metadata trong dự án của bạn. Trong Git, Repository chỉ là một thư mục ẩn có tên là “.git”, bạn chỉ cần biết vậy là đủ, không cần (và không nên) can thiệp gì vào thư mục huyền bí này.</p>
+</blockquote>
+
+<p>(1) <code class="highlighter-rouge">git init</code> (Khai báo sử dụng git cho dự án của bạn) hoặc <code class="highlighter-rouge">git clone</code> (trong trường hợp bạn muốn tiếp tục một dự án khác đã có sẵn git)</p>
+
+<p>(2) Chỉnh sửa, di chuyển, sắp xếp lại code của bạn cho đến khi bạn cảm thấy hài lòng và code của bạn đang ở trạng thái xứng đáng để commit lên Git. Ở thời điểm này, Git vẫn chưa hoạt động và theo dõi những thay đổi của bạn.</p>
+
+<blockquote>
+  <p><strong>Tìm hiểu thêm về Commit</strong></p>
 
   <p>A commit is a wrapper for a specific set of changes. The author of a commit has to comment what he did in a short “commit message”. This helps other people (and himself) to understand later what his intention was when making these changes.</p>
 
@@ -110,9 +136,9 @@
 
 <p>(7) Nếu bạn đang cộng tác với nhiều người, một Remote Repositories sẽ đóng vai trò là nơi tiếp nhận mọi sự thay đổi của bạn và mọi người.</p>
 
-<p><strong>Local &amp; Remote Repositories</strong></p>
-
 <blockquote>
+  <p><strong>Local &amp; Remote Repositories</strong></p>
+
   <p>There are two kinds of repositories:</p>
 
   <p>A “local” repository resides on your local computer, as a “.git” folder inside your project’s root folder. You are the only person that can work with this repository, by committing changes to it.</p>
@@ -120,9 +146,11 @@
   <p>A “remote” repository, in contrast, is typically located on a remote server on the internet or in your local network. No actual working files are associated with a remote repository: it has no working directory but it exclusively consists of the “.git” repository folder. Teams are using remote repositories to share &amp; exchange data: they serve as a common base where everybody can publish their own changes and receive changes from their teammates.</p>
 </blockquote>
 
-<p><strong>What Makes a Good Commit?</strong></p>
+<hr />
 
 <blockquote>
+  <p><strong>What Makes a Good Commit?</strong></p>
+
   <p>The better and more carefully you craft your commits, the more useful will version control be for you. Here are some guidelines about what makes a good commit:</p>
 
   <p><strong>Related Changes</strong></p>
@@ -228,8 +256,6 @@
   <li><strong>GitForce</strong> - Git tool with Graphical user interface, available under GNU GPL license</li>
 </ul>
 
-<p><img src="http://dl.dropbox.com/u/1592778/viphat%3A%20master%20-home-eddie-viphat_006.png" alt="Git-Cola" /></p>
-
 <hr />
 
 <p>Git có rất nhiều lệnh mà đôi khi bạn sẽ không nắm hết tất cả được, nhưng để phục vụ cho công việc hàng ngày thì chỉ cần nhớ một số lệnh git sử dụng thường xuyên là đủ.</p>
@@ -238,7 +264,7 @@
 
 <hr />
 
-<p>Bài được viết dựa trên Tutorial của <a href="https://www.git-tower.com/learn/git/ebook/command-line/introduction"><strong>Git Tower</strong></a>.</p>
+<p>Bài được viết dựa trên tutorial của <a href="https://www.git-tower.com/learn/git/ebook/command-line/introduction"><strong>Git Tower</strong></a>.</p>
 
 
       <footer class="site-footer">
