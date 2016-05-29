@@ -54,11 +54,12 @@
 <p>Bài viết này nhằm ghi lại một số kinh nghiệm khi dùng Sidekiq cho dự án.</p>
 
 <hr />
-<p>#### Sidekiq Web UI</p>
+
+<h1 id="sidekiq-web-ui">Sidekiq Web UI</h1>
 
 <p>Theo dõi và quản trị các Jobs/Worker trên Sidekiq bằng giao diện Web.</p>
 
-<p>Link: https://github.com/mperham/sidekiq/wiki/Monitoring</p>
+<p>Link: <a href="https://github.com/mperham/sidekiq/wiki/Monitoring">Sidekiq Monitoring</a></p>
 
 <p>Cài đặt Sidekiq Web UI cho dự án Rails:</p>
 
@@ -66,7 +67,7 @@
   <li>Thêm gem sinatra vào dự án của bạn:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>gem 'sinatra', :require =&gt; nil
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">gem</span> <span class="s1">'sinatra'</span><span class="p">,</span> <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="kp">nil</span>
 </code></pre>
 </div>
 
@@ -74,25 +75,25 @@
   <li>Thêm vào routes.rb (Nếu Authenticate bằng Devise - Chỉ có quyền Admin mới được phép truy cập vào đường dẫn /sidekiq):</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>require 'sidekiq/web'
-authenticate :user, lambda { |u| u.admin? } do
-  mount Sidekiq::Web =&gt; '/sidekiq'
-end
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'sidekiq/web'</span>
+<span class="n">authenticate</span> <span class="ss">:user</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">u</span><span class="o">|</span> <span class="n">u</span><span class="p">.</span><span class="nf">admin?</span> <span class="p">}</span> <span class="k">do</span>
+  <span class="n">mount</span> <span class="no">Sidekiq</span><span class="o">::</span><span class="no">Web</span> <span class="o">=&gt;</span> <span class="s1">'/sidekiq'</span>
+<span class="k">end</span>
 
 </code></pre>
 </div>
 
 <hr />
 
-<h4 id="mt-s-gem-hu-ch--b-sung-cho-sidekiq">Một số Gem hữu ích để bổ sung cho Sidekiq</h4>
+<h1 id="mt-s-gem-hu-ch--b-sung-cho-sidekiq">Một số Gem hữu ích để bổ sung cho Sidekiq</h1>
 
-<h5 id="sidekiq-throttler">Sidekiq Throttler</h5>
+<h2 id="sidekiq-throttler">Sidekiq Throttler</h2>
 
 <p>Sidekiq-throttler, một middleware cho sidekiq để thêm chức năng giới hạn số lượng job thực thi trên mỗi worker tại một thời điểm.</p>
 
 <p>Link: https://github.com/gevans/sidekiq-throttler (đã lâu không cập nhật nhưng mình vẫn dùng tốt ở thSidetiqời điểm hiện tại - (Ruby 2.2, Rails 4.2 và Sidekiq 3.4)</p>
 
-<h5 id="sidekiq-failures">Sidekiq Failures</h5>
+<h2 id="sidekiq-failures">Sidekiq Failures</h2>
 
 <ul>
   <li>Bổ sung Tab Failures vào Sidekiq Web UI để bạn có thể track các failed job trực tiếp ngay trên giao diện.</li>
@@ -100,7 +101,7 @@ end
 
 <p>Link: https://github.com/mhfs/sidekiq-failures</p>
 
-<h5 id="sidekiq-statistic">Sidekiq Statistic</h5>
+<h2 id="sidekiq-statistic">Sidekiq Statistic</h2>
 
 <ul>
   <li>Bổ sung tab Statistic vào Sidekiq Web UI để coi các thống kê của các Worker theo thời gian thực.</li>
@@ -110,7 +111,7 @@ end
 
 <p><img src="http://i.imgur.com/gTWmeeX.png" alt="Sidekiq Statistic" /></p>
 
-<h5 id="sidetiq">Sidetiq</h5>
+<h2 id="sidetiq">Sidetiq</h2>
 
 <p>Nếu bạn có một hay vài Job cần chạy recurring thì không thể bỏ qua Sidetiq</p>
 
@@ -118,7 +119,7 @@ end
 
 <hr />
 
-<h5 id="mt-s-lnh-sidekiq-t-gp-nhng-i-lc-s-cn-n">Một số lệnh Sidekiq ít gặp nhưng đôi lúc sẽ cần đến</h5>
+<h2 id="mt-s-lnh-sidekiq-t-gp-nhng-i-lc-s-cn-n">Một số lệnh Sidekiq ít gặp nhưng đôi lúc sẽ cần đến</h2>
 
 <ul>
   <li><strong>Clear các Jobs trong Sidekiq Queue / RetrySet / ScheduledSet</strong>: Cái này mình đã dùng trong tình huống Project của mình có một  Bug khiến một loạt các Jobs “AutoLike” bị lỗi, mà Sidekiq gặp một Job bị failed sẽ cố gắng thử chạy lại Job đó nhiều lần. Để tiết kiệm tài nguyên hệ thống, mình đã buộc phải xóa hết các Jobs đang còn trong Queue, cũng như trong RetrySet và ScheduledSet (vì mình đã thiết lập chỉ cho phép chạy tối đa 25 jobs / phút nên các job còn lại sẽ được Sidekiq đưa vào Scheduled.)</li>
@@ -143,8 +144,8 @@ end
   <li>Clear Counter theo ngày cụ thể:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Sidekiq.redis {|c| c.del('stat:processed:2015-07-02') }
-Sidekiq.redis {|c| c.del('stat:failed:2015-07-02') }
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="no">Sidekiq</span><span class="p">.</span><span class="nf">redis</span> <span class="p">{</span><span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="p">.</span><span class="nf">del</span><span class="p">(</span><span class="s1">'stat:processed:2015-07-02'</span><span class="p">)</span> <span class="p">}</span>
+<span class="no">Sidekiq</span><span class="p">.</span><span class="nf">redis</span> <span class="p">{</span><span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="p">.</span><span class="nf">del</span><span class="p">(</span><span class="s1">'stat:failed:2015-07-02'</span><span class="p">)</span> <span class="p">}</span>
 </code></pre>
 </div>
 
