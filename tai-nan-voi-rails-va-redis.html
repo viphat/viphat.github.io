@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Tai nạn với Rails và Redis</title>
+  <meta name="description" content="#HọcTừSaiLầm - Mình vừa mắc phải một sai lầm mà mãi đến mấy tháng sau mới phát hiện ra. Vì vậy sai lầm này đã phải trả giá bằng tiền bạc (cứ scale server red...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/tai-nan-voi-rails-va-redis">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+      <p>#HọcTừSaiLầm - Mình vừa mắc phải một sai lầm mà mãi đến mấy tháng sau mới phát hiện ra. Vì vậy sai lầm này đã phải trả giá bằng tiền bạc (cứ scale server redis mà vẫn bị hết memory), Web App thì bị downtime vài lần, hơi muộn nhưng đã ngộ ra được.</p>
+
+<p>Cụ thể là mình có dùng <strong>redis</strong> làm session_store của Rails:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>
+<span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">session_store</span> <span class="ss">:redis_store</span><span class="p">,</span> <span class="ss">servers: </span><span class="p">[</span><span class="s2">"</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'REDIS_URL'</span><span class="p">]</span><span class="si">}</span><span class="s2">/1/sessions"</span><span class="p">],</span> <span class="ss">expires_in: </span><span class="mi">60</span><span class="p">.</span><span class="nf">minutes</span>
+
+</code></pre>
+</div>
+
+<p>Nhưng khi đó lại mình quên mất vụ <code class="highlighter-rouge">expires_in</code> nên cuối cùng Rails set default là unlimited. Session Keys cứ thế lưu trữ dài hạn trên Redis, và cứ âm thầm ngốn hết Ram của Instance Redis, mình đã thử nâng lần lượt 1GB lên 2GB, rồi 4GB và 8GB nhưng sau một thời gian vẫn cứ ngốn sạch trơn Ram, trong khi kiểm tra số lượng Redis keys mà App dùng thì chỉ khoảng 100k. Cuối cùng, vô tình kiểm tra ở database 1 (Redis đánh số database, mặc định là 0) thì choáng, số lượng lên tới hơn 50 triệu keys đang dùng làm sessions.</p>
+
+<p>Giải quyết nhanh bằng cách flushdb để xóa toàn bộ data từ một database cụ thể. (May là mình đã tách riêng sessions ra một database khác nên flushdb không thương tiếc, users đang đăng nhập sẽ bị đá ra khỏi hệ thống.)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>redis-cli
+SELECT dbnum
+flushdb
+</code></pre>
+</div>
+
+<p><strong>Lệnh flushall để xóa toàn bộ databases của Redis</strong></p>
+
+<hr />
+
+<p><strong>Học được từ sai lầm này</strong>:</p>
+
+<ul>
+  <li>
+    <p>Rails không set expires mặc định cho session_store nhé, liệu mà nhớ thêm vào.</p>
+  </li>
+  <li>
+    <p>Hiểu hơn về Redis - học được vài chiêu Optimize Memory Usage của Redis (Tham khảo <a href="http://redis.io/topics/memory-optimization"><strong>Redis Memory Optimization</strong></a>): Sử dụng hash-zipmap - use hashes when possible thay cho cặp key-value đơn lẻ (Việc dùng small hashes rất tối ưu cho việc sử dụng Memory nhưng đánh đổi bằng CPU Usage sẽ cao hơn).</p>
+  </li>
+  <li>
+    <p>Redis memory footprint:</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>An empty instance uses ~ 1MB of memory.</p>
+</blockquote>
+
+<blockquote>
+  <p>1 Million small Keys -&gt; String Value pairs use ~ 100MB of memory.</p>
+</blockquote>
+
+<blockquote>
+  <p>1 Million Keys -&gt; Hash value, representing an object with 5 fields, use ~ 200 MB of memory.</p>
+</blockquote>
+
+<ul>
+  <li>
+    <p>Biết được các công nghệ có thể dùng để thay thế redis trong tương lại: <a href="http://fallabs.com/kyototycoon/"><strong>Kyoto Tycoon</strong></a>, <a href="http://www.aerospike.com/"><strong>AeroSpike</strong></a>.</p>
+  </li>
+  <li>
+    <p>Khả năng Monitoring Server của mình còn quá kém, thiếu sự nhạy cảm và chịu khó của một SysAdmin.</p>
+  </li>
+</ul>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>

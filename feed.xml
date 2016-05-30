@@ -6,9 +6,89 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 May 2016 08:15:40 +0700</pubDate>
-    <lastBuildDate>Mon, 30 May 2016 08:15:40 +0700</lastBuildDate>
+    <pubDate>Mon, 30 May 2016 22:08:08 +0700</pubDate>
+    <lastBuildDate>Mon, 30 May 2016 22:08:08 +0700</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Tai nạn với Rails và Redis</title>
+        <description>&lt;p&gt;#HọcTừSaiLầm - Mình vừa mắc phải một sai lầm mà mãi đến mấy tháng sau mới phát hiện ra. Vì vậy sai lầm này đã phải trả giá bằng tiền bạc (cứ scale server redis mà vẫn bị hết memory), Web App thì bị downtime vài lần, hơi muộn nhưng đã ngộ ra được.&lt;/p&gt;
+
+&lt;p&gt;Cụ thể là mình có dùng &lt;strong&gt;redis&lt;/strong&gt; làm session_store của Rails:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;session_store&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:redis_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;servers: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;REDIS_URL&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/1/sessions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;expires_in: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;minutes&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Nhưng khi đó lại mình quên mất vụ &lt;code class=&quot;highlighter-rouge&quot;&gt;expires_in&lt;/code&gt; nên cuối cùng Rails set default là unlimited. Session Keys cứ thế lưu trữ dài hạn trên Redis, và cứ âm thầm ngốn hết Ram của Instance Redis, mình đã thử nâng lần lượt 1GB lên 2GB, rồi 4GB và 8GB nhưng sau một thời gian vẫn cứ ngốn sạch trơn Ram, trong khi kiểm tra số lượng Redis keys mà App dùng thì chỉ khoảng 100k. Cuối cùng, vô tình kiểm tra ở database 1 (Redis đánh số database, mặc định là 0) thì choáng, số lượng lên tới hơn 50 triệu keys đang dùng làm sessions.&lt;/p&gt;
+
+&lt;p&gt;Giải quyết nhanh bằng cách flushdb để xóa toàn bộ data từ một database cụ thể. (May là mình đã tách riêng sessions ra một database khác nên flushdb không thương tiếc, users đang đăng nhập sẽ bị đá ra khỏi hệ thống.)&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;redis-cli
+SELECT dbnum
+flushdb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Lệnh flushall để xóa toàn bộ databases của Redis&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Học được từ sai lầm này&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Rails không set expires mặc định cho session_store nhé, liệu mà nhớ thêm vào.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hiểu hơn về Redis - học được vài chiêu Optimize Memory Usage của Redis (Tham khảo &lt;a href=&quot;http://redis.io/topics/memory-optimization&quot;&gt;&lt;strong&gt;Redis Memory Optimization&lt;/strong&gt;&lt;/a&gt;): Sử dụng hash-zipmap - use hashes when possible thay cho cặp key-value đơn lẻ (Việc dùng small hashes rất tối ưu cho việc sử dụng Memory nhưng đánh đổi bằng CPU Usage sẽ cao hơn).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Redis memory footprint:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;An empty instance uses ~ 1MB of memory.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;1 Million small Keys -&amp;gt; String Value pairs use ~ 100MB of memory.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;1 Million Keys -&amp;gt; Hash value, representing an object with 5 fields, use ~ 200 MB of memory.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Biết được các công nghệ có thể dùng để thay thế redis trong tương lại: &lt;a href=&quot;http://fallabs.com/kyototycoon/&quot;&gt;&lt;strong&gt;Kyoto Tycoon&lt;/strong&gt;&lt;/a&gt;, &lt;a href=&quot;http://www.aerospike.com/&quot;&gt;&lt;strong&gt;AeroSpike&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Khả năng Monitoring Server của mình còn quá kém, thiếu sự nhạy cảm và chịu khó của một SysAdmin.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 30 May 2016 07:00:00 +0700</pubDate>
+        <link>http://notes.viphat.work/tai-nan-voi-rails-va-redis</link>
+        <guid isPermaLink="true">http://notes.viphat.work/tai-nan-voi-rails-va-redis</guid>
+        
+        <category>lap-trinh</category>
+        
+        <category>redis</category>
+        
+        <category>til</category>
+        
+        <category>learn-from-mistake</category>
+        
+        <category>ruby-on-rails</category>
+        
+        <category>ruby</category>
+        
+        
+      </item>
     
       <item>
         <title>Học Lập trình từ sai lầm</title>
@@ -42,7 +122,7 @@
 
 &lt;hr /&gt;
 
-&lt;p&gt;Mọi người có thể follow Blog của Giáo sư tại đây:   &lt;a href=&quot;http://science-technology.vn&quot;&gt;&lt;strong&gt;science-technology.vn&lt;/strong&gt;&lt;/a&gt;. Giáo sư là người dịch và phóng tác quyển &lt;strong&gt;Hành trình về phương đông&lt;/strong&gt; nổi tiếng. Đọc thêm thông tin về giáo sư tại đây - &lt;a href=&quot;http://viphat.me/27YnKaE&quot;&gt;Giáo sư JOHN VŨ- Niềm tự hào của người Việt Nam.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Mọi người có thể follow Blog của Giáo sư tại đây:   &lt;a href=&quot;http://science-technology.vn&quot;&gt;&lt;strong&gt;science-technology.vn&lt;/strong&gt;&lt;/a&gt;. Giáo sư là người dịch và phóng tác quyển &lt;strong&gt;Hành trình về phương đông&lt;/strong&gt; nổi tiếng. Đọc thêm thông tin về giáo sư tại đây - &lt;a href=&quot;http://viphat.me/27YnKaE&quot;&gt;Giáo sư JOHN VŨ- Niềm tự hào của người Việt Nam.bao&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 30 May 2016 07:00:00 +0700</pubDate>
         <link>http://notes.viphat.work/hoc-lap-trinh-tu-sai-lam</link>
@@ -737,29 +817,6 @@ Khi đọc, tôi không quên ghi chép để chuẩn bị cho cuộc trò chuy�
         <category>tai-chinh-ca-nhan</category>
         
         <category>chi-tieu</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>[TED] - Chìa khóa của Thành công - Angela Lee Duckworth</title>
-        <description>&lt;p&gt;&lt;strong&gt;tl;dr&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Không phải là vẻ ngoài ưa nhìn, thể lực tốt, cũng không phải là IQ hay trí thông minh xã hội (social intelligence) sẽ báo hiệu cho sự thành công mà chính là sự BẾN CHÍ. Sự bền chí bao gồm lòng đam mê và sự kiên trì để đạt tới một mục tiêu dài hạn. Bền chí nghĩa là có sức chịu đựng tốt.&lt;/p&gt;
-
-&lt;p&gt;Bền chí là luôn hướng tới tương lai của bạn, ngày này qua ngày khác, không chỉ trong một tuần, không phải trong một tháng mà trong nhiều năm liền, và luôn cố gắng làm việc để biến tương lai đó thành hiện thực. Bền chí nghĩa là sống như thể cuộc đời là một cuộc chạy marathon, chứ không phải một cuộc chạy nước rút.&lt;/p&gt;
-
-&lt;p&gt;Phương pháp rèn luyện sự bền chí - &lt;strong&gt;CHƯA CÓ&lt;/strong&gt;, tuy nhiên, có thể tham khảo về &lt;strong&gt;Tư duy cầu tiến&lt;/strong&gt; của tiến sĩ Carol Dweck. Vì tư tưởng cầu tiến là một tư tưởng tuyệt vời cho việc xây dựng tính bền bỉ.&lt;/p&gt;
-
-&lt;p&gt;Tham khảo khóa học Sức mạnh của Tư duy cầu tiến trên UBrand.cool - http://ubrand.cool/c/377&lt;/p&gt;
-</description>
-        <pubDate>Thu, 25 Feb 2016 20:24:34 +0700</pubDate>
-        <link>http://notes.viphat.work/chia-khoa-cua-thanh-cong-angela-lee-duckworth</link>
-        <guid isPermaLink="true">http://notes.viphat.work/chia-khoa-cua-thanh-cong-angela-lee-duckworth</guid>
-        
-        <category>bai-hoc-cuoc-song</category>
-        
-        <category>ted</category>
         
         
       </item>
