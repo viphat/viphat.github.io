@@ -51,60 +51,60 @@
 
 <h5 id="bc-1---ng-nhp-vo-ti-khon-root-thm-mt-user-mi">Bước 1 - Đăng nhập vào tài khoản root, Thêm một User mới</h5>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ssh root@ip_address
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>ssh root@ip_address
 useradd viphat
 </code></pre>
 </div>
 <p>Thay mật khẩu của User mới bằng lệnh</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>passwd viphat
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>passwd viphat
 </code></pre>
 </div>
 
 <p>#####Bước 2 - Mượn quyền Root cho User mới</p>
 
-<p>Cấu hình để User mới có thể mượn quyền của Root khi cần bằng cách dùng “sudo” trước mỗi dòng lệnh. 
+<p>Cấu hình để User mới có thể mượn quyền của Root khi cần bằng cách dùng “sudo” trước mỗi dòng lệnh.
 việc mượn quyền bằng lệnh sudo giúp hạn chế bớt các sai lầm có thể làm hỏng hệ thống. Ngoài ra, các thao tác thực hiện bằng lệnh sudo đều được lưu trong file log “/var/log/secure” để xem lại khi cần thiết</p>
 
 <p>Cấu hình sudo bằng cách gõ lệnh</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>/usr/sbin/visudo
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>/usr/sbin/visudo
 </code></pre>
 </div>
 
 <p>tìm đến dòng</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root    ALL=(ALL)       ALL
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>root    <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span>       ALL
 </code></pre>
 </div>
 
 <p>thêm vào dưới đó dòng sau</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>viphat  ALL=(ALL)       ALL
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>viphat  <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span>       ALL
 </code></pre>
 </div>
 
 <p>#####Bước 3 - Cấu hình SSH không cho phép đăng nhập trực tiếp bằng tài khoản root</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo vi /etc/ssh/sshd_config
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sudo vi /etc/ssh/sshd_config
 </code></pre>
 </div>
 
 <p>Tìm dòng PermitRootLogin và sửa thành no</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>PermitRootLogin no
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>PermitRootLogin no
 </code></pre>
 </div>
 
 <p>thêm dòng sau vào cuối file</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>AllowUsers viphat
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>AllowUsers viphat
 </code></pre>
 </div>
 
 <p>Khởi động lại dịch vụ SSH</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo service sshd reload
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sudo service sshd reload
 </code></pre>
 </div>
 
@@ -118,19 +118,19 @@ việc mượn quyền bằng lệnh sudo giúp hạn chế bớt các sai lầm
 
 <p>Trước tiên, bạn cần generate ssh key từ máy client (máy bạn đang sử dụng) và copy nó vào thư mục ~/.ssh/authorized_keys của User mới tạo ở bước trên.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>scp ~/.ssh/id_rsa.pub viphat@ip_address:~/.ssh/authorized_keys
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>scp ~/.ssh/id_rsa.pub viphat@ip_address:~/.ssh/authorized_keys
 </code></pre>
 </div>
 
 <p>Mở File cấu hình dịch vụ SSH</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo vi /etc/ssh/sshd_config
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sudo vi /etc/ssh/sshd_config
 </code></pre>
 </div>
 
 <p>Tìm và thay các dòng sau thành:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>MaxAuthTries 1
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>MaxAuthTries 1
 PubkeyAuthentication yes
 AuthorizedKeysFile  .ssh/authorized_keys
 PasswordAuthentication no
@@ -141,7 +141,7 @@ PasswordAuthentication no
 
 <p>Khởi động lại dịch vụ SSH</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo service sshd reload
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sudo service sshd reload
 </code></pre>
 </div>
 
@@ -155,26 +155,26 @@ PasswordAuthentication no
 
 <p>(User A - B - C)</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Match User A,B,C
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>Match User A,B,C
 PasswordAuthentication no
 </code></pre>
 </div>
 
 <p>(Group)</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Match Group sudoers
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>Match Group sudoers
 PasswordAuthentication no
 </code></pre>
 </div>
 
 <p>(Tất cả các User không phải root)</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Match User !root
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>Match User !root
 PasswordAuthentication no
 </code></pre>
 </div>
 
-<p>==Tìm hiểu về SSH, Mã hóa đối xứng và bất đối xứng==</p>
+<p>Tìm hiểu thêm về SSH, Mã hóa đối xứng và bất đối xứng</p>
 
 
       <footer class="site-footer">
