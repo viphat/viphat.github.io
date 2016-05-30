@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Cài đặt Zsh và Terminator</title>
-  <meta name="description" content="Zsh và Terminator mang lại cho mình rất nhiều tiện tích trong các công việc cần đến Terminal. Vì vậy, sau khi cài đặt Ubuntu hay LinuxMint thì bạn nên cài Zs...">
+  <meta name="description" content="Zsh và Terminator mang lại cho mình rất nhiều sự tiện lợi trong các công việc cần đến Terminal - đặc biệt mình thích khả năng split màn hình thành nhiều Grou...">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#157878">
   <!-- Add to homescreen for Chrome on Android -->
@@ -45,44 +45,44 @@
 
     <section class="main-content">
       
-      <p>Zsh và Terminator mang lại cho mình rất nhiều tiện tích trong các công việc cần đến Terminal. Vì vậy, sau khi cài đặt Ubuntu hay LinuxMint thì bạn nên cài Zsh và Terminator đầu tiên.</p>
+      <p>Zsh và Terminator mang lại cho mình rất nhiều sự tiện lợi trong các công việc cần đến Terminal - đặc biệt mình thích khả năng split màn hình thành nhiều Group đồng thời có thể chia tab của Terminator.</p>
+
+<p>Vì vậy, sau khi cài đặt Ubuntu/LinuxMint và có làm việc nhiều với <strong>terminal</strong> (developer, sysadmin…) thì bạn nên thay chúng bằng Zsh và Terminator.</p>
 
 <p><img src="http://i.imgur.com/UVRhouI.png" alt="Screenshot" />
 ##### Cài đặt Zsh</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install zsh
-# Make sure it installed by running 
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sudo apt-get install zsh
+<span class="c"># Make sure it installed by running</span>
 zsh --version
-# Make it your default shell
-chsh -s $(which zsh)
+<span class="c"># Make it your default shell</span>
+chsh -s <span class="k">$(</span>which zsh<span class="k">)</span>
 </code></pre>
 </div>
 
 <h5 id="ci-t-oh-my-zsh">Cài đặt Oh-My-Zsh</h5>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sh -c <span class="s2">"</span><span class="k">$(</span>wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -<span class="k">)</span><span class="s2">"</span>
 </code></pre>
 </div>
 
 <h5 id="cui-cng-l-ci-terminator">Cuối cùng là cài Terminator</h5>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo add-apt-repository ppa:gnome-terminator
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sudo add-apt-repository ppa:gnome-terminator
 sudo apt-get update
 sudo apt-get install terminator
-# Start terminator
+<span class="c"># Start terminator</span>
 terminator
 </code></pre>
 </div>
 
 <p>Bây giờ chúng ta có thể khởi động Terminator và dùng thử, với terminator chúng ta có thể split 1 cửa sổ ra thành nhiều terminal khác nhau để tiện dụng cho việc sử dụng. Chỉnh được các phím tắt, như mình thường chỉnh Ctrl + C cho Copy, Ctrl + V cho Paste cho giống với iTerm2 trên MacOS.</p>
 
-<p>Để tiện dụng hơn nữa các bạn có thể chỉnh phím tắt trong hệ thống để khi nhấn Ctrl + Alt + T có thể bật 1 cửa sổ Terminator mới cho tiện.</p>
+<p>Để tiện dụng hơn nữa các bạn có thể chỉnh phím tắt trong hệ thống để khi nhấn Ctrl + Alt + T có thể bật một cửa sổ Terminator mới cho tiện.</p>
 
-<p>Nguồn bài viết - http://kipalog.com/posts/Cai-xong-Linux-Mint-Ubuntu-roi-thi-lam-gi-tiep</p>
+<p>Nguồn bài viết - <a href="http://kipalog.com/posts/Cai-xong-Linux-Mint-Ubuntu-roi-thi-lam-gi-tiep"><strong>Cài xong Linux Mint/Ubuntu rồi thì làm gì tiếp</strong></a></p>
 
-<blockquote>
-  <p>*Bonus tip: Một trong những kỹ thuật hay dùng nhất với Dev khi thao tác trên Terminal là đặt alias cho các command mình thường xuyên sử dụng. Trong Zsh, Alias được đặt trong file .zshrc (tương tư .bashrc)</p>
-</blockquote>
+<p><strong>Bonus</strong>: Một trong những kỹ thuật hay dùng nhất với Dev khi thao tác trên Terminal là đặt alias cho các command mình thường xuyên sử dụng. Trong Zsh, Alias được đặt trong file .zshrc (tương tư .bashrc)</p>
 
 
       <footer class="site-footer">

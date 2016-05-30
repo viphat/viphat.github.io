@@ -28,7 +28,7 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/css/cayman.css">
   <link rel="stylesheet" href="/css/cayman.css">
-  <link rel="canonical" href="http://notes.viphat.work/chapter-3-measuring">
+  <link rel="canonical" href="http://notes.viphat.work/measuring-monitoring-performance">
   <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
 </head>
 
@@ -228,11 +228,11 @@ Fully Loaded time occurs when all assets of the page have been loaded, including
 
 <p><code class="highlighter-rouge">traceroute</code> is a command line tool for measuring latency (for example, between you and your ISP). Here’s an example:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>traceroute to bbinto.me (23.229.170.160), 64 hops max, 52 byte 
+<div class="highlighter-rouge"><pre class="highlight"><code>traceroute to bbinto.me (23.229.170.160), 64 hops max, 52 byte
 ➥packets
 1  7.11.164.201 (7.11.164.201)  22.272 ms  8.525 ms  8.197 ms
 2  7.11.164.201 (7.11.164.201)  7.846 ms  11.971 ms  33.085 ms
-3  209.148.243.105 (209.148.243.105)  24.445 ms  13.891 ms  11.978 
+3  209.148.243.105 (209.148.243.105)  24.445 ms  13.891 ms  11.978
 ➥ms // my ISP
 ...
 13 be38.trmc0215-01.ars.mgmt.phx3.gdg (184.168.0.69)  100.097 ms  
@@ -338,7 +338,7 @@ total = parseInt(img.responseEnd - img.startTime);
 console.log(ttfb); // output 85 (in ms)
 console.log(total); // output 98 (in ms)
 
-// you could now log this somewhere in a database 
+// you could now log this somewhere in a database
 //or send an image beacon to your server
 logPerformanceData('main logo', ttfb, total);
 
@@ -380,7 +380,7 @@ logPerformanceData('main logo', ttfb, total);
               gives peace of mind), and you get to know your user
               better</td></tr><tr><td><span class="strong"><strong>Why?</strong></span></td><td>Establishes a baseline performance level</td><td>Get concrete information about users' latency, bandwidth,
               page load time, etc.</td></tr><tr><td><span class="strong"><strong>How?</strong></span></td><td>Tools: private/public WebPagetest (API), PageSpeed
-              Insights (API), and commercial products</td><td>Tools:  Boomerang.js, Google Analytics, and commercial
+              Insights (API), and commercial products</td><td>Tools: Boomerang.js, Google Analytics, and commercial
               products</td></tr></tbody></table>
 
 <p><strong>Đọc thêm về Real User Monitoring và Synthetic Monitoring</strong></p>
@@ -393,7 +393,6 @@ logPerformanceData('main logo', ttfb, total);
     <p>https://blogs.akamai.com/2012/12/situational-performance-measurement-with-a-splash-of-rum.html</p>
   </li>
 </ul>
-
 
 
       <footer class="site-footer">
