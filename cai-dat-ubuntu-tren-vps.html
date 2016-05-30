@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  
+
   <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,7 +44,7 @@
 
 
     <section class="main-content">
-      
+
       <p>Black Friday vừa qua, đi đâu cũng thấy khuyến mãi và ngập tràn Coupon nên mình nảy ý định kiếm khuyến mãi VPS nào hấp dẫn chút. Sau một hồi tìm kiếm ở http://ChiaseCoupon.com thì <strong>Ramnode</strong> với khuyến mãi giảm 20% trọn đời có vẻ phù hợp. Mình quyết định dùng Ramnode thay thế cho <strong>Linode</strong> đã xài cả năm nay (Một phần vì Linode không có khuyến mãi nào dành cho người dùng cũ và trung thành như mình). Vậy là mất 1 ngày cuối tuần để chuyển dữ liệu từ VPS cũ sang VPS mới, trong quá trình cài đặt và chuyển VPS, mình xin ghi lại một số thứ linh tinh để sau này tiện tra cứu.</p>
 
 <p>Kinh nghiệm khi cài Ubuntu lên VPS / Dedicated Server ở môi trường Production là nên sử dụng phiên bản LTS - Long Term Support (mới nhất là 14.04 LTS), khác biệt cơ bản của release LTS với các phiên bản thường (14.10, 15.04, 15.10…) là release LTS được hỗ trợ lâu dài đến 3 năm hoặc 5 năm, thay vì cứ phải upgrade liên tục mỗi 6 tháng cùng vòng đời ngắn ngủi như các phiên bản thường. Release LTS chỉ cập nhật các bản vá bảo mật nhằm luôn giữ cho hệ thống ổn định và lược bỏ việc cập nhật các ứng dụng không liên quan đến môi trường Production như trMột số Best Practice khi cài đặt Nginxình duyệt mail, trình duyệt web, media player… (Nếu bạn sử dụng cho Server, bạn nên sử dụng <strong>Minimal Setup</strong> để bỏ qua giao diện GUI và các ứng dụng không cần thiết).</p>
@@ -205,6 +205,14 @@ sudo apt-get install git
 
 
     </section>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
   </body>
 </html>
