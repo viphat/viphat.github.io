@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Sử dụng Git blame hiệu quả hơn</title>
+  <meta name="description" content="#TIL - Đây là bài học học được hôm nay: Đồng nghiệp phát hiện một bug nghiêm trọng làm lộ thông tin cá nhân của Users, mình phải sử dụng git blame để xác địn...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/a-better-git-blame">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+
+      <p>#TIL - Đây là bài học học được hôm nay: Đồng nghiệp phát hiện một bug nghiêm trọng làm lộ thông tin cá nhân của Users, mình phải sử dụng <code class="highlighter-rouge">git blame</code> để xác định ai là người gây ra lỗi, tuy nhiên trong trường hợp này, <code class="highlighter-rouge">git blame</code> đã không chính xác vì nghĩ là bạn H là author của dòng code này, nhưng thực sự thì bạn H chỉ xóa bớt khoảng trắng, thêm dấu phẩy mà thôi. Sau khi trace tiếp thì phát hiện original author của dòng code đó là mình (vào khoảng 6 tháng trước).</p>
+
+<hr />
+
+<p>TL;DR <code class="highlighter-rouge">git blame</code> hiếm khi cho bạn kết quả hữu ích. Thay vào đó có thể sử dụng các options trên <code class="highlighter-rouge">git log</code> để tìm đúng tác giả, người chịu trách nhiệm cho sự thay đổi không mong đợi.</p>
+
+<h3 id="git-blame-hot-ng-nh-th-no"><code class="highlighter-rouge">git blame</code> hoạt động như thế nào</h3>
+
+<p><code class="highlighter-rouge">git blame</code> tìm kiếm lịch sử commit để tìm người cuối cùng chỉnh sửa dòng code. Một số Editors có tích hợp chức năng này vào công cụ của họ, cũng như Github, Gitlab hay Bitbucket… cũng đều có <code class="highlighter-rouge">git blame</code> ngay trong giao diện (rất dễ để theo dõi và truy vết). Tuy vậy, bạn cũng có thể dùng command line:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+git blame path/to/file
+
+</code></pre>
+</div>
+<p>Output của <code class="highlighter-rouge">git blame</code> trên command-line</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>e45ad3 (Tim 2016-01-01)      1) import x from y;
+8890d2 (Jeremy 2016-01-13)   2) import z from h;
+e73ab4 (Michelle 2015-12-26) 3) public static func main(){
+</code></pre>
+</div>
+
+<p>Output của <code class="highlighter-rouge">git blame</code> trên <strong>Bitbucket</strong></p>
+
+<p><img src="http://i.imgur.com/7DUGSmo.png" alt="Bitbucket Git Blame" /></p>
+
+<p>(Cá nhân mình thì cảm thấy nhìn trên GUI sẽ trực quan  và dễ dàng hơn.)</p>
+
+<p>Ngoài ra, Bạn có thể cải thiện <code class="highlighter-rouge">git blame</code> bằng cách truyền options nhắc <code class="highlighter-rouge">git blame</code> ignore whitespaces cũng như detect moved code bằng:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git blame -w -M
+</code></pre>
+</div>
+
+<h3 id="vy-c-g-khng-n-vi-git-blame">Vậy có gì không ổn với <code class="highlighter-rouge">git blame</code></h3>
+
+<p>Vấn đề là <code class="highlighter-rouge">git blame</code> chỉ thể hiện người cuối cùng chỉnh sửa dòng code. Và điều này không chắc là thứ bạn muốn xác định, <code class="highlighter-rouge">git blame</code> không hẳn chỉ ra đúng người chủ thực sự của dòng đó bởi vì rơi vào những trường hợp sau, <code class="highlighter-rouge">git blame</code> vẫn xem đó là author của dòng code đó:</p>
+
+<ul>
+  <li>Thay đổi identing và formatting của dòng code.</li>
+  <li>Di chuyển code bên trong file.</li>
+  <li>Đổi tên file.</li>
+  <li>Nhưng thay đổi không đáng kể như thêm/bớt khoảng trắng…</li>
+  <li>Di chuyển file.</li>
+</ul>
+
+<h3 id="gii-php---s-dng-git-log">Giải pháp - sử dụng <code class="highlighter-rouge">git log</code></h3>
+
+<p><code class="highlighter-rouge">git log</code> là công cụ rất đa năng, trong trường hợp này, bạn có thể tận dụng <code class="highlighter-rouge">git log</code> để chỉ ra original author của dòng code bạn muốn tìm:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git log -p -M --follow --stat -- path/to/your/file
+</code></pre>
+</div>
+
+<ul>
+  <li><code class="highlighter-rouge">git log</code>: General command to show multiple commits</li>
+  <li><code class="highlighter-rouge">-p</code>: Show patches, as in show what actually changed for each commit.</li>
+  <li><code class="highlighter-rouge">-M</code>: Show file renames in a readable way. Ví dụ:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>path/to/{oldName.css =&gt; newName.css}
+</code></pre>
+</div>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">--follow</code>: If file is renamed, this will keep following changes through the old file.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">--stat</code>:</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">-- path/to/file</code>: specify a single file</p>
+  </li>
+</ul>
+
+<p>Kết quả:</p>
+
+<p><img src="http://i.imgur.com/NRAlPiJ.png" alt="Git Log" /></p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

@@ -6,9 +6,105 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 01 Jun 2016 15:44:24 +0700</pubDate>
-    <lastBuildDate>Wed, 01 Jun 2016 15:44:24 +0700</lastBuildDate>
+    <pubDate>Thu, 02 Jun 2016 08:01:39 +0700</pubDate>
+    <lastBuildDate>Thu, 02 Jun 2016 08:01:39 +0700</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Sử dụng Git blame hiệu quả hơn</title>
+        <description>&lt;p&gt;#TIL - Đây là bài học học được hôm nay: Đồng nghiệp phát hiện một bug nghiêm trọng làm lộ thông tin cá nhân của Users, mình phải sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; để xác định ai là người gây ra lỗi, tuy nhiên trong trường hợp này, &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; đã không chính xác vì nghĩ là bạn H là author của dòng code này, nhưng thực sự thì bạn H chỉ xóa bớt khoảng trắng, thêm dấu phẩy mà thôi. Sau khi trace tiếp thì phát hiện original author của dòng code đó là mình (vào khoảng 6 tháng trước).&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;TL;DR &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; hiếm khi cho bạn kết quả hữu ích. Thay vào đó có thể sử dụng các options trên &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; để tìm đúng tác giả, người chịu trách nhiệm cho sự thay đổi không mong đợi.&lt;/p&gt;
+
+&lt;h3 id=&quot;git-blame-hot-ng-nh-th-no&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; hoạt động như thế nào&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; tìm kiếm lịch sử commit để tìm người cuối cùng chỉnh sửa dòng code. Một số Editors có tích hợp chức năng này vào công cụ của họ, cũng như Github, Gitlab hay Bitbucket… cũng đều có &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; ngay trong giao diện (rất dễ để theo dõi và truy vết). Tuy vậy, bạn cũng có thể dùng command line:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+git blame path/to/file
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Output của &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; trên command-line&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;e45ad3 (Tim 2016-01-01)      1) import x from y;
+8890d2 (Jeremy 2016-01-13)   2) import z from h;
+e73ab4 (Michelle 2015-12-26) 3) public static func main(){
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Output của &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; trên &lt;strong&gt;Bitbucket&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/7DUGSmo.png&quot; alt=&quot;Bitbucket Git Blame&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;(Cá nhân mình thì cảm thấy nhìn trên GUI sẽ trực quan  và dễ dàng hơn.)&lt;/p&gt;
+
+&lt;p&gt;Ngoài ra, Bạn có thể cải thiện &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; bằng cách truyền options nhắc &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; ignore whitespaces cũng như detect moved code bằng:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git blame -w -M
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;vy-c-g-khng-n-vi-git-blame&quot;&gt;Vậy có gì không ổn với &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Vấn đề là &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; chỉ thể hiện người cuối cùng chỉnh sửa dòng code. Và điều này không chắc là thứ bạn muốn xác định, &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; không hẳn chỉ ra đúng người chủ thực sự của dòng đó bởi vì rơi vào những trường hợp sau, &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; vẫn xem đó là author của dòng code đó:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Thay đổi identing và formatting của dòng code.&lt;/li&gt;
+  &lt;li&gt;Di chuyển code bên trong file.&lt;/li&gt;
+  &lt;li&gt;Đổi tên file.&lt;/li&gt;
+  &lt;li&gt;Nhưng thay đổi không đáng kể như thêm/bớt khoảng trắng…&lt;/li&gt;
+  &lt;li&gt;Di chuyển file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;gii-php---s-dng-git-log&quot;&gt;Giải pháp - sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; là công cụ rất đa năng, trong trường hợp này, bạn có thể tận dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; để chỉ ra original author của dòng code bạn muốn tìm:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git log -p -M --follow --stat -- path/to/your/file
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;: General command to show multiple commits&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt;: Show patches, as in show what actually changed for each commit.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-M&lt;/code&gt;: Show file renames in a readable way. Ví dụ:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;path/to/{oldName.css =&amp;gt; newName.css}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--follow&lt;/code&gt;: If file is renamed, this will keep following changes through the old file.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--stat&lt;/code&gt;:&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-- path/to/file&lt;/code&gt;: specify a single file&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Kết quả:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/NRAlPiJ.png&quot; alt=&quot;Git Log&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 02 Jun 2016 07:00:00 +0700</pubDate>
+        <link>http://notes.viphat.work/a-better-git-blame</link>
+        <guid isPermaLink="true">http://notes.viphat.work/a-better-git-blame</guid>
+        
+        <category>git</category>
+        
+        <category>lap-trinh</category>
+        
+        <category>til</category>
+        
+        
+      </item>
     
       <item>
         <title>Phương pháp học tích cực</title>
@@ -758,59 +854,6 @@ Khi đọc, tôi không quên ghi chép để chuẩn bị cho cuộc trò chuy�
         <category>ruby-on-rails</category>
         
         <category>server</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Đọc nhanh nhớ lâu</title>
-        <description>&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/ws7oUndUWtY&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;&lt;strong&gt;tl;dr&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Các loại sách được nhắc đến ở đây là Sách Self-help, sách về kỹ năng, chuyên môn chứ không nói về Báo / tạp chí, truyện tranh, tiểu thuyết văn học, truyện ngắn nhé.&lt;/p&gt;
-
-&lt;h4 id=&quot;bc-chun-b&quot;&gt;3 bước chuẩn bị&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Mục đích đọc sách.&lt;/li&gt;
-  &lt;li&gt;Nơi chốn đọc sách (Đủ ánh sáng, chỗ ngồi thoải mái, không gian yên tĩnh giúp khả năng tập trung cao hơn).&lt;/li&gt;
-  &lt;li&gt;Tư thế đọc sách (Ngồi thẳng, mắt cách sách 20-30 cm - Việc nằm đoc sách chỉ phù hợp đọc sách báo giải trí).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Đọc sách hiệu quả thì nên tập trung 40-45 phút liên tục, sau đó cần nghỉ ngơi khoảng 10 phút trước khi quay trở lại đọc tiếp.&lt;/p&gt;
-
-&lt;h4 id=&quot;bc-c-sch&quot;&gt;4 bước đọc sách&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Đọc tổng quát (Đọc mục lục để nắm được bức tranh lớn của Quyển sách)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Cưỡi ngựa xem hoa  (Đọc lời mở đầu và các đề mục nhỏ, các đoạn summarize của các Chapter)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Cặp đôi hoàn hảo (Sau bước cưỡi ngựa xem hoa, xác định các chapter yêu thích, nhảy ngay vào đọc các chương đó trước, đọc lướt lấy ý chính, nên đọc một lúc 2 chương một và lưu ý nghỉ ngơi hợp lý, Lập sơ đồ tư duy cho những kiến thức đã đọc trong Chapter.)&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Lưu ý rằng ta không nhất thiết phải đọc hết một quyển sách…&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Tổng kết (Để nhớ lâu và kỹ hơn, ghi lại những câu văn, đoạn văn hay và tâm đắc. 3~5 điều mà ta đã học được từ quyển sách)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Đọc chủ động =&amp;gt; Hành động (Lập ra 1~2 bước hành động để áp dụng ngay hôm nay và biến những kiến thức trong sách thành kiến thức của mình.)&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Sat, 27 Feb 2016 13:57:16 +0700</pubDate>
-        <link>http://notes.viphat.work/doc-nhanh-nho-lau</link>
-        <guid isPermaLink="true">http://notes.viphat.work/doc-nhanh-nho-lau</guid>
-        
-        <category>doc-sach</category>
         
         
       </item>
