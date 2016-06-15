@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>[Ruby] - Tổng hợp về Roda web toolkit</title>
+  <meta name="description" content="Vậy là cũng gần 2 năm kể từ khi mình trở lại với con đường Coder - Tôi đã học Ruby như thế nào. Và cũng ngần ấy thời gian, mình đã gắn bó với Ruby, ăn ngủ cù...">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/tong-hop-roda-web-toolkit">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+
+      <p>Vậy là cũng gần 2 năm kể từ khi mình trở lại với con đường Coder - <a href="http://notes.viphat.work/toi-da-bat-dau-hoc-ruby-nhu-the-nao"><strong>Tôi đã học Ruby như thế nào</strong></a>. Và cũng ngần ấy thời gian, mình đã gắn bó với Ruby, ăn ngủ cùng Rails. Tuy nhiên, Ruby không chỉ có Rails, việc sử dụng Rails quá nhiều dẫn đến mình bị lệ thuộc vào Rails và các magic, monkey patching của Rails. Vì vậy, mình quyết định sẽ tìm hiểu thử các framework khác của Ruby và áp dụng cho các dự án <a href="http://notes.viphat.work/moi-lap-trinh-vien-deu-can-co-it-nhat-mot-side-project">side project</a> sắp tới của mình.</p>
+
+<p>Ban đầu, mình định quay lại với Sinatra, dù gì thì trước kia, mình đã từng dùng Sinatra và ít ra đã đọc và follow hết quyển <a href="https://www.sitepoint.com/store/jump-start-sinatra/"><strong>Jump Start Sinatra</strong></a> rồi. Sau đó, một số cái tên đã được thêm vào short list của mình như <strong>Hanami</strong> (<strong>Lotus</strong>), <strong>CUBA</strong> và <strong>Roda</strong>. Và mình đã chọn Roda bởi vì…</p>
+
+<h3 id="gii-thiu">Giới thiệu</h3>
+
+<ul>
+  <li>Roda đơn giản và siêu gọn nhẹ, nó không phải một framework đầy đủ và nặng nề như Rails (được phát triển bởi một người độc đoán như DHH). Nếu bạn cần một framework tốt nhưng không phải <strong>Rails</strong> thì <strong>Hanami</strong> khá là hứa hẹn. Bản thân tác giả Roda chỉ giới thiệu Roda là một <strong>Routing Tree Web Toolkit</strong>.</li>
+  <li>Đáng tin cậy.</li>
+  <li>Roda có khả năng mở rộng bằng cách sử dụng plugins. Tuy cộng đồng của Roda không đông đảo, nhưng vẫn có đủ các plugins cần thiết, kết hợp với hệ thống gems dành cho Ruby cũng đủ đáp ứng phần lớn các yêu cầu của bạn.</li>
+  <li>Hiệu suất tốt hơn hẳn Rails (dĩ nhiên rồi), và nhanh hơn 2.5X so với <strong>Sinatra</strong> (Một framework cũng siêu nhẹ khác).</li>
+</ul>
+
+<p>Tham khảo bài viết <a href="http://viphat.me/1UcgEvi">Why Roda?</a></p>
+
+<h3 id="lin-kt-hu-ch">Liên kết hữu ích</h3>
+
+<h4 id="mt-s-lin-kt-ng-tham-kho-khc">Một số liên kết đáng tham khảo khác:</h4>
+
+<ul>
+  <li><a href="http://viphat.me/1YrR45i">Roda Conventions</a> - Vào học cách tổ chức folder dự án như thế nào? (Áp dụng cho ứng dụng nhỏ/lớn).</li>
+  <li><a href="http://roda.jeremyevans.net/documentation.html"><strong>Roda Documents</strong></a> - Tập hợp các tài liệu chính thức của Roda và các plugins có sẵn của Roda.</li>
+  <li><a href="http://viphat.me/1PtTY2d">Roda Skeleton with Sequel</a> - application skeleton cho ứng dụng viết bằng Roda với <a href="http://viphat.me/1VZmNu3"><strong>Sequel</strong></a> làm ORM.</li>
+  <li><a href="http://viphat.me/1UUJtX4">Roda-app</a> - Cũng là một application skeleton nhưng chỉ thuần Roda.</li>
+  <li><a href="http://viphat.me/1Op9wJB">Develop API with Roda</a></li>
+  <li><a href="http://viphat.me/1XXbl3W">Setup and deploy Roda app from scratch</a></li>
+  <li><a href="http://twin.github.io/introduction-to-roda/">Introduction to Roda</a> - Bạn có thể xem cách tác giả sử dụng Roda cho API, Web Sockets, Caching… như thế nào.</li>
+  <li><a href="http://mrcook.uk/simple-roda-blog-tutorial">Simple Roda Blog Tutorial</a> - Tutorial hướng dẫn tạo một blog đơn giản bằng Roda, thích hợp cho các bạn chuộng học theo kiểu thực hành theo guide hướng dẫn.</li>
+</ul>
+
+<h4 id="ng-dng-opensource-vit-bng-roda">Ứng dụng OpenSource viết bằng roda:</h4>
+
+<ul>
+  <li><a href="https://github.com/kontena/kontena/tree/master/server"><strong>Kontana Server</strong></a>, bài viết liên quan - <a href="http://viphat.me/24QRguM">Roda + Mutations + Jbuilder = Perfect fit for JSON API</a> , mình học được nhiều thứ cũng như chôm chỉa được cách cấu hình, tổ chức thư mục dự án từ Kontana.</li>
+</ul>
+
+<p>Trong quá trình phát triển ứng dụng, một phần không thể thiếu (nếu ứng dụng có tương tác với database) là ORM và Authentication. Với Roda, ORM tốt nhất là <strong>Sequel</strong> và Authentication thích hợp nhất là <a href="http://viphat.me/1Opa16p"><strong>Rodauth</strong></a>, bởi cả 2 gem này đều do tác giả của <strong>Roda</strong> là Jeremy Evans phát triển và duy trì. Trong đó, Sequel được đánh giá là không thua kém so với <strong>ActiveRecord</strong> quen thuộc của Rails (Nói về Performance thì Sequel ăn đứt ActiveRecord nhé - <a href="http://viphat.me/1XXcgl7">xem chi tiết</a>).</p>
+
+<h4 id="mt-s-lin-kt-hu-ch-khi-tm-hiu-v-sequel">Một số liên kết hữu ích khi tìm hiểu vể Sequel:</h4>
+
+<ul>
+  <li><a href="http://viphat.me/23aimxB"><strong>Sequel cheat sheet</strong></a> - Tra cứu nhanh một số cách sử dụng Sequel.</li>
+  <li><a href="http://viphat.me/24QRnGw"><strong>Sequel for ActiveRecord users</strong></a></li>
+  <li><a href="http://viphat.me/1twkZhm">Ode to Sequel</a></li>
+  <li><a href="http://viphat.me/1YrVqJL">ActiveRecord is reinventing Sequel</a></li>
+  <li><a href="http://viphat.me/1YrTgtx">Why you should stop using ActiveRecord and start using Sequel</a></li>
+</ul>
+
+<blockquote>
+  <p>Khi còn dev app bằng Sinatra thì mình dùng DataMapper cho ORM.</p>
+</blockquote>
+
+<h4 id="cc-plugins-mnh--dng-cho-side-project-u-tin---worklog-assistanthttpviphatme1q4kbop---c-vit-bng-roda">Các plugins mình đã dùng cho side project đầu tiên - <a href="http://viphat.me/1Q4KboP">Worklog Assistant</a> - được viết bằng roda:</h4>
+<ul>
+  <li>render</li>
+  <li>environments</li>
+  <li>multi_route</li>
+  <li>mailer</li>
+  <li>json</li>
+  <li>all_verbs</li>
+  <li>default_headers</li>
+  <li>head</li>
+  <li>error_handler</li>
+  <li>Sequel Extensions Seed</li>
+</ul>
+
+<p>Đọc thêm bài <a href="http://viphat.me/1rq3Sf1"><strong>The Plugin System of Sequel and Roda</strong></a> để hiểu mô hình này so với các gem của Rails như thế nào.</p>
+
+<h3 id="deploy">Deploy</h3>
+<p>Có thể áp dụng các tutorial deploy dành cho sinatra, bởi vì roda cũng giống sinatra, cũng thuộc dạng Rack-based.</p>
+
+<ul>
+  <li><a href="http://viphat.me/1Uzmu47">Sinatra + Puma + Nginx</a></li>
+  <li><a href="http://viphat.me/1YrsGR8">Sinatra + Puma + Nginx</a></li>
+</ul>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

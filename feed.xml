@@ -6,9 +6,100 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 07 Jun 2016 14:16:06 +0700</pubDate>
-    <lastBuildDate>Tue, 07 Jun 2016 14:16:06 +0700</lastBuildDate>
+    <pubDate>Wed, 15 Jun 2016 23:11:25 +0700</pubDate>
+    <lastBuildDate>Wed, 15 Jun 2016 23:11:25 +0700</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>[Ruby] - Tổng hợp về Roda web toolkit</title>
+        <description>&lt;p&gt;Vậy là cũng gần 2 năm kể từ khi mình trở lại với con đường Coder - &lt;a href=&quot;http://notes.viphat.work/toi-da-bat-dau-hoc-ruby-nhu-the-nao&quot;&gt;&lt;strong&gt;Tôi đã học Ruby như thế nào&lt;/strong&gt;&lt;/a&gt;. Và cũng ngần ấy thời gian, mình đã gắn bó với Ruby, ăn ngủ cùng Rails. Tuy nhiên, Ruby không chỉ có Rails, việc sử dụng Rails quá nhiều dẫn đến mình bị lệ thuộc vào Rails và các magic, monkey patching của Rails. Vì vậy, mình quyết định sẽ tìm hiểu thử các framework khác của Ruby và áp dụng cho các dự án &lt;a href=&quot;http://notes.viphat.work/moi-lap-trinh-vien-deu-can-co-it-nhat-mot-side-project&quot;&gt;side project&lt;/a&gt; sắp tới của mình.&lt;/p&gt;
+
+&lt;p&gt;Ban đầu, mình định quay lại với Sinatra, dù gì thì trước kia, mình đã từng dùng Sinatra và ít ra đã đọc và follow hết quyển &lt;a href=&quot;https://www.sitepoint.com/store/jump-start-sinatra/&quot;&gt;&lt;strong&gt;Jump Start Sinatra&lt;/strong&gt;&lt;/a&gt; rồi. Sau đó, một số cái tên đã được thêm vào short list của mình như &lt;strong&gt;Hanami&lt;/strong&gt; (&lt;strong&gt;Lotus&lt;/strong&gt;), &lt;strong&gt;CUBA&lt;/strong&gt; và &lt;strong&gt;Roda&lt;/strong&gt;. Và mình đã chọn Roda bởi vì…&lt;/p&gt;
+
+&lt;h3 id=&quot;gii-thiu&quot;&gt;Giới thiệu&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Roda đơn giản và siêu gọn nhẹ, nó không phải một framework đầy đủ và nặng nề như Rails (được phát triển bởi một người độc đoán như DHH). Nếu bạn cần một framework tốt nhưng không phải &lt;strong&gt;Rails&lt;/strong&gt; thì &lt;strong&gt;Hanami&lt;/strong&gt; khá là hứa hẹn. Bản thân tác giả Roda chỉ giới thiệu Roda là một &lt;strong&gt;Routing Tree Web Toolkit&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Đáng tin cậy.&lt;/li&gt;
+  &lt;li&gt;Roda có khả năng mở rộng bằng cách sử dụng plugins. Tuy cộng đồng của Roda không đông đảo, nhưng vẫn có đủ các plugins cần thiết, kết hợp với hệ thống gems dành cho Ruby cũng đủ đáp ứng phần lớn các yêu cầu của bạn.&lt;/li&gt;
+  &lt;li&gt;Hiệu suất tốt hơn hẳn Rails (dĩ nhiên rồi), và nhanh hơn 2.5X so với &lt;strong&gt;Sinatra&lt;/strong&gt; (Một framework cũng siêu nhẹ khác).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Tham khảo bài viết &lt;a href=&quot;http://viphat.me/1UcgEvi&quot;&gt;Why Roda?&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;lin-kt-hu-ch&quot;&gt;Liên kết hữu ích&lt;/h3&gt;
+
+&lt;h4 id=&quot;mt-s-lin-kt-ng-tham-kho-khc&quot;&gt;Một số liên kết đáng tham khảo khác:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1YrR45i&quot;&gt;Roda Conventions&lt;/a&gt; - Vào học cách tổ chức folder dự án như thế nào? (Áp dụng cho ứng dụng nhỏ/lớn).&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://roda.jeremyevans.net/documentation.html&quot;&gt;&lt;strong&gt;Roda Documents&lt;/strong&gt;&lt;/a&gt; - Tập hợp các tài liệu chính thức của Roda và các plugins có sẵn của Roda.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1PtTY2d&quot;&gt;Roda Skeleton with Sequel&lt;/a&gt; - application skeleton cho ứng dụng viết bằng Roda với &lt;a href=&quot;http://viphat.me/1VZmNu3&quot;&gt;&lt;strong&gt;Sequel&lt;/strong&gt;&lt;/a&gt; làm ORM.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1UUJtX4&quot;&gt;Roda-app&lt;/a&gt; - Cũng là một application skeleton nhưng chỉ thuần Roda.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1Op9wJB&quot;&gt;Develop API with Roda&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1XXbl3W&quot;&gt;Setup and deploy Roda app from scratch&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://twin.github.io/introduction-to-roda/&quot;&gt;Introduction to Roda&lt;/a&gt; - Bạn có thể xem cách tác giả sử dụng Roda cho API, Web Sockets, Caching… như thế nào.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://mrcook.uk/simple-roda-blog-tutorial&quot;&gt;Simple Roda Blog Tutorial&lt;/a&gt; - Tutorial hướng dẫn tạo một blog đơn giản bằng Roda, thích hợp cho các bạn chuộng học theo kiểu thực hành theo guide hướng dẫn.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;ng-dng-opensource-vit-bng-roda&quot;&gt;Ứng dụng OpenSource viết bằng roda:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kontena/kontena/tree/master/server&quot;&gt;&lt;strong&gt;Kontana Server&lt;/strong&gt;&lt;/a&gt;, bài viết liên quan - &lt;a href=&quot;http://viphat.me/24QRguM&quot;&gt;Roda + Mutations + Jbuilder = Perfect fit for JSON API&lt;/a&gt; , mình học được nhiều thứ cũng như chôm chỉa được cách cấu hình, tổ chức thư mục dự án từ Kontana.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Trong quá trình phát triển ứng dụng, một phần không thể thiếu (nếu ứng dụng có tương tác với database) là ORM và Authentication. Với Roda, ORM tốt nhất là &lt;strong&gt;Sequel&lt;/strong&gt; và Authentication thích hợp nhất là &lt;a href=&quot;http://viphat.me/1Opa16p&quot;&gt;&lt;strong&gt;Rodauth&lt;/strong&gt;&lt;/a&gt;, bởi cả 2 gem này đều do tác giả của &lt;strong&gt;Roda&lt;/strong&gt; là Jeremy Evans phát triển và duy trì. Trong đó, Sequel được đánh giá là không thua kém so với &lt;strong&gt;ActiveRecord&lt;/strong&gt; quen thuộc của Rails (Nói về Performance thì Sequel ăn đứt ActiveRecord nhé - &lt;a href=&quot;http://viphat.me/1XXcgl7&quot;&gt;xem chi tiết&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h4 id=&quot;mt-s-lin-kt-hu-ch-khi-tm-hiu-v-sequel&quot;&gt;Một số liên kết hữu ích khi tìm hiểu vể Sequel:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/23aimxB&quot;&gt;&lt;strong&gt;Sequel cheat sheet&lt;/strong&gt;&lt;/a&gt; - Tra cứu nhanh một số cách sử dụng Sequel.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/24QRnGw&quot;&gt;&lt;strong&gt;Sequel for ActiveRecord users&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1twkZhm&quot;&gt;Ode to Sequel&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1YrVqJL&quot;&gt;ActiveRecord is reinventing Sequel&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1YrTgtx&quot;&gt;Why you should stop using ActiveRecord and start using Sequel&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Khi còn dev app bằng Sinatra thì mình dùng DataMapper cho ORM.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;cc-plugins-mnh--dng-cho-side-project-u-tin---worklog-assistanthttpviphatme1q4kbop---c-vit-bng-roda&quot;&gt;Các plugins mình đã dùng cho side project đầu tiên - &lt;a href=&quot;http://viphat.me/1Q4KboP&quot;&gt;Worklog Assistant&lt;/a&gt; - được viết bằng roda:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;render&lt;/li&gt;
+  &lt;li&gt;environments&lt;/li&gt;
+  &lt;li&gt;multi_route&lt;/li&gt;
+  &lt;li&gt;mailer&lt;/li&gt;
+  &lt;li&gt;json&lt;/li&gt;
+  &lt;li&gt;all_verbs&lt;/li&gt;
+  &lt;li&gt;default_headers&lt;/li&gt;
+  &lt;li&gt;head&lt;/li&gt;
+  &lt;li&gt;error_handler&lt;/li&gt;
+  &lt;li&gt;Sequel Extensions Seed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Đọc thêm bài &lt;a href=&quot;http://viphat.me/1rq3Sf1&quot;&gt;&lt;strong&gt;The Plugin System of Sequel and Roda&lt;/strong&gt;&lt;/a&gt; để hiểu mô hình này so với các gem của Rails như thế nào.&lt;/p&gt;
+
+&lt;h3 id=&quot;deploy&quot;&gt;Deploy&lt;/h3&gt;
+&lt;p&gt;Có thể áp dụng các tutorial deploy dành cho sinatra, bởi vì roda cũng giống sinatra, cũng thuộc dạng Rack-based.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1Uzmu47&quot;&gt;Sinatra + Puma + Nginx&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1YrsGR8&quot;&gt;Sinatra + Puma + Nginx&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 15 Jun 2016 07:00:00 +0700</pubDate>
+        <link>http://notes.viphat.work/tong-hop-roda-web-toolkit</link>
+        <guid isPermaLink="true">http://notes.viphat.work/tong-hop-roda-web-toolkit</guid>
+        
+        <category>ruby</category>
+        
+        <category>roda</category>
+        
+        <category>lap-trinh</category>
+        
+        
+      </item>
     
       <item>
         <title>On Being a Junior Developer</title>
@@ -825,45 +916,6 @@ khó chịu! Đó là cách sống của người bất hạnh!&lt;/p&gt;
         <category>bai-hoc-cuoc-song</category>
         
         <category>song-tron-ven</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>[ReadStation] Làm sao để đọc 1 cuốn sách mỗi tuần?</title>
-        <description>&lt;p&gt;Bạn cảm thấy tuyệt vọng khi ngập lội giữa muôn vàn sách vở và tri thức mà không biết lấy đâu ra đủ thời gian để đọc hết những gì bạn muốn? Bạn đọc một cuốn sách kỹ năng làm giàu và cảm thấy chán nản khi nó lặp lại quá nhiều kiến thức bạn đã biết; muốn bỏ dở giữa chừng nhưng sợ không biết mình có lỡ mất điều gì không? Hay bạn đã dành biết bao công sức thời gian đọc hết một cuốn sách, để đến cuối nhận ra mình không hề nắm rõ nó như mình nghĩ khi một người khác hỏi bạn cuốn sách nói về điều gì? Bạn nhận ra rằng mình đã quên phần lớn quyển sách, chỉ nhớ vài mẩu chuyện lặt vặt, hiểu chung chung quyển sách nói về cái gì nhưng không có khả năng trình bày lại hệ thống lập luận của tác giả?&lt;/p&gt;
-
-&lt;p&gt;Bất cứ vấn đề gì bạn đã từng gặp ở trên, bài viết này là dành cho bạn. Bài viết được Read Station chuyển ngữ từ bài “&lt;strong&gt;How to read a book a week&lt;/strong&gt;” trên tạp chí Harvard Business Review. Tác giả của bài viết là Peter Bregman, chuyên gia tư vấn về năng lực lãnh đạo cho các tổ chức hàng đầu thế giới như Goldman Sachs, Morgan Stanley, Deutsche Bank, JPMorgan Chase, Nike, UNICEF…Ông tốt nghiệp đại học trường Princeton, và học cao học tại trường Columbia.&lt;/p&gt;
-
-&lt;h3 id=&quot;lm-sao--c-1-cun-sch-mi-tun&quot;&gt;Làm sao để đọc 1 cuốn sách mỗi tuần?&lt;/h3&gt;
-
-&lt;p&gt;Đó là vào cuối những năm thập niên 1980, tôi đang ngồi trong giảng đường trường đại học nghe Abbie Hoffman - một nhà hoạt động xã hội - phê phán và lên án sự thờ ơ của thế hệ chúng tôi. Cạnh tôi là Gloria Emerson - một nhà báo tài năng và cá tính. Chúng tôi đang bàn luận về bài nói chuyện của Hoffman khi tôi nói với cô tôi yêu thích cảm giác ngập lặn giữa vô vàn những ý tưởng này như thế nào. “Quả là một cơ hội hiếm có để được ngồi ở đây,” tôi nói, “lắng nghe chia sẻ từ những con người thông minh và sâu sắc như thế này.” “Ôi, làm gì đến nỗi,” cô đáp. “Bất cứ ai cũng đều có thể tham dự những cuộc nói chuyện kiểu này. Chỉ cần đọc vài quyển sách thôi!” Hài hước thay, là một sinh viên chuyên ngành lịch sử, tôi thường phải đọc ba đến bốn cuốn sách mỗi tuần. Và Gloria nói đúng: nhờ có những cuốn sách đó mà tôi có một chỗ ngồi ở đây, được tham gia cuộc nói chuyện lý thú giữa những bộ óc lớn như thế này. Quay trở về cuộc nói chuyện, từ khi bắt đầu làm một kênh podcast (1 kiểu radio online) của riêng mình, tôi luôn cố đọc sách phi hư cấu (non-fiction) nhiều nhất có thể - ít nhất một cuốn mỗi tuần. Đó là yêu cầu tối thiểu để, thứ nhất, quyết định xem tôi có muốn trò chuyện với tác giả cuốn sách và chia sẻ ý tưởng của họ không; thứ hai, làm cuộc nói chuyện trở nên ý nghĩa nếu tôi quyết định sẽ mời họ làm khách mời cho chương trình podcast số tiếp theo. (Nghe thì có vẻ hiển nhiên, nhưng bạn sẽ bất ngờ vô cùng khi biết bao nhiêu lần tôi được mời phỏng vấn bởi những người chưa hề đọc sách của mình.) Tôi làm giàu bản thân nhờ việc đọc. Tôi biết nhiều hơn và bản lĩnh hơn, dũng cảm sẵn sàng áp dụng những gì tôi đã học vào đời sống. Tôi cũng tự tin hơn cả trong quan điểm và hành động, đồng thời trở nên thấu hiểu và đồng cảm hơn với người khác. Nhưng việc đọc quả là tốn thời gian. Tôi đã quá bận rộn ngay cả trước khi tôi quyết định đọc vài cuốn sách mỗi tuần. Không những thế tôi lại còn là một người đọc chậm nữa. Tôi đã thử nhiều giải pháp mọi người vẫn làm, nhưng chẳng cái nào có ích cả. Đọc mỗi đoạn giới thiệu cuốn sách là không thể đủ, và các bài tóm tắt của chúng thì thật tệ hại. Tôi chưa từng đọc một bài tóm tắt nào mà có thể thực sự truyền tải sự hấp dẫn thú vị và ý nghĩa của tác phẩm. Vậy làm sao mà tôi có thể đọc một hay vài cuốn sách mỗi tuần? Cuối cùng, thứ giải quyết được vấn đề của tôi là những lời khuyên tôi có khi vẫn còn ngồi trên giảng đường đại học. Michael Jimenez - giáo sư lịch sử Mỹ Latin - là một trong những giáo viên tuyệt vời nhất tôi từng được học. Một ngày tôi tâm sự với ông về vấn đề tôi có với khối lượng sách tôi cần phải đọc. “Tôi hy vọng cậu không đọc chúng từng từ từng từ như đọc tiểu thuyết,” ông nói. Tôi thú nhận đúng là tôi đọc sách như thế thật. Ông nhìn một vòng quanh phòng, một vài học sinh ngượng ngùng gật đầu đồng ý với những gì tôi nói. Vậy là ông gọi bọn tôi lại một chỗ và dạy cho chúng tôi cách đọc sách non-fiction ra sao. “Nghe này,” ông nói, “các bạn không cần phải đọc những quyển sách này. Các bạn cần hiểu chúng.” Ông giải thích thêm: Tiểu thuyết hư cấu yêu cầu chúng ta phải nhập tâm vào thế giới mà tác giả tạo ra, nó truyền cảm và đem đến cho chúng ta một trải nghiệm sống động. Nhưng sách non-fiction - ít nhất là những gì chúng ta đọc để phục vụ cho công việc của chúng ta - đề cập một quan điểm về một vấn đề mà yêu cầu chúng ta hiểu nó. Ở vị trí những người đọc, chúng ta có thêm động lực sau mỗi cuốn sách đọc xong. Đọc càng nhiều, ta càng nhanh chóng nắm bắt được góc nhìn và ý tưởng của cuốn sách, hay sự liên hệ của nó với các tác phẩm khác. Và ta càng hiểu cuốn sách rõ hơn khi ta áp dụng lời khuyên và góc nhìn của nó vào cuộc sống thường nhật. Nói cách khác, đọc càng nhiều, chúng ta đọc càng nhanh.Đây là tổng hợp lời khuyên của giáo sư Jimenez về cách đọc sách non-fiction, với một vài bổ sung của tôi:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1. Hãy bắt đầu với tác giả.&lt;/strong&gt; 
-Ai đã viết quyển sách? Hãy đọc qua tiểu sử của họ. Nếu không tìm được trên mạng một bài phỏng vấn hay bài viết ngắn về tác giả, hãy đọc nó thật nhanh thôi, không cần quá chi tiết. Nó sẽ giúp ta có được một cảm nhận và mường tượng về quan điểm và khuynh hướng của người viết.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2. Đọc tên sách, tiêu đề, bìa, và mục lục quyển sách.&lt;/strong&gt; Cố gắng nắm bắt xem bức tranh chung của lập luận của cuốn sách là gì. Lập luận đó đi theo hướng nào? Chỉ với việc này, bạn đã có thể miêu tả ý tưởng và chủ đề chính của quyển sách cho những người chưa từng đọc nó.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3. Đọc giới thiệu và kết luận.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Tác giả dẫn dắt vấn đề ở đầu cuốn sách, và chốt quan điểm của họ ở cuối cuốn sách. Hãy đọc kỹ (nhưng nhanh) 2 phần này. Bạn đã có mường tượng về quan điểm của tác giả rồi, 2 phần này sẽ cho bạn biết họ sẽ đi đến luận điểm đó như thế nào (giới thiệu) và họ hy vọng bạn nhận ra được gì từ đó (kết luận).&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4. Đọc/lướt qua các chương.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Đọc đầu đề của chương, sau đó là vài đoạn hoặc vài trang của mỗi chương để biết được tác giả viết chương này với mục đích gì và nó có vai trò gì trong luận điểm chính của quyển sách. Sau đó đọc lướt qua các phần in đậm, các mục nhỏ hơn trong chương (nếu có) để nắm bắt được dòng chảy của chương sách. Đọc câu đầu tiên và câu cuối cùng của mỗi đoạn văn. Nếu bạn hiểu nó đang nói gì thì cứ tiếp tục, nếu không, bạn có thể muốn dừng lại để đọc cả đoạn. Một khi bạn đã hiểu chương này viết về cái gì, bạn có thể lướt qua cả trang rất nhanh mà vẫn nắm rõ được lý lẽ, lập luận trong chương.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5. Kết thúc bằng đọc lại mục lục một lần nữa.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Khi đã hoàn thành cuốn sách, quay trở lại đọc mục lục và tóm tắt lại nó trong đầu. Dành một khoảng thời gian để ngẫm lại dòng chảy của cuốn sách, những lý lẽ luận điểm làm bạn quan tâm, những câu chuyện bạn ấn tượng, và cuộc hành trình bạn vừa trải qua với tác giả.
-Khi đọc, tôi không quên ghi chép để chuẩn bị cho cuộc trò chuyện với tác giả. Tôi đồng ý ở điểm nào? Không đồng ý ở điểm nào? Có những điều gì vẫn làm tôi băn khoăn thắc mắc? Có những điều thú vị gì tôi muốn tranh luận thêm với nhiều người khác để hiểu hơn cuốn sách trong những ngày sắp tới? Tất cả những ghi chép đó đều giúp ích rất nhiều cho tôi. Đây là điều thú vị khi đọc sách theo cách này: không những bạn đọc nó nhanh hơn cách đọc thông thường (mất của tôi khoảng 1 - 2 tiếng để đọc một quyển sách, trong khi bình thường phải là 6 - 8 tiếng), bạn sẽ nhớ nó lâu hơn. Đó là vì bạn không chỉ đang đọc cuốn sách; bạn đang chủ động giao tiếp với nó, thâm nhập vào nó. Đầu óc bạn lúc nào cũng phải trong trạng thái tỉnh táo và bạn có thể hiểu quyển sách một cách toàn cảnh hơn. Bạn không chỉ tiếp thu nó - một trạng thái bị động, bạn đang chủ động tìm hiểu nó. Khi tôi bắt đầu chương trình podcast của mình, tôi mong muốn có thể đem đến cho mỗi người nghe một “ghế ngồi” trong cuộc đàm đạo với những con người thông minh và sâu sắc về đam mê nhiệt huyết của họ, quá trình học và góc nhìn của họ. Điều làm tôi ngạc nhiên đó là bằng cách nào đó chúng ta đã có thể hiểu và chạm được vào những con người này chỉ đơn giản bằng việc đọc sách của họ. Đúng là trải nghiệm của tôi trở nên phong phú hơn khi trò chuyện với tác giả, nhưng 90% những gì tôi có đến từ việc đọc những gì họ viết. Chúng ta đều có thể đọc và nghe podcast các cuộc hội thoại của những con người thông minh sâu sắc này. Chúng ta đều có thể truy cập vào những ý tưởng tuyệt vời và ứng dụng chúng để thay đổi cuộc sống của chúng ta. Nói cách khác, với một chút nỗ lực thôi, chúng ta đều có thể có một tấm vé để trở lại giảng đường đại học.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 19 Apr 2016 15:53:26 +0700</pubDate>
-        <link>http://notes.viphat.work/lam-sao-de-doc-1-cuon-sach-moi-tuan</link>
-        <guid isPermaLink="true">http://notes.viphat.work/lam-sao-de-doc-1-cuon-sach-moi-tuan</guid>
-        
-        <category>doc-sach</category>
-        
-        <category>tu-hoc</category>
         
         
       </item>
