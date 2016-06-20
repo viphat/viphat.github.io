@@ -6,9 +6,98 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 15 Jun 2016 23:11:25 +0700</pubDate>
-    <lastBuildDate>Wed, 15 Jun 2016 23:11:25 +0700</lastBuildDate>
+    <pubDate>Mon, 20 Jun 2016 08:05:52 +0700</pubDate>
+    <lastBuildDate>Mon, 20 Jun 2016 08:05:52 +0700</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>[til] - Rescue StandardError not Exception</title>
+        <description>&lt;p&gt;Hai ngày cuối tuần vừa qua, mình được tham dự khóa &lt;strong&gt;Android Advanced&lt;/strong&gt; do GDG Việt Nam tổ chức. Thành quả thu lượm được từ sự kiện này là một cái áo thun (Size M mặc không vừa, cũng không ưng vì phía lưng có chữ FPT Software), một balo túi rút + 2 bữa trưa ăn Pizza miễn phí, haha. Đùa thôi, cái mình thấy tâm đắc nhất sau khóa học không phải là những kinh nghiệm cũng như kiến thức nâng cao về Android (như Necessarily Android tools &amp;amp; library, LifeCycle, Android Performance Patterns, Memory Leak, CPU, GPU Problems Detection, Eco-system của Firebase, bởi vì mình không biết là có nên switch từ một Web Developer sang Android Developer không nữa), càng không phải là mấy món quà tặng kể trên. Mà là mình biết được thêm về bản thân mình (mình giao tiếp kém quá và kiến thức nền còn hỏng nhiều chỗ) và mình cũng được biết thêm về những người trẻ tuổi và giỏi giang khác nữa (2 trainer của khóa học này - một bạn mới 23 tuổi nhưng đã là senior android developer tại Lazada và Google Expert - cùng một số học viên học hỏi tích cực và đầy kinh nghiệm nữa). Quan trọng là mình biết được mình cần phải lên kế hoạch tập trung vào những gì có thể giúp mình trở thành một &lt;strong&gt;senior developer&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Lan man nãy giờ đủ rồi, Quay lại chủ đề chính của bài #til hôm nay: &lt;strong&gt;Rescue Standard Error NOT Exception&lt;/strong&gt; - Một thói quen xấu của Lập trình viên Ruby, đặc biệt là junior (và mình cũng là một trong số họ) đó là hay rescue exception như sau&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# something&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# notice error&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Class &lt;code class=&quot;highlighter-rouge&quot;&gt;Exception&lt;/code&gt; trong Ruby có rất nhiều sub class, trong đó có nhiều class mà mình nghĩ là App không cần phải handle (xem danh sách tại &lt;a href=&quot;http://ruby-doc.org/core-2.3.1/Exception.html&quot;&gt;đây&lt;/a&gt;). Vậy nên, một cách tốt hơn là chỉ rescue StandardError&lt;/p&gt;
+
+&lt;h4 id=&quot;better&quot;&gt;Better&lt;/h4&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# something&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# notice Standard Error&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;là cách viết ngắn gọn của&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# something&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;StandardError&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# notice Standard Error&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Nhưng tốt nhất là cụ thể hóa loại Exception mà bạn muốn app handle&lt;/p&gt;
+
+&lt;h4 id=&quot;best&quot;&gt;Best&lt;/h4&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;HTTP_ERRORS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;EOFError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Errno&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ECONNRESET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Errno&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EINVAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTPBadResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTPHeaderSyntaxError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ProtocolError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Error&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTP_ERRORS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;notify_airbrake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TODO: Tìm chưa thấy danh sách đầy đủ các exception của Rails Core, chắc phải chịu khó vào Docs của từng components cụ thể để coi các Exception của chúng. (Ví dụ &lt;a href=&quot;http://api.rubyonrails.org/classes/ActiveRecord/Base.html&quot;&gt;&lt;strong&gt;ActiveRecord&lt;/strong&gt;&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Mình đọc được practice này trên &lt;a href=&quot;http://best-ruby.com/best_practices/using_exception_e.html&quot;&gt;Best Ruby&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;mt-s-link-tham-kho-thm&quot;&gt;Một số link tham khảo thêm:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://daniel.fone.net.nz/blog/2013/05/28/why-you-should-never-rescue-exception-in-ruby/&quot;&gt;&lt;strong&gt;Why You Should Never Rescue Exception in Ruby&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://robots.thoughtbot.com/rescue-standarderror-not-exception&quot;&gt;&lt;strong&gt;Rescue Standard Error Not Exception&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.honeybadger.io/ruby-exception-vs-standarderror-whats-the-difference/&quot;&gt;&lt;strong&gt;Ruby Exception vs StandardError - What’s the different&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 15 Jun 2016 07:00:00 +0700</pubDate>
+        <link>http://notes.viphat.work/rescue-standard-error-not-exception</link>
+        <guid isPermaLink="true">http://notes.viphat.work/rescue-standard-error-not-exception</guid>
+        
+        <category>ruby</category>
+        
+        <category>lap-trinh</category>
+        
+        <category>til</category>
+        
+        
+      </item>
     
       <item>
         <title>[Ruby] - Tổng hợp về Roda web toolkit</title>
@@ -751,171 +840,6 @@ flushdb
         <category>ruby-on-rails</category>
         
         <category>til</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Happiness Now - Andrew Matthews (Sống trọn vẹn mỗi ngày)</title>
-        <description>&lt;p&gt;Mình xin tóm tắt lại phần “Sống trọn vẹn mỗi ngày” của Quyển Happiness Now - Andrew Matthews. Quyển này cũng ngắn và dễ đọc thôi. Xin mời bạn.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/mOXyJUS.png&quot; alt=&quot;The Rest of Your Life&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;ti-sao&quot;&gt;Tại sao?&lt;/h3&gt;
-
-&lt;p&gt;Khi bi kịch xảy ra, khi chúng ta mất tất cả, hoặc khi  người ta yêu rời bỏ ta, câu hỏi ta thường hỏi là “Tại sao?”&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;“Tại sao lại là tôi?”&lt;/li&gt;
-  &lt;li&gt;“Tại sao lại là bây giờ?”&lt;/li&gt;
-  &lt;li&gt;“Tại sao cô ta lại bỏ tôi vì một tên chẳng ra gì?”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Nếu cứ hỏi “Tại sao”, chúng ta sẽ điên mất. Thông thường sẽ không có câu trả lời cho câu hỏi “Tại sao?” và thật ra lý do là gì cũng không quan trọng!&lt;/p&gt;
-
-&lt;p&gt;Người thành công sẽ hỏi câu với từ “Gì?” …&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;“Tôi sẽ làm gì để giải quyết vấn đề này?”&lt;/li&gt;
-  &lt;li&gt;“Tôi học được gì từ vấn đề này?”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Khi tình hình thật sự rất khó khăn họ sẽ đặt câu hỏi: “Trong 24 giờ tới, tôi có thể làm gì để có thể cải thiện tình hình?”&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Những người hạnh phúc không quan tâm cuộc sống có công bằng hay không. Họ chỉ sống trọn vẹn với những gì đang có. Đời có công bằng không? Có thể không. Nhưng thế thì đã sao!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;nhn-cch&quot;&gt;Nhân cách&lt;/h3&gt;
-
-&lt;p&gt;Những đức tính được tất cả chúng ta xem trọng hơn tất cả là: &lt;strong&gt;THẬT THÀ&lt;/strong&gt;, &lt;strong&gt;CAN ĐẢM&lt;/strong&gt;, &lt;strong&gt;KIÊN NHẪN&lt;/strong&gt;, &lt;strong&gt;RỘNG RÃI&lt;/strong&gt; VÀ &lt;strong&gt;NHÂN HẬU&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Đây được gọi là &lt;strong&gt;nhân cách&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Bạn là người tạo ra nhân cách bản thân mình.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;hy-loi-b-thi-quen-lo-lng&quot;&gt;Hãy loại bỏ thói quen lo lắng&lt;/h3&gt;
-
-&lt;p&gt;Lo lắng là hoàn toàn vô ích.&lt;/p&gt;
-
-&lt;p&gt;Mỗi khi bạn cảm thấy lo lắng, hãy tự hỏi, “Vấn đề ở ngay giây này là gì?” Cứ sống trong hiện tại! Hãy làm tất cả những gì có thể trong ngày hôm nay và loại bỏ lo lắng ra khỏi đầu..&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Khi bạn lo lắng, hãy ngăn nó lại. Khi ai đó hỏi bạn, “Anh không lo về điều đó à?” hãy nói với họ, “Lẽ ra tôi đang lo lắng - nhưng tôi không có thời gian!”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;sc-mnh-tinh-thn&quot;&gt;Sức mạnh tinh thần&lt;/h3&gt;
-
-&lt;p&gt;Khi cuộc sống trở nên khó khăn, hãy tự nhủ: “Đây chỉ là sự rèn luyện về tinh thần. Vượt qua và mình sẽ sống hạnh phúc hơn!”&lt;/p&gt;
-
-&lt;p&gt;“Không có thất bại, chỉ là một BÀI HỌC KINH NGHIỆM thôi… không có thất bại, chỉ là một BÀI HỌC KINH NGHIỆM  thôi…”&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Cuộc sống dễ dàng không cho bạn cảm giác hạnh phúc, mà thường ngược lại cuộc sống nhiều khó khắn sẽ giúp bạn học cách sống hạnh phúc.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;hnh-phc&quot;&gt;Hạnh phúc&lt;/h3&gt;
-
-&lt;p&gt;Đừng chờ đợi cuộc sống sẽ dễ dàng hơn. Bạn phải lựa chọn để sống hạnh phúc trước đã.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Bạn không cảm thấy hạnh phúc khi không gặp vấn đề gì, mà bạn hạnh phúc cho dù có gặp bất cứ vấn đề gì.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Hạnh phúc không phụ thuộc ở tuổi tác của bạn, mà ở thái độ của bạn&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;sng-trn-vn-mi-ngy&quot;&gt;Sống trọn vẹn mỗi ngày&lt;/h3&gt;
-&lt;p&gt;Bạn luôn có thể sống trọn vẹn từng ngày. Nếu đến một lúc nào đó, một ngày đã là quá dài, hãy sống trọn vẹn từng phút thôi.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Hãy nỗ lực hết mình đến khi bạn đi ngủ. Những gì xảy ra ngày mai thì ngày mai hãy tính.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;ci&quot;&gt;Cười&lt;/h3&gt;
-
-&lt;p&gt;“TÔI KHÔNG BUỒN ĐAU VÌ BẤT CỨ CHUYỆN GÌ!”&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Đừng cứ mãi sống nghie6mm túc như vậy. Bạn cần phải cười nhiều hơn!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;khi-mi-vic-ngoi-tm-kim-sot-ca-bn&quot;&gt;Khi mọi việc ngoài tầm kiểm soát của bạn&lt;/h3&gt;
-
-&lt;p&gt;Đây là cách sống khiến bạn khổ cả đời
-a) Tự đưa ra quan niệm thế giới quanh bạn PHẢI như thế này thế nọ
-b) Tự đặt ra nguyên tắc rằng mọi người PHẢI cư xử như thế&lt;/p&gt;
-
-&lt;p&gt;Rồi khi thế giới xung quanh bạn không tuân theo nguyên tắc của bạn. Bạn thấy 
-khó chịu! Đó là cách sống của người bất hạnh!&lt;/p&gt;
-
-&lt;p&gt;Có một cách khác tốt hơn. Đừng đòi hỏi nhiều quá. Thay vào đó hãy xem bạn thích cái nào hơn! Đối với những điều bạn không thể kiểm soát thì hãy tự nhủ: “Tôi thích A, nhưng nếu B xảy ra thì cũng tốt thôi” - Hãy gieo suy nghĩ này thành thói quen, bạn sẽ sống thanh thản.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Điều gì xảy ra với bạn đi nữa cũng không ảnh hưởng tới hạnh phúc của bạn. Cách bạn nghĩ về những gì xảy đế mới quyết định mức độ hạnh phúc của bạn.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;ni-nng&quot;&gt;Nổi nóng&lt;/h3&gt;
-
-&lt;p&gt;Thường thì không phải chúng ta nổi nóng với sự việc đã xảy ra. Chúng ta nổi điên lên khi mong đợi một cái gì đó thì cái khác lại xảy đến.&lt;/p&gt;
-
-&lt;p&gt;Có 3 cách để giữ được bình tĩnh:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;NHÂN NHƯỢNG - Đôi lúc nên cho phé những người khác có được cái họ muốn.&lt;/li&gt;
-  &lt;li&gt;HÃY XÁC ĐỊNH CÁI GÌ THỰC SỰ QUAN TRỌNG &amp;gt; Không khó chịu vì những việc nhỏ nhặt.&lt;/li&gt;
-  &lt;li&gt;CỨ CHẤP NHẬN SỰ THẬT - Đừng cố gắng chống đối hiện tại - chấp nhận hiện tại.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;ti-ang-i-u&quot;&gt;Tôi đang đi đâu?&lt;/h3&gt;
-
-&lt;p&gt;Hãy làm việc hết mình, bởi vì:
-- Bạn cảm thấy tốt hơn về bản thân.
-- Bạn phát triển được những kỹ năng của mình
-- Bạn xây dựng được tiếng tăm
-- Lúc nào đó sẽ có người để ý đến bạn và đề nghị bạn một việc làm tốt hơn, hoặc
-- Một ngày nào đó bạn sẽ có đủ tự tin để tự thực hiện kinh doanh.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Cuộc sống đền đáp cho những nỗ lực, chứ không phải những lời ngụy biện.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;kin-nhn&quot;&gt;Kiên nhẫn&lt;/h3&gt;
-
-&lt;p&gt;Nếu bạn có một mục tiêu, dù làm gì đi nữa, đây là phương pháp… hãy rèn luyện mỗi ngày, nhưng đừng mong đợi thấy sự tiến bộ mỗi ngày. Hãy lập kế hoạch và thực hiện nó mỗi ngày và cho phép bản thân có thời gian để tiến bộ, rồi chắc chắn bạn sẽ thấy kết quả…&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Đây là thứ tự những gì bạn cần để thành công:
-1. kiên nhẫn và bền chí
-2. tài năng.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;tht-tuyt-vi&quot;&gt;Thật tuyệt vời&lt;/h3&gt;
-
-&lt;p&gt;Có những thứ đã xảy ra hết sức tuyệt vời nhưng chúng ta thì đã phớt lờ chúng, thậm chí chối bỏ chúng. Hãy học cách trân trọng.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 04 May 2016 21:35:00 +0700</pubDate>
-        <link>http://notes.viphat.work/happiness-now-song-tron-ven-moi-ngay</link>
-        <guid isPermaLink="true">http://notes.viphat.work/happiness-now-song-tron-ven-moi-ngay</guid>
-        
-        <category>bai-hoc-cuoc-song</category>
-        
-        <category>song-tron-ven</category>
         
         
       </item>
