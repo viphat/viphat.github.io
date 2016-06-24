@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vọc thử Vagrant</title>
+  <meta name="description" content="Vọc thử Vagrant">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/voc-thu-vagrant">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+
+      <h3 id="vc-th-vagrant">Vọc thử Vagrant</h3>
+
+<p>Số là vừa dọn dẹp sạch sẽ ổ cứng và reinstall lại OS cho con Macbook của mình, mà hễ cứ cài lại máy là y như rằng phải setup lại một đống thứ, đặc biệt là môi trường để dev (mình sử dụng Ruby 2.3, Rails, Redis, Postgres 9,4, Node.js…), rất oải. Chưa kể nếu làm việc trong một team, cần một môi trường lập trình đồng nhất để hạn chế lỗi hay sự bất đồng bộ có thể xảy ra thì việc thiết lập các máy tính của mỗi thành viên trong team một cách thủ công là hết sức tốn kém về mặt thời gian. Vagrant ra đời là để giải quyết vấn đề đó. Vagrant build on top các virtual machine như Virtual Box, VMWare… Vagrant còn kết hợp tốt với các provision tools như Puppet, Chef, Ansible để tự động cài đặt và cấu hình các phần mềm, công cụ cần thiết trên máy ảo. Nhờ Vagrant mà chúng ta có thể xây dựng một môi trường giả lập một cách nhanh chóng, tiện dụng, hiệu quả và có thể chia sẻ để dùng chung cho cả team.</p>
+
+<p>Cài đặt Vagrant hết sức đơn giản, vào trang <a href="https://www.vagrantup.com/downloads.html">https://www.vagrantup.com/downloads.html</a> và tải về phiên bản dành cho hệ điều hành của mình (Trước đó, bạn cần cài đặt phần mềm Virtual Machine trước đã, mình khuyến nghị dùng VirtualBox). Lựa một boxes mà mình cần dùng làm nền tảng tại <a href="https://atlas.hashicorp.com/boxes/search">https://atlas.hashicorp.com/boxes/search</a>, thường các boxes được chia sẻ và có nhiều lượt sử dụng chỉ bao gồm hệ điều hành và một số tinh chỉnh nhỏ để mọi người có thể tuỳ biến dựa theo nhu cầu của mình. Ở đây mình chọn ubuntu/trusty64 (Official UBuntu 14.04 LTS), cũng có nhiều boxes cài sẵn PHP, Apache, Nginx, MySQL, WordPress này nọ nhưng mình không cần lắm.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>vagrant init hashicorp/precise64
+vagrant up
+</code></pre>
+</div>
+
+<p>Lần đầu tiên chạy Vagrant up sẽ khá lâu, vì Vagrant sẽ tải box, hệ điều hành về, cài đặt và tuỳ chỉnh cho bạn. Những lần sau thì bạn cứ <code class="highlighter-rouge">vagrant up</code> rồi <code class="highlighter-rouge">vagrant ssh</code> là sử dụng bình thường, thậm chí có thể quên luôn sự tồn tại của VirtualBox. Khi dùng chán chê rồi thì <code class="highlighter-rouge">vagrant destroy</code> hoặc <code class="highlighter-rouge">vagrant halt</code> để tắt VM và giải pháp tài nguyên hệ thống mà vagrant chiếm giữ (Máy mình khi start box Ubuntu của vagrant vẫn chạy vi vu, không thấy ảnh hưởng gì nhiều nên cũng không phải destroy luôn.).  Để xoá hẳn một box không dùng nữa thì ta xài lệnh <code class="highlighter-rouge">vagrant box remove</code></p>
+
+<p>Ngoài ra, còn một số lệnh thường dùng như:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">vagrant box update</code> để cập nhật một box (nếu có phiên bản mới)</li>
+  <li><code class="highlighter-rouge">vagrant reload</code> để reload cấu hình của vagrant box hiện tại - Cấu hình được lưu trong file <strong>Vagrantfile</strong></li>
+</ul>
+
+<h4 id="synced-folders">Synced Folders</h4>
+
+<p>Một chức năng quan trọng trong Vagrant, theo mình nghĩ Vagrant chỉ nên dùng để cài đặt các phần mềm, công cụ tối cần thiết để dùng chung cho cả team. Mỗi người đều có IDE/Editor ưa thích, tốt hơn là nên để IDE/Editor nằm ngoài VM và dùng chức năng Synced Folders để đồng bộ hoá folder chứa code.</p>
+
+<p>Đọc thêm cách sử dụng của Synced Folders tại <a href="https://www.vagrantup.com/docs/synced-folders/basic_usage.html">đây</a>.</p>
+
+<p>Cơ bản là chúng ta sẽ thêm Synced Folders (bao nhiêu tuỳ thích) vào Vagrantfile theo cấu trúc sau:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>config.vm.synced_folder "/path/on/host", "/path/on/guest"
+</code></pre>
+</div>
+
+<p>(Với host là máy thật, còn guest là máy ảo chạy vagrant)</p>
+
+<h4 id="provisioning">Provisioning</h4>
+
+<p>Ở thời điểm này thì mình chưa dùng tới chức năng <strong>Provisioning</strong> do vẫn còn xa lạ với các provisioner như Puppet, Chef, Ansible. Thay vào đó sau khi khởi chạy một box của Vagrant, mình lại vào trong guest, cài đặt và cấu hình một cách thủ công. Automate hoàn toàn quá trình cài đặt phần mềm trong máy ảo lại là chức năng quan trọng và nổi bật nhất của Vagrant. Và đây chính là phần khó nhất và gây đau đầu nhất của Vagrant (Có thời gian mình sẽ thử tìm hiểu thêm về <strong>Chef</strong> hoặc <strong>Ansible</strong>).</p>
+
+<p><a href="https://www.vagrantup.com/docs/provisioning/basic_usage.html">Basic Usage</a></p>
+
+<h4 id="forwarded-port">Forwarded Port</h4>
+
+<p>Để máy host có thể connect tới dịch vụ đang chạy trên máy guest, bạn phải cấu hình forwarded port trong file Vagrantfile, ví dụ của mình là forward cổng 3000 (Rails), 5432 (Postgres) và 6379 (Redis) để có thể truy cập vào localhost trên máy host bằng trình duyệt web.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>config.vm.network "forwarded_port", guest: 3000, host: 3000
+config.vm.network "forwarded_port", guest: 5432, host: 5432
+config.vm.network "forwarded_port", guest: 6379, host: 6379
+</code></pre>
+</div>
+
+<h4 id="c-thm">Đọc thêm</h4>
+
+<p><a href="http://kipalog.com/posts/Toi-da-tu-bo-su-dung-Vagrant"><strong>Tôi đã từ bỏ sử dụng Vagrant</strong></a></p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

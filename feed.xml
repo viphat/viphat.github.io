@@ -6,95 +6,71 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 20 Jun 2016 08:07:09 +0700</pubDate>
-    <lastBuildDate>Mon, 20 Jun 2016 08:07:09 +0700</lastBuildDate>
+    <pubDate>Fri, 24 Jun 2016 15:15:09 +0000</pubDate>
+    <lastBuildDate>Fri, 24 Jun 2016 15:15:09 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
-        <title>[til] - Rescue StandardError not Exception</title>
-        <description>&lt;p&gt;Hai ngày cuối tuần vừa qua, mình được tham dự khóa &lt;strong&gt;Android Advanced&lt;/strong&gt; do GDG Việt Nam tổ chức. Thành quả thu lượm được từ sự kiện này là một cái áo thun (Size M mặc không vừa, cũng không ưng vì phía lưng có chữ FPT Software), một balo túi rút + 2 bữa trưa ăn Pizza miễn phí, haha. Đùa thôi, cái mình thấy tâm đắc nhất sau khóa học không phải là những kinh nghiệm cũng như kiến thức nâng cao về Android (như Necessarily Android tools &amp;amp; library, LifeCycle, Android Performance Patterns, Memory Leak, CPU, GPU Problems Detection, Eco-system của Firebase, bởi vì mình không biết là có nên switch từ một Web Developer sang Android Developer không nữa), càng không phải là mấy món quà tặng kể trên. Mà là mình biết được thêm về bản thân mình (mình giao tiếp kém quá và kiến thức nền còn hỏng nhiều chỗ) và mình cũng được biết thêm về những người trẻ tuổi và giỏi giang khác nữa (2 trainer của khóa học này - một bạn mới 23 tuổi nhưng đã là senior android developer tại Lazada và Google Expert - cùng một số học viên học hỏi tích cực và đầy kinh nghiệm nữa). Quan trọng là mình biết được mình cần phải lên kế hoạch tập trung vào những gì có thể giúp mình trở thành một &lt;strong&gt;senior developer&lt;/strong&gt;.&lt;/p&gt;
+        <title>Vọc thử Vagrant</title>
+        <description>&lt;h3 id=&quot;vc-th-vagrant&quot;&gt;Vọc thử Vagrant&lt;/h3&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;Số là vừa dọn dẹp sạch sẽ ổ cứng và reinstall lại OS cho con Macbook của mình, mà hễ cứ cài lại máy là y như rằng phải setup lại một đống thứ, đặc biệt là môi trường để dev (mình sử dụng Ruby 2.3, Rails, Redis, Postgres 9,4, Node.js…), rất oải. Chưa kể nếu làm việc trong một team, cần một môi trường lập trình đồng nhất để hạn chế lỗi hay sự bất đồng bộ có thể xảy ra thì việc thiết lập các máy tính của mỗi thành viên trong team một cách thủ công là hết sức tốn kém về mặt thời gian. Vagrant ra đời là để giải quyết vấn đề đó. Vagrant build on top các virtual machine như Virtual Box, VMWare… Vagrant còn kết hợp tốt với các provision tools như Puppet, Chef, Ansible để tự động cài đặt và cấu hình các phần mềm, công cụ cần thiết trên máy ảo. Nhờ Vagrant mà chúng ta có thể xây dựng một môi trường giả lập một cách nhanh chóng, tiện dụng, hiệu quả và có thể chia sẻ để dùng chung cho cả team.&lt;/p&gt;
 
-&lt;p&gt;Lan man nãy giờ đủ rồi, Quay lại chủ đề chính của bài #til hôm nay: &lt;strong&gt;Rescue Standard Error NOT Exception&lt;/strong&gt; - Một thói quen xấu của Lập trình viên Ruby, đặc biệt là junior (và mình cũng là một trong số họ) đó là hay rescue exception như sau&lt;/p&gt;
+&lt;p&gt;Cài đặt Vagrant hết sức đơn giản, vào trang &lt;a href=&quot;https://www.vagrantup.com/downloads.html&quot;&gt;https://www.vagrantup.com/downloads.html&lt;/a&gt; và tải về phiên bản dành cho hệ điều hành của mình (Trước đó, bạn cần cài đặt phần mềm Virtual Machine trước đã, mình khuyến nghị dùng VirtualBox). Lựa một boxes mà mình cần dùng làm nền tảng tại &lt;a href=&quot;https://atlas.hashicorp.com/boxes/search&quot;&gt;https://atlas.hashicorp.com/boxes/search&lt;/a&gt;, thường các boxes được chia sẻ và có nhiều lượt sử dụng chỉ bao gồm hệ điều hành và một số tinh chỉnh nhỏ để mọi người có thể tuỳ biến dựa theo nhu cầu của mình. Ở đây mình chọn ubuntu/trusty64 (Official UBuntu 14.04 LTS), cũng có nhiều boxes cài sẵn PHP, Apache, Nginx, MySQL, WordPress này nọ nhưng mình không cần lắm.&lt;/p&gt;
 
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# something&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# notice error&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;Class &lt;code class=&quot;highlighter-rouge&quot;&gt;Exception&lt;/code&gt; trong Ruby có rất nhiều sub class, trong đó có nhiều class mà mình nghĩ là App không cần phải handle (xem danh sách tại &lt;a href=&quot;http://ruby-doc.org/core-2.3.1/Exception.html&quot;&gt;đây&lt;/a&gt;). Vậy nên, một cách tốt hơn là chỉ rescue StandardError&lt;/p&gt;
-
-&lt;h4 id=&quot;better&quot;&gt;Better&lt;/h4&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# something&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# notice Standard Error&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vagrant init hashicorp/precise64
+vagrant up
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;là cách viết ngắn gọn của&lt;/p&gt;
+&lt;p&gt;Lần đầu tiên chạy Vagrant up sẽ khá lâu, vì Vagrant sẽ tải box, hệ điều hành về, cài đặt và tuỳ chỉnh cho bạn. Những lần sau thì bạn cứ &lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant up&lt;/code&gt; rồi &lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant ssh&lt;/code&gt; là sử dụng bình thường, thậm chí có thể quên luôn sự tồn tại của VirtualBox. Khi dùng chán chê rồi thì &lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant destroy&lt;/code&gt; hoặc &lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant halt&lt;/code&gt; để tắt VM và giải pháp tài nguyên hệ thống mà vagrant chiếm giữ (Máy mình khi start box Ubuntu của vagrant vẫn chạy vi vu, không thấy ảnh hưởng gì nhiều nên cũng không phải destroy luôn.).  Để xoá hẳn một box không dùng nữa thì ta xài lệnh &lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant box remove&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# something&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;StandardError&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# notice Standard Error&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Nhưng tốt nhất là cụ thể hóa loại Exception mà bạn muốn app handle&lt;/p&gt;
-
-&lt;h4 id=&quot;best&quot;&gt;Best&lt;/h4&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;HTTP_ERRORS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;EOFError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;Errno&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ECONNRESET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;Errno&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EINVAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTPBadResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTPHeaderSyntaxError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ProtocolError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;Timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Error&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTP_ERRORS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;notify_airbrake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;p&gt;Ngoài ra, còn một số lệnh thường dùng như:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;TODO: Tìm chưa thấy danh sách đầy đủ các exception của Rails Core, chắc phải chịu khó vào Docs của từng components cụ thể để coi các Exception của chúng. (Ví dụ &lt;a href=&quot;http://api.rubyonrails.org/classes/ActiveRecord/Base.html&quot;&gt;&lt;strong&gt;ActiveRecord&lt;/strong&gt;&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant box update&lt;/code&gt; để cập nhật một box (nếu có phiên bản mới)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant reload&lt;/code&gt; để reload cấu hình của vagrant box hiện tại - Cấu hình được lưu trong file &lt;strong&gt;Vagrantfile&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;hr /&gt;
+&lt;h4 id=&quot;synced-folders&quot;&gt;Synced Folders&lt;/h4&gt;
 
-&lt;p&gt;Mình đọc được practice này trên &lt;a href=&quot;http://best-ruby.com/best_practices/using_exception_e.html&quot;&gt;Best Ruby&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Một chức năng quan trọng trong Vagrant, theo mình nghĩ Vagrant chỉ nên dùng để cài đặt các phần mềm, công cụ tối cần thiết để dùng chung cho cả team. Mỗi người đều có IDE/Editor ưa thích, tốt hơn là nên để IDE/Editor nằm ngoài VM và dùng chức năng Synced Folders để đồng bộ hoá folder chứa code.&lt;/p&gt;
 
-&lt;h4 id=&quot;mt-s-link-tham-kho-thm&quot;&gt;Một số link tham khảo thêm:&lt;/h4&gt;
+&lt;p&gt;Đọc thêm cách sử dụng của Synced Folders tại &lt;a href=&quot;https://www.vagrantup.com/docs/synced-folders/basic_usage.html&quot;&gt;đây&lt;/a&gt;.&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://daniel.fone.net.nz/blog/2013/05/28/why-you-should-never-rescue-exception-in-ruby/&quot;&gt;&lt;strong&gt;Why You Should Never Rescue Exception in Ruby&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://robots.thoughtbot.com/rescue-standarderror-not-exception&quot;&gt;&lt;strong&gt;Rescue Standard Error Not Exception&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.honeybadger.io/ruby-exception-vs-standarderror-whats-the-difference/&quot;&gt;&lt;strong&gt;Ruby Exception vs StandardError - What’s the different&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Cơ bản là chúng ta sẽ thêm Synced Folders (bao nhiêu tuỳ thích) vào Vagrantfile theo cấu trúc sau:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config.vm.synced_folder &quot;/path/on/host&quot;, &quot;/path/on/guest&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;(Với host là máy thật, còn guest là máy ảo chạy vagrant)&lt;/p&gt;
+
+&lt;h4 id=&quot;provisioning&quot;&gt;Provisioning&lt;/h4&gt;
+
+&lt;p&gt;Ở thời điểm này thì mình chưa dùng tới chức năng &lt;strong&gt;Provisioning&lt;/strong&gt; do vẫn còn xa lạ với các provisioner như Puppet, Chef, Ansible. Thay vào đó sau khi khởi chạy một box của Vagrant, mình lại vào trong guest, cài đặt và cấu hình một cách thủ công. Automate hoàn toàn quá trình cài đặt phần mềm trong máy ảo lại là chức năng quan trọng và nổi bật nhất của Vagrant. Và đây chính là phần khó nhất và gây đau đầu nhất của Vagrant (Có thời gian mình sẽ thử tìm hiểu thêm về &lt;strong&gt;Chef&lt;/strong&gt; hoặc &lt;strong&gt;Ansible&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.vagrantup.com/docs/provisioning/basic_usage.html&quot;&gt;Basic Usage&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;forwarded-port&quot;&gt;Forwarded Port&lt;/h4&gt;
+
+&lt;p&gt;Để máy host có thể connect tới dịch vụ đang chạy trên máy guest, bạn phải cấu hình forwarded port trong file Vagrantfile, ví dụ của mình là forward cổng 3000 (Rails), 5432 (Postgres) và 6379 (Redis) để có thể truy cập vào localhost trên máy host bằng trình duyệt web.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config.vm.network &quot;forwarded_port&quot;, guest: 3000, host: 3000
+config.vm.network &quot;forwarded_port&quot;, guest: 5432, host: 5432
+config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;c-thm&quot;&gt;Đọc thêm&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://kipalog.com/posts/Toi-da-tu-bo-su-dung-Vagrant&quot;&gt;&lt;strong&gt;Tôi đã từ bỏ sử dụng Vagrant&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Mon, 20 Jun 2016 07:00:00 +0700</pubDate>
-        <link>http://notes.viphat.work/rescue-standard-error-not-exception</link>
-        <guid isPermaLink="true">http://notes.viphat.work/rescue-standard-error-not-exception</guid>
+        <pubDate>Thu, 23 Jun 2016 00:00:00 +0000</pubDate>
+        <link>http://notes.viphat.work/voc-thu-vagrant</link>
+        <guid isPermaLink="true">http://notes.viphat.work/voc-thu-vagrant</guid>
         
-        <category>ruby</category>
-        
-        <category>lap-trinh</category>
-        
-        <category>til</category>
+        <category>vagrant</category>
         
         
       </item>
@@ -177,15 +153,13 @@
   &lt;li&gt;&lt;a href=&quot;http://viphat.me/1YrsGR8&quot;&gt;Sinatra + Puma + Nginx&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Wed, 15 Jun 2016 07:00:00 +0700</pubDate>
+        <pubDate>Thu, 16 Jun 2016 00:00:00 +0000</pubDate>
         <link>http://notes.viphat.work/tong-hop-roda-web-toolkit</link>
         <guid isPermaLink="true">http://notes.viphat.work/tong-hop-roda-web-toolkit</guid>
         
         <category>ruby</category>
         
         <category>roda</category>
-        
-        <category>lap-trinh</category>
         
         
       </item>
@@ -236,7 +210,7 @@
 
 &lt;p&gt;Nguồn: &lt;a href=&quot;http://mattsencenbaugh.com/on-being-a-junior-developer/&quot;&gt;&lt;strong&gt;On being a Junior Developer&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Tue, 07 Jun 2016 07:00:00 +0700</pubDate>
+        <pubDate>Tue, 07 Jun 2016 00:00:00 +0000</pubDate>
         <link>http://notes.viphat.work/on-being-a-junior-developer</link>
         <guid isPermaLink="true">http://notes.viphat.work/on-being-a-junior-developer</guid>
         
@@ -461,7 +435,7 @@
   &lt;p&gt;Bài viết này được lược dịch từ nguồn &lt;a href=&quot;http://oliveremberton.com/2014/life-is-a-game-this-is-your-strategy-guide/&quot;&gt;&lt;strong&gt;Life is a game. This is your strategy guide&lt;/strong&gt;&lt;/a&gt;).&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
-        <pubDate>Mon, 06 Jun 2016 07:00:00 +0700</pubDate>
+        <pubDate>Mon, 06 Jun 2016 00:00:00 +0000</pubDate>
         <link>http://notes.viphat.work/life-is-a-game</link>
         <guid isPermaLink="true">http://notes.viphat.work/life-is-a-game</guid>
         
@@ -553,7 +527,7 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
 
 &lt;p&gt;&lt;img src=&quot;http://i.imgur.com/NRAlPiJ.png&quot; alt=&quot;Git Log&quot; /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 02 Jun 2016 07:00:00 +0700</pubDate>
+        <pubDate>Thu, 02 Jun 2016 00:00:00 +0000</pubDate>
         <link>http://notes.viphat.work/a-better-git-blame</link>
         <guid isPermaLink="true">http://notes.viphat.work/a-better-git-blame</guid>
         
@@ -630,7 +604,7 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
 
 &lt;p&gt;– Trích từ quyển &lt;strong&gt;Khởi hành - Lời khuyên sinh viên Việt Nam&lt;/strong&gt; - &lt;strong&gt;Giáo sư John Vũ&lt;/strong&gt;&lt;/p&gt;
 </description>
-        <pubDate>Wed, 01 Jun 2016 07:00:00 +0700</pubDate>
+        <pubDate>Wed, 01 Jun 2016 00:00:00 +0000</pubDate>
         <link>http://notes.viphat.work/active-learning</link>
         <guid isPermaLink="true">http://notes.viphat.work/active-learning</guid>
         
@@ -700,7 +674,7 @@ flushdb
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Mon, 30 May 2016 07:00:00 +0700</pubDate>
+        <pubDate>Mon, 30 May 2016 00:00:00 +0000</pubDate>
         <link>http://notes.viphat.work/tai-nan-voi-rails-va-redis</link>
         <guid isPermaLink="true">http://notes.viphat.work/tai-nan-voi-rails-va-redis</guid>
         
@@ -753,7 +727,7 @@ flushdb
 
 &lt;p&gt;Mọi người có thể follow Blog của Giáo sư tại đây:   &lt;a href=&quot;http://science-technology.vn&quot;&gt;&lt;strong&gt;science-technology.vn&lt;/strong&gt;&lt;/a&gt;. Giáo sư là người dịch và phóng tác quyển &lt;strong&gt;Hành trình về phương đông&lt;/strong&gt; nổi tiếng. Đọc thêm thông tin về giáo sư tại đây - &lt;a href=&quot;http://viphat.me/27YnKaE&quot;&gt;Giáo sư JOHN VŨ- Niềm tự hào của người Việt Nam.bao&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Mon, 30 May 2016 07:00:00 +0700</pubDate>
+        <pubDate>Mon, 30 May 2016 00:00:00 +0000</pubDate>
         <link>http://notes.viphat.work/hoc-lap-trinh-tu-sai-lam</link>
         <guid isPermaLink="true">http://notes.viphat.work/hoc-lap-trinh-tu-sai-lam</guid>
         
@@ -778,7 +752,7 @@ flushdb
 
 &lt;p&gt;&lt;strong&gt;Computer Scientist&lt;/strong&gt; - Hầu như làm việc ở mức độ lý thuyết, đưa ra các thuật toán hiệu quả, viết sách và bán cho đám coder, programmer, developer, hacker đọc. Họ làm việc với toán nhiều hơn là với code.&lt;/p&gt;
 </description>
-        <pubDate>Sat, 28 May 2016 07:05:00 +0700</pubDate>
+        <pubDate>Sat, 28 May 2016 00:05:00 +0000</pubDate>
         <link>http://notes.viphat.work/coder-programmer-developer-hacker-computer-scientist</link>
         <guid isPermaLink="true">http://notes.viphat.work/coder-programmer-developer-hacker-computer-scientist</guid>
         
@@ -833,7 +807,7 @@ flushdb
 
 &lt;p&gt;viphat@13-05-2016&lt;/p&gt;
 </description>
-        <pubDate>Thu, 12 May 2016 22:52:26 +0700</pubDate>
+        <pubDate>Thu, 12 May 2016 15:52:26 +0000</pubDate>
         <link>http://notes.viphat.work/paperclip-fingerprint</link>
         <guid isPermaLink="true">http://notes.viphat.work/paperclip-fingerprint</guid>
         
