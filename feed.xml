@@ -6,9 +6,73 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 24 Jun 2016 15:15:09 +0000</pubDate>
-    <lastBuildDate>Fri, 24 Jun 2016 15:15:09 +0000</lastBuildDate>
+    <pubDate>Tue, 05 Jul 2016 05:35:57 +0000</pubDate>
+    <lastBuildDate>Tue, 05 Jul 2016 05:35:57 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>[til] - Git rebase interactive</title>
+        <description>&lt;h3 id=&quot;tn-mn-v-best-practice-khi-s-dng-git&quot;&gt;Tản mạn về Best Practice khi sử dụng git&lt;/h3&gt;
+
+&lt;p&gt;Một trong Best Practice của &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt; là &lt;strong&gt;Branch Early, Branch Often&lt;/strong&gt; - Khi code một chức năng mới hay fix một lỗi cụ thể (trừ hotfix) cho sản phẩm, chúng ta tránh tối đa việc code trực tiếp trên nhánh &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; (Một số team/công ty còn đưa ra quy định rất cụ thể về  work flow với git, không cho phép developers push code trực tiếp vào nhánh master khi chưa thông qua code review và tạo pull request) - Tham khảo chi tiết trong bài viết &lt;a href=&quot;https://thefullsnack.com/branch-early-branch-often-daadaad9468e&quot;&gt;&lt;strong&gt;Branch Early - Branch Often&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Best Practice tiếp theo là &lt;strong&gt;Do commit early and often&lt;/strong&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt; chỉ chịu trách nhiệm với dữ liệu của chúng ta khi chúng ta commit. Vì vậy, hãy tạo thói quen khi code xong một phần của feature đang làm hay cảm thấy số lượng LOC mình có tác động vào nhiều thì chúng ta nên commit chúng để dễ bề theo dõi và restore sau này. Việc này rất hữu ích vì khi tạo nhiều checkpoint như vậy, bạn kiểm soát được những gì bạn đã và đang làm. Và nếu không may có lỗi xảy ra thì dễ dàng xác định chúng xuất phát từ commit nào (&lt;code class=&quot;highlighter-rouge&quot;&gt;git bisect&lt;/code&gt;). Tuy vậy, hạn chế của việc commit quá thường xuyên là khiến git history bị đội lên với những commit nhỏ và thừa thãi. Giải pháp cho vấn đề này là khi code hoàn chỉnh một &lt;strong&gt;branch&lt;/strong&gt;, bạn có thể &lt;strong&gt;rewriting git history&lt;/strong&gt; bằng &lt;code class=&quot;highlighter-rouge&quot;&gt;git rebase --interactive&lt;/code&gt; để giữ history luôn được gọn gàng trước khi push lên remote repository.&lt;/p&gt;
+
+&lt;h3 id=&quot;rewriting-history&quot;&gt;Rewriting history&lt;/h3&gt;
+
+&lt;h4 id=&quot;git-commit---amend&quot;&gt;git commit –amend&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git commit --amend&lt;/code&gt; sử dụng trong trường hợp sau khi vừa commit xong, bạn phát hiện thiếu sót nào đó nên cần bổ sung vào commit trước hoặc là đơn giản là bạn cần sửa lại commit message. &lt;strong&gt;amending&lt;/strong&gt; replace toàn bộ commit trước và thay nó bằng commit mới (có thể bổ sung changeset và sửa lại commit message).&lt;/p&gt;
+
+&lt;p&gt;Nguyên tắc cần nhớ: Không bao giờ sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;git commit --amend&lt;/code&gt; một khi commit trước đã được push lên remote repository bởi vì đều này sẽ gây rắc rối cho những thành viên khác trong team của bạn.&lt;/p&gt;
+
+&lt;h4 id=&quot;git-rebase---interactive&quot;&gt;git rebase –interactive&lt;/h4&gt;
+
+&lt;p&gt;Cú pháp:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git rebase -i [base]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Ví dụ muốn rebase lại 4 commit gần nhất của nhánh hiện tại thì&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git rebase -i HEAD~4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;pick (giữ nguyên commit)&lt;/li&gt;
+  &lt;li&gt;commit (giữ nguyên commit và edit lại commit message)&lt;/li&gt;
+  &lt;li&gt;squash (trộn chung commit này với commit trước đó, giữ lại commit message)&lt;/li&gt;
+  &lt;li&gt;fixup (tương tự squash nhưng hủy luôn commit message của commit này)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like &quot;squash&quot;, but discard this commit&#39;s log message
+#  x, exec = run command (the rest of the line) using shell
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Tham khảo thêm bài viết của &lt;a href=&quot;https://robots.thoughtbot.com/git-interactive-rebase-squash-amend-rewriting-history&quot;&gt;&lt;strong&gt;Thoughtbot&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Dương Vì Phát&lt;/p&gt;
+</description>
+        <pubDate>Tue, 05 Jul 2016 00:00:00 +0000</pubDate>
+        <link>http://notes.viphat.work/git-rebase-interactive</link>
+        <guid isPermaLink="true">http://notes.viphat.work/git-rebase-interactive</guid>
+        
+        <category>git</category>
+        
+        <category>lap-trinh</category>
+        
+        <category>til</category>
+        
+        
+      </item>
     
       <item>
         <title>Vọc thử Vagrant</title>
@@ -71,6 +135,95 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
         <guid isPermaLink="true">http://notes.viphat.work/voc-thu-vagrant</guid>
         
         <category>vagrant</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>[til] - Rescue StandardError not Exception</title>
+        <description>&lt;p&gt;Hai ngày cuối tuần vừa qua, mình được tham dự khóa &lt;strong&gt;Android Advanced&lt;/strong&gt; do GDG Việt Nam tổ chức. Thành quả thu lượm được từ sự kiện này là một cái áo thun (Size M mặc không vừa, cũng không ưng vì phía lưng có chữ FPT Software), một balo túi rút + 2 bữa trưa ăn Pizza miễn phí, haha. Đùa thôi, cái mình thấy tâm đắc nhất sau khóa học không phải là những kinh nghiệm cũng như kiến thức nâng cao về Android (như Necessarily Android tools &amp;amp; library, LifeCycle, Android Performance Patterns, Memory Leak, CPU, GPU Problems Detection, Eco-system của Firebase, bởi vì mình không biết là có nên switch từ một Web Developer sang Android Developer không nữa), càng không phải là mấy món quà tặng kể trên. Mà là mình biết được thêm về bản thân mình (mình giao tiếp kém quá và kiến thức nền còn hỏng nhiều chỗ) và mình cũng được biết thêm về những người trẻ tuổi và giỏi giang khác nữa (2 trainer của khóa học này - một bạn mới 23 tuổi nhưng đã là senior android developer tại Lazada và Google Expert - cùng một số học viên học hỏi tích cực và đầy kinh nghiệm nữa). Quan trọng là mình biết được mình cần phải lên kế hoạch tập trung vào những gì có thể giúp mình trở thành một &lt;strong&gt;senior developer&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Lan man nãy giờ đủ rồi, Quay lại chủ đề chính của bài #til hôm nay: &lt;strong&gt;Rescue Standard Error NOT Exception&lt;/strong&gt; - Một thói quen xấu của Lập trình viên Ruby, đặc biệt là junior (và mình cũng là một trong số họ) đó là hay rescue exception như sau&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# something&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# notice error&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Class &lt;code class=&quot;highlighter-rouge&quot;&gt;Exception&lt;/code&gt; trong Ruby có rất nhiều sub class, trong đó có nhiều class mà mình nghĩ là App không cần phải handle (xem danh sách tại &lt;a href=&quot;http://ruby-doc.org/core-2.3.1/Exception.html&quot;&gt;đây&lt;/a&gt;). Vậy nên, một cách tốt hơn là chỉ rescue StandardError&lt;/p&gt;
+
+&lt;h4 id=&quot;better&quot;&gt;Better&lt;/h4&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# something&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# notice Standard Error&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;là cách viết ngắn gọn của&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# something&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;StandardError&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# notice Standard Error&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Nhưng tốt nhất là cụ thể hóa loại Exception mà bạn muốn app handle&lt;/p&gt;
+
+&lt;h4 id=&quot;best&quot;&gt;Best&lt;/h4&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;HTTP_ERRORS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;EOFError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Errno&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ECONNRESET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Errno&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EINVAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTPBadResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTPHeaderSyntaxError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ProtocolError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Error&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTP_ERRORS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;notify_airbrake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TODO: Tìm chưa thấy danh sách đầy đủ các exception của Rails Core, chắc phải chịu khó vào Docs của từng components cụ thể để coi các Exception của chúng. (Ví dụ &lt;a href=&quot;http://api.rubyonrails.org/classes/ActiveRecord/Base.html&quot;&gt;&lt;strong&gt;ActiveRecord&lt;/strong&gt;&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Mình đọc được practice này trên &lt;a href=&quot;http://best-ruby.com/best_practices/using_exception_e.html&quot;&gt;Best Ruby&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;mt-s-link-tham-kho-thm&quot;&gt;Một số link tham khảo thêm:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://daniel.fone.net.nz/blog/2013/05/28/why-you-should-never-rescue-exception-in-ruby/&quot;&gt;&lt;strong&gt;Why You Should Never Rescue Exception in Ruby&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://robots.thoughtbot.com/rescue-standarderror-not-exception&quot;&gt;&lt;strong&gt;Rescue Standard Error Not Exception&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.honeybadger.io/ruby-exception-vs-standarderror-whats-the-difference/&quot;&gt;&lt;strong&gt;Ruby Exception vs StandardError - What’s the different&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 20 Jun 2016 00:00:00 +0000</pubDate>
+        <link>http://notes.viphat.work/rescue-standard-error-not-exception</link>
+        <guid isPermaLink="true">http://notes.viphat.work/rescue-standard-error-not-exception</guid>
+        
+        <category>ruby</category>
+        
+        <category>lap-trinh</category>
+        
+        <category>til</category>
         
         
       </item>
@@ -153,13 +306,15 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
   &lt;li&gt;&lt;a href=&quot;http://viphat.me/1YrsGR8&quot;&gt;Sinatra + Puma + Nginx&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Thu, 16 Jun 2016 00:00:00 +0000</pubDate>
+        <pubDate>Wed, 15 Jun 2016 00:00:00 +0000</pubDate>
         <link>http://notes.viphat.work/tong-hop-roda-web-toolkit</link>
         <guid isPermaLink="true">http://notes.viphat.work/tong-hop-roda-web-toolkit</guid>
         
         <category>ruby</category>
         
         <category>roda</category>
+        
+        <category>lap-trinh</category>
         
         
       </item>
@@ -732,88 +887,6 @@ flushdb
         <guid isPermaLink="true">http://notes.viphat.work/hoc-lap-trinh-tu-sai-lam</guid>
         
         <category>lap-trinh</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Coder vs Programmer vs Developer vs Hacker vs Computer Scientist ?</title>
-        <description>&lt;p&gt;Bài viết đăng lại từ Facebook của anh Nguyễn Hồng Phúc (xnohat), tuy ngắn nhưng thể hiện rất đúng bản chất. Ngoài ra các bạn còn có thể tham khảo thêm bài viết &lt;a href=&quot;http://notes.viphat.work/career-path-cho-developer&quot;&gt;&lt;strong&gt;Career Path cho Developer&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;Coder&lt;/strong&gt; - Thợ code, khi được giao việc code một chương trình nào đó thường cần phải kèm theo một bản mô tả chi tiết chương trình, rất thạo việc viết mã, viết nhanh và làm cho chương trình chạy đúng như mô tả, nhưng hầu hết trường hợp là sản phẩm không gọn gàng lắm nếu nhìn vô code. Chấm hết đừng đòi hỏi nhiều hơn nữa ở họ.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Programmer&lt;/strong&gt; - Viết code, am hiểu các thuật toán, tập trung chuyên sâu ở một số hệ thống và ngôn ngữ lập trình, với các kỹ sư này thì chỉ cần nói rõ với anh ta tên chương trình và nói ngắn gọn chương trình đó làm gì, phần còn lại anh ta lo được.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Developer&lt;/strong&gt; - Có tầm nhìn khái quát vấn đề, có khả năng sử dụng nhiều hệ thống khác nhau, nhiều ngôn ngữ lập trình, phối hợp chúng với nhau để giải quyết vấn đề. Những người này thường không chỉ làm việc chỉ với code mà cả với con người, thường là giao tiếp tốt, tiếp nhận vấn đề, phân tích và xây dựng giải pháp, rồi anh ta sẽ đưa ra thiết kế của các chương trình, cũng như cung cấp các mô tả chi tiết cho programmer và coder.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Hacker&lt;/strong&gt; - những gã này thực sự khá lập dị ở một góc độ nào đó, có những kỹ năng chuyên môn rất xuất sắc, am hiểu rất chi tiết ở một số phân ngành nhất định, thường thì sự am hiểu này ở mức sâu đến đáng sợ.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Computer Scientist&lt;/strong&gt; - Hầu như làm việc ở mức độ lý thuyết, đưa ra các thuật toán hiệu quả, viết sách và bán cho đám coder, programmer, developer, hacker đọc. Họ làm việc với toán nhiều hơn là với code.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 28 May 2016 00:05:00 +0000</pubDate>
-        <link>http://notes.viphat.work/coder-programmer-developer-hacker-computer-scientist</link>
-        <guid isPermaLink="true">http://notes.viphat.work/coder-programmer-developer-hacker-computer-scientist</guid>
-        
-        <category>kinh-nghiem-lap-trinh</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>[TIL] Paperclip Fingerprint</title>
-        <description>&lt;h3 id=&quot;paperclip-fingerprint&quot;&gt;Paperclip Fingerprint&lt;/h3&gt;
-
-&lt;p&gt;Tình huống của hôm nay là Sếp bỗng dưng muốn chuyển tất cả assets của ứng dụng từ &lt;strong&gt;Amazon S3&lt;/strong&gt; về &lt;strong&gt;VCCloud CDN&lt;/strong&gt; (đang khuyến mãi gói 100 GB miễn phí, giá tính ra không đắt hơn Amazon S3 nhiều lắm và được khoản Servers đặt ở Hà Nội - Đà Nẵng - Hồ Chí Minh nên thích hợp cho App có lượng lớn truy cập từ VN.)&lt;/p&gt;
-
-&lt;p&gt;Sử dụng CDN của VCCloud cũng đơn giản, chẳng phải setup nhiều, chỉ add domain của S3 Bucket vào là chạy được ngay (Enable Static Web Hosting cho Bucket S3 để có sub-domain riêng). Nhưng đẻ ra một vấn đề là trước đây, dùng Paperclip để upload users’s file lên S3 mà không có fingerprint, giờ mà dùng CDN thì hỏng bét, nếu file ở S3 có thay đổi thì CDN vẫn serve file cũ. »&amp;gt; Enable Fingerprint vào tên file cho Paperclip&lt;/p&gt;
-
-&lt;p&gt;1 . Tạo &lt;em&gt;Migration&lt;/em&gt;  cho tất cả các cột có sử dụng Paperclip handle attachment&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AddAvatarFingerPrintToUsers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Migration&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;change&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;add_column&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:users&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:avatar_fingerprint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:string&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;2 . Thêm Fingerprint vào tên file (đây là ví dụ cho trường hợp của mình)&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;config/initializers/paperclip.rb&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Paperclip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Attachment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;default_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;merge!&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;ss&quot;&gt;:path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;:class/:attachment/:id_:style_:fingerprint.:extension&quot;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;Xong bước này thì tất cả file mới upload sau này đều có fingerprint.&lt;/p&gt;
-
-&lt;p&gt;3 . Xử lý file đã upload trước đây bằng cách chạy rake sau:&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RAILS_ENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;production&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rake&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;paperclip&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:refresh&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CLASS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model_name&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;3b . Nếu không muốn chạy Rake trên thì có thể xử lý thủ công bằng:&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;users_to_reprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;avatar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reprocess!&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;viphat@13-05-2016&lt;/p&gt;
-</description>
-        <pubDate>Thu, 12 May 2016 15:52:26 +0000</pubDate>
-        <link>http://notes.viphat.work/paperclip-fingerprint</link>
-        <guid isPermaLink="true">http://notes.viphat.work/paperclip-fingerprint</guid>
-        
-        <category>ruby-on-rails</category>
-        
-        <category>til</category>
         
         
       </item>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>[til] - Git rebase interactive</title>
+  <meta name="description" content="Tản mạn về Best Practice khi sử dụng git">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/git-rebase-interactive">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+
+      <h3 id="tn-mn-v-best-practice-khi-s-dng-git">Tản mạn về Best Practice khi sử dụng git</h3>
+
+<p>Một trong Best Practice của <code class="highlighter-rouge">git</code> là <strong>Branch Early, Branch Often</strong> - Khi code một chức năng mới hay fix một lỗi cụ thể (trừ hotfix) cho sản phẩm, chúng ta tránh tối đa việc code trực tiếp trên nhánh <code class="highlighter-rouge">master</code> (Một số team/công ty còn đưa ra quy định rất cụ thể về  work flow với git, không cho phép developers push code trực tiếp vào nhánh master khi chưa thông qua code review và tạo pull request) - Tham khảo chi tiết trong bài viết <a href="https://thefullsnack.com/branch-early-branch-often-daadaad9468e"><strong>Branch Early - Branch Often</strong></a>.</p>
+
+<p>Best Practice tiếp theo là <strong>Do commit early and often</strong>, <code class="highlighter-rouge">git</code> chỉ chịu trách nhiệm với dữ liệu của chúng ta khi chúng ta commit. Vì vậy, hãy tạo thói quen khi code xong một phần của feature đang làm hay cảm thấy số lượng LOC mình có tác động vào nhiều thì chúng ta nên commit chúng để dễ bề theo dõi và restore sau này. Việc này rất hữu ích vì khi tạo nhiều checkpoint như vậy, bạn kiểm soát được những gì bạn đã và đang làm. Và nếu không may có lỗi xảy ra thì dễ dàng xác định chúng xuất phát từ commit nào (<code class="highlighter-rouge">git bisect</code>). Tuy vậy, hạn chế của việc commit quá thường xuyên là khiến git history bị đội lên với những commit nhỏ và thừa thãi. Giải pháp cho vấn đề này là khi code hoàn chỉnh một <strong>branch</strong>, bạn có thể <strong>rewriting git history</strong> bằng <code class="highlighter-rouge">git rebase --interactive</code> để giữ history luôn được gọn gàng trước khi push lên remote repository.</p>
+
+<h3 id="rewriting-history">Rewriting history</h3>
+
+<h4 id="git-commit---amend">git commit –amend</h4>
+
+<p><code class="highlighter-rouge">git commit --amend</code> sử dụng trong trường hợp sau khi vừa commit xong, bạn phát hiện thiếu sót nào đó nên cần bổ sung vào commit trước hoặc là đơn giản là bạn cần sửa lại commit message. <strong>amending</strong> replace toàn bộ commit trước và thay nó bằng commit mới (có thể bổ sung changeset và sửa lại commit message).</p>
+
+<p>Nguyên tắc cần nhớ: Không bao giờ sử dụng <code class="highlighter-rouge">git commit --amend</code> một khi commit trước đã được push lên remote repository bởi vì đều này sẽ gây rắc rối cho những thành viên khác trong team của bạn.</p>
+
+<h4 id="git-rebase---interactive">git rebase –interactive</h4>
+
+<p>Cú pháp:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git rebase -i [base]
+</code></pre>
+</div>
+
+<p>Ví dụ muốn rebase lại 4 commit gần nhất của nhánh hiện tại thì</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git rebase -i HEAD~4
+</code></pre>
+</div>
+
+<ul>
+  <li>pick (giữ nguyên commit)</li>
+  <li>commit (giữ nguyên commit và edit lại commit message)</li>
+  <li>squash (trộn chung commit này với commit trước đó, giữ lại commit message)</li>
+  <li>fixup (tương tự squash nhưng hủy luôn commit message của commit này)</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like "squash", but discard this commit's log message
+#  x, exec = run command (the rest of the line) using shell
+</code></pre>
+</div>
+
+<p>Tham khảo thêm bài viết của <a href="https://robots.thoughtbot.com/git-interactive-rebase-squash-amend-rewriting-history"><strong>Thoughtbot</strong></a>.</p>
+
+<p>Dương Vì Phát</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>
