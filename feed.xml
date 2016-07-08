@@ -6,9 +6,81 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 05 Jul 2016 05:35:57 +0000</pubDate>
-    <lastBuildDate>Tue, 05 Jul 2016 05:35:57 +0000</lastBuildDate>
+    <pubDate>Fri, 08 Jul 2016 00:59:22 +0000</pubDate>
+    <lastBuildDate>Fri, 08 Jul 2016 00:59:22 +0000</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>[til] - Vỡ lòng về Scrum - Phần 1</title>
+        <description>&lt;p&gt;Note nhanh khi đọc quyển &lt;strong&gt;Scrum Primer&lt;/strong&gt;, bản tiếng Việt của &lt;strong&gt;Học viện Agile&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Khung phát triển Scrum gồm các nhóm liên chức năng phát triển các sản phẩm hoặc dự án theo hình thức lặp, phản hồi, tăng trưởng.&lt;/p&gt;
+
+&lt;h3 id=&quot;cc-thnh-phn-ca-scrum&quot;&gt;Các thành phần của Scrum&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Sprint là các chu trình kéo dài từ 2 đến 4 tuần và diễn ra liên tiếp nhau mà không bị gián đoạn. Sprint sẽ kết thúc vào một ngày nhất định cho dù công việc đã được hoàn thành hết hay chưa và &lt;strong&gt;không được phép kéo dài thêm&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Nhóm phát triển sản phẩm (Development Team - liên chức năng bao gồm Developers, UI/UX Designers, Marketers, Growth Hackers… ) khoảng 7 người (dao động +2, -2).&lt;/li&gt;
+  &lt;li&gt;Đầu Sprint nhóm phát triển sản phẩm sẽ họp và pick các hạng mục cần làm trong sprint từ danh sách ưu tiên (Product Backlog). Nhóm phát triển sản phẩm thống nhất một mục tiêu chung mà họ tin rằng có thể hoàn thành và chuyển giao được vào cuối Sprint. Sau khi đã thống nhất thì không có hạng mục mới nào được phép chen vào giữa Sprint mà phải để dành cho những Sprint tới.&lt;/li&gt;
+  &lt;li&gt;Đầu mỗi ngày đều có Standup Meeting.&lt;/li&gt;
+  &lt;li&gt;Cuối Sprint Họp để rà soát Sprint, trình bày phần mình đã xây dựng được trong Sprint và nhận phản hồi từ cả nhóm phát triển sản phẩm.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;cc-vai-tr-trong-scrum&quot;&gt;Các vai trò trong Scrum&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Product Owner - người chịu trách nhiệm chính về sản phẩm)&lt;/li&gt;
+  &lt;li&gt;Đội phát triển - những người trực tiếp tham gia phát triển sản phẩm)&lt;/li&gt;
+  &lt;li&gt;Scrum Master - người nắm vững các nguyên lý của Scrum, hỗ trợ và giúp đỡ nhóm phát triển sản phẩm áp dụng Scrum. Scrum Master không được là cùng một người với Product Owner.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;product-backlog&quot;&gt;Product Backlog&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Các hạng mục được đưa vào Product Backlog là các tính năng hướng khách hàng (Customer-centric), các mục tiêu cải tiến, các công việc nghiên cứu, các lỗi đã phát hiện… Dù là gì đi nữa thì phần lớn các hạng mục phải tập trung vào &lt;strong&gt;chuyển giao giá trị cho khách hàng&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Là một danh sách có độ ưu tiên.&lt;/li&gt;
+  &lt;li&gt;Tồn tại và tiến hóa trong suốt vòng đời của sản phẩm và là lộ trình của sản phẩm.&lt;/li&gt;
+  &lt;li&gt;Góc nhìn duy nhất và mang tính quyết định của “tất cả mọi thứ có thể được nhóm Phát triển hoàn thành theo thứ tự ưu tiên”.&lt;/li&gt;
+  &lt;li&gt;Một Product Backlog tốt cần đạt được tiêu chí DEEP&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Detailed Appropriately&lt;/strong&gt; (Chi tiết hợp lý): Các hạng mục có độ ưu tiên cao cần được làm mịn và chi tiết hơn so với hạng mục có ưu tiên thấp hơn vì chúng sẽ được lựa chọn để thực hiện trước.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Estimated&lt;/strong&gt; (được ước lượng) - Mỗi hạng mục cần có khối lượng công việc ước tính cùng một số thông số khác.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Emergent&lt;/strong&gt; (Tiến hóa) - Trong mỗi Sprint, các hạng mục có thể được thêm vào, xóa đi, hoặc thay đổi, chia nhỏ và thay đổi độ ưu tiên. Product Backlog luôn được cập nhật bởi Product Owner để thể hiện các thay đổi trong nhu cầu của khách hàng, các ý tưởng hoặc hiểu biết mới, động thái của các đối thủ cạnh tranh, các rào cản kỹ thuật vừa xuất hiện v.v…&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Prioritized&lt;/strong&gt; (Sắp xếp theo độ ưu tiên), các hạng mục có độ ưu tiên cao hơn nằm ở phía trên của Product Backlog. Tiêu chí sắp xếp độ ưu tiên dựa trên Lợi ích tương xứng với đồng tiền bạn bỏ ra, nhiều lợi ích với ít tiền nhất. Một lý do khác có thể dẫn đến tăng độ ưu tiên của một hạng mục là nhằm giải quyết sớm các rủi ro lớn trước khi chúng tấn công bạn.&lt;/li&gt;
+  &lt;li&gt;Để ước tính khối lượng công việc (Estimated), một kỹ thuật phổ biến đó là ước tính theo kích thước tương đối (hệ số nỗ lực, độ phức tạp và tính bất định) gọi là “story point” trong sự thống nhất, tương quan và mặt bằng chung của cả nhóm.&lt;/li&gt;
+  &lt;li&gt;Một lợi thế của Scrum là nhờ vào việc ước tính khối lượng công việc tốt, Product Owner có thể theo dõi lượng công việc hoàn thành trong mỗi Sprint: Ví dụ, trung bình Team hoàn thành 26 point cho một Sprint. Với thông tin này, nếu giá trị trung bình được giữ nguyên và không có gì khác thay đổi, người ta có thể trù liệu được ngày phát hành (đợt Release) mà tất cả các tính năng (dự kiến sẽ ra mắt) đều được hoàn thành.&lt;/li&gt;
+  &lt;li&gt;Các hạng mục lớn trong Product Backlog cần được làm mịn + chia nhỏ hơn trong buổi họp Sprint Planning. Và các hạng mục nhỏ có thể được hợp nhất lại với nhau.&lt;/li&gt;
+  &lt;li&gt;Phần lớn thời gian của nhóm Phát triển là dành cho các mục tiêu của Product Owner chứ không phải là các công việc kỹ thuật nội bộ mặc dù nhóm Phát triển có quyền độc lập trong việc quyết định số lượng hạng mục được đưa vào trong một Sprint.&lt;/li&gt;
+  &lt;li&gt;Không nên mô tả tất cả mọi chi tiết có thể có của một hạng mục mà chỉ nên làm rõ những gì cần thiết đủ để hiểu tốt hạng mục đó.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;nh-ngha-hon-thnh&quot;&gt;Định nghĩa hoàn thành&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Kết quả của mỗi Sprint được gọi là Potentially Shippable Product Increment - Phần tăng trưởng sản phẩm có thể chuyển giao được.&lt;/li&gt;
+  &lt;li&gt;Trước khi bắt đầu Sprint, Product Owner, Team và Scrum Master ngồi lại với nhau và rà soát lại những thứ cần làm để biến một hạng mục Product Backlog được đưa vào Sprint này trở thành có thể chuyển giao được. Không may là không phải lúc nào Team cũng có thể chuyển giao được tất cả mục tiêu một cách đúng hạn do nhiều khó khăn không lường trước hết được hay do bị nghẽn ở một khâu nào đó trong một nhóm liên chức năng (khi người này phải chờ người kia hoàn thành công việc mới thực hiện tiếp được).&lt;/li&gt;
+  &lt;li&gt;Trước Sprint đầu tiên, Product Owner và Nhóm phát triển cần thống nhất một Định nghĩa hoàn thành (Definition of Done), nó là một tập con của các hoạt động cần thiết để tạo ra một Potentially Shippable Product Increment. Team sẽ lập kế hoạch công việc của Sprint dựa theo Định Nghĩa Hoàn Thành này.&lt;/li&gt;
+  &lt;li&gt;Một Product Owner tốt sẽ luôn cố gắng để Định Nghĩa Hoàn Thành này bám sát hết mức có thể với Khả năng chuyển giao được vì nó sẽ giúp tăng tính minh bạch và giảm thiểu rủi ro chậm trễ.&lt;/li&gt;
+  &lt;li&gt;Một nhóm Scrum cần phải liên tục cải tiến, điều này được phản ánh vào trong việc mở rộng Định Nghĩa Hoàn Thành.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.scrumalliance.org/community/articles/2008/september/what-is-definition-of-done-(dod)&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Tạm kết phần đầu tiên của Scrum Primer (Sách vỡ lòng về Scrum - Học viện Agile Việt Nam). Tản mạn một chút về lý do đến tận bây giờ mới đọc và tìm hiểu về Scrum (rồi Agile), mình làm trong một startup với một team rất trẻ và non kinh nghiệm nhưng lại phải vừa học vừa ứng dụng Scrum vào việc điều hành và phát triển sản phẩm. Vì vậy, khó tránh khỏi thất bại khi apply scrum vào dự án. Trước giờ thì Team đã khoán hết cho Product Owner việc tìm hiểu và áp dụng Scrum nhưng hiện tại qua việc đọc phần mở đầu của quyển Scrum Primer này, mình đã ngộ ra rằng các Principle này toàn bộ Team đều nên nắm và cần thiết phải có một người grow lên thành Scrum Master để “phò tá” Product Owner và giúp đỡ Team học hỏi và phát triển. Với mục tiêu nghề nghiệp ban đầu mà mình định hướng, mình muốn trở thành Senior Developer rồi Technical Lead nhưng những chức danh này hầu như chỉ còn trên danh nghĩa và chỉ mang tính chất hỗ trợ trong phương phát phát triển phần mềm linh hoạt như Agile, Vì vậy, Scrum Master và sau đó là Product Owner có thể là sự lựa chọn đáng cân nhắc.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Thu, 07 Jul 2016 00:00:00 +0000</pubDate>
+        <link>http://notes.viphat.work/scrum-primer-part-1</link>
+        <guid isPermaLink="true">http://notes.viphat.work/scrum-primer-part-1</guid>
+        
+        <category>scrum</category>
+        
+        <category>agile</category>
+        
+        
+      </item>
     
       <item>
         <title>[til] - Git rebase interactive</title>
@@ -844,49 +916,6 @@ flushdb
         <category>ruby-on-rails</category>
         
         <category>ruby</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Học Lập trình từ sai lầm</title>
-        <description>&lt;p&gt;&lt;strong&gt;Trích từ Facebook của Giáo sư John Vũ&lt;/strong&gt; - Mình đăng lại để dùng làm tài liệu tham khảo về sau khi mình có dự định đi dạy lập trình cho trẻ em sau tuổi 40.&lt;/p&gt;
-
-&lt;p&gt;Bị ấn tượng bởi công nghệ sau khi tham dự khóa &lt;strong&gt;Làm Giàu Bền Vững&lt;/strong&gt; của anh Trần Đăng Khoa tại TGM nên mình cũng Không chắc là với sự tiến bộ của công nghệ AI thì nghề Lập trình còn tồn tại ở thời điểm đó không? - Đọc bài báo &lt;a href=&quot;http://www.wired.com/2016/05/the-end-of-code/&quot;&gt;&lt;strong&gt;The End of Code&lt;/strong&gt;&lt;/a&gt; mà giựt mình, bạn sẽ không cần viết code để sai bảo máy tính làm việc nữa, bạn sẽ huấn luyện chúng như một chú chó.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;viphat&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Nhiều sinh viên ghi danh học Công Nghệ Thông Tin nhưng không học tốt trong lớp lập trình rồi bỏ cuộc. Đa số cho lập trình là khó do đó điều quan trọng của các giáo sư dạy lập trình là làm sao xoá bỏ nỗi sợ lập trình của sinh viên để họ có thể phát triển kĩ năng này. Sau đây là một phương pháp đơn giản mà tôi đã áp dụng trong lớp lập trình tại Carnegie Mellon.&lt;/p&gt;
-
-&lt;p&gt;Vào đầu môn học, tôi nói với sinh viên rằng tôi sẽ không chấm điểm ba chương trình (Program) đầu tiên. Điều đó có nghĩa là họ có thể phạm sai lầm và không phải lo lắng về chương trình của họ có chạy hay không. Điều đó làm giảm bớt cảm giác căng thẳng của sinh viên về việc học lập trình. Điều tôi muốn là khuyến khích họ làm quen với máy tính, làm quen với việc viết mã. Mặc dầu những chương trình này không được cho điểm nhưng sinh viên phải nhận diện sai lầm mà họ phạm để cho tôi có thể sửa trong lớp và giải thích tại sao chương trình của họ không làm việc.&lt;/p&gt;
-
-&lt;p&gt;Trong ba chương trình tiếp, thay vì sửa sai lầm của họ, tôi cho họ xem những chương trình mẫu viết sẵn trên bảng và yêu cầu sinh viên sửa sai lầm của họ. Họ kiểm lại chương trình của mình, từng dòng một để tìm ra các sai lầm. Sau đó tôi kiểm soát lại rồi thảo luận về các sai lầm chung trong các chương trình này. Trong chương trình thứ nhất, phần lớn sinh viên đều có khả năng sửa được lỗi cú pháp của họ, một số có khả năng tìm ra sai lầm trong logic của họ. Nhưng ở chương trình thứ hai và thứ ba, it ai nhận ra vấn đề mà họ đã phạm phải, do đó tôi thường hướng dẫn cả lớp thảo luận để tìm ra những lỗi lầm mà đa số đều phạm, nhờ thế mà sinh viên bắt đầu hiểu tại sao chương trình của họ không làm việc. Nói cách khác, &lt;strong&gt;họ học từ sai lầm của họ&lt;/strong&gt;. Tôi cũng cho lớp biết rằng ba chương trình sau sẽ không được cho điểm, để xả bớt sức ép nhưng từ giờ trở đi, nếu họ phạm cùng sai lầm lần nữa trong chương trình của họ, nó sẽ bị cho điểm xấu và anh hưởng đến kỳ thi cuối khóa.&lt;/p&gt;
-
-&lt;p&gt;Khi lớp tiếp tục, phần lớn sinh viên học cách nhận ra sai lầm riêng của mình và có khả năng sửa chúng. Qua thời gian, ít người phạm sai lầm và họ trở nên tự tin hơn khi kĩ năng lập trình của họ cải tiến. Vào lúc này, phần lớn sinh viên phát triển được khả năng viết mã nên tôi cho sinh viên kiểm chương trình lẫn nhau để họ học thêm về cấu trúc từ cách nhìn của người khác. Phần lớn sinh viên hiểu rằng bằng việc kiểm chương trình của bạn cùng lớp, họ có thể cải tiến kĩ năng viết mã riêng của họ.&lt;/p&gt;
-
-&lt;p&gt;Khi sinh viên cảm thấy thoải mái về lập trình, tôi tiếp tục xây dựng niềm tin của họ bằng việc cho các bài tập “Mini-hackathon” hàng tuần nơi họ phải giải quyết những vấn đề, từ dễ đến khó, bằng ngôn ngữ lập trình (xấp xỉ 100 tới 250 dòng mã) trong vòng nửa giờ. Bất kì ai kết thúc đầu tiên với kết quả đúng sẽ được thưởng. Kiểu thi đua này khuyến khích họ phát triển kĩ năng lập trình tốt hơn vì họ phải viết mã nhanh trong một thời gian cố định.&lt;/p&gt;
-
-&lt;p&gt;Từ những buổi thi đua ngắn hạn này, tôi có thể quan sát cách sinh viên làm việc. Một số dường như không thoải mái là họ có thể hoàn thành đúng thời gian đã phân, nhưng hoài nghi của họ nhanh chóng thay đổi khi họ ít tập trung vào thời gian và nhiều hơn vào kết quả. Sinh viên hài lòng nhất là những người nghĩ rằng họ không thể viết mã được nhưng rốt cuộc lại tìm ra được những thuật toán phức tạp hơn họ nghĩ và lập trình trôi chảy.&lt;/p&gt;
-
-&lt;p&gt;Sau năm hay sáu tuần, phần lớn sinh viên nói với tôi rằng viết mã đã trở thành thói quen tự nhiên như họ viết tiếng Anh. Họ thậm chí không nghĩ về cú pháp hay qui tắc thêm nữa.&lt;/p&gt;
-
-&lt;p&gt;Một sinh viên giải thích: “Bây giờ em thực sự biết về phương pháp tích cực của “&lt;strong&gt;Học qua hành&lt;/strong&gt;” nghĩa là gì. Đầu tiên em học làm những điều căn bản thật dễ rồi chuyển qua các cấu trúc xem chương trình làm việc ra sao. Em học cái gì làm việc và cái gì không rồi áp dụng qui tắc để sửa các lỗi lầm của em. Đột nhiên nó trở thành một thói quen và khả năng viết mã của em phát triển.”&lt;/p&gt;
-
-&lt;p&gt;Tôi đã áp dụng phương pháp này trong nhiều lớp lập trình, bất kể đó là Java, C++ hay Python. &lt;strong&gt;Khi sinh viên không bị căng thẳng, lo lắng vì sự thất bại, họ tập trung nhiều hơn vào học tập. Khi sinh viên học từ sai lầm của họ, họ sẽ học tốt. Khi sinh viên được cho nhiều cơ hội hơn để thực hành, họ sẽ phát triển các kĩ năng của họ. Khi họ có kĩ năng, họ sẽ cảm thấy an ổn hơn và tin vào năng lực của họ&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;“&lt;strong&gt;Học qua hành&lt;/strong&gt;” là việc cho sinh viên cơ hội để học theo sự tiến bộ cá nhân và thời gian. Là giáo sư, chúng ta phải tạo cơ hội và môi trường thích hợp để cho sinh viên phát triển kĩ năng của họ và họ chỉ học tốt nếu họ không sợ hãi.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Mọi người có thể follow Blog của Giáo sư tại đây:   &lt;a href=&quot;http://science-technology.vn&quot;&gt;&lt;strong&gt;science-technology.vn&lt;/strong&gt;&lt;/a&gt;. Giáo sư là người dịch và phóng tác quyển &lt;strong&gt;Hành trình về phương đông&lt;/strong&gt; nổi tiếng. Đọc thêm thông tin về giáo sư tại đây - &lt;a href=&quot;http://viphat.me/27YnKaE&quot;&gt;Giáo sư JOHN VŨ- Niềm tự hào của người Việt Nam.bao&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Mon, 30 May 2016 00:00:00 +0000</pubDate>
-        <link>http://notes.viphat.work/hoc-lap-trinh-tu-sai-lam</link>
-        <guid isPermaLink="true">http://notes.viphat.work/hoc-lap-trinh-tu-sai-lam</guid>
-        
-        <category>lap-trinh</category>
         
         
       </item>
