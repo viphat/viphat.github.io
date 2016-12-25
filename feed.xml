@@ -6,12 +6,12 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 25 Dec 2016 16:00:00 +0700</pubDate>
-    <lastBuildDate>Sun, 25 Dec 2016 16:00:00 +0700</lastBuildDate>
+    <pubDate>Sun, 25 Dec 2016 16:02:38 +0700</pubDate>
+    <lastBuildDate>Sun, 25 Dec 2016 16:02:38 +0700</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
-        <title>[til] - My Project Infrastucture</title>
+        <title>My Project Infrastucture</title>
         <description>&lt;h1 id=&quot;my-project-infrastucture&quot;&gt;My Project Infrastucture&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Tài liệu mô tả cách vận hành hệ thống của XXX cùng một số lưu ý khi vận hành.&lt;/p&gt;
