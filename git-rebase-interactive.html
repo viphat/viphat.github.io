@@ -45,7 +45,7 @@
 
     <section class="main-content">
 
-      <h3 id="tn-mn-v-best-practice-khi-s-dng-git">Tản mạn về Best Practice khi sử dụng git</h3>
+      <h3 id="tản-mạn-về-best-practice-khi-sử-dụng-git">Tản mạn về Best Practice khi sử dụng git</h3>
 
 <p>Một trong Best Practice của <code class="highlighter-rouge">git</code> là <strong>Branch Early, Branch Often</strong> - Khi code một chức năng mới hay fix một lỗi cụ thể (trừ hotfix) cho sản phẩm, chúng ta tránh tối đa việc code trực tiếp trên nhánh <code class="highlighter-rouge">master</code> (Một số team/công ty còn đưa ra quy định rất cụ thể về  work flow với git, không cho phép developers push code trực tiếp vào nhánh master khi chưa thông qua code review và tạo pull request) - Tham khảo chi tiết trong bài viết <a href="https://thefullsnack.com/branch-early-branch-often-daadaad9468e"><strong>Branch Early - Branch Often</strong></a>.</p>
 
@@ -53,13 +53,13 @@
 
 <h3 id="rewriting-history">Rewriting history</h3>
 
-<h4 id="git-commit---amend">git commit –amend</h4>
+<h4 id="git-commit-amend">git commit –amend</h4>
 
 <p><code class="highlighter-rouge">git commit --amend</code> sử dụng trong trường hợp sau khi vừa commit xong, bạn phát hiện thiếu sót nào đó nên cần bổ sung vào commit trước hoặc là đơn giản là bạn cần sửa lại commit message. <strong>amending</strong> replace toàn bộ commit trước và thay nó bằng commit mới (có thể bổ sung changeset và sửa lại commit message).</p>
 
 <p>Nguyên tắc cần nhớ: Không bao giờ sử dụng <code class="highlighter-rouge">git commit --amend</code> một khi commit trước đã được push lên remote repository bởi vì đều này sẽ gây rắc rối cho những thành viên khác trong team của bạn.</p>
 
-<h4 id="git-rebase---interactive">git rebase –interactive</h4>
+<h4 id="git-rebase-interactive">git rebase –interactive</h4>
 
 <p>Cú pháp:</p>
 

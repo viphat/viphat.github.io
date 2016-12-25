@@ -63,19 +63,17 @@
     <p><strong>Scope: true</strong> - Directive sẽ tạo một Scope mới của riêng nó và kế thừa lại Parent Scope của nó. Mọi thay đổi của Directive Scope sẽ không làm ảnh hưởng đến giá trị của Parent Scope, tuy nhiên thay đổi bên Parent Scope lại được phản ảnh bên trong Directive Scope.</p>
   </li>
   <li><strong>Scope: {}</strong> - Directive sẽ tạo một Scope cô lập (isolated) mới, đây là phần thú vị nhất trong Scope Directive. Một Scope bị cô lập mới, tách hẳn ra khỏi Parent Scope và không kế thừa giá trị nào từ Parent Scope. Bạn phải khai báo cụ thể nếu muốn truyền giá trị từ Parent Scope đến Directive Isolated Scope. Isolated Scope giúp cho Directive có thể tái sử dụng ở nhiều nơi khác nhau và không phụ thuộc vào Parent Scope chứa nó. Truyền giá trị cho một Isolated Scope bằng cách dùng một trong các Prefix sau:</li>
-  <li><strong>@</strong> (Text binding / one-way binding): Chỉ truyền Text hoặc giá trị của một model (Angular theo mô hình MVVM) vào Directive (chứ không phải bản thân model). Do vậy, khi sử dụng @ với model, phải thêm cặp dấu  để lấy giá trị của model đó. @ thường được sử dụng để khởi tạo giá trị ban đầu cho Directive Scope.</li>
+  <li><strong>@</strong> (Text binding / one-way binding): Chỉ truyền Text hoặc giá trị của một model (Angular theo mô hình MVVM) vào Directive (chứ không phải bản thân model). Do vậy, khi sử dụng @ với model, phải thêm cặp dấu `` để lấy giá trị của model đó. @ thường được sử dụng để khởi tạo giá trị ban đầu cho Directive Scope.</li>
   <li><strong>=</strong> (Direct model binding / two-way binding): tại một binding 2 chiều giữa Directive Scope và Parent Scope, do vậy, nó luôn expect được truyền vào một model, điều đó có nghĩa là bạn không thể truyền một expression như là một giá trị vào thuộc tính được map bởi dấu =. = thường được sử dụng để chia sẻ dữ liệu và giao tiếp giữa Directive Scope và Parent Scope.</li>
   <li><strong>&amp;</strong> (Behaviour Binding / Method Binding): Là một method binding nên đúng với tên gọi của nó, &amp; được dùng để truyền một method từ Parent Scope vào Directive Scope. Nó rất hữu dụng khi bạn muốn invoke một method của Parent Scope từ bên trong Directive Scope.</li>
   <li>Nếu muốn tìm hiểu thêm về Prefixes trong Directive Isolated Scope, mời bạn đọc thêm tại <a href="https://umur.io/angularjs-directives-using-isolated-scope-with-attributes/">đây</a>.</li>
 </ul>
 
-<h5 id="phn-bit-compile---controller---link-function-trong-directive">Phân biệt compile - controller - link function trong Directive</h5>
+<h5 id="phân-biệt-compile---controller---link-function-trong-directive">Phân biệt compile - controller - link function trong Directive</h5>
 
 <p>Một câu hỏi khác cũng khá thú vị khi làm việc với Directive trong AngularJS và nảy ra khi mình đang viết bài này, đó là :</p>
 
-<blockquote>
-  <p>Phân biệt compile function, link function, controller function trong AngularJS Directive??</p>
-</blockquote>
+<p><strong>Phân biệt compile function, link function, controller function trong AngularJS Directive??</strong></p>
 
 <p>Nhiều lúc mình dùng loạn cả lên, bình thường thì dùng controller, khi thích thì dùng link function. (Hiếm khi dùng compile function)</p>
 
@@ -104,7 +102,6 @@
 </ul>
 
 <p>Phiên bản AngularJS 2.0 cũng sắp chính thức ra mắt, mình vẫn chưa tìm hiểu nên không biết có thay đổi gì nhiều liên quan đến scope không. Phải tìm hiểu mới được, hẹn các bạn ở một dịp khác.</p>
-
 
 
       <footer class="site-footer">

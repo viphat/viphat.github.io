@@ -47,7 +47,7 @@
 
       <p>Đôi khi, trong quá trình phân tích thiết kế một hệ thống, chúng ta chắc chắn được rằng, có những đối tượng cần tồn tại duy nhất song có thể truy xuất mọi lúc mọi nơi. Làm thế nào để hiện thực được một đối tượng như thế khi xây dựng mã nguồn? Bạn có thể nghĩ tới việc sử dụng một biến toàn cục, tuy nhiên, việc sử dụng biến toàn cục chỉ có thể đáp ứng được mặt “sử dụng mọi lúc mọi nơi”, còn khi xét về tính duy nhất của thể hiện thì biến toàn cục không làm được điều đó. Để giải bài toán trên, người ta hướng đến một giải pháp là sử dụng Singleton pattern – một mẫu thiết kế đáp ứng được cả hai yêu cầu trên.</p>
 
-<h4 id="design-pattern--mu-thit-k">Design Pattern – Mẫu thiết kế</h4>
+<h4 id="design-pattern--mẫu-thiết-kế">Design Pattern – Mẫu thiết kế</h4>
 
 <p>Trong kỹ thuật phần mềm, mẫu thiết kế là một mô tả được áp dụng linh hoạt nhằm giải quyết một vấn đề trong nhiều tình huống thiết kế phần mềm cụ thể.</p>
 
@@ -55,7 +55,7 @@
 
 <h4 id="singleton-pattern">Singleton Pattern</h4>
 
-<h5 id="khi-nim-v-c-im">Khái niệm và đặc điểm</h5>
+<h5 id="khái-niệm-và-đặc-điểm">Khái niệm và đặc điểm</h5>
 <p>Singleton là một trong những mẫu thiết kế đơn giản nhất trong các mẫu thiết kế. Đây là mẫu thiết kế được áp dụng nhằm mục đích:</p>
 
 <ul>
@@ -67,7 +67,7 @@
   </li>
 </ul>
 
-<h5 id="hin-thc">Hiện thực</h5>
+<h5 id="hiện-thực">Hiện thực</h5>
 
 <p>Khi hiện thực singleton pattern phải đảm bảo rằng chỉ có một thể hiện (instance) duy nhất được tạo ra và thể hiện tại có thể dùng mọi lúc mọi nơi. Nói cách khác, khi xây dựng lớp cần một kỹ thuật để có thể truy xuất được vào các thành viên public của lớp mà không tạo ra một thể hiện nào (thông qua việc khởi tạo bên ngoài lớp).</p>
 
@@ -75,11 +75,11 @@
 
 <p>Trong C++, singleton định nghĩa một thuộc tính static là một con trỏ trỏ tới thể hiện duy nhất của lớp đó.</p>
 
-<h5 id="m-hnh">Mô hình</h5>
+<h5 id="mô-hình">Mô hình</h5>
 
 <p><img src="http://i.imgur.com/LqHrQaM.png" alt="Singleton Class" /></p>
 
-<h5 id="m-ngun">Mã nguồn</h5>
+<h5 id="mã-nguồn">Mã nguồn</h5>
 
 <p><strong>Khai báo lớp Singleton</strong></p>
 

@@ -47,7 +47,7 @@
 
       <p>Bài này mình cóp nhặt từ Báo cáo “Tối ưu, kiện toàn và bảo mật Apache” của thầy Lê Thanh Thương, Lớp Linux System Admin. Trong đó, mính có lược bớt phần nói về bảo mật PHP vì mình chưa quan tâm lắm.</p>
 
-<h4 id="nguyn-tc-quan-trng--gim-thiu-cc-e-da-v-bo-mt">Nguyên tắc quan trọng để giảm thiểu các đe dọa về bảo mật</h4>
+<h4 id="nguyên-tắc-quan-trọng-để-giảm-thiểu-các-đe-dọa-về-bảo-mật">Nguyên tắc quan trọng để giảm thiểu các đe dọa về bảo mật</h4>
 
 <ul>
   <li>Tạo User riêng / Group riêng để chạy Apache (tương tự cho Nginx), tránh dùng nobody:nogroup, càng nên tránh chạy Process Apache bằng user root vì nếu tin tắc đột nhập thành công nhờ lỗ hổng của một Process, Họ có quyền truy dụng đến các procecss khác có cùng UID/GID.</li>
@@ -56,7 +56,7 @@
   <li>Disable các Module không cần thiết, không dùng đến.</li>
 </ul>
 
-<h4 id="phn-bit-apache-mpm-worker-v-apache-mpm-prefork">Phân biệt Apache mpm worker và Apache mpm prefork</h4>
+<h4 id="phân-biệt-apache-mpm-worker-và-apache-mpm-prefork">Phân biệt Apache mpm worker và Apache mpm prefork</h4>
 
 <p><strong>MPM Worker</strong> (Multi-Processing Module) implements a hybrid multi-process multi-threaded server. By using threads to serve requests, it is able to serve a large number of requests with fewer system resources than a process-based server. However, it retains much of the stability of a process-based server by keeping multiple processes available, each with many threads. The most important directives used to control this MPM are ThreadsPerChild, which controls the number of threads deployed by each child process and MaxClients, which controls the maximum total number of threads that may be launched. Đọc thêm về <strong>mpm worker</strong>: http://httpd.apache.org/docs/2.2/mod/worker.html.</p>
 
@@ -67,7 +67,7 @@ http://codebucket.co.in/apache-prefork-or-worker/</p>
 
 <p>PHP chỉ phù hợp với mpm prefork? Bạn chỉ nên sử dụng mpm prefork khi dùng Apache + mod_php. Xem thêm phần <a href="http://php.net/manual/en/faq.installation.php#faq.installation.apache2"><strong>Why shouldn’t I use Apache2 with a threaded MPM in a production environment?</strong></a></p>
 
-<h4 id="ci-t-apache-bng-cch-bin-dch--tt-cc-module-khng-cn-thit">Cài đặt Apache bằng cách biên dịch để tắt các Module không cần thiết</h4>
+<h4 id="cài-đặt-apache-bằng-cách-biên-dịch-để-tắt-các-module-không-cần-thiết">Cài đặt Apache bằng cách biên dịch để tắt các Module không cần thiết</h4>
 
 <p>Các Module cần thiết trong Apache:</p>
 
@@ -143,7 +143,7 @@ http://codebucket.co.in/apache-prefork-or-worker/</p>
 </code></pre>
 </div>
 
-<h4 id="cu-hnh-v-ti-u-apache">Cấu hình và Tối ưu Apache</h4>
+<h4 id="cấu-hình-và-tối-ưu-apache">Cấu hình và Tối ưu Apache</h4>
 
 <p>Hiểu từng dòng cấu hình của Apache và ảnh hưởng của nó đến hệ thống ra sao? Trong từng trường hợp cụ thể thì nên cấu hình như thế nào là tối ưu?</p>
 
@@ -176,7 +176,7 @@ StartServers 5
 </code></pre>
 </div>
 
-<h4 id="tm-hiu-v-modsecurity-v-chroot">Tìm hiểu về mod_security và chroot</h4>
+<h4 id="tìm-hiểu-về-mod_security-và-chroot">Tìm hiểu về mod_security và chroot</h4>
 
 <p>ModSecurity: https://www.modsecurity.org/</p>
 

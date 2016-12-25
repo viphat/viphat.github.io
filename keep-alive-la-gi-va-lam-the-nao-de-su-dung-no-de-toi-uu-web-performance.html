@@ -45,13 +45,13 @@
 
     <section class="main-content">
 
-      <h4 id="keep-alive-l-g">Keep Alive là gì?</h4>
+      <h4 id="keep-alive-là-gì">Keep Alive là gì?</h4>
 
 <p>Nếu bạn đã đọc qua bài viết <a href="http://notes.viphat.work/http-succinctly/"><strong>HTTP Succinctly</strong></a> thì hẳn có nghe qua Keep Alive Connection. Ở đây, mình cũng xin được ôn lại, Keep Alive là một phương thức cho phép sử dụng cùng một kết nối TCP cho một chuỗi các phiên giao dịch HTTP thay vì cứ phải tạo mới từng connection cho mỗi một HTTP Request. Bạn có thể hiểu nôm na là Web Server có thể trả về nhiều hơn một file trong cùng một kết nối. (Keep alive còn được biết đến với cái tên persistent connection.)</p>
 
 <p><img src="http://i.imgur.com/yjksohR.png" alt="Keep Alive Enabled" /></p>
 
-<h4 id="lm-th-no--enable-keep-alive">Làm thế nào để Enable Keep Alive</h4>
+<h4 id="làm-thế-nào-để-enable-keep-alive">Làm thế nào để Enable Keep Alive</h4>
 
 <ul>
   <li>Keep Alive có thể được enable bằng cách sử dụng HTTP header <code class="highlighter-rouge">Connection: Keep-Alive</code>.</li>
@@ -59,7 +59,7 @@
   <li>Cách để enable Keep Alive khác nhau tùy thuộc vào Web Server mà bạn đang sử dụng. Ở đây, mình chỉ quan tâm đến 2 Web Server thông dụng là <strong>Apache</strong> và <strong>Nginx</strong>.</li>
 </ul>
 
-<h5 id="enable-keep-alive-bng-htaccess">Enable Keep Alive bằng .htaccess</h5>
+<h5 id="enable-keep-alive-bằng-htaccess">Enable Keep Alive bằng .htaccess</h5>
 
 <p>Chỉ cần thêm dòng sau vào file .htaccess của bạn</p>
 
@@ -98,7 +98,7 @@ KeepAliveTimeout 100
 
 <p>Xem thêm - http://wiki.nginx.org/HttpCoreModule#keepalive_disable</p>
 
-<h4 id="kt-lun">Kết luận</h4>
+<h4 id="kết-luận">Kết luận</h4>
 <p>Keep Alive được dùng để tối ưu hóa tốc độ tải trang nhằm đem lại trải nghiệm tốt hơn cho người dùng. Mặc định thì Keep Alive luôn được mở khi cài đặt Apache hoặc Nginx, nhưng một số nhà cung cấp dịch vụ shared hosting có thể đã tắt nó nhằm tránh quá tải cho hệ thống của họ, vì vậy, luôn để ý và test kỹ xem Server của mình có enable keep alive không nhé. (Bằng cách quan sát HTTP Response hoặc sử dụng <a href="https://varvy.com/pagespeed/">PageSpeed Tool</a> để kiểm tra).</p>
 
 

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>[til] - My Project Infrastucture</title>
+  <meta name="description" content="My Project Infrastucture">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/my-project-infrastructure">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='http://notes.viphat.work'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">notes.viphat.work</h1>
+  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+</section>
+
+
+    <section class="main-content">
+
+      <h1 id="my-project-infrastucture">My Project Infrastucture</h1>
+
+<p><strong>Description</strong>: Tài liệu mô tả cách vận hành hệ thống của XXX cùng một số lưu ý khi vận hành.</p>
+
+<h3 id="what-we-have-used">What We Have Used</h3>
+
+<p>XXX được phát triển vào giữa cuối năm 2016 với stack công nghệ đã chọn là:</p>
+
+<ul>
+  <li>Ruby 2.3.x</li>
+  <li>Rails 5.0.x</li>
+  <li>Postgres 9.5+</li>
+  <li>Angular 1.5.x</li>
+  <li><strong>App Server</strong>: Puma. (alternatives are Phusion Passenger which are being used on YYY and Unicorn. Phusion Passenger has a enterprise version that provide more advanced and useful features.)</li>
+  <li><strong>Web Server</strong>: Nginx 1.10+ (For those who don’t know what different between App Server &amp; Web Server in Ruby, please refer to <a href="http://www.justinweiss.com/articles/a-web-server-vs-an-app-server/"><strong>Web Server vs App Server</strong></a>)</li>
+  <li><strong>Deployment</strong>: Capistrano. (We have mina as an alternative, which I thought was more efficient than capistrano but I have no idea why we haven’t used it. Don’t ask me, ask Mr.Hưng, please.)</li>
+  <li>Background Worker: Sidekiq 4.x (I’m going to write a more details tutorial about Sidekiq later.)</li>
+  <li>Cùng một số công nghệ hỗ trợ khác như Redis 3.x (For Caching), ElasticSearch 5.0, etc.</li>
+  <li>Phần mềm nhận dạng và phân tích vân tay (phát triển bởi Khang) chạy trên nền tảng Windows với <strong>Dot Net</strong> và <strong>Matlab</strong>.</li>
+  <li>Hệ thống CI sử dụng Jenkins (OpenSource) để tự động chạy test khi có code được push lên và tự động depoy khi merge vào branch develop và master.</li>
+  <li>Hệ thống Transactional Mail và Marketing Mail trên SendInBlue (hoặc SendGrid).</li>
+</ul>
+
+<p>Trên đây chỉ là những công nghệ cốt lõi và tối thiểu để hệ thống XXX vận hành. Chúng ta chưa có thời gian triển khai hệ thống Data Infrastructure để thu thập dữ liệu và phục vụ việc phân tích Data và ra quyết định. Ngoài ra, khi vận hành trên Production, chúng ta nên sử dụng thêm một số dịch vụ ngoài hỗ trợ việc track lỗi như <strong>Airbrake</strong>, phân tích và tối ưu performance như <strong>NewRelic</strong> (If you want to optimize things, you must measure them at first.) cùng các dịch vụ analytics, marketing, monitoring khác.</p>
+
+<p>Một số Ruby Gem nên sử dụng để rà soát và đảm bảo XXX hoạt động tốt nhất:</p>
+
+<ul>
+  <li><a href="https://github.com/flyerhzm/bullet"><strong>Bullet</strong></a> - Kiểm tra N+1 query và optimize chúng. Nếu bạn chưa biết N+1 Query là gì và tại sao chúng lại là problem thì tham khảo thêm <a href="https://www.sitepoint.com/silver-bullet-n1-problem/">bài viết này</a>.</li>
+  <li><a href="https://github.com/presidentbeef/brakeman"><strong>Brakeman</strong></a> - Kiểm tra các lỗi bảo mật cơ bản.</li>
+  <li><a href="https://github.com/newrelic/rpm"><strong>NewRelic Ruby Agent</strong></a> (cài đặt và sử dụng trên localhost) - Kiểm tra các câu query thiếu hiệu quả và load chậm.</li>
+</ul>
+
+<p>(Về mặt công nghệ thì YYY cũng tương tự, trừ việc có thêm một số Server như Ebook, Media - sử dụng VPS của LongVan và đặt tại VN cho tốc độ tối ưu)</p>
+
+<h3 id="hạ-tầng-yyy-đã-triển-khai-và-lý-do-đằng-sau-nó">Hạ tầng YYY đã triển khai và lý do đằng sau nó:</h3>
+
+<p>Chúng ta đã triển khai theo xu hướng tách các thành phần riêng biệt và cài đặt các thành phần đó trên từng Instance riêng vì khi tách riêng ra, trong trường hợp bị overload, chúng ta có thể dễ dàng biết được chính xác thành phần nào bị overload và sẽ scale riêng thành phần đó.</p>
+
+<p>Các thành phần có thể tách riêng và hoạt động riêng là App, Database, Redis, Sidekiq, Elasticsearch, etc.)</p>
+
+<h4 id="mô-hình-dưới-đây-là-thực-tế-của-yyy-ở-thời-điểm-hiện-tại-và-chúng-ta-cũng-dự-định-apply-mô-hình-này-cho-xxx">Mô hình dưới đây là thực tế của YYY (ở thời điểm hiện tại) và chúng ta cũng dự định apply mô hình này cho XXX:</h4>
+
+<ul>
+  <li><strong>App</strong> YYY chạy trên 2 con EC2 Medium (2 Cores + 4 GB Memory) và phân phối nhờ vào ELB (Elastic Load Balancer)… Tuy nhiên, trong 2 con có 1 con đóng vai trò master và 1 con đóng vai trò Slave.</li>
+  <li><strong>Sidekiq</strong> chạy trên Master Instance.</li>
+  <li><strong>ElasticSearch</strong> chạy trên Master Instance.</li>
+  <li><strong>Redis</strong> được tách ra một con Instance riêng - T2.small - 1 Cores, 2GB Memory. Hiện chúng ta chưa tiến hành replica Redis để chạy trên nhiều Instance » Khi Instance này bị sự cố thì YYY sẽ sập vì App YYY sử dụng rất nhiều Data Caching của Redis.</li>
+  <li><strong>Database</strong> chạy trên dịch vụ Postgres RDS của Amazon, Gói Medium (khá là đắt so với việc cài riêng trên một con EC2 nhưng đỡ lo khoản backup và bảo trì).</li>
+</ul>
+
+<p><strong>Lưu ý</strong>:</p>
+
+<ul>
+  <li>Khác nhau giữa 2 instance chạy App là con Master ngoài chạy app ra, vì vấn đề tiết kiệm chi phí Master còn được dùng để chạy thêm ElasticSearch và Sidekiq nữa.</li>
+  <li>Thay vì nên tách ElasticSearch ra một con Instance riêng (có điều kiện thì dùng luôn dịch vụ Amazon Elasticsearch Service, hơi mắc hơn so với dùng EC2 nhưng được cấu hình và hỗ trợ quản lý sẵn rồi, chỉ việc cắm và chạy thôi).</li>
+  <li>Background Worker như Sidekiq vốn nên được tách ra hoạt động độc lập trên một Instance riêng nhưng hiện vẫn còn nằm trên Master. Lưu ý thêm là không nên chạy Sidekiq trên nhiều Instance cùng lúc, vì chúng sẽ bị conflict, giành giật công việc và giẫm chân lên nhau.</li>
+  <li>Khi cần thêm instance chạy app, chỉ cần duplicate con slave và cấu hình lại Capistrano, thêm instance đó vào Load Balancer.</li>
+</ul>
+
+<h3 id="but-why-we-chose-aws">But Why We Chose AWS</h3>
+
+<p>Chúng ta chọn AWS là bởi vì hệ sinh thái của nó. Hệ sinh thái của Amazon rất phù hợp với Startup và SME, vốn không có nhiều kinh phí để duy trì Server và đội ngũ quản lý riêng biệt. Dù giá của AWS có mắc hơn so với việc tự dựng Server thuê ngoài hay sử dụng các dịch vụ Cloud VPS giá rẻ khác nhưng chúng ta không mất chi phí và tài nguyên để quản lý và cấu hình chúng chạy thủ công (Thật ra cũng không có người để làm những việc đó).</p>
+
+<p>Giá của các dịch vụ trên Amazon sẽ khác nhau tùy thuộc vào Region. Region hiện chúng ta đang sử dụng cho XXX (và cả YYY) là Singapore cho tất cả các dịch vụ (bao gồm S3, EC2, RDS…).</p>
+
+<p><strong>Image Type</strong> mà chúng ta dùng cho XXX (và YYY) trên AWS là Amazon Linux (một Linux Distro riêng của Amazon dựa trên nền tảng của CentOS). Còn trên Staging (Linode) chúng ta dùng Ubuntu 16.04 LTS (If you choose UBuntu for Production, You have to use LTS version only) hoặc CentOS 6.5 which is simpler and more stable than CentOs 7.x. CentOs 7.x is newer but much different than 6.x.</p>
+
+<h4 id="alternatives">Alternatives:</h4>
+
+<ul>
+  <li>Google Cloud Platform (Rẻ hơn AWS, cũng là một giải pháp thay thế được khuyến khích nếu chúng ta thấy không hài lòng với AWS).</li>
+  <li>Microsoft Azure (Ta chưa biết nhiều về nó).</li>
+  <li>Heroku (Giá rẻ, không đầy đủ đồ chơi như AWS).</li>
+  <li>Linode (VPS giá rẻ nhưng hơn hẳn DO về độ tin cậy).</li>
+  <li>DigitalOcean (VPS giá rẻ, rẻ nhất trong số các giải pháp liệt kê tại đây nhưng kém ổn định nhất.).</li>
+  <li>Aliyun (Just joking =))), Thằng này đang dominating thị trường China đó, chừng nào Ufuture tấn công China thì xài thằng này nha)</li>
+</ul>
+
+<h3 id="cách-tiết-kiệm-chi-phí-hiệu-quả-khi-sử-dụng-aws">Cách tiết kiệm chi phí hiệu quả khi sử dụng AWS:</h3>
+
+<p>Nếu S3, CloudFront trả tiền qua băng thông và dung lượng lưu trữ đã sử dụng nên không có cách khác để tiết kiệm chi phí ngoài việc cắt giảm lưu lượng hoặc dung lượng files. Với EC2 và RDS, ta có thể tiết kiệm một phần chi phí bằng cách linh hoạt nâng cấp hoặc giảm Instance type tùy vào nhu cầu sử dụng thực tế của chúng ta.</p>
+
+<p>AWS có các dạng tính giá cho Instance là:</p>
+
+<p><strong>On-demand Instance</strong>: tính tiến theo giờ và trả theo tháng, một tháng tối đa 750 hours (vượt trên 750+ vẫn tính max 750 hours). Sử dụng Instance dạng này không tối ưu về mặt chi phí nhưng bù lại rất linh hoạt, khi cần thì thêm vào, khi không dùng nữa thì tắt đi (AWS không tính tiền cho Instance đang stop, chỉ tính tiền phần storage mà stopped instance đó chiếm dụng).</p>
+
+<p><strong>Reversed Instance</strong>:  Một dạng trả trước và tiết kiệm hơn so với On-demand Instance (nhiều khi lên đến 75% discount). Nên dùng Reversed Instance khi chúng ta dự định dùng Hệ sinh thái AWS một cách lâu dài (Có gói 1 năm và 3 năm, gói 3 năm sẽ rẻ hơn).</p>
+
+<p><strong>Spot Instance</strong> - Một hình thức khá lạ, giúp tiết kiệm đến 90% costs so với On-demand nhưng không ổn định. Bạn đặt ra một mức giá cao nhất mà mình có thể (maximum price), khi giá của bạn cao hơn giá “thị trường” thì bạn sẽ được cấp Instance (và Amazon sẽ charge instance của bạn theo giờ với mức giá của “thị trường” tại thời điểm đó), tuy nhiên, nếu Maximum Price của bạn thấp hơn giá “thị trường” thì instance của bạn sẽ bị thu hồi (trong vòng 2 phút).</p>
+
+<p>Ngoài ra còn một loại khá mới là <strong>Scheduled Reserved Instance</strong>, mọi người tìm hiểu thêm nhé.</p>
+
+<p>Đọc thêm trong bài viết này: <a href="http://geekhub.vn/tim-hieu-ve-aws-ec2-pricing-models-va-cach-van-dung-de-tiet-kiem-chi-phi/"><strong>Tìm hiểu về AWS EC2 Pricing Models và cách vận dụng để tiết kiệm chi phí</strong></a></p>
+
+<p>Có nhiều loại EC2 Instance tùy vào mục đích sử dụng (như CPU, Memory, Storage):</p>
+<ul>
+  <li>General-Purpose</li>
+  <li>Compute-Optimized</li>
+  <li>Memory-Optimized</li>
+  <li>Storage-Optimized</li>
+</ul>
+
+<p>Read more on <a href="https://aws.amazon.com/blogs/aws/choosing-the-right-ec2-instance-type-for-your-application/">Choosing the right EC2 Instance type for your application</a></p>
+
+<ul>
+  <li>Instance type chúng ta dùng thường xuyên nhất là:
+<strong>General Purpose</strong> - <strong>T2.Medium</strong> (4GB Ram - 35$ a month ~ 750 hours - On demand)</li>
+</ul>
+
+<h3 id="scaling">Scaling</h3>
+
+<p>Có 2 kiểu scaling chính là <strong>Scale out</strong> (adding more components in parallel to spread out a load - nôm na là nhét thêm server) và <strong>Scale up</strong> (making a component bigger or faster so that it can handle more load - nâng cấp server hiện tại cho mạnh hơn và chịu tải tốt hơn).</p>
+
+<p>Nguyên tắc scaling để đảm bảo tính high availability của hệ thống là luôn có dự phòng để khi cần scale một thành phần nào đó, thì hệ thống vẫn hoạt động được mà không bị gián đoạn. Vì vậy, chúng ta sẽ phải kết hợp cả 2 hình thức <strong>scale out</strong> (Vertical Scaling) và <strong>scale up</strong> (Horizontal Scaling) cho XXX (và YYY).</p>
+
+<p>Một nguyên tắc nữa là không để nước tới chân mới nhảy, dựa vào việc monitoring, khi chúng ta sử dụng chạm mức 60-70% giới hạn của tài nguyên (CPU, Memory, Storage, Network) một cách quá thường xuyên thì đã đến lúc nghĩ đến việc nâng cấp sức chịu tải của chúng (thiếu gì thêm đó, nâng Memory, nâng CPU, thêm Server… tùy). (Với Hệ thống lớn và dư dả tài chính, khi chạm mốc 20%~30% thì họ đã lên kế hoạch nâng cấp rồi).</p>
+
+<h4 id="server">Server</h4>
+
+<p>chúng ta chạy App trên AWS EC2 nên khi cần thì scale cũng không khó, nhưng Amazon đòi hỏi phải tắt Instance đó trước khi upgrade or downgrade Instance nên để không bị gián đoạn, chúng ta phải có ít nhất 2 Web Server đang chạy song song và dùng dịch vụ Load Balancer của Amazon. Để khi chúng ta tiến hành scale, phải bảo đảm còn ít nhất 1 instance vẫn hoạt động bình thường. Tương tự cho Database, Redis, ElasticSearch, etc.</p>
+
+<p>Đã từng có trường hợp bên YYY buộc lòng phải thông báo maintenance vì server Redis bị quá tải và cần phải nâng cấp. Redis và ElasticSearch vốn được thiết kế cho mục đích phân tán nên mọi người có thể tham khảo thêm tài liệu về cấu hình redis và elasticsearch hoạt động trên nhiều nodes như thế nào. Còn Postgres (RDS) thì chúng ta có thể sử dụng chức năng Replica, tham khảo thêm <a href="https://aws.amazon.com/blogs/database/scaling-your-amazon-rds-instance-vertically-and-horizontally/">Scaling your Amazon RDS Instance</a></p>
+
+<p><strong>Tips</strong>: Để thêm nhanh một App Server mới, chỉ cần cài đặt thật chuẩn 1 instance slave và duplicate instance ấy khi cần. Hoặc nghiên cứu sử dụng <strong>Docker</strong> và <strong>EC2 Container</strong>.</p>
+
+<h4 id="nói-thêm-về-load-balancer">Nói thêm về Load Balancer</h4>
+
+<p><strong>Elastic Load Balancer</strong>  (AWS Load Balancer) khá dễ dùng, chỉ cần bỏ chút thời gian ra setting và kích hoạt dịch vụ này thôi. Khi cần có thể add or remove instance trong Load Balancer khá dễ dàng.</p>
+
+<p>Tips: Để upgrade or downgrade 1 instance (khi ta scale up) và hạn chế lỗi có thể, trước tiên ta cần remove instance đó khỏi Load Balancer rồi mới tắt instance và change instance type.</p>
+
+<p>Giải pháp OpenSource thay thế: Dùng chính Nginx làm Load Balancer Proxy hoặc HAProxy.</p>
+
+<p>Tham khảo tại <a href="http://nginx.org/en/docs/http/load_balancing.html">Using nginx as HTTP load balancer</a> và <a href="https://serversforhackers.com/load-balancing-with-haproxy">Load Balancing with HAProxy</a>.</p>
+
+<h4 id="auto-scaling-group">Auto Scaling Group</h4>
+
+<p>Phần này có vẻ mình chưa cần tới vì lượng requests đổ về không nhiều, 1~2 instance medium có thể chịu tải nổi. Khi XXX và YYY phát triển lớn mạnh hơn thì có thể sử dụng thêm <strong>Auto Scaling Group</strong> cho phép chúng ta định nghĩa một số điều kiện mà dựa trên đó, Amazon sẽ tự động scale instances giúp chúng ta. <strong>Auto Scaling Group</strong> cũng giúp chúng ta tiết kiệm chi phí vì nó sẽ tự động cấp phát và thu hồi instane dựa trên nhu cầu sử dụng thực tế.</p>
+
+<h3 id="staging--linode">Staging &amp; Linode</h3>
+
+<p>Khác với Production cần tính reliable và high availability. Staging rất ít khi được đụng tới (theo kinh nghiệm từ YYY) nên để tiết kiệm chi phí, chúng ta nên dựng Staging trên Linode và gom tất cả các dịch vụ cần thiết vào cùng 1 con VPS khoảng 2 cores, 4gb RAM như App, Postgres, Redis, ElasticSearch, etc.</p>
+
+<h3 id="ssl">SSL</h3>
+
+<p>Cái này là must have khi chạy Production, chúng ta nên bỏ tiền ra mua SSL cho các domain chính (XXX.cool, utalent.cool) giống bên YYY (Ask Mr.Hưng or Mr.Khoa for where &amp; how to buy)</p>
+
+<p>Phân biệt nhé, khi mua certificate cho domain thì có 2 dạng chính: wild card cerifiticate (rất mắc), nhưng một khi mua rồi thì chúng ta có thể dùng chung cho toàn bộ sub domain của domain đó… Còn mấy cái certificate giá rẻ chúng ta hay mua chỉ sử dụng được cho đúng 1 (sub)domain đó thôi.</p>
+
+<p>Còn những sub domain khác như staging.XXX.cool, staging.utalent.cool, ebook.YYY.cool, media.YYY.cool, etc. Chúng ta có thể dùng <strong>certificate</strong> miễn phí từ Let’s Encrypt. Có rất nhiều tutorial và công cụ hỗ trợ cài đặt và sử dụng Certificates từ Let’s Encrypt, mọi người tự tham khảo thêm nhé. Nhưng có một lưu ý thôi là Certificate này sẽ hết hạn mỗi 90 ngày nên mọi người chủ động thiết lập lại lịch nên renew khi gần tới hạn nhé (có thể renew mỗi tháng, mỗi 60 ngày…)</p>
+
+<h3 id="domain--dns">Domain &amp; DNS</h3>
+
+<p>Domain YYY.cool, XXX.cool và XXX.cool được đăng ký trên Namecheap nhưng DNS của tụi nó đều đã được chuyển về quản lý trên <strong>Amazon Route53</strong>. Chúng ta chỉ cần đăng nhập Namecheap để gia hạn tên miền nếu có (We don’t have to care about it cause Mr.Khoa can handle it.).</p>
+
+<p>Còn việc thêm sửa xóa record thì xài <strong>Route53</strong> nhé.</p>
+
+<h3 id="security">Security</h3>
+
+<p>Hiện tại, chúng ta chủ yếu sử dụng <strong>Security Group</strong> của AWS để quản lý inbound, outbound để mở cửa port nào cho những IP hay Server gì. Đây chỉ là giải pháp tạm thời và cơ bản khi team chúng ta chưa có người nhiều kinh nghiệm về mảng Security.</p>
+
+<p>Nếu có điều kiện và dư dả hơn về tài chính, chúng ta có thể nghiên cứu và sử dụng dịch vụ <strong>CloudFlare</strong> để tăng cường bảo mật ở cấp độ DNS, chống DDOS bằng công nghệ của CloudFlare. Ngoài ra, <strong>CloudFlare</strong> còn có các chức năng CDN, Web Optimization, Load Balancer, etc.</p>
+
+<p>Trên Staging (with Linode), chúng ta cũng nên dựng firewall (bằng iptables or ufw) để làm phương tiện phòng thủ cơ bản nhất.</p>
+
+<p><strong>Must read</strong>:</p>
+
+<p><a href="http://blog.mailgun.com/security-guide-basic-infrastructure-security/"><strong>Security Guide: How to Protect Your Infrastructure Against the Basic Attacker</strong></a> - Bài viết hướng dẫn cách bảo vệ hạ tầng của bạn chống lại các cuộc tấn công cơ bản. Dành cho các Startup không có chuyên viên về bảo mật và devops, Recommended for Developers.</p>
+
+<h3 id="monitoring">Monitoring</h3>
+
+<p>Đây cũng là một phần rất quan trọng khi vận hành Server. Nếu không có hệ thống monitoring và cảnh báo (qua Email, qua SMS) thì chúng ta sẽ không thể phản ứng kịp thời khi có sự cố cũng như không biết được, dự đoán được chuyện gì đang xảy ra và sắp xảy ra. Chúng ta không có một người chuyên về DevOps nên tạm thời chỉ tận dụng cức năng Monitoring của AWS (khá hạn chế) và chức năng Monitoring Graph của Linode (còn tệ hơn AWS).</p>
+
+<p>Có rất nhiều giải pháp và dịch vụ có phí phục vụ việc Monitoring này, mọi người tham khảo vòng quanh hoặc hỏi những người có kinh nghiệm trong cộng đồng DevOps nhé. <strong>Zabbix</strong> là một sự lựa chọn sáng giá.</p>
+
+<p><strong>Quan trọng</strong> - Một điều chúng ta chưa làm tốt ở YYY và XXX hiện tại là sử dụng công cụ để theo dõi và restart lại một số dịch vụ quan trọng nếu chúng không hoạt động như Sidekiq, Media Server, Ebook Server. Mọi người có thời gian có thể nghiên cứu <strong>MonIt</strong>, MonIt có thể giúp chúng ta theo dõi các processes và khởi động lại hay thực hiện một số tác vụ khác.</p>
+
+<h3 id="logging">Logging</h3>
+
+<p>Có 2 loại log chính:</p>
+
+<ul>
+  <li>
+    <p>Log do hệ thống, app tự phát sinh ra: Nginx Access Log, Nginx Error Log, Puma Access Log, Puma Error Log, Postgres Log, Sidekiq Log, Cron.log, etc. Chúng ta có thể dùng để biết được chuyện gì đã xảy ra trên hệ thống, những ai, và họ đã làm những gì?</p>
+  </li>
+  <li>
+    <p>Log do chúng ta chủ động collect từ phía client và dùng cho mục đích phân tích data sau này.</p>
+  </li>
+</ul>
+
+<p>Có nhiều trang cung cấp dịch vụ logging  (đơn cử như LogEntries) và Open Source như FluentTD, ELK (Tổ hợp stack - Kibana, LogStash and ElasticSearch - tham khảo <a href="https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-16-04">How To Install Elasticsearch, Logstash, and Kibana</a>)</p>
+
+<h3 id="backup">Backup</h3>
+
+<p>Thường xuyên Backup dữ liệu and Hope things are going well ((:</p>
+
+<p>AWS có hỗ trợ chức năng Backup theo ngày ở mức độ cơ bản thôi.</p>
+
+<h3 id="references">References:</h3>
+
+<p><a href="https://github.com/open-guides/og-aws">The Open Guide to Amazon Web Services</a>
+<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html">EC2 Best Practices</a></p>
+
+<hr />
+
+<p><strong>Dương Vì Phát</strong>
+Cập nhật gần đây nhất: 02/12/2016</p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

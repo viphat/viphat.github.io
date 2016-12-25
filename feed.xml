@@ -6,9 +6,231 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 29 Jul 2016 00:53:00 +0000</pubDate>
-    <lastBuildDate>Fri, 29 Jul 2016 00:53:00 +0000</lastBuildDate>
-    <generator>Jekyll v3.1.6</generator>
+    <pubDate>Sun, 25 Dec 2016 16:00:00 +0700</pubDate>
+    <lastBuildDate>Sun, 25 Dec 2016 16:00:00 +0700</lastBuildDate>
+    <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>[til] - My Project Infrastucture</title>
+        <description>&lt;h1 id=&quot;my-project-infrastucture&quot;&gt;My Project Infrastucture&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Tài liệu mô tả cách vận hành hệ thống của XXX cùng một số lưu ý khi vận hành.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-we-have-used&quot;&gt;What We Have Used&lt;/h3&gt;
+
+&lt;p&gt;XXX được phát triển vào giữa cuối năm 2016 với stack công nghệ đã chọn là:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Ruby 2.3.x&lt;/li&gt;
+  &lt;li&gt;Rails 5.0.x&lt;/li&gt;
+  &lt;li&gt;Postgres 9.5+&lt;/li&gt;
+  &lt;li&gt;Angular 1.5.x&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;App Server&lt;/strong&gt;: Puma. (alternatives are Phusion Passenger which are being used on YYY and Unicorn. Phusion Passenger has a enterprise version that provide more advanced and useful features.)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Web Server&lt;/strong&gt;: Nginx 1.10+ (For those who don’t know what different between App Server &amp;amp; Web Server in Ruby, please refer to &lt;a href=&quot;http://www.justinweiss.com/articles/a-web-server-vs-an-app-server/&quot;&gt;&lt;strong&gt;Web Server vs App Server&lt;/strong&gt;&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Deployment&lt;/strong&gt;: Capistrano. (We have mina as an alternative, which I thought was more efficient than capistrano but I have no idea why we haven’t used it. Don’t ask me, ask Mr.Hưng, please.)&lt;/li&gt;
+  &lt;li&gt;Background Worker: Sidekiq 4.x (I’m going to write a more details tutorial about Sidekiq later.)&lt;/li&gt;
+  &lt;li&gt;Cùng một số công nghệ hỗ trợ khác như Redis 3.x (For Caching), ElasticSearch 5.0, etc.&lt;/li&gt;
+  &lt;li&gt;Phần mềm nhận dạng và phân tích vân tay (phát triển bởi Khang) chạy trên nền tảng Windows với &lt;strong&gt;Dot Net&lt;/strong&gt; và &lt;strong&gt;Matlab&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Hệ thống CI sử dụng Jenkins (OpenSource) để tự động chạy test khi có code được push lên và tự động depoy khi merge vào branch develop và master.&lt;/li&gt;
+  &lt;li&gt;Hệ thống Transactional Mail và Marketing Mail trên SendInBlue (hoặc SendGrid).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Trên đây chỉ là những công nghệ cốt lõi và tối thiểu để hệ thống XXX vận hành. Chúng ta chưa có thời gian triển khai hệ thống Data Infrastructure để thu thập dữ liệu và phục vụ việc phân tích Data và ra quyết định. Ngoài ra, khi vận hành trên Production, chúng ta nên sử dụng thêm một số dịch vụ ngoài hỗ trợ việc track lỗi như &lt;strong&gt;Airbrake&lt;/strong&gt;, phân tích và tối ưu performance như &lt;strong&gt;NewRelic&lt;/strong&gt; (If you want to optimize things, you must measure them at first.) cùng các dịch vụ analytics, marketing, monitoring khác.&lt;/p&gt;
+
+&lt;p&gt;Một số Ruby Gem nên sử dụng để rà soát và đảm bảo XXX hoạt động tốt nhất:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/flyerhzm/bullet&quot;&gt;&lt;strong&gt;Bullet&lt;/strong&gt;&lt;/a&gt; - Kiểm tra N+1 query và optimize chúng. Nếu bạn chưa biết N+1 Query là gì và tại sao chúng lại là problem thì tham khảo thêm &lt;a href=&quot;https://www.sitepoint.com/silver-bullet-n1-problem/&quot;&gt;bài viết này&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/presidentbeef/brakeman&quot;&gt;&lt;strong&gt;Brakeman&lt;/strong&gt;&lt;/a&gt; - Kiểm tra các lỗi bảo mật cơ bản.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/newrelic/rpm&quot;&gt;&lt;strong&gt;NewRelic Ruby Agent&lt;/strong&gt;&lt;/a&gt; (cài đặt và sử dụng trên localhost) - Kiểm tra các câu query thiếu hiệu quả và load chậm.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(Về mặt công nghệ thì YYY cũng tương tự, trừ việc có thêm một số Server như Ebook, Media - sử dụng VPS của LongVan và đặt tại VN cho tốc độ tối ưu)&lt;/p&gt;
+
+&lt;h3 id=&quot;hạ-tầng-yyy-đã-triển-khai-và-lý-do-đằng-sau-nó&quot;&gt;Hạ tầng YYY đã triển khai và lý do đằng sau nó:&lt;/h3&gt;
+
+&lt;p&gt;Chúng ta đã triển khai theo xu hướng tách các thành phần riêng biệt và cài đặt các thành phần đó trên từng Instance riêng vì khi tách riêng ra, trong trường hợp bị overload, chúng ta có thể dễ dàng biết được chính xác thành phần nào bị overload và sẽ scale riêng thành phần đó.&lt;/p&gt;
+
+&lt;p&gt;Các thành phần có thể tách riêng và hoạt động riêng là App, Database, Redis, Sidekiq, Elasticsearch, etc.)&lt;/p&gt;
+
+&lt;h4 id=&quot;mô-hình-dưới-đây-là-thực-tế-của-yyy-ở-thời-điểm-hiện-tại-và-chúng-ta-cũng-dự-định-apply-mô-hình-này-cho-xxx&quot;&gt;Mô hình dưới đây là thực tế của YYY (ở thời điểm hiện tại) và chúng ta cũng dự định apply mô hình này cho XXX:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;App&lt;/strong&gt; YYY chạy trên 2 con EC2 Medium (2 Cores + 4 GB Memory) và phân phối nhờ vào ELB (Elastic Load Balancer)… Tuy nhiên, trong 2 con có 1 con đóng vai trò master và 1 con đóng vai trò Slave.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Sidekiq&lt;/strong&gt; chạy trên Master Instance.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ElasticSearch&lt;/strong&gt; chạy trên Master Instance.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Redis&lt;/strong&gt; được tách ra một con Instance riêng - T2.small - 1 Cores, 2GB Memory. Hiện chúng ta chưa tiến hành replica Redis để chạy trên nhiều Instance » Khi Instance này bị sự cố thì YYY sẽ sập vì App YYY sử dụng rất nhiều Data Caching của Redis.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Database&lt;/strong&gt; chạy trên dịch vụ Postgres RDS của Amazon, Gói Medium (khá là đắt so với việc cài riêng trên một con EC2 nhưng đỡ lo khoản backup và bảo trì).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Lưu ý&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Khác nhau giữa 2 instance chạy App là con Master ngoài chạy app ra, vì vấn đề tiết kiệm chi phí Master còn được dùng để chạy thêm ElasticSearch và Sidekiq nữa.&lt;/li&gt;
+  &lt;li&gt;Thay vì nên tách ElasticSearch ra một con Instance riêng (có điều kiện thì dùng luôn dịch vụ Amazon Elasticsearch Service, hơi mắc hơn so với dùng EC2 nhưng được cấu hình và hỗ trợ quản lý sẵn rồi, chỉ việc cắm và chạy thôi).&lt;/li&gt;
+  &lt;li&gt;Background Worker như Sidekiq vốn nên được tách ra hoạt động độc lập trên một Instance riêng nhưng hiện vẫn còn nằm trên Master. Lưu ý thêm là không nên chạy Sidekiq trên nhiều Instance cùng lúc, vì chúng sẽ bị conflict, giành giật công việc và giẫm chân lên nhau.&lt;/li&gt;
+  &lt;li&gt;Khi cần thêm instance chạy app, chỉ cần duplicate con slave và cấu hình lại Capistrano, thêm instance đó vào Load Balancer.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;but-why-we-chose-aws&quot;&gt;But Why We Chose AWS&lt;/h3&gt;
+
+&lt;p&gt;Chúng ta chọn AWS là bởi vì hệ sinh thái của nó. Hệ sinh thái của Amazon rất phù hợp với Startup và SME, vốn không có nhiều kinh phí để duy trì Server và đội ngũ quản lý riêng biệt. Dù giá của AWS có mắc hơn so với việc tự dựng Server thuê ngoài hay sử dụng các dịch vụ Cloud VPS giá rẻ khác nhưng chúng ta không mất chi phí và tài nguyên để quản lý và cấu hình chúng chạy thủ công (Thật ra cũng không có người để làm những việc đó).&lt;/p&gt;
+
+&lt;p&gt;Giá của các dịch vụ trên Amazon sẽ khác nhau tùy thuộc vào Region. Region hiện chúng ta đang sử dụng cho XXX (và cả YYY) là Singapore cho tất cả các dịch vụ (bao gồm S3, EC2, RDS…).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Image Type&lt;/strong&gt; mà chúng ta dùng cho XXX (và YYY) trên AWS là Amazon Linux (một Linux Distro riêng của Amazon dựa trên nền tảng của CentOS). Còn trên Staging (Linode) chúng ta dùng Ubuntu 16.04 LTS (If you choose UBuntu for Production, You have to use LTS version only) hoặc CentOS 6.5 which is simpler and more stable than CentOs 7.x. CentOs 7.x is newer but much different than 6.x.&lt;/p&gt;
+
+&lt;h4 id=&quot;alternatives&quot;&gt;Alternatives:&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Google Cloud Platform (Rẻ hơn AWS, cũng là một giải pháp thay thế được khuyến khích nếu chúng ta thấy không hài lòng với AWS).&lt;/li&gt;
+  &lt;li&gt;Microsoft Azure (Ta chưa biết nhiều về nó).&lt;/li&gt;
+  &lt;li&gt;Heroku (Giá rẻ, không đầy đủ đồ chơi như AWS).&lt;/li&gt;
+  &lt;li&gt;Linode (VPS giá rẻ nhưng hơn hẳn DO về độ tin cậy).&lt;/li&gt;
+  &lt;li&gt;DigitalOcean (VPS giá rẻ, rẻ nhất trong số các giải pháp liệt kê tại đây nhưng kém ổn định nhất.).&lt;/li&gt;
+  &lt;li&gt;Aliyun (Just joking =))), Thằng này đang dominating thị trường China đó, chừng nào Ufuture tấn công China thì xài thằng này nha)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;cách-tiết-kiệm-chi-phí-hiệu-quả-khi-sử-dụng-aws&quot;&gt;Cách tiết kiệm chi phí hiệu quả khi sử dụng AWS:&lt;/h3&gt;
+
+&lt;p&gt;Nếu S3, CloudFront trả tiền qua băng thông và dung lượng lưu trữ đã sử dụng nên không có cách khác để tiết kiệm chi phí ngoài việc cắt giảm lưu lượng hoặc dung lượng files. Với EC2 và RDS, ta có thể tiết kiệm một phần chi phí bằng cách linh hoạt nâng cấp hoặc giảm Instance type tùy vào nhu cầu sử dụng thực tế của chúng ta.&lt;/p&gt;
+
+&lt;p&gt;AWS có các dạng tính giá cho Instance là:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;On-demand Instance&lt;/strong&gt;: tính tiến theo giờ và trả theo tháng, một tháng tối đa 750 hours (vượt trên 750+ vẫn tính max 750 hours). Sử dụng Instance dạng này không tối ưu về mặt chi phí nhưng bù lại rất linh hoạt, khi cần thì thêm vào, khi không dùng nữa thì tắt đi (AWS không tính tiền cho Instance đang stop, chỉ tính tiền phần storage mà stopped instance đó chiếm dụng).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Reversed Instance&lt;/strong&gt;:  Một dạng trả trước và tiết kiệm hơn so với On-demand Instance (nhiều khi lên đến 75% discount). Nên dùng Reversed Instance khi chúng ta dự định dùng Hệ sinh thái AWS một cách lâu dài (Có gói 1 năm và 3 năm, gói 3 năm sẽ rẻ hơn).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Spot Instance&lt;/strong&gt; - Một hình thức khá lạ, giúp tiết kiệm đến 90% costs so với On-demand nhưng không ổn định. Bạn đặt ra một mức giá cao nhất mà mình có thể (maximum price), khi giá của bạn cao hơn giá “thị trường” thì bạn sẽ được cấp Instance (và Amazon sẽ charge instance của bạn theo giờ với mức giá của “thị trường” tại thời điểm đó), tuy nhiên, nếu Maximum Price của bạn thấp hơn giá “thị trường” thì instance của bạn sẽ bị thu hồi (trong vòng 2 phút).&lt;/p&gt;
+
+&lt;p&gt;Ngoài ra còn một loại khá mới là &lt;strong&gt;Scheduled Reserved Instance&lt;/strong&gt;, mọi người tìm hiểu thêm nhé.&lt;/p&gt;
+
+&lt;p&gt;Đọc thêm trong bài viết này: &lt;a href=&quot;http://geekhub.vn/tim-hieu-ve-aws-ec2-pricing-models-va-cach-van-dung-de-tiet-kiem-chi-phi/&quot;&gt;&lt;strong&gt;Tìm hiểu về AWS EC2 Pricing Models và cách vận dụng để tiết kiệm chi phí&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Có nhiều loại EC2 Instance tùy vào mục đích sử dụng (như CPU, Memory, Storage):&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;General-Purpose&lt;/li&gt;
+  &lt;li&gt;Compute-Optimized&lt;/li&gt;
+  &lt;li&gt;Memory-Optimized&lt;/li&gt;
+  &lt;li&gt;Storage-Optimized&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Read more on &lt;a href=&quot;https://aws.amazon.com/blogs/aws/choosing-the-right-ec2-instance-type-for-your-application/&quot;&gt;Choosing the right EC2 Instance type for your application&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Instance type chúng ta dùng thường xuyên nhất là:
+&lt;strong&gt;General Purpose&lt;/strong&gt; - &lt;strong&gt;T2.Medium&lt;/strong&gt; (4GB Ram - 35$ a month ~ 750 hours - On demand)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;scaling&quot;&gt;Scaling&lt;/h3&gt;
+
+&lt;p&gt;Có 2 kiểu scaling chính là &lt;strong&gt;Scale out&lt;/strong&gt; (adding more components in parallel to spread out a load - nôm na là nhét thêm server) và &lt;strong&gt;Scale up&lt;/strong&gt; (making a component bigger or faster so that it can handle more load - nâng cấp server hiện tại cho mạnh hơn và chịu tải tốt hơn).&lt;/p&gt;
+
+&lt;p&gt;Nguyên tắc scaling để đảm bảo tính high availability của hệ thống là luôn có dự phòng để khi cần scale một thành phần nào đó, thì hệ thống vẫn hoạt động được mà không bị gián đoạn. Vì vậy, chúng ta sẽ phải kết hợp cả 2 hình thức &lt;strong&gt;scale out&lt;/strong&gt; (Vertical Scaling) và &lt;strong&gt;scale up&lt;/strong&gt; (Horizontal Scaling) cho XXX (và YYY).&lt;/p&gt;
+
+&lt;p&gt;Một nguyên tắc nữa là không để nước tới chân mới nhảy, dựa vào việc monitoring, khi chúng ta sử dụng chạm mức 60-70% giới hạn của tài nguyên (CPU, Memory, Storage, Network) một cách quá thường xuyên thì đã đến lúc nghĩ đến việc nâng cấp sức chịu tải của chúng (thiếu gì thêm đó, nâng Memory, nâng CPU, thêm Server… tùy). (Với Hệ thống lớn và dư dả tài chính, khi chạm mốc 20%~30% thì họ đã lên kế hoạch nâng cấp rồi).&lt;/p&gt;
+
+&lt;h4 id=&quot;server&quot;&gt;Server&lt;/h4&gt;
+
+&lt;p&gt;chúng ta chạy App trên AWS EC2 nên khi cần thì scale cũng không khó, nhưng Amazon đòi hỏi phải tắt Instance đó trước khi upgrade or downgrade Instance nên để không bị gián đoạn, chúng ta phải có ít nhất 2 Web Server đang chạy song song và dùng dịch vụ Load Balancer của Amazon. Để khi chúng ta tiến hành scale, phải bảo đảm còn ít nhất 1 instance vẫn hoạt động bình thường. Tương tự cho Database, Redis, ElasticSearch, etc.&lt;/p&gt;
+
+&lt;p&gt;Đã từng có trường hợp bên YYY buộc lòng phải thông báo maintenance vì server Redis bị quá tải và cần phải nâng cấp. Redis và ElasticSearch vốn được thiết kế cho mục đích phân tán nên mọi người có thể tham khảo thêm tài liệu về cấu hình redis và elasticsearch hoạt động trên nhiều nodes như thế nào. Còn Postgres (RDS) thì chúng ta có thể sử dụng chức năng Replica, tham khảo thêm &lt;a href=&quot;https://aws.amazon.com/blogs/database/scaling-your-amazon-rds-instance-vertically-and-horizontally/&quot;&gt;Scaling your Amazon RDS Instance&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Tips&lt;/strong&gt;: Để thêm nhanh một App Server mới, chỉ cần cài đặt thật chuẩn 1 instance slave và duplicate instance ấy khi cần. Hoặc nghiên cứu sử dụng &lt;strong&gt;Docker&lt;/strong&gt; và &lt;strong&gt;EC2 Container&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;nói-thêm-về-load-balancer&quot;&gt;Nói thêm về Load Balancer&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;Elastic Load Balancer&lt;/strong&gt;  (AWS Load Balancer) khá dễ dùng, chỉ cần bỏ chút thời gian ra setting và kích hoạt dịch vụ này thôi. Khi cần có thể add or remove instance trong Load Balancer khá dễ dàng.&lt;/p&gt;
+
+&lt;p&gt;Tips: Để upgrade or downgrade 1 instance (khi ta scale up) và hạn chế lỗi có thể, trước tiên ta cần remove instance đó khỏi Load Balancer rồi mới tắt instance và change instance type.&lt;/p&gt;
+
+&lt;p&gt;Giải pháp OpenSource thay thế: Dùng chính Nginx làm Load Balancer Proxy hoặc HAProxy.&lt;/p&gt;
+
+&lt;p&gt;Tham khảo tại &lt;a href=&quot;http://nginx.org/en/docs/http/load_balancing.html&quot;&gt;Using nginx as HTTP load balancer&lt;/a&gt; và &lt;a href=&quot;https://serversforhackers.com/load-balancing-with-haproxy&quot;&gt;Load Balancing with HAProxy&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;auto-scaling-group&quot;&gt;Auto Scaling Group&lt;/h4&gt;
+
+&lt;p&gt;Phần này có vẻ mình chưa cần tới vì lượng requests đổ về không nhiều, 1~2 instance medium có thể chịu tải nổi. Khi XXX và YYY phát triển lớn mạnh hơn thì có thể sử dụng thêm &lt;strong&gt;Auto Scaling Group&lt;/strong&gt; cho phép chúng ta định nghĩa một số điều kiện mà dựa trên đó, Amazon sẽ tự động scale instances giúp chúng ta. &lt;strong&gt;Auto Scaling Group&lt;/strong&gt; cũng giúp chúng ta tiết kiệm chi phí vì nó sẽ tự động cấp phát và thu hồi instane dựa trên nhu cầu sử dụng thực tế.&lt;/p&gt;
+
+&lt;h3 id=&quot;staging--linode&quot;&gt;Staging &amp;amp; Linode&lt;/h3&gt;
+
+&lt;p&gt;Khác với Production cần tính reliable và high availability. Staging rất ít khi được đụng tới (theo kinh nghiệm từ YYY) nên để tiết kiệm chi phí, chúng ta nên dựng Staging trên Linode và gom tất cả các dịch vụ cần thiết vào cùng 1 con VPS khoảng 2 cores, 4gb RAM như App, Postgres, Redis, ElasticSearch, etc.&lt;/p&gt;
+
+&lt;h3 id=&quot;ssl&quot;&gt;SSL&lt;/h3&gt;
+
+&lt;p&gt;Cái này là must have khi chạy Production, chúng ta nên bỏ tiền ra mua SSL cho các domain chính (XXX.cool, utalent.cool) giống bên YYY (Ask Mr.Hưng or Mr.Khoa for where &amp;amp; how to buy)&lt;/p&gt;
+
+&lt;p&gt;Phân biệt nhé, khi mua certificate cho domain thì có 2 dạng chính: wild card cerifiticate (rất mắc), nhưng một khi mua rồi thì chúng ta có thể dùng chung cho toàn bộ sub domain của domain đó… Còn mấy cái certificate giá rẻ chúng ta hay mua chỉ sử dụng được cho đúng 1 (sub)domain đó thôi.&lt;/p&gt;
+
+&lt;p&gt;Còn những sub domain khác như staging.XXX.cool, staging.utalent.cool, ebook.YYY.cool, media.YYY.cool, etc. Chúng ta có thể dùng &lt;strong&gt;certificate&lt;/strong&gt; miễn phí từ Let’s Encrypt. Có rất nhiều tutorial và công cụ hỗ trợ cài đặt và sử dụng Certificates từ Let’s Encrypt, mọi người tự tham khảo thêm nhé. Nhưng có một lưu ý thôi là Certificate này sẽ hết hạn mỗi 90 ngày nên mọi người chủ động thiết lập lại lịch nên renew khi gần tới hạn nhé (có thể renew mỗi tháng, mỗi 60 ngày…)&lt;/p&gt;
+
+&lt;h3 id=&quot;domain--dns&quot;&gt;Domain &amp;amp; DNS&lt;/h3&gt;
+
+&lt;p&gt;Domain YYY.cool, XXX.cool và XXX.cool được đăng ký trên Namecheap nhưng DNS của tụi nó đều đã được chuyển về quản lý trên &lt;strong&gt;Amazon Route53&lt;/strong&gt;. Chúng ta chỉ cần đăng nhập Namecheap để gia hạn tên miền nếu có (We don’t have to care about it cause Mr.Khoa can handle it.).&lt;/p&gt;
+
+&lt;p&gt;Còn việc thêm sửa xóa record thì xài &lt;strong&gt;Route53&lt;/strong&gt; nhé.&lt;/p&gt;
+
+&lt;h3 id=&quot;security&quot;&gt;Security&lt;/h3&gt;
+
+&lt;p&gt;Hiện tại, chúng ta chủ yếu sử dụng &lt;strong&gt;Security Group&lt;/strong&gt; của AWS để quản lý inbound, outbound để mở cửa port nào cho những IP hay Server gì. Đây chỉ là giải pháp tạm thời và cơ bản khi team chúng ta chưa có người nhiều kinh nghiệm về mảng Security.&lt;/p&gt;
+
+&lt;p&gt;Nếu có điều kiện và dư dả hơn về tài chính, chúng ta có thể nghiên cứu và sử dụng dịch vụ &lt;strong&gt;CloudFlare&lt;/strong&gt; để tăng cường bảo mật ở cấp độ DNS, chống DDOS bằng công nghệ của CloudFlare. Ngoài ra, &lt;strong&gt;CloudFlare&lt;/strong&gt; còn có các chức năng CDN, Web Optimization, Load Balancer, etc.&lt;/p&gt;
+
+&lt;p&gt;Trên Staging (with Linode), chúng ta cũng nên dựng firewall (bằng iptables or ufw) để làm phương tiện phòng thủ cơ bản nhất.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Must read&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://blog.mailgun.com/security-guide-basic-infrastructure-security/&quot;&gt;&lt;strong&gt;Security Guide: How to Protect Your Infrastructure Against the Basic Attacker&lt;/strong&gt;&lt;/a&gt; - Bài viết hướng dẫn cách bảo vệ hạ tầng của bạn chống lại các cuộc tấn công cơ bản. Dành cho các Startup không có chuyên viên về bảo mật và devops, Recommended for Developers.&lt;/p&gt;
+
+&lt;h3 id=&quot;monitoring&quot;&gt;Monitoring&lt;/h3&gt;
+
+&lt;p&gt;Đây cũng là một phần rất quan trọng khi vận hành Server. Nếu không có hệ thống monitoring và cảnh báo (qua Email, qua SMS) thì chúng ta sẽ không thể phản ứng kịp thời khi có sự cố cũng như không biết được, dự đoán được chuyện gì đang xảy ra và sắp xảy ra. Chúng ta không có một người chuyên về DevOps nên tạm thời chỉ tận dụng cức năng Monitoring của AWS (khá hạn chế) và chức năng Monitoring Graph của Linode (còn tệ hơn AWS).&lt;/p&gt;
+
+&lt;p&gt;Có rất nhiều giải pháp và dịch vụ có phí phục vụ việc Monitoring này, mọi người tham khảo vòng quanh hoặc hỏi những người có kinh nghiệm trong cộng đồng DevOps nhé. &lt;strong&gt;Zabbix&lt;/strong&gt; là một sự lựa chọn sáng giá.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Quan trọng&lt;/strong&gt; - Một điều chúng ta chưa làm tốt ở YYY và XXX hiện tại là sử dụng công cụ để theo dõi và restart lại một số dịch vụ quan trọng nếu chúng không hoạt động như Sidekiq, Media Server, Ebook Server. Mọi người có thời gian có thể nghiên cứu &lt;strong&gt;MonIt&lt;/strong&gt;, MonIt có thể giúp chúng ta theo dõi các processes và khởi động lại hay thực hiện một số tác vụ khác.&lt;/p&gt;
+
+&lt;h3 id=&quot;logging&quot;&gt;Logging&lt;/h3&gt;
+
+&lt;p&gt;Có 2 loại log chính:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Log do hệ thống, app tự phát sinh ra: Nginx Access Log, Nginx Error Log, Puma Access Log, Puma Error Log, Postgres Log, Sidekiq Log, Cron.log, etc. Chúng ta có thể dùng để biết được chuyện gì đã xảy ra trên hệ thống, những ai, và họ đã làm những gì?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Log do chúng ta chủ động collect từ phía client và dùng cho mục đích phân tích data sau này.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Có nhiều trang cung cấp dịch vụ logging  (đơn cử như LogEntries) và Open Source như FluentTD, ELK (Tổ hợp stack - Kibana, LogStash and ElasticSearch - tham khảo &lt;a href=&quot;https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-16-04&quot;&gt;How To Install Elasticsearch, Logstash, and Kibana&lt;/a&gt;)&lt;/p&gt;
+
+&lt;h3 id=&quot;backup&quot;&gt;Backup&lt;/h3&gt;
+
+&lt;p&gt;Thường xuyên Backup dữ liệu and Hope things are going well ((:&lt;/p&gt;
+
+&lt;p&gt;AWS có hỗ trợ chức năng Backup theo ngày ở mức độ cơ bản thôi.&lt;/p&gt;
+
+&lt;h3 id=&quot;references&quot;&gt;References:&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/open-guides/og-aws&quot;&gt;The Open Guide to Amazon Web Services&lt;/a&gt;
+&lt;a href=&quot;http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html&quot;&gt;EC2 Best Practices&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Dương Vì Phát&lt;/strong&gt;
+Cập nhật gần đây nhất: 02/12/2016&lt;/p&gt;
+</description>
+        <pubDate>Sun, 25 Dec 2016 07:00:00 +0700</pubDate>
+        <link>http://notes.viphat.work/my-project-infrastructure</link>
+        <guid isPermaLink="true">http://notes.viphat.work/my-project-infrastructure</guid>
+        
+        <category>server</category>
+        
+        <category>infrastucture</category>
+        
+        
+      </item>
     
       <item>
         <title>[til] - Vỡ lòng về Scrum - Phần 1</title>
@@ -16,7 +238,7 @@
 
 &lt;p&gt;Khung phát triển Scrum gồm các nhóm liên chức năng phát triển các sản phẩm hoặc dự án theo hình thức lặp, phản hồi, tăng trưởng.&lt;/p&gt;
 
-&lt;h3 id=&quot;cc-thnh-phn-ca-scrum&quot;&gt;Các thành phần của Scrum&lt;/h3&gt;
+&lt;h3 id=&quot;các-thành-phần-của-scrum&quot;&gt;Các thành phần của Scrum&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Sprint là các chu trình kéo dài từ 2 đến 4 tuần và diễn ra liên tiếp nhau mà không bị gián đoạn. Sprint sẽ kết thúc vào một ngày nhất định cho dù công việc đã được hoàn thành hết hay chưa và &lt;strong&gt;không được phép kéo dài thêm&lt;/strong&gt;.&lt;/li&gt;
@@ -26,7 +248,7 @@
   &lt;li&gt;Cuối Sprint Họp để rà soát Sprint, trình bày phần mình đã xây dựng được trong Sprint và nhận phản hồi từ cả nhóm phát triển sản phẩm.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;cc-vai-tr-trong-scrum&quot;&gt;Các vai trò trong Scrum&lt;/h3&gt;
+&lt;h3 id=&quot;các-vai-trò-trong-scrum&quot;&gt;Các vai trò trong Scrum&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Product Owner - người chịu trách nhiệm chính về sản phẩm)&lt;/li&gt;
@@ -53,7 +275,7 @@
   &lt;li&gt;Không nên mô tả tất cả mọi chi tiết có thể có của một hạng mục mà chỉ nên làm rõ những gì cần thiết đủ để hiểu tốt hạng mục đó.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;nh-ngha-hon-thnh&quot;&gt;Định nghĩa hoàn thành&lt;/h3&gt;
+&lt;h3 id=&quot;Định-nghĩa-hoàn-thành&quot;&gt;Định nghĩa hoàn thành&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Kết quả của mỗi Sprint được gọi là Potentially Shippable Product Increment - Phần tăng trưởng sản phẩm có thể chuyển giao được.&lt;/li&gt;
@@ -71,7 +293,7 @@
   &lt;p&gt;Tạm kết phần đầu tiên của Scrum Primer (Sách vỡ lòng về Scrum - Học viện Agile Việt Nam). Tản mạn một chút về lý do đến tận bây giờ mới đọc và tìm hiểu về Scrum (rồi Agile), mình làm trong một startup với một team rất trẻ và non kinh nghiệm nhưng lại phải vừa học vừa ứng dụng Scrum vào việc điều hành và phát triển sản phẩm. Vì vậy, khó tránh khỏi thất bại khi apply scrum vào dự án. Trước giờ thì Team đã khoán hết cho Product Owner việc tìm hiểu và áp dụng Scrum nhưng hiện tại qua việc đọc phần mở đầu của quyển Scrum Primer này, mình đã ngộ ra rằng các Principle này toàn bộ Team đều nên nắm và cần thiết phải có một người grow lên thành Scrum Master để “phò tá” Product Owner và giúp đỡ Team học hỏi và phát triển. Với mục tiêu nghề nghiệp ban đầu mà mình định hướng, mình muốn trở thành Senior Developer rồi Technical Lead nhưng những chức danh này hầu như chỉ còn trên danh nghĩa và chỉ mang tính chất hỗ trợ trong phương phát phát triển phần mềm linh hoạt như Agile, Vì vậy, Scrum Master và sau đó là Product Owner có thể là sự lựa chọn đáng cân nhắc.&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
-        <pubDate>Thu, 07 Jul 2016 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 07 Jul 2016 07:00:00 +0700</pubDate>
         <link>http://notes.viphat.work/scrum-primer-part-1</link>
         <guid isPermaLink="true">http://notes.viphat.work/scrum-primer-part-1</guid>
         
@@ -84,7 +306,7 @@
     
       <item>
         <title>[til] - Git rebase interactive</title>
-        <description>&lt;h3 id=&quot;tn-mn-v-best-practice-khi-s-dng-git&quot;&gt;Tản mạn về Best Practice khi sử dụng git&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;tản-mạn-về-best-practice-khi-sử-dụng-git&quot;&gt;Tản mạn về Best Practice khi sử dụng git&lt;/h3&gt;
 
 &lt;p&gt;Một trong Best Practice của &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt; là &lt;strong&gt;Branch Early, Branch Often&lt;/strong&gt; - Khi code một chức năng mới hay fix một lỗi cụ thể (trừ hotfix) cho sản phẩm, chúng ta tránh tối đa việc code trực tiếp trên nhánh &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; (Một số team/công ty còn đưa ra quy định rất cụ thể về  work flow với git, không cho phép developers push code trực tiếp vào nhánh master khi chưa thông qua code review và tạo pull request) - Tham khảo chi tiết trong bài viết &lt;a href=&quot;https://thefullsnack.com/branch-early-branch-often-daadaad9468e&quot;&gt;&lt;strong&gt;Branch Early - Branch Often&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
 
@@ -92,13 +314,13 @@
 
 &lt;h3 id=&quot;rewriting-history&quot;&gt;Rewriting history&lt;/h3&gt;
 
-&lt;h4 id=&quot;git-commit---amend&quot;&gt;git commit –amend&lt;/h4&gt;
+&lt;h4 id=&quot;git-commit-amend&quot;&gt;git commit –amend&lt;/h4&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git commit --amend&lt;/code&gt; sử dụng trong trường hợp sau khi vừa commit xong, bạn phát hiện thiếu sót nào đó nên cần bổ sung vào commit trước hoặc là đơn giản là bạn cần sửa lại commit message. &lt;strong&gt;amending&lt;/strong&gt; replace toàn bộ commit trước và thay nó bằng commit mới (có thể bổ sung changeset và sửa lại commit message).&lt;/p&gt;
 
 &lt;p&gt;Nguyên tắc cần nhớ: Không bao giờ sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;git commit --amend&lt;/code&gt; một khi commit trước đã được push lên remote repository bởi vì đều này sẽ gây rắc rối cho những thành viên khác trong team của bạn.&lt;/p&gt;
 
-&lt;h4 id=&quot;git-rebase---interactive&quot;&gt;git rebase –interactive&lt;/h4&gt;
+&lt;h4 id=&quot;git-rebase-interactive&quot;&gt;git rebase –interactive&lt;/h4&gt;
 
 &lt;p&gt;Cú pháp:&lt;/p&gt;
 
@@ -124,7 +346,7 @@
 #  r, reword = use commit, but edit the commit message
 #  e, edit = use commit, but stop for amending
 #  s, squash = use commit, but meld into previous commit
-#  f, fixup = like &quot;squash&quot;, but discard this commit&#39;s log message
+#  f, fixup = like &quot;squash&quot;, but discard this commit's log message
 #  x, exec = run command (the rest of the line) using shell
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -133,7 +355,7 @@
 
 &lt;p&gt;Dương Vì Phát&lt;/p&gt;
 </description>
-        <pubDate>Tue, 05 Jul 2016 00:00:00 +0000</pubDate>
+        <pubDate>Tue, 05 Jul 2016 07:00:00 +0700</pubDate>
         <link>http://notes.viphat.work/git-rebase-interactive</link>
         <guid isPermaLink="true">http://notes.viphat.work/git-rebase-interactive</guid>
         
@@ -148,7 +370,7 @@
     
       <item>
         <title>Vọc thử Vagrant</title>
-        <description>&lt;h3 id=&quot;vc-th-vagrant&quot;&gt;Vọc thử Vagrant&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;vọc-thử-vagrant&quot;&gt;Vọc thử Vagrant&lt;/h3&gt;
 
 &lt;p&gt;Số là vừa dọn dẹp sạch sẽ ổ cứng và reinstall lại OS cho con Macbook của mình, mà hễ cứ cài lại máy là y như rằng phải setup lại một đống thứ, đặc biệt là môi trường để dev (mình sử dụng Ruby 2.3, Rails, Redis, Postgres 9,4, Node.js…), rất oải. Chưa kể nếu làm việc trong một team, cần một môi trường lập trình đồng nhất để hạn chế lỗi hay sự bất đồng bộ có thể xảy ra thì việc thiết lập các máy tính của mỗi thành viên trong team một cách thủ công là hết sức tốn kém về mặt thời gian. Vagrant ra đời là để giải quyết vấn đề đó. Vagrant build on top các virtual machine như Virtual Box, VMWare… Vagrant còn kết hợp tốt với các provision tools như Puppet, Chef, Ansible để tự động cài đặt và cấu hình các phần mềm, công cụ cần thiết trên máy ảo. Nhờ Vagrant mà chúng ta có thể xây dựng một môi trường giả lập một cách nhanh chóng, tiện dụng, hiệu quả và có thể chia sẻ để dùng chung cho cả team.&lt;/p&gt;
 
@@ -198,11 +420,11 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&quot;c-thm&quot;&gt;Đọc thêm&lt;/h4&gt;
+&lt;h4 id=&quot;Đọc-thêm&quot;&gt;Đọc thêm&lt;/h4&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://kipalog.com/posts/Toi-da-tu-bo-su-dung-Vagrant&quot;&gt;&lt;strong&gt;Tôi đã từ bỏ sử dụng Vagrant&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 23 Jun 2016 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 23 Jun 2016 07:00:00 +0700</pubDate>
         <link>http://notes.viphat.work/voc-thu-vagrant</link>
         <guid isPermaLink="true">http://notes.viphat.work/voc-thu-vagrant</guid>
         
@@ -279,7 +501,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 
 &lt;p&gt;Mình đọc được practice này trên &lt;a href=&quot;http://best-ruby.com/best_practices/using_exception_e.html&quot;&gt;Best Ruby&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;mt-s-link-tham-kho-thm&quot;&gt;Một số link tham khảo thêm:&lt;/h4&gt;
+&lt;h4 id=&quot;một-số-link-tham-khảo-thêm&quot;&gt;Một số link tham khảo thêm:&lt;/h4&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://daniel.fone.net.nz/blog/2013/05/28/why-you-should-never-rescue-exception-in-ruby/&quot;&gt;&lt;strong&gt;Why You Should Never Rescue Exception in Ruby&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
@@ -287,7 +509,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
   &lt;li&gt;&lt;a href=&quot;http://blog.honeybadger.io/ruby-exception-vs-standarderror-whats-the-difference/&quot;&gt;&lt;strong&gt;Ruby Exception vs StandardError - What’s the different&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Mon, 20 Jun 2016 00:00:00 +0000</pubDate>
+        <pubDate>Mon, 20 Jun 2016 07:00:00 +0700</pubDate>
         <link>http://notes.viphat.work/rescue-standard-error-not-exception</link>
         <guid isPermaLink="true">http://notes.viphat.work/rescue-standard-error-not-exception</guid>
         
@@ -306,7 +528,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 
 &lt;p&gt;Ban đầu, mình định quay lại với Sinatra, dù gì thì trước kia, mình đã từng dùng Sinatra và ít ra đã đọc và follow hết quyển &lt;a href=&quot;https://www.sitepoint.com/store/jump-start-sinatra/&quot;&gt;&lt;strong&gt;Jump Start Sinatra&lt;/strong&gt;&lt;/a&gt; rồi. Sau đó, một số cái tên đã được thêm vào short list của mình như &lt;strong&gt;Hanami&lt;/strong&gt; (&lt;strong&gt;Lotus&lt;/strong&gt;), &lt;strong&gt;CUBA&lt;/strong&gt; và &lt;strong&gt;Roda&lt;/strong&gt;. Và mình đã chọn Roda bởi vì…&lt;/p&gt;
 
-&lt;h3 id=&quot;gii-thiu&quot;&gt;Giới thiệu&lt;/h3&gt;
+&lt;h3 id=&quot;giới-thiệu&quot;&gt;Giới thiệu&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Roda đơn giản và siêu gọn nhẹ, nó không phải một framework đầy đủ và nặng nề như Rails (được phát triển bởi một người độc đoán như DHH). Nếu bạn cần một framework tốt nhưng không phải &lt;strong&gt;Rails&lt;/strong&gt; thì &lt;strong&gt;Hanami&lt;/strong&gt; khá là hứa hẹn. Bản thân tác giả Roda chỉ giới thiệu Roda là một &lt;strong&gt;Routing Tree Web Toolkit&lt;/strong&gt;.&lt;/li&gt;
@@ -315,46 +537,46 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
   &lt;li&gt;Hiệu suất tốt hơn hẳn Rails (dĩ nhiên rồi), và nhanh hơn 2.5X so với &lt;strong&gt;Sinatra&lt;/strong&gt; (Một framework cũng siêu nhẹ khác).&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Tham khảo bài viết &lt;a href=&quot;http://viphat.me/1UcgEvi&quot;&gt;Why Roda?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Tham khảo bài viết &lt;a href=&quot;http://roda.jeremyevans.net/why.html&quot;&gt;Why Roda?&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;lin-kt-hu-ch&quot;&gt;Liên kết hữu ích&lt;/h3&gt;
+&lt;h3 id=&quot;liên-kết-hữu-ích&quot;&gt;Liên kết hữu ích&lt;/h3&gt;
 
-&lt;h4 id=&quot;mt-s-lin-kt-ng-tham-kho-khc&quot;&gt;Một số liên kết đáng tham khảo khác:&lt;/h4&gt;
+&lt;h4 id=&quot;một-số-liên-kết-đáng-tham-khảo-khác&quot;&gt;Một số liên kết đáng tham khảo khác:&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1YrR45i&quot;&gt;Roda Conventions&lt;/a&gt; - Vào học cách tổ chức folder dự án như thế nào? (Áp dụng cho ứng dụng nhỏ/lớn).&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://roda.jeremyevans.net/rdoc/files/doc/conventions_rdoc.html&quot;&gt;Roda Conventions&lt;/a&gt; - Vào học cách tổ chức folder dự án như thế nào? (Áp dụng cho ứng dụng nhỏ/lớn).&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://roda.jeremyevans.net/documentation.html&quot;&gt;&lt;strong&gt;Roda Documents&lt;/strong&gt;&lt;/a&gt; - Tập hợp các tài liệu chính thức của Roda và các plugins có sẵn của Roda.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1PtTY2d&quot;&gt;Roda Skeleton with Sequel&lt;/a&gt; - application skeleton cho ứng dụng viết bằng Roda với &lt;a href=&quot;http://viphat.me/1VZmNu3&quot;&gt;&lt;strong&gt;Sequel&lt;/strong&gt;&lt;/a&gt; làm ORM.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1UUJtX4&quot;&gt;Roda-app&lt;/a&gt; - Cũng là một application skeleton nhưng chỉ thuần Roda.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1Op9wJB&quot;&gt;Develop API with Roda&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1XXbl3W&quot;&gt;Setup and deploy Roda app from scratch&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/jeremyevans/roda-sequel-stack&quot;&gt;Roda Skeleton with Sequel&lt;/a&gt; - application skeleton cho ứng dụng viết bằng Roda với &lt;a href=&quot;https://github.com/jeremyevans/sequel&quot;&gt;&lt;strong&gt;Sequel&lt;/strong&gt;&lt;/a&gt; làm ORM.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/GregTemplates/roda_app&quot;&gt;Roda-app&lt;/a&gt; - Cũng là một application skeleton nhưng chỉ thuần Roda.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.davydovanton.com/2016/05/20/develop-api-with-roda/&quot;&gt;Develop API with Roda&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://masa331.github.io/2016/04/15/deploying-roda-app.html&quot;&gt;Setup and deploy Roda app from scratch&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://twin.github.io/introduction-to-roda/&quot;&gt;Introduction to Roda&lt;/a&gt; - Bạn có thể xem cách tác giả sử dụng Roda cho API, Web Sockets, Caching… như thế nào.&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://mrcook.uk/simple-roda-blog-tutorial&quot;&gt;Simple Roda Blog Tutorial&lt;/a&gt; - Tutorial hướng dẫn tạo một blog đơn giản bằng Roda, thích hợp cho các bạn chuộng học theo kiểu thực hành theo guide hướng dẫn.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;ng-dng-opensource-vit-bng-roda&quot;&gt;Ứng dụng OpenSource viết bằng roda:&lt;/h4&gt;
+&lt;h4 id=&quot;Ứng-dụng-opensource-viết-bằng-roda&quot;&gt;Ứng dụng OpenSource viết bằng roda:&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/kontena/kontena/tree/master/server&quot;&gt;&lt;strong&gt;Kontana Server&lt;/strong&gt;&lt;/a&gt;, bài viết liên quan - &lt;a href=&quot;http://viphat.me/24QRguM&quot;&gt;Roda + Mutations + Jbuilder = Perfect fit for JSON API&lt;/a&gt; , mình học được nhiều thứ cũng như chôm chỉa được cách cấu hình, tổ chức thư mục dự án từ Kontana.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kontena/kontena/tree/master/server&quot;&gt;&lt;strong&gt;Kontana Server&lt;/strong&gt;&lt;/a&gt;, bài viết liên quan - &lt;a href=&quot;https://caughtinthemobileweb.wordpress.com/2015/05/27/roda-mutations-jbuilder-perfect-fit-for-json-api/&quot;&gt;Roda + Mutations + Jbuilder = Perfect fit for JSON API&lt;/a&gt; , mình học được nhiều thứ cũng như chôm chỉa được cách cấu hình, tổ chức thư mục dự án từ Kontana.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Trong quá trình phát triển ứng dụng, một phần không thể thiếu (nếu ứng dụng có tương tác với database) là ORM và Authentication. Với Roda, ORM tốt nhất là &lt;strong&gt;Sequel&lt;/strong&gt; và Authentication thích hợp nhất là &lt;a href=&quot;http://viphat.me/1Opa16p&quot;&gt;&lt;strong&gt;Rodauth&lt;/strong&gt;&lt;/a&gt;, bởi cả 2 gem này đều do tác giả của &lt;strong&gt;Roda&lt;/strong&gt; là Jeremy Evans phát triển và duy trì. Trong đó, Sequel được đánh giá là không thua kém so với &lt;strong&gt;ActiveRecord&lt;/strong&gt; quen thuộc của Rails (Nói về Performance thì Sequel ăn đứt ActiveRecord nhé - &lt;a href=&quot;http://viphat.me/1XXcgl7&quot;&gt;xem chi tiết&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Trong quá trình phát triển ứng dụng, một phần không thể thiếu (nếu ứng dụng có tương tác với database) là ORM và Authentication. Với Roda, ORM tốt nhất là &lt;strong&gt;Sequel&lt;/strong&gt; và Authentication thích hợp nhất là &lt;a href=&quot;https://github.com/jeremyevans/rodauth&quot;&gt;&lt;strong&gt;Rodauth&lt;/strong&gt;&lt;/a&gt;, bởi cả 2 gem này đều do tác giả của &lt;strong&gt;Roda&lt;/strong&gt; là Jeremy Evans phát triển và duy trì. Trong đó, Sequel được đánh giá là không thua kém so với &lt;strong&gt;ActiveRecord&lt;/strong&gt; quen thuộc của Rails (Nói về Performance thì Sequel ăn đứt ActiveRecord nhé - &lt;a href=&quot;http://www.railsmine.net/2015/09/sequel-vs-active-record-orm-benchmark-postgresql.html&quot;&gt;xem chi tiết&lt;/a&gt;).&lt;/p&gt;
 
-&lt;h4 id=&quot;mt-s-lin-kt-hu-ch-khi-tm-hiu-v-sequel&quot;&gt;Một số liên kết hữu ích khi tìm hiểu vể Sequel:&lt;/h4&gt;
+&lt;h4 id=&quot;một-số-liên-kết-hữu-ích-khi-tìm-hiểu-vể-sequel&quot;&gt;Một số liên kết hữu ích khi tìm hiểu vể Sequel:&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/23aimxB&quot;&gt;&lt;strong&gt;Sequel cheat sheet&lt;/strong&gt;&lt;/a&gt; - Tra cứu nhanh một số cách sử dụng Sequel.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/24QRnGw&quot;&gt;&lt;strong&gt;Sequel for ActiveRecord users&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1twkZhm&quot;&gt;Ode to Sequel&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1YrVqJL&quot;&gt;ActiveRecord is reinventing Sequel&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1YrTgtx&quot;&gt;Why you should stop using ActiveRecord and start using Sequel&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://sequel.jeremyevans.net/rdoc/files/doc/cheat_sheet_rdoc.html&quot;&gt;&lt;strong&gt;Sequel cheat sheet&lt;/strong&gt;&lt;/a&gt; - Tra cứu nhanh một số cách sử dụng Sequel.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/jeremyevans/sequel/blob/master/doc/active_record.rdoc&quot;&gt;&lt;strong&gt;Sequel for ActiveRecord users&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://twin.github.io/ode-to-sequel/&quot;&gt;Ode to Sequel&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://twin.github.io/activerecord-is-reinventing-sequel/&quot;&gt;ActiveRecord is reinventing Sequel&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mrbrdo.wordpress.com/2013/10/15/why-you-should-stop-using-activerecord-and-start-using-sequel/&quot;&gt;Why you should stop using ActiveRecord and start using Sequel&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Khi còn dev app bằng Sinatra thì mình dùng DataMapper cho ORM.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h4 id=&quot;cc-plugins-mnh--dng-cho-side-project-u-tin---worklog-assistanthttpviphatme1q4kbop---c-vit-bng-roda&quot;&gt;Các plugins mình đã dùng cho side project đầu tiên - &lt;a href=&quot;http://viphat.me/1Q4KboP&quot;&gt;Worklog Assistant&lt;/a&gt; - được viết bằng roda:&lt;/h4&gt;
+&lt;h4 id=&quot;các-plugins-mình-đã-dùng-cho-side-project-đầu-tiên---worklog-assistant---được-viết-bằng-roda&quot;&gt;Các plugins mình đã dùng cho side project đầu tiên - &lt;a href=&quot;https://github.com/viphat/roda-worklog&quot;&gt;Worklog Assistant&lt;/a&gt; - được viết bằng roda:&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;render&lt;/li&gt;
   &lt;li&gt;environments&lt;/li&gt;
@@ -368,17 +590,17 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
   &lt;li&gt;Sequel Extensions Seed&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Đọc thêm bài &lt;a href=&quot;http://viphat.me/1rq3Sf1&quot;&gt;&lt;strong&gt;The Plugin System of Sequel and Roda&lt;/strong&gt;&lt;/a&gt; để hiểu mô hình này so với các gem của Rails như thế nào.&lt;/p&gt;
+&lt;p&gt;Đọc thêm bài &lt;a href=&quot;https://twin.github.io/the-plugin-system-of-sequel-and-roda/&quot;&gt;&lt;strong&gt;The Plugin System of Sequel and Roda&lt;/strong&gt;&lt;/a&gt; để hiểu mô hình này so với các gem của Rails như thế nào.&lt;/p&gt;
 
 &lt;h3 id=&quot;deploy&quot;&gt;Deploy&lt;/h3&gt;
 &lt;p&gt;Có thể áp dụng các tutorial deploy dành cho sinatra, bởi vì roda cũng giống sinatra, cũng thuộc dạng Rack-based.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1Uzmu47&quot;&gt;Sinatra + Puma + Nginx&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://viphat.me/1YrsGR8&quot;&gt;Sinatra + Puma + Nginx&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/ctalkington/4448153&quot;&gt;Sinatra + Puma + Nginx Snippet&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/p8952/nginx-puma-sinatra&quot;&gt;Sinatra + Puma + Nginx Snippet&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Wed, 15 Jun 2016 00:00:00 +0000</pubDate>
+        <pubDate>Wed, 15 Jun 2016 07:00:00 +0700</pubDate>
         <link>http://notes.viphat.work/tong-hop-roda-web-toolkit</link>
         <guid isPermaLink="true">http://notes.viphat.work/tong-hop-roda-web-toolkit</guid>
         
@@ -395,7 +617,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
         <title>On Being a Junior Developer</title>
         <description>&lt;p&gt;Junior developer (for purposes of this post) is a developer with &amp;lt; 2 years experience programming in industry who have an interest in sharpening their technical skills.&lt;/p&gt;
 
-&lt;h3 id=&quot;read-other-peoples-code&quot;&gt;1. Read other people’s code&lt;/h3&gt;
+&lt;h3 id=&quot;1-read-other-peoples-code&quot;&gt;1. Read other people’s code&lt;/h3&gt;
 
 &lt;p&gt;Perhaps the best way to enhance your technical ability is to directly read other people’s code. &lt;a href=&quot;https://github.com&quot;&gt;&lt;strong&gt;Github&lt;/strong&gt;&lt;/a&gt; is a fantastic resource; and it’s even better if you have an all star developer already within your work environment that you can bounce questions off of. Here are two things I think are particularly valuable:&lt;/p&gt;
 
@@ -403,27 +625,27 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 
 &lt;p&gt;&lt;strong&gt;Try to load the whole system into your head and understand it&lt;/strong&gt;. Notice how the various components are decoupled, design patterns, and also how they have spelled out their unit tests. Holding well designed systems in your head is very much like visualization within athletics. Visualizing yourself in a certain athletic situation or doing a specific technique correctly has been linked to improved performance. Do it for coding too.&lt;/p&gt;
 
-&lt;h3 id=&quot;plan-things-out&quot;&gt;2. Plan things out&lt;/h3&gt;
+&lt;h3 id=&quot;2-plan-things-out&quot;&gt;2. Plan things out&lt;/h3&gt;
 
 &lt;p&gt;Before you ever start coding you should sit down with a whiteboard or pen and paper. These drawings don’t have to be complex, but should provide you with a holistic view to how all of the components you are about to code or touch should interact. In addition you should be exploring different design choices at this stage, it’s much easier to erase a whiteboard and start from scratch then be a week into your coding and realize what a mess things have become due to lack of planning.&lt;/p&gt;
 
-&lt;h3 id=&quot;have-an-opinion&quot;&gt;3. Have an opinion&lt;/h3&gt;
+&lt;h3 id=&quot;3-have-an-opinion&quot;&gt;3. Have an opinion&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;As a junior developer you should have opinions and you should have reasons as to why you have that opinion&lt;/strong&gt;. Even asking yourself the question of “why did you make choice X?” as a thought experiment is a nice way to have a robust answer and solution to your problem. The reason you need to have opinions instead of simply following along is because you are literally learning into understanding. Ask yourself the tough questions so that when a senior developer reviews your code you have a legitimately robust solution.&lt;/p&gt;
 
-&lt;h3 id=&quot;ask-questions&quot;&gt;4. Ask questions&lt;/h3&gt;
+&lt;h3 id=&quot;4-ask-questions&quot;&gt;4. Ask questions&lt;/h3&gt;
 
 &lt;p&gt;Ask questions about peculiar things, there is often wisdom and learning to be had.&lt;/p&gt;
 
-&lt;h3 id=&quot;explore-new-technologies&quot;&gt;5. Explore new technologies&lt;/h3&gt;
+&lt;h3 id=&quot;5-explore-new-technologies&quot;&gt;5. Explore new technologies&lt;/h3&gt;
 
 &lt;p&gt;When confronted with a situation they aren’t good at they often freeze up for fear of failure. As a junior developer it is in your best interest to fight those instincts and cast your net far and wide. Every piece of technology you touch influences you in some way, and having used various technologies exposes you to new paradigms and ways of doing things. &lt;strong&gt;Touching a new technology / programming language is expanding your ‘world view’ of programming&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;h3 id=&quot;embrace-unit-testing&quot;&gt;6. Embrace unit testing&lt;/h3&gt;
+&lt;h3 id=&quot;6-embrace-unit-testing&quot;&gt;6. Embrace unit testing&lt;/h3&gt;
 
 &lt;p&gt;As a junior developer you really do need to embrace unit tests. I will advocate for Test Driven Development (TDD) not only because it improves my confidence that my code is functioning properly but has also really improved my function prototypes as I generally ‘call’ the function before its even built. I’m not particularly fond of BDD; however any form of testing you can do is better than nothing (trust me when it comes for v 1.1 of your app you’ll want those regression tests too).&lt;/p&gt;
 
-&lt;h3 id=&quot;refactor&quot;&gt;7. Refactor&lt;/h3&gt;
+&lt;h3 id=&quot;7-refactor&quot;&gt;7. Refactor&lt;/h3&gt;
 
 &lt;p&gt;One of the problems of being a junior developer is that you haven’t been in industry long enough to be bitten by poorly written code that becomes impossible to maintain. Being a developer isn’t about writing code, it’s about producing working software while simultaneously hitting business goals and maintaining expectations. When you start with a blank slate everything is golden: you get to build from the ground up, features get spun out faster because they don’t interact with other parts of the system as much and the sky is the limit. If you are simply slinging code without any regard to maintainability, after about 6 months you will have accumulated a huge pile of technical debt. New features can’t get put out as fast, it takes longer to know what a certain function does and changing one thing wreaks havoc on another component of the system. Unfortunately the demand for new features from your users doesn’t simply decline with your technical debt; in fact it is likely increasing. This puts developers in a bad spot because they have a tangled pile of code and non technical folks requesting new features at rapid fire pace who have no idea what it means when you say ‘spaghetti code’.&lt;/p&gt;
 
@@ -437,7 +659,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 
 &lt;p&gt;Nguồn: &lt;a href=&quot;http://mattsencenbaugh.com/on-being-a-junior-developer/&quot;&gt;&lt;strong&gt;On being a Junior Developer&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Tue, 07 Jun 2016 00:00:00 +0000</pubDate>
+        <pubDate>Tue, 07 Jun 2016 07:00:00 +0700</pubDate>
         <link>http://notes.viphat.work/on-being-a-junior-developer</link>
         <guid isPermaLink="true">http://notes.viphat.work/on-being-a-junior-developer</guid>
         
@@ -453,10 +675,10 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 &lt;p&gt;Cuộc đời mỗi người đều giống như một trò chơi vậy, và dù muốn hay muốn thì bạn đã và đang tham dự trò chơi đó. Nhưng khác với những trò chơi mà bạn đã biết, Game of Life không có kẻ thắng, người thua, đối thủ của bạn là chính bản thân bạn. Và trò chơi nào rồi cũng sẽ đến hồi kết, người chiến thắng trò chơi cuộc sống là người biết cách vượt qua bản thân mình để mở khóa được nhiều thành tựu mà mình mong muốn. Khi bạn nắm được những quy tắc của trò chơi và có những chiến lược phù hợp thì bạn có nhiều khả năng giành chiến thắng trò chơi cuộc sống hơn và giúp bạn mở khóa được nhiều thành tựu hơn.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Bạn có thể tìm đọc quyển &lt;a href=&quot;http://viphat.me/25GTvDf&quot;&gt;&lt;strong&gt;Chiến thắng trò chơi cuộc sống&lt;/strong&gt;&lt;/a&gt; - đây là một trong những quyển sách rất hay của Adam Khoo. Mình cảm thấy may mắn khi đọc được quyển đấy đúng thời điểm.&lt;/p&gt;
+  &lt;p&gt;Bạn có thể tìm đọc quyển &lt;a href=&quot;https://tiki.vn/chien-thang-tro-choi-cuoc-song-p57140.html&quot;&gt;&lt;strong&gt;Chiến thắng trò chơi cuộc sống&lt;/strong&gt;&lt;/a&gt; - đây là một trong những quyển sách rất hay của Adam Khoo. Mình cảm thấy may mắn khi đọc được quyển đấy đúng thời điểm.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;nn-tng&quot;&gt;Nền tảng&lt;/h3&gt;
+&lt;h3 id=&quot;nền-tảng&quot;&gt;Nền tảng&lt;/h3&gt;
 
 &lt;p&gt;Có thể bạn không nhận ra, nhưng cuộc đời thực sự giống một trò chơi chiến thuật. Trong trò chơi lớn đó, sẽ có nhiều mini-game nhỏ hơn, như là dancing, driving, running và sex… Chìa khóa đơn giản để chiến thắng trò chơi này là quản lý nguồn tài nguyên và năng lượng của bạn. Quan trọng hơn hết, một người chơi thành công biết cách sử dụng hiệu quả thời gian của họ vào những việc đúng đắn. Tiền bạc, thành công sẽ tự kéo đến khi bạn kiểm soát được thời gian của mình đã trôi qua như thế nào.&lt;/p&gt;
 
@@ -494,7 +716,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 
 &lt;p&gt;Vì vậy, chúng ta sẽ cùng phân tích 2 vấn đề ở phần tiếp theo nhé.&lt;/p&gt;
 
-&lt;h4 id=&quot;lm-th-no--c-th-chin-thng-bn-thn&quot;&gt;Làm thế nào để có thể chiến thắng bản thân.&lt;/h4&gt;
+&lt;h4 id=&quot;làm-thế-nào-để-có-thể-chiến-thắng-bản-thân&quot;&gt;Làm thế nào để có thể chiến thắng bản thân.&lt;/h4&gt;
 
 &lt;p&gt;Nhiều người chơi nhận ra rằng khi họ chọn làm một việc nào đó - như đi đến phòng tập GYM thì y như rằng cơ thể của họ sẽ từ chối ý định đó hoàn toàn. Đây không phải là một bug của game, mỗi cơ thể đều có các thanh chỉ trạng thái (sức khỏe, năng lượng, sức mạnh ý chí…), và mặc dù bạn không thể nhận thấy chúng một cách trực tiếp nhưng chúng sẽ giống như hình minh họa:&lt;/p&gt;
 
@@ -545,7 +767,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
   &lt;p&gt;&lt;strong&gt;Mấu chốt để kiểm soát bản thân hiệu quả là phải biết cân bằng giữa các ưu tiên của bạn với trạng thái của cơ thể.&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h4 id=&quot;lm-th-no--lm-ng-vic-hay-lm-vic-ng&quot;&gt;Làm thế nào để làm đúng việc (hay làm việc đúng)&lt;/h4&gt;
+&lt;h4 id=&quot;làm-thế-nào-để-làm-đúng-việc-hay-làm-việc-đúng&quot;&gt;Làm thế nào để làm đúng việc (hay làm việc đúng)&lt;/h4&gt;
 
 &lt;p&gt;Một trong những cái khó của trò chơi cuộc sống là làm đúng việc vào đúng thời điểm. Một số việc sẽ làm ảnh hưởng đến trạng thái cơ thể:&lt;/p&gt;
 
@@ -575,7 +797,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 
 &lt;hr /&gt;
 
-&lt;h3 id=&quot;mi-trng-bn-ang-sng&quot;&gt;Môi trường bạn đang sống&lt;/h3&gt;
+&lt;h3 id=&quot;môi-trường-bạn-đang-sống&quot;&gt;Môi trường bạn đang sống&lt;/h3&gt;
 
 &lt;p&gt;Môi trường sẽ có những ảnh hưởng nhất định đến trạng thái của bạn cũng như các kỹ năng và cơ hội thăng tiến.&lt;/p&gt;
 
@@ -587,7 +809,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
   &lt;p&gt;Đọc thêm quyển &lt;strong&gt;Những kẻ xuất chúng&lt;/strong&gt; - &lt;strong&gt;Malcolm Gladwell&lt;/strong&gt;, tác giả sẽ chứng minh cho bạn thấy rằng xuất phát điểm của bạn, việc bạn sinh ra ở đâu, vào thời điểm nào đều có ảnh hưởng nhất định đến thành công sau này của bạn.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;tm-bn-i&quot;&gt;Tìm bạn đời&lt;/h3&gt;
+&lt;h3 id=&quot;tìm-bạn-đời&quot;&gt;Tìm bạn đời&lt;/h3&gt;
 
 &lt;p&gt;Sự thu hút là một trò chơi nhỏ nhưng không kém phần phức tạp, chúng là một màn chơi phụ của trò chơi cuộc đời mà bạn đang tham gia. Nếu bạn có trạng thái tốt và kỹ năng cao, tự bản thân bạn sẽ trở nên hấp dẫn hơn đối với người khác phái. Một người chơi mệt mỏi, cáu kỉnh và bất tài chắc chắn là không hấp dẫn và không được cân nhắc cho một mối quan hệ nghiêm túc và lâu dài.&lt;/p&gt;
 
@@ -601,7 +823,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
   &lt;p&gt;Bạn có thể tham khảo khóa học &lt;strong&gt;Sức hút cá nhân&lt;/strong&gt; ở TGM hay quyển sách &lt;strong&gt;Những ngộ nhận về Sức hút cá nhân&lt;/strong&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;tin-bc&quot;&gt;Tiền bạc&lt;/h3&gt;
+&lt;h3 id=&quot;tiền-bạc&quot;&gt;Tiền bạc&lt;/h3&gt;
 
 &lt;p&gt;Phần sau của trò chơi cuộc sống, bạn sẽ phải biết cách quản lý một tài nguyên mới, đó là đồng tiền của bạn. Hầu hết người chơi sẽ thấy tiền sẽ tăng lên trong suốt phần đầu của trò chơi, nhưng điều này chỉ gây thêm nhiều vấn đề hơn, chứ không phải ít hơn.&lt;/p&gt;
 
@@ -662,7 +884,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
   &lt;p&gt;Bài viết này được lược dịch từ nguồn &lt;a href=&quot;http://oliveremberton.com/2014/life-is-a-game-this-is-your-strategy-guide/&quot;&gt;&lt;strong&gt;Life is a game. This is your strategy guide&lt;/strong&gt;&lt;/a&gt;).&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
-        <pubDate>Mon, 06 Jun 2016 00:00:00 +0000</pubDate>
+        <pubDate>Mon, 06 Jun 2016 07:00:00 +0700</pubDate>
         <link>http://notes.viphat.work/life-is-a-game</link>
         <guid isPermaLink="true">http://notes.viphat.work/life-is-a-game</guid>
         
@@ -679,7 +901,7 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 
 &lt;p&gt;TL;DR &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; hiếm khi cho bạn kết quả hữu ích. Thay vào đó có thể sử dụng các options trên &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; để tìm đúng tác giả, người chịu trách nhiệm cho sự thay đổi không mong đợi.&lt;/p&gt;
 
-&lt;h3 id=&quot;git-blame-hot-ng-nh-th-no&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; hoạt động như thế nào&lt;/h3&gt;
+&lt;h3 id=&quot;git-blame-hoạt-động-như-thế-nào&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; hoạt động như thế nào&lt;/h3&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; tìm kiếm lịch sử commit để tìm người cuối cùng chỉnh sửa dòng code. Một số Editors có tích hợp chức năng này vào công cụ của họ, cũng như Github, Gitlab hay Bitbucket… cũng đều có &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; ngay trong giao diện (rất dễ để theo dõi và truy vết). Tuy vậy, bạn cũng có thể dùng command line:&lt;/p&gt;
 
@@ -708,7 +930,7 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;vy-c-g-khng-n-vi-git-blame&quot;&gt;Vậy có gì không ổn với &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;vậy-có-gì-không-ổn-với-git-blame&quot;&gt;Vậy có gì không ổn với &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt;&lt;/h3&gt;
 
 &lt;p&gt;Vấn đề là &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; chỉ thể hiện người cuối cùng chỉnh sửa dòng code. Và điều này không chắc là thứ bạn muốn xác định, &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; không hẳn chỉ ra đúng người chủ thực sự của dòng đó bởi vì rơi vào những trường hợp sau, &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; vẫn xem đó là author của dòng code đó:&lt;/p&gt;
 
@@ -720,7 +942,7 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
   &lt;li&gt;Di chuyển file.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;gii-php---s-dng-git-log&quot;&gt;Giải pháp - sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;giải-pháp---sử-dụng-git-log&quot;&gt;Giải pháp - sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; là công cụ rất đa năng, trong trường hợp này, bạn có thể tận dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; để chỉ ra original author của dòng code bạn muốn tìm:&lt;/p&gt;
 
@@ -754,7 +976,7 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
 
 &lt;p&gt;&lt;img src=&quot;http://i.imgur.com/NRAlPiJ.png&quot; alt=&quot;Git Log&quot; /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 02 Jun 2016 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 02 Jun 2016 07:00:00 +0700</pubDate>
         <link>http://notes.viphat.work/a-better-git-blame</link>
         <guid isPermaLink="true">http://notes.viphat.work/a-better-git-blame</guid>
         
@@ -769,11 +991,11 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
     
       <item>
         <title>Phương pháp học tích cực</title>
-        <description>&lt;h3 id=&quot;phng-php-hc-tch-cc-l-g&quot;&gt;Phương pháp học tích cực là gì?&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;phương-pháp-học-tích-cực-là-gì&quot;&gt;Phương pháp học tích cực là gì?&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Phương pháp học tích cực&lt;/strong&gt; - “&lt;a href=&quot;http://notes.viphat.work/hoc-lap-trinh-tu-sai-lam&quot;&gt;&lt;strong&gt;học qua hành&lt;/strong&gt;&lt;/a&gt;” - nhấn mạnh quá trình học tập và tiếp thu chứ không chú trọng vào kết quả, giúp cho người học phát triển khả năng tư duy độc lập, kỹ năng tự học và kỹ năng giải quyết vấn đề. Phương pháp này tập trung vào việc khuyến khích và động viên người học tự giác tìm kiếm từ nhiều nguồn thông tin, học bằng cách đọc, tự mình tổ chức, xử lý và tổng hợp thông tin thay vì lệ thuộc vào các bài giảng của giáo viên. Phương pháp học tích cực đòi hỏi người học phải có thái độ “tích cực”, tham gia vào các hoạt động như giải thích điều đã học dựa trên quan điểm riêng của người học, chia sẻ ý kiến cá nhân, trao đổi, tranh luận, phân tích, suy luận và ứng dụng thực tế nhằm tích lũy thêm nhiều tri thức cũng như kỹ năng cần thiết để nâng cao năng lực giải quyết vấn đề…&lt;/p&gt;
 
-&lt;h3 id=&quot;mt-s-phng-php-hc-tch-cc&quot;&gt;Một số phương pháp học tích cực&lt;/h3&gt;
+&lt;h3 id=&quot;một-số-phương-pháp-học-tích-cực&quot;&gt;Một số phương pháp học tích cực&lt;/h3&gt;
 
 &lt;p&gt;Phương pháp học tích cực đòi hỏi người học &lt;strong&gt;chịu trách nhiệm về việc học của chính mình&lt;/strong&gt;. Vì vậy, việc xây dựng thói quen học tốt và biết cách quản lý thời gian hiệu quả sẽ giúp bạn thích nghi tốt với phương pháp học tích cực (&lt;strong&gt;Active Learning&lt;/strong&gt;) này. Một số phương pháp có thể áp dụng:&lt;/p&gt;
 
@@ -804,7 +1026,7 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;hnh-thnh-cc-thi-quen-hc-tp-tt&quot;&gt;Hình thành các thói quen học tập tốt&lt;/h3&gt;
+&lt;h3 id=&quot;hình-thành-các-thói-quen-học-tập-tốt&quot;&gt;Hình thành các thói quen học tập tốt&lt;/h3&gt;
 
 &lt;p&gt;Rũ bỏ suy nghĩ “&lt;strong&gt;Học nghĩa là mở sách/tài liệu ra rồi đọc, sau đó cố gắng ghi nhớ nội dung&lt;/strong&gt;” - Một số người đọc sách nhưng tâm trí không tập trung vào nội dung quyển sách mình đang đọc, số khác lại chịu ảnh hưởng của các vật dụng công nghệ cao. Nhiều người chỉ đọc vài phút liền rơi vào giấc ngủ. Để có thể cải thiện kỹ năng đọc và hiệu quả học, bạn cần loại bỏ mọi thứ có thể khiến bạn xao nhãng và ngắt quãng quá trình học của mình. Đây là vài lời khuyên ngắm giúp bạn học tốt hơn:&lt;/p&gt;
 
@@ -815,7 +1037,7 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
   &lt;li&gt;&lt;strong&gt;Nghỉ ngơi đều đặn để giữ cho tâm trí luôn minh mẫn và tỉnh táo&lt;/strong&gt; - Bạn không cần phải học mọi lúc, bạn cần học hiệu quả. Vì vậy hãy dành ra khoảng thời gian nghỉ ngơi chất lượng, giúp thư giãn và điều tiết mắt.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;k-nng-c&quot;&gt;Kỹ năng đọc&lt;/h3&gt;
+&lt;h3 id=&quot;kỹ-năng-đọc&quot;&gt;Kỹ năng đọc&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Kỹ năng đọc&lt;/strong&gt; rất quan trọng đối với sự học. Bạn cần ý thức và chủ động phát triển thói quen đọc tốt mới có thể tiến xa trên con đường tự học. Trước khi đọc một chương trong sách, bạn cần xem kỹ mục lục để nắm bắt ý tưởng và kết cấu của cuốn sách. Sau khi đọc xong mỗi đoạn, hãy tạm ngừng một chút và tự hỏi bản thân ý chính của đoạn văn này là gì, tóm tắt ý chính rồi ghi chú vào sổ tay riêng (sổ thông thái). Với những quyển sách có các sơ đồ và biểu đồ, bạn cần đảm bảo rằng bạn hiểu rõ chúng. Khi đọc, đừng cố dịch từng từ vì nếu bạn là như vậy thì bạn sẽ bỏ lỡ ý chính của cả đoạn văn. Ban đầu, bạn nên đọc lướt cả đoạn để nắm lấy ý chung. Sau đó, hãy đọc lại một lần nữa. Nghĩa văn bản sẽ trở nên rõ ràng hơn khi bạn đã nắm được ý chính. Nếu lúc này bạn vẫn không hiểu thì hãy dùng từ điển để kiểm tra nghĩa của một số từ quan trọng.&lt;/p&gt;
 
@@ -831,91 +1053,11 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
 
 &lt;p&gt;– Trích từ quyển &lt;strong&gt;Khởi hành - Lời khuyên sinh viên Việt Nam&lt;/strong&gt; - &lt;strong&gt;Giáo sư John Vũ&lt;/strong&gt;&lt;/p&gt;
 </description>
-        <pubDate>Wed, 01 Jun 2016 00:00:00 +0000</pubDate>
+        <pubDate>Wed, 01 Jun 2016 07:00:00 +0700</pubDate>
         <link>http://notes.viphat.work/active-learning</link>
         <guid isPermaLink="true">http://notes.viphat.work/active-learning</guid>
         
         <category>active-learning</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Tai nạn với Rails và Redis</title>
-        <description>&lt;p&gt;#HọcTừSaiLầm - Mình vừa mắc phải một sai lầm mà mãi đến mấy tháng sau mới phát hiện ra. Vì vậy sai lầm này đã phải trả giá bằng tiền bạc (cứ scale server redis mà vẫn bị hết memory), Web App thì bị downtime vài lần, hơi muộn nhưng đã ngộ ra được.&lt;/p&gt;
-
-&lt;p&gt;Cụ thể là mình có dùng &lt;strong&gt;redis&lt;/strong&gt; làm session_store của Rails:&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;session_store&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:redis_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;servers: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;REDIS_URL&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/1/sessions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;expires_in: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;minutes&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Nhưng khi đó lại mình quên mất vụ &lt;code class=&quot;highlighter-rouge&quot;&gt;expires_in&lt;/code&gt; nên cuối cùng Rails set default là unlimited. Session Keys cứ thế lưu trữ dài hạn trên Redis, và cứ âm thầm ngốn hết Ram của Instance Redis, mình đã thử nâng lần lượt 1GB lên 2GB, rồi 4GB và 8GB nhưng sau một thời gian vẫn cứ ngốn sạch trơn Ram, trong khi kiểm tra số lượng Redis keys mà App dùng thì chỉ khoảng 100k. Cuối cùng, vô tình kiểm tra ở database 1 (Redis đánh số database, mặc định là 0) thì choáng, số lượng lên tới hơn 50 triệu keys đang dùng làm sessions.&lt;/p&gt;
-
-&lt;p&gt;Giải quyết nhanh bằng cách flushdb để xóa toàn bộ data từ một database cụ thể. (May là mình đã tách riêng sessions ra một database khác nên flushdb không thương tiếc, users đang đăng nhập sẽ bị đá ra khỏi hệ thống.)&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;redis-cli
-SELECT dbnum
-flushdb
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Lệnh flushall để xóa toàn bộ databases của Redis&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;Học được từ sai lầm này&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Rails không set expires mặc định cho session_store nhé, liệu mà nhớ thêm vào.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Hiểu hơn về Redis - học được vài chiêu Optimize Memory Usage của Redis (Tham khảo &lt;a href=&quot;http://redis.io/topics/memory-optimization&quot;&gt;&lt;strong&gt;Redis Memory Optimization&lt;/strong&gt;&lt;/a&gt;): Sử dụng hash-zipmap - use hashes when possible thay cho cặp key-value đơn lẻ (Việc dùng small hashes rất tối ưu cho việc sử dụng Memory nhưng đánh đổi bằng CPU Usage sẽ cao hơn).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Redis memory footprint:&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;An empty instance uses ~ 1MB of memory.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;1 Million small Keys -&amp;gt; String Value pairs use ~ 100MB of memory.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;1 Million Keys -&amp;gt; Hash value, representing an object with 5 fields, use ~ 200 MB of memory.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Biết được các công nghệ có thể dùng để thay thế redis trong tương lại: &lt;a href=&quot;http://fallabs.com/kyototycoon/&quot;&gt;&lt;strong&gt;Kyoto Tycoon&lt;/strong&gt;&lt;/a&gt;, &lt;a href=&quot;http://www.aerospike.com/&quot;&gt;&lt;strong&gt;AeroSpike&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Khả năng Monitoring Server của mình còn quá kém, thiếu sự nhạy cảm và chịu khó của một SysAdmin.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Mon, 30 May 2016 00:00:00 +0000</pubDate>
-        <link>http://notes.viphat.work/tai-nan-voi-rails-va-redis</link>
-        <guid isPermaLink="true">http://notes.viphat.work/tai-nan-voi-rails-va-redis</guid>
-        
-        <category>lap-trinh</category>
-        
-        <category>redis</category>
-        
-        <category>til</category>
-        
-        <category>learn-from-mistake</category>
-        
-        <category>ruby-on-rails</category>
-        
-        <category>ruby</category>
         
         
       </item>

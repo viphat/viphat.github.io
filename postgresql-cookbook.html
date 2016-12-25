@@ -45,7 +45,7 @@
 
     <section class="main-content">
 
-      <h4 id="chng-1---managing-databases-and-the-postgresql-server">Chương 1 - Managing Databases and the PostgreSQL Server</h4>
+      <h4 id="chương-1---managing-databases-and-the-postgresql-server">Chương 1 - Managing Databases and the PostgreSQL Server</h4>
 
 <p><strong>Postgres CLI</strong></p>
 
@@ -57,29 +57,29 @@
 
 <h5 id="create-database">Create Database</h5>
 
-<p><strong>SQL STATEMENT</strong>
-<code class="highlighter-rouge">
-CREATE DATABASE hrdb WITH ENCODING='UTF-8' OWNER=hr CONNECTION LIMIT=25;
-</code>
-<strong>CLI</strong>
-<code class="highlighter-rouge">
-createdb -h localhost -U postgres testdb1
-</code>
-<strong>List all Database in Postgres</strong>
-<code class="highlighter-rouge">
-SELECT datname from pg_database where datistemplate = false;
-</code>
-##### Create Users
-<code class="highlighter-rouge">
-CREATE USER hr with PASSWORD 'hr';
-</code>
-##### Create Schema
-Schemas are among the most important objects with in a database. A schema is a named collecction of tables. A schema may also contain views, indexes, sequences, data types, operators, and functions. Schemas help organize database objects into logical groups, which helps make these object more manageable.
-<code class="highlighter-rouge">
-CREATE SCHEMA employee;
+<p><strong>SQL STATEMENT</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>CREATE DATABASE hrdb WITH ENCODING='UTF-8' OWNER=hr CONNECTION LIMIT=25;
+</code></pre>
+</div>
+<p><strong>CLI</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>createdb -h localhost -U postgres testdb1
+</code></pre>
+</div>
+<p><strong>List all Database in Postgres</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>SELECT datname from pg_database where datistemplate = false;
+</code></pre>
+</div>
+<h5 id="create-users">Create Users</h5>
+<div class="highlighter-rouge"><pre class="highlight"><code>CREATE USER hr with PASSWORD 'hr';
+</code></pre>
+</div>
+<h5 id="create-schema">Create Schema</h5>
+<p>Schemas are among the most important objects with in a database. A schema is a named collecction of tables. A schema may also contain views, indexes, sequences, data types, operators, and functions. Schemas help organize database objects into logical groups, which helps make these object more manageable.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>CREATE SCHEMA employee;
 CREATE SCHEMA university AUTHORIZATION bob; (A schema named univerisy and is owned by bob)
-</code>
-Default Schema is public schema.</p>
+</code></pre>
+</div>
+<p>Default Schema is public schema.</p>
 
 <p><strong>List all schema</strong></p>
 
@@ -99,12 +99,12 @@ SELECT * FROM pg_group;
 <div class="highlighter-rouge"><pre class="highlight"><code>DROP DATABASE hrdb;
 </code></pre>
 </div>
-<p><strong>CLI</strong>
-<code class="highlighter-rouge">
-dropdb hrdb
-</code>
-##### Tablespaces
-A tablespace is a location on the disk where PostgreSQL stores data files containing database objects, for example indexes, tables, and so on.</p>
+<p><strong>CLI</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>dropdb hrdb
+</code></pre>
+</div>
+<h5 id="tablespaces">Tablespaces</h5>
+<p>A tablespace is a location on the disk where PostgreSQL stores data files containing database objects, for example indexes, tables, and so on.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>CREATE TABLESPACE HRMS LOCATION '/var/lib/pgsql/data/hrms';
 </code></pre>
@@ -117,7 +117,7 @@ ALTER TABLE employee SET TABLESPACE hrms;
 ALTER INDEX emp_idx SET TABLESPACE hrms;
 </code></pre>
 </div>
-<p>##### Database Cluster</p>
+<h5 id="database-cluster">Database Cluster</h5>
 
 <p>Database cluster is a collection of databases that are managed by a single server instance</p>
 
@@ -140,7 +140,7 @@ ALTER INDEX emp_idx SET TABLESPACE hrms;
 <p>Also useful in free memory from idle postgress processes 
 (pg_cancel_backend(pid) dùng để cancel running queries and not to terminate existing sessions)</p>
 
-<h4 id="chng-2---controlling-security">Chương 2 - Controlling Security</h4>
+<h4 id="chương-2---controlling-security">Chương 2 - Controlling Security</h4>
 
 <h5 id="securing-database-objects">Securing Database Objects</h5>
 
@@ -182,8 +182,8 @@ SHOW data_directory;
 <p>Xem thêm tại - <a href="https://wiki.postgresql.org/wiki/Audit_trigger_91plus"><strong>Audit Trigger Plus</strong></a></p>
 
 <h5 id="enabling-ssl-in-postgresql">Enabling SSL in PostgreSQL</h5>
-<p>##### Testing SSL Encryption
-chưa rõ cụ thể là SSL để bảo vệ kết nối giữa client / server trong PostgreSQL hữu ích ra sao và nên sử dụng trong trường hợp nào, Tốc độ và hiệu suất có tốt hơn hay kém hơn? vì đa phần mình đều dùng localhost.</p>
+<h5 id="testing-ssl-encryption">Testing SSL Encryption</h5>
+<p>chưa rõ cụ thể là SSL để bảo vệ kết nối giữa client / server trong PostgreSQL hữu ích ra sao và nên sử dụng trong trường hợp nào, Tốc độ và hiệu suất có tốt hơn hay kém hơn? vì đa phần mình đều dùng localhost.</p>
 
 <h5 id="encrypting-confidential-data">Encrypting confidential data</h5>
 
@@ -198,7 +198,7 @@ chưa rõ cụ thể là SSL để bảo vệ kết nối giữa client / server
 
 <hr />
 
-<h4 id="chng-3---backup-and-recovery">Chương 3 - Backup and Recovery</h4>
+<h4 id="chương-3---backup-and-recovery">Chương 3 - Backup and Recovery</h4>
 
 <p><strong>Logical Backups</strong> - Dump File được tạo ra bởi pg_dump</p>
 
@@ -221,10 +221,10 @@ chưa rõ cụ thể là SSL để bảo vệ kết nối giữa client / server
 
 <p>option –schema-only, –roles-only, –tablespaces-only</p>
 
-<p><strong>Logical backup of specific objects</strong>
-<code class="highlighter-rouge">
-pg_dump -U postgres -W -F t ubrand &gt; 1.tar -n audit
-</code></p>
+<p><strong>Logical backup of specific objects</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>pg_dump -U postgres -W -F t ubrand &gt; 1.tar -n audit
+</code></pre>
+</div>
 
 <p>Xem thêm tại http://www.postgresql.org/docs/9.1/static/app-pgdump.html</p>
 
@@ -318,11 +318,11 @@ t for TAR archive (bigger than custom format)</p>
 </code></pre>
 </div>
 
-<h2 id="chng-4---routine-maintenance-tasks">Chương 4 - Routine Maintenance Tasks</h2>
+<h2 id="chương-4---routine-maintenance-tasks">Chương 4 - Routine Maintenance Tasks</h2>
 
 <p>(Có thời gian sẽ đọc thêm)</p>
 
-<h2 id="chng-5---monitoring-the-system-using-unix-utilities">Chương 5 - Monitoring the System Using Unix Utilities</h2>
+<h2 id="chương-5---monitoring-the-system-using-unix-utilities">Chương 5 - Monitoring the System Using Unix Utilities</h2>
 
 <blockquote>
   <p>Mình đã viết thành bài riêng tại http://notes.viphat.work/monitoring-linux-system/</p>

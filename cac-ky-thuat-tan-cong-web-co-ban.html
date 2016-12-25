@@ -47,11 +47,11 @@
 
       <p>Biết để phòng và chống.</p>
 
-<h4 id="i-tng-quan">I. Tổng quan</h4>
+<h4 id="i-tổng-quan">I. Tổng quan</h4>
 
 <p><img src="http://i.imgur.com/eY0s3wQ.png" alt="Thống kê" /></p>
 
-<h5 id="cc-nguy-c-i-vi-ng-dng-web">Các nguy cơ đối với ứng dụng web</h5>
+<h5 id="các-nguy-cơ-đối-với-ứng-dụng-web">Các nguy cơ đối với ứng dụng web</h5>
 <ul>
   <li>Tấn công vào hệ thống vận hành</li>
   <li>Tấn công vào ứng dụng web</li>
@@ -59,7 +59,7 @@
   <li>Tấn công vào nền tảng phục vụ ứng dụng web: Khai thác vào lỗ hổng Web Server, máy chủ OS, DB, dịch vụ đang chạy trên máy chủ.</li>
 </ul>
 
-<h5 id="cc-li-an-ton-thng-tin-thng-gp">Các lỗi an toàn thông tin thường gặp</h5>
+<h5 id="các-lỗi-an-toàn-thông-tin-thường-gặp">Các lỗi an toàn thông tin thường gặp</h5>
 
 <ul>
   <li>SQL Injection.</li>
@@ -75,7 +75,7 @@
   <li>Sử dụng Captcha an toàn.</li>
 </ul>
 
-<h5 id="mt-s-cng-c-ph-bin-dng-h-tr-pht-hin-li-an-ton-thng-tin-attt">Một số công cụ phổ biến dùng hỗ trợ phát hiện lỗi an toàn thông tin (ATTT)</h5>
+<h5 id="một-số-công-cụ-phổ-biến-dùng-hỗ-trợ-phát-hiện-lỗi-an-toàn-thông-tin-attt">Một số công cụ phổ biến dùng hỗ trợ phát hiện lỗi an toàn thông tin (ATTT)</h5>
 
 <ul>
   <li>BurpSuite</li>
@@ -84,9 +84,9 @@
   <li>Hackbar</li>
 </ul>
 
-<h4 id="ii-gii-thiu-mt-s-li-attt">II. Giới thiệu một số lỗi ATTT</h4>
+<h4 id="ii-giới-thiệu-một-số-lỗi-attt">II. Giới thiệu một số lỗi ATTT</h4>
 
-<h6 id="csrf-cross-site-request-forgery">1. CSRF (Cross-Site Request Forgery)</h6>
+<h6 id="1-csrf-cross-site-request-forgery">1. CSRF (Cross-Site Request Forgery)</h6>
 
 <ul>
   <li>
@@ -110,7 +110,7 @@
   <li>Hợp lệ: Thực thi code, reset lại token và lưu lại trong session.</li>
 </ul>
 
-<h5 id="kim-sot-file-upload-ln-h-thng">2. Kiểm soát file upload lên hệ thống</h5>
+<h5 id="2-kiểm-soát-file-upload-lên-hệ-thống">2. Kiểm soát file upload lên hệ thống</h5>
 
 <ul>
   <li><strong>Nguy cơ</strong>: Các chức năng upload file, dữ liệu lên server nếu không kiểm soát tốt dẫn đến upload các file không hợp lệ (như webshell, file cấu hình,…)</li>
@@ -123,7 +123,7 @@
 <img src="http://i.imgur.com/2Qbt3In.png" alt="File Upload 2" /></li>
 </ul>
 
-<h5 id="path-traversal--download-file">3. Path Traversal – Download file</h5>
+<h5 id="3-path-traversal--download-file">3. Path Traversal – Download file</h5>
 
 <ul>
   <li><strong>Nguy cơ</strong>: Các xử lý download qua action truyền filename nếu không xử lý filename dẫn đến attacker có thể download các file config của ứng dụng hay cấu hình server.</li>
@@ -133,7 +133,7 @@
 <img src="http://i.imgur.com/2Qbt3In.png" alt="Path Traversal 2" /></li>
 </ul>
 
-<h5 id="m-ha-d-liu-nhy-cm">4. Mã hóa dữ liệu nhạy cảm</h5>
+<h5 id="4-mã-hóa-dữ-liệu-nhạy-cảm">4. Mã hóa dữ liệu nhạy cảm</h5>
 
 <ul>
   <li>
@@ -150,7 +150,7 @@
 <p><img src="http://i.imgur.com/17oldHm.png" alt="Encrypt" />
 <img src="http://i.imgur.com/suIWgFH.png" alt="Encrypt" /></p>
 
-<h5 id="phn-quyn">5. Phân quyền</h5>
+<h5 id="5-phân-quyền">5. Phân quyền</h5>
 
 <ul>
   <li><strong>Nguy cơ</strong>: Một hệ thống phân quyền không tốt, dẫn đến người dùng có thể truy cập đến các chức năng, dữ liệu không được phép.</li>
@@ -164,7 +164,7 @@
 <p><img src="http://i.imgur.com/uTCkln9.png" alt="Get List Users" />
 <img src="http://i.imgur.com/1Iom5lW.png" alt="User Details" /></p>
 
-<h5 id="s-dng-captcha-an-ton">6. Sử dụng captcha an toàn</h5>
+<h5 id="6-sử-dụng-captcha-an-toàn">6. Sử dụng captcha an toàn</h5>
 
 <ul>
   <li>
@@ -175,7 +175,7 @@
   </li>
 </ul>
 
-<h5 id="user-enumeration">7. User enumeration</h5>
+<h5 id="7-user-enumeration">7. User enumeration</h5>
 
 <ul>
   <li><strong>Nguy cơ</strong>:</li>
@@ -192,7 +192,7 @@
 <img src="http://i.imgur.com/K1ioVme.png" alt="User Enumeration" /></li>
 </ul>
 
-<h4 id="iii-kt-lun">III. Kết Luận</h4>
+<h4 id="iii-kết-luận">III. Kết Luận</h4>
 
 <p>Có rất nhiều lỗ hổng và các kỹ thuật tấn công trong quá trình lập trình và phát triển một website đòi hỏi developer cần phải nắm chắc kiến thức lập trình cũng như có khả năng điều khiển tốt mã nguồn của mình.</p>
 

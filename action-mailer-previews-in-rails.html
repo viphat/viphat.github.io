@@ -49,49 +49,49 @@
 
 <p>Ở đây, tôi giả định bạn đã có một class UserMailer với method new_user():</p>
 
-<p><small><strong>app/mailers/user_mailer.rb</strong></small>
-```
-class UserMailer &lt; ActionMailer::Base
-  default from: “from@example.com”</p>
+<p><small><strong>app/mailers/user_mailer.rb</strong></small></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>class UserMailer &lt; ActionMailer::Base
+  default from: "from@example.com"
 
-<p>def new_user(user)
+  def new_user(user)
     @user = user
-    mail to: user.email, subject: “Hello!”
+    mail to: user.email, subject: "Hello!"
   end
 end
-```</p>
+</code></pre>
+</div>
 
 <p>và một Email Template tương ứng với Method đó tại:</p>
 
-<p><small><strong>app/views/user_mailer/new_user.html.erb</strong></small>
-```</p>
-<h1>Hello &lt;%= @user.first_name %&gt;!</h1>
+<p><small><strong>app/views/user_mailer/new_user.html.erb</strong></small></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;h1&gt;Hello &lt;%= @user.first_name %&gt;!&lt;/h1&gt;
 
-<p>
+&lt;p&gt;
   Welcome to my website!
-</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>
-Để Preview Mail này trên trình duyệt Web, ta tiến hành các bước sau:
-
-Tạo File **test/mailers/previews/user\_mailer\_preview.rb** với nội dung:
-
+&lt;/p&gt;
 </code></pre>
 </div>
-<p>class UserMailerPreview &lt; ActionMailer::Preview</p>
 
-<p>def new_user
+<p>Để Preview Mail này trên trình duyệt Web, ta tiến hành các bước sau:</p>
+
+<p>Tạo File <strong>test/mailers/previews/user_mailer_preview.rb</strong> với nội dung:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class UserMailerPreview &lt; ActionMailer::Preview
+
+  def new_user
     user = User.first
     UserMailer.new_user(user)
-  end</p>
+  end
 
-<p>end
-```
-Khởi động lại Server bằng <code class="highlighter-rouge">rails server</code> và truy cập <strong>http://localhost:3000/rails/mailers/user_mailer/new_user</strong> để xem kết quả.</p>
+end
+</code></pre>
+</div>
+<p>Khởi động lại Server bằng <code class="highlighter-rouge">rails server</code> và truy cập <strong>http://localhost:3000/rails/mailers/user_mailer/new_user</strong> để xem kết quả.</p>
 
-<p>Nếu bạn không muốn Class <strong>UserMailerPreview</strong> phải đặt trong thư mục <strong>test/mailers/previews/</strong> (Trường hợp Dự án dùng rspec nên không có thư mục test chẳng hạn) thì bạn có thể đặt lại Path trong <strong>config/environments/development.rb</strong>
-<code class="highlighter-rouge">
-config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
-</code></p>
+<p>Nếu bạn không muốn Class <strong>UserMailerPreview</strong> phải đặt trong thư mục <strong>test/mailers/previews/</strong> (Trường hợp Dự án dùng rspec nên không có thư mục test chẳng hạn) thì bạn có thể đặt lại Path trong <strong>config/environments/development.rb</strong></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>config.action_mailer.preview_path = "#{Rails.root}/app/mailers/previews"
+</code></pre>
+</div>
 
 <h5 id="bonus-tip">Bonus Tip</h5>
 

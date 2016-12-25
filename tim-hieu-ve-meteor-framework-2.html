@@ -55,27 +55,21 @@
 
 <p><img src="http://i.imgur.com/8iJaiXj.png" alt="Meteor" /></p>
 
-<blockquote>
-  <p><strong>Meteor có phải theo mô hình MVC không?</strong><br />
+<p><strong>Meteor có phải theo mô hình MVC không?</strong>
 Nếu bạn đến từ thế giới của Ruby On Rails, có thể bạn sẽ tự hỏi là Meteor có theo mô hình MVC (như Ruby On Rails không) hay MVVM (như AngularJS)… Câu trả lời đơn giản là không, Meteor không áp đặt bất kỳ cấu trúc nào đối với ứng dụng của bạn mà nó hoàn toàn linh hoạt và thông minh.</p>
-</blockquote>
 
 <hr />
 
-<blockquote>
-  <p><strong>Tìm kiếm file</strong> <br />
-Meteor rất giỏi trong việc tìm kiếm file. Bất kể bạn đặt code ở đâu trong thư mục /client, Meteor sẽ tìm và biên dịch nó theo đúng chuẩn. Điều này có nghĩa là, bạn sẽ không cần phải viết đoạn mã để thêm vào đường dẫn cho các file JavaScript hay là CSS.<br />
+<p><strong>Tìm kiếm file</strong>
+Meteor rất giỏi trong việc tìm kiếm file. Bất kể bạn đặt code ở đâu trong thư mục /client, Meteor sẽ tìm và biên dịch nó theo đúng chuẩn. Điều này có nghĩa là, bạn sẽ không cần phải viết đoạn mã để thêm vào đường dẫn cho các file JavaScript hay là CSS.
 Điều này cũng có nghĩa là bạn có thể đặt tất cả file trong cùng một thư mục, hoặc thậm trí tất cả code trong cùng một file. Nhưng vì Meteor sẽ biên dịch mọi thứ thành một file đơn nhất đã được làm nhỏ (minify), chúng ta nên giữ cho mọi thứ được cấu trúc và sẽ dùng cấu trúc file sạch sẽ hơn.</p>
-</blockquote>
 
 <hr />
 
-<blockquote>
-  <p><strong>Hot Code Reload</strong><br />
+<p><strong>Hot Code Reload</strong>
 Bạn có thể thấy rằng bạn thậm chí không cần phải tự tải lại cửa sổ trình duyệt của bạn bất cứ khi nào bạn thay đổi một tập tin.
 Điều này là bởi vì Meteor theo dõi tất cả các file trong thư mục dự án của bạn, và tự động làm mới trình duyệt của bạn mỗi khi nó phát hiện ra sự thay đổi nào đó.
 Hot Code Reload của Meteor khá là thông minh, nó thậm trí còn cung cấp trang thái của ứng dụng giữa mỗi lần làm mới</p>
-</blockquote>
 
 <hr />
 
@@ -96,7 +90,7 @@ Hot Code Reload của Meteor khá là thông minh, nó thậm trí còn cung c�
 &lt;/head&gt;
 &lt;body&gt;
   &lt;div class="container"&gt;
-    &lt;header class="navbar navbar-default" role="navigation"&gt; 
+    &lt;header class="navbar navbar-default" role="navigation"
       &lt;div class="navbar-header"&gt;
         &lt;a class="navbar-brand" href="/"&gt;Microscope&lt;/a&gt;
       &lt;/div&gt;
@@ -202,11 +196,9 @@ Hot Code Reload của Meteor khá là thông minh, nó thậm trí còn cung c�
   </li>
 </ul>
 
-<blockquote>
-  <p>console.log() bên phía Server sẽ xuất hiện ở Terminal <br /> console.log() bên phía Client sẽ xuất hiện trong DevTools Console</p>
-</blockquote>
+<p>console.log() bên phía Server sẽ xuất hiện ở Terminal &lt;brconsole.log() bên phía Client sẽ xuất hiện trong DevTools Console</p>
 
-<h5 id="collections-pha-server">Collections phía Server</h5>
+<h5 id="collections-phía-server">Collections phía Server</h5>
 
 <p>Collections bên phía Server có nhiệm vụ nói chuyện với cơ sở dữ liệu MongoDB, đọc và viết những thay đổi. (Có thể xem Collection phía Server là một thư viện cơ sở dữ liệu chuẩn)</p>
 
@@ -216,7 +208,7 @@ Posts.remove()
 </code></pre>
 </div>
 
-<h5 id="collections-pha-client">Collections phía Client</h5>
+<h5 id="collections-phía-client">Collections phía Client</h5>
 
 <p>Collections bên phía Client chứa tập hợp con của tất cả dữ liệu được lưu trong Mongo collection (Được gọi là MiniMongo và chúng được lưu trữ vào bộ nhớ của trình duyệt). Collection ở phía client giữ liên lạc trong thời gian thực và đồng bộ hóa với dữ liệu trên Server một cách thường xuyên.</p>
 
@@ -243,7 +235,7 @@ Posts.remove()
 <div class="highlighter-rouge"><pre class="highlight"><code>meteor reset # Xóa toàn bộ cơ sở dữ liệu Mongo của App, rất hữu ích trong quá trình phát triển dự án
 </code></pre>
 </div>
-<p>#### Meteor Publications &amp; Subscriptions</p>
+<h4 id="meteor-publications--subscriptions">Meteor Publications &amp; Subscriptions</h4>
 
 <p>Package <strong>AutoPublish</strong> (Được nhắc đến trong Step 11 của Meteor Tutorial - lúc đó, mình làm theo nhưng vẫn chưa thật rõ AutoPublish hay Publications trong Meteor có nhiệm vụ gì?). Mặc định khi bạn khởi tạo một dự án Meteor mới, Package Autopublish luôn được chạy, và nó rất không thích hợp với môi trường Production hay một dự án thương phẩm bởi Autopublish sẽ gửi toàn bộ Data về client. Để gỡ Autopublish, bạn cần gõ lệnh sau vào Terminal:</p>
 
@@ -261,7 +253,7 @@ Posts.remove()
 
 <h5 id="publications">Publications</h5>
 
-<p>Hãy bắt đầu từ một issue thực tế là Our app might contain tens of thousands of documents, some of which might even be private or sensitive. So we obviously shouldn’t just mirror our whole database on the client, for security and scalability reasons. 
+<p>Hãy bắt đầu từ một issue thực tế là Our app might contain tens of thousands of documents, some of which might even be private or sensitive. So we obviously shouldn’t just mirror our whole database on the client, for security and scalability reasons.
 Như bạn biết thì khi tạo collection bên phía Client thì Meteor sẽ tạo một bản sao gồm toàn bộ dữ liệu của Collection đó ở máy client, vậy làm cách nào để ngăn chặn điều đó. Làm sao để chỉ Meteor subset of data cần gửi đến Client thay vì toàn bộ?</p>
 
 <p>Hình dung rằng chúng ta có một tập các Post như trong hình sau:</p>
@@ -274,7 +266,7 @@ Như bạn biết thì khi tạo collection bên phía Client thì Meteor sẽ t
 
 <div class="highlighter-rouge"><pre class="highlight"><code>// on the server
 Meteor.publish('posts', function() {
-  return Posts.find({flagged: false}); 
+  return Posts.find({flagged: false});
 });
 </code></pre>
 </div>
@@ -291,7 +283,7 @@ Meteor.publish('posts', function() {
 });
 </code></pre>
 </div>
-<p>##### Subscriptions</p>
+<h5 id="subscriptions">Subscriptions</h5>
 
 <p>Mặc dù chúng ta đã filter bớt các bài Post có flagged=true nhưng chúng vẫn còn đến hàng ngàn bài và chúng ta không thể gửi ngần ấy bài cùng lúc cho phía Client. Chúng ta cần một cách cho client xác định cụ thể subset data mà họ cần tại một thời điểm nào đó và đó chính xác là nơi subscriptions được ra mắt.</p>
 
@@ -340,7 +332,6 @@ Template.posts.helpers({
 <hr />
 
 <p>Mời các bạn đón xem phần 3 - Tập trung vào việc Định tuyến và Session trong Meteor nhé.</p>
-
 
 
       <footer class="site-footer">

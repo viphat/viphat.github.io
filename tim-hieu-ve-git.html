@@ -55,7 +55,7 @@
 
 <p>Bài viết là nền tảng để bạn tìm hiểu sâu hơn về Git thông qua các liên kết tham khảo khác có nhắc đến trong bài.</p>
 
-<h4 id="version-control-l-g">Version Control là gì?</h4>
+<h4 id="version-control-là-gì">Version Control là gì?</h4>
 
 <p>Bạn có thể coi Version Control System (VCS) như là một dạng “database” đặc biệt, lưu lại hình ảnh (snapshot) của dự án bạn đang làm tại bất kì thời điểm nào bạn muốn. Và khi cần, VCS sẽ cho bạn biết chính xác giữa 2 thời điểm, dự án của bạn đã thay đổi và khác nhau ở những điểm nào.</p>
 
@@ -71,11 +71,9 @@
   <li>Backup</li>
 </ul>
 
-<blockquote>
-  <p>Git là một <strong><em>Version Control System</em></strong> mà theo tôi là tốt nhất và phổ biến nhất.</p>
-</blockquote>
+<p>Git là một <strong><em>Version Control System</em></strong> mà theo tôi là tốt nhất và phổ biến nhất.</p>
 
-<h4 id="vy-git-c-u-im-no--why-git">Vậy Git có ưu điểm nào? » Why git?</h4>
+<h4 id="vậy-git-có-ưu-điểm-nào--why-git">Vậy Git có ưu điểm nào?  Why git?</h4>
 
 <ul>
   <li>
@@ -110,21 +108,17 @@
 
 <p>Phần này trình bày một Git WorkFlow căn bản nhất. Có nhiều Git workflow khác, quy định cụ thể hơn về việc chức năng mới thì được phát triển trên nhánh nào, đặt tên nhánh ra sao, code review và merge vào nhánh nào, deploy staging bằng nhánh nào, deploy production bằng nhánh nào v.v… <strong>Workflow</strong> sẽ khác nhau tùy theo team, công ty…</p>
 
-<blockquote>
-  <p>Repository được hiểu nôm na là một dạng Database nơi Git lưu mọi version và metadata trong dự án của bạn. Trong Git, Repository chỉ là một thư mục ẩn có tên là “.git”, bạn chỉ cần biết vậy là đủ, không cần (và không nên) can thiệp gì vào thư mục huyền bí này.</p>
-</blockquote>
+<p>Repository được hiểu nôm na là một dạng Database nơi Git lưu mọi version và metadata trong dự án của bạn. Trong Git, Repository chỉ là một thư mục ẩn có tên là “.git”, bạn chỉ cần biết vậy là đủ, không cần (và không nên) can thiệp gì vào thư mục huyền bí này.</p>
 
 <p>(1) <code class="highlighter-rouge">git init</code> (Khai báo sử dụng git cho dự án của bạn) hoặc <code class="highlighter-rouge">git clone</code> (trong trường hợp bạn muốn tiếp tục một dự án khác đã có sẵn git)</p>
 
 <p>(2) Chỉnh sửa, di chuyển, sắp xếp lại code của bạn cho đến khi bạn cảm thấy hài lòng và code của bạn đang ở trạng thái xứng đáng để commit lên Git. Ở thời điểm này, Git vẫn chưa hoạt động và theo dõi những thay đổi của bạn.</p>
 
-<blockquote>
-  <p><strong>Tìm hiểu thêm về Commit</strong></p>
+<p><strong>Tìm hiểu thêm về Commit</strong></p>
 
-  <p>A commit is a wrapper for a specific set of changes. The author of a commit has to comment what he did in a short “commit message”. This helps other people (and himself) to understand later what his intention was when making these changes.</p>
+<p>A commit is a wrapper for a specific set of changes. The author of a commit has to comment what he did in a short “commit message”. This helps other people (and himself) to understand later what his intention was when making these changes.</p>
 
-  <p>Every set of changes implicitly creates a new, different version of your project. Therefore, every commit also marks a specific version. It’s a snapshot of your complete project at that certain point in time (but saved in a much more efficient way than simply duplicating the whole project…). The commit knows exactly how all of your files and directories looked and can therefore be used, e.g., to restore the project to that certain state.</p>
-</blockquote>
+<p>Every set of changes implicitly creates a new, different version of your project. Therefore, every commit also marks a specific version. It’s a snapshot of your complete project at that certain point in time (but saved in a much more efficient way than simply duplicating the whole project…). The commit knows exactly how all of your files and directories looked and can therefore be used, e.g., to restore the project to that certain state.</p>
 
 <p>(3) Trước khi commit, hãy xem trạng thái hiện tại bằng lệnh <code class="highlighter-rouge">git status</code> – Lệnh này sẽ list ra tất cả những thay đổi mà bạn đã thực hiện so với lần commit trước.</p>
 
@@ -136,51 +130,45 @@
 
 <p>(7) Nếu bạn đang cộng tác với nhiều người, một Remote Repositories sẽ đóng vai trò là nơi tiếp nhận mọi sự thay đổi của bạn và mọi người.</p>
 
-<blockquote>
-  <p><strong>Local &amp; Remote Repositories</strong></p>
+<p><strong>Local &amp; Remote Repositories</strong></p>
 
-  <p>There are two kinds of repositories:</p>
+<p>There are two kinds of repositories:</p>
 
-  <p>A “local” repository resides on your local computer, as a “.git” folder inside your project’s root folder. You are the only person that can work with this repository, by committing changes to it.</p>
+<p>A “local” repository resides on your local computer, as a “.git” folder inside your project’s root folder. You are the only person that can work with this repository, by committing changes to it.</p>
 
-  <p>A “remote” repository, in contrast, is typically located on a remote server on the internet or in your local network. No actual working files are associated with a remote repository: it has no working directory but it exclusively consists of the “.git” repository folder. Teams are using remote repositories to share &amp; exchange data: they serve as a common base where everybody can publish their own changes and receive changes from their teammates.</p>
-</blockquote>
+<p>A “remote” repository, in contrast, is typically located on a remote server on the internet or in your local network. No actual working files are associated with a remote repository: it has no working directory but it exclusively consists of the “.git” repository folder. Teams are using remote repositories to share &amp; exchange data: they serve as a common base where everybody can publish their own changes and receive changes from their teammates.</p>
 
 <hr />
 
-<blockquote>
-  <p><strong>What Makes a Good Commit?</strong></p>
+<p><strong>What Makes a Good Commit?</strong></p>
 
-  <p>The better and more carefully you craft your commits, the more useful will version control be for you. Here are some guidelines about what makes a good commit:</p>
+<p>The better and more carefully you craft your commits, the more useful will version control be for you. Here are some guidelines about what makes a good commit:</p>
 
-  <p><strong>Related Changes</strong></p>
+<p><strong>Related Changes</strong></p>
 
-  <p>As stated before, a commit should only contain changes from a single topic. Don’t mix up contents from different topics in the same commit. This will make it harder to understand what happened.</p>
+<p>As stated before, a commit should only contain changes from a single topic. Don’t mix up contents from different topics in the same commit. This will make it harder to understand what happened.</p>
 
-  <p><strong>Completed Work</strong></p>
+<p><strong>Completed Work</strong></p>
 
-  <p>Never commit something that is half-done. If you need to save your current work temporarily in something like a clipboard, you can use Git’s “Stash” feature (which will be discussed later in the book). But don’t eternalize it in a commit.</p>
+<p>Never commit something that is half-done. If you need to save your current work temporarily in something like a clipboard, you can use Git’s “Stash” feature (which will be discussed later in the book). But don’t eternalize it in a commit.</p>
 
-  <p><strong>Tested Work</strong><br />
- Related to the point above, you shouldn’t commit code that you think is working. Test it well – and before you commit it to the repository.</p>
+<p><strong>Tested Work</strong><br />
+  Related to the point above, you shouldn’t commit code that you think is working. Test it well – and before you commit it to the repository.</p>
 
-  <p><strong>Short &amp; Descriptive Messages</strong><br />
- A good commit also needs a good message. See the paragraph above on how to “Write Good Commit Messages” for more about this.</p>
+<p><strong>Short &amp; Descriptive Messages</strong><br />
+  A good commit also needs a good message. See the paragraph above on how to “Write Good Commit Messages” for more about this.</p>
 
-  <p>Finally, you should make it a habit to commit often. This will automatically help you to keep your commits small and only include related changes.</p>
-</blockquote>
+<p>Finally, you should make it a habit to commit often. This will automatically help you to keep your commits small and only include related changes.</p>
 
 <hr />
 
 <h4 id="saving-changes-temporarily--git-stash">Saving Changes Temporarily – Git Stash</h4>
 
-<blockquote>
-  <h5 id="the-golden-rules-of-version-control">THE GOLDEN RULES OF VERSION CONTROL</h5>
+<p>##### THE GOLDEN RULES OF VERSION CONTROL</p>
 
-  <p><strong>Never Commit Half-Done Work</strong></p>
+<p><strong>Never Commit Half-Done Work</strong></p>
 
-  <p>You should only commit code when it’s completed. This doesn’t mean you have to complete a whole, large feature before committing. Quite the contrary: split the feature’s implementation into logical chunks and remember to commit early and often. But don’t commit just to get half-done work out of your way when you need a “clean working copy”. For these cases, consider using Git’s “Stash” feature instead.</p>
-</blockquote>
+<p>You should only commit code when it’s completed. This doesn’t mean you have to complete a whole, large feature before committing. Quite the contrary: split the feature’s implementation into logical chunks and remember to commit early and often. But don’t commit just to get half-done work out of your way when you need a “clean working copy”. For these cases, consider using Git’s “Stash” feature instead.</p>
 
 <p><strong>Use git stash when you want to record the current state of the working directory and the index, but want to go back to a clean working directory. The command saves your local modifications away and reverts the working directory to match the HEAD commit.</strong></p>
 
@@ -202,15 +190,13 @@
 
 <p>Tham khảo thêm Document của <a href="http://git-scm.com/docs/git-stash"><strong>Git Stash</strong></a></p>
 
-<h5 id="tnh-hung-cn-dng-stash">Tình huống cần dùng stash</h5>
+<h5 id="tình-huống-cần-dùng-stash">Tình huống cần dùng stash</h5>
 
-<blockquote>
-  <p>A commit wraps up changes and saves them permanently in the repository. However, in your day-to-day work, there are a lot of situations where you only want to save your local changes temporarily. For example, imagine you’re in the middle of some changes for feature X when an important bug report comes in. Your local changes don’t belong to the bugfix you’re going to make. You have to get rid of them (temporarily, without losing them!) and continue working on them later.</p>
+<p>A commit wraps up changes and saves them permanently in the repository. However, in your day-to-day work, there are a lot of situations where you only want to save your local changes temporarily. For example, imagine you’re in the middle of some changes for feature X when an important bug report comes in. Your local changes don’t belong to the bugfix you’re going to make. You have to get rid of them (temporarily, without losing them!) and continue working on them later.</p>
 
-  <p>Situations like this one happen all the time: you have some local changes in your working copy that you can’t commit right now – and you want or need to start working on something else. To get these changes out of your way and have a “clean” working copy, Git’s “Stash” feature comes in handy.</p>
-</blockquote>
+<p>Situations like this one happen all the time: you have some local changes in your working copy that you can’t commit right now – and you want or need to start working on something else. To get these changes out of your way and have a “clean” working copy, Git’s “Stash” feature comes in handy.</p>
 
-<h5 id="cc-tnh-hung-khc">Các tình huống khác</h5>
+<h5 id="các-tình-huống-khác">Các tình huống khác</h5>
 
 <p><strong><em>When to Stash</em></strong></p>
 

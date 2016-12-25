@@ -49,7 +49,7 @@
 
 <p>Graylog là một trong những Open Source Log Management được nhiều người biết đến (Bên cạnh <strong>LogStash</strong> của Elastic Co và các SaaS như <strong>Loggly</strong>, <strong>Papertrail</strong>). Bạn có thể sử dụng Graylog để xây dựng một hệ thống quản lý Log tập trung: Log của ứng dụng Web, Log của Web Server, Log của SSH, Log của Hệ thống (Syslog)…</p>
 
-<h4 id="mi-trng">Môi trường</h4>
+<h4 id="môi-trường">Môi trường</h4>
 
 <ul>
   <li>CentOS 6.6</li>
@@ -101,7 +101,7 @@ vi .env.default
 vi config/initializers/action_mailer.rb
 </code></pre>
 </div>
-<p>#### Cài đặt Elasticsearch</p>
+<h4 id="cài-đặt-elasticsearch">Cài đặt Elasticsearch</h4>
 
 <p>Graylog sử dụng ElasticSearch để thực hiện Full-Text-Search</p>
 
@@ -115,7 +115,7 @@ vi config/initializers/action_mailer.rb
 </code></pre>
 </div>
 
-<h4 id="ci-t-mongodb">Cài đặt MongoDB</h4>
+<h4 id="cài-đặt-mongodb">Cài đặt MongoDB</h4>
 
 <p>Tham khảo đường dẫn - http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/</p>
 
@@ -126,11 +126,11 @@ chkconfig mongod on
 </code></pre>
 </div>
 
-<h4 id="ci-t-graylog">Cài đặt Graylog</h4>
+<h4 id="cài-đặt-graylog">Cài đặt Graylog</h4>
 
 <p>Graylog có cung cấp Image đã cài đặt và cấu hình sẵn Graylog-Server cũng như Graylog-Web-Interface dành cho các distribution như Ubuntu, CentOS và Docker… nhưng việc restore Image lên VPS của Linode là thuộc phạm vi của một bài viết khác, với lại, mình thấy cài đặt thủ công sẽ thú vị hơn, chủ động hơn… do đó, mình chọn cách làm này.</p>
 
-<h5 id="ci-t-graylog-server">Cài đặt Graylog-Server</h5>
+<h5 id="cài-đặt-graylog-server">Cài đặt Graylog-Server</h5>
 
 <p>Làm theo hướng dẫn tại http://docs.graylog.org/en/latest/pages/installation.html#manual-setup-graylog-server-on-linux</p>
 
@@ -146,7 +146,7 @@ chkconfig mongod on
 </code></pre>
 </div>
 
-<h5 id="ci-t-graylog-web-interface">Cài đặt Graylog-Web-Interface</h5>
+<h5 id="cài-đặt-graylog-web-interface">Cài đặt Graylog-Web-Interface</h5>
 
 <p>Làm theo hướng dẫn tại http://docs.graylog.org/en/latest/pages/installation.html#manual-setup-graylog-web-interface-on-linux</p>
 
@@ -156,7 +156,7 @@ chkconfig mongod on
 </code></pre>
 </div>
 
-<h4 id="cu-hnh-graylog-v-elasticsearch">Cấu hình Graylog và ElasticSearch</h4>
+<h4 id="cấu-hình-graylog-và-elasticsearch">Cấu hình Graylog và ElasticSearch</h4>
 
 <p>Cấu hình Graylog và ElasticSearch, tham khảo tại http://docs.graylog.org/en/latest/pages/configuring_es.html</p>
 

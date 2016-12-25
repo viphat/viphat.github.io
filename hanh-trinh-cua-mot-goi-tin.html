@@ -49,17 +49,17 @@
 
 <p>Một gói tin được truyền đi giữa các máy tính trong mạng LAN/WAN hay giữa Client-Server trên mạng Internet là nhờ vào bộ giao thức TCP/IP. Nếu bạn chưa biết TCP/IP, Các tầng (Layer) của TCP/IP, TCP, UDP là gì, IP là gì… thì có thể tham khảo bài viết này - <a href="http://notes.viphat.work/tong-quan-ve-tcp-ip-va-http"><strong>Tổng quan về TCP/IP</strong></a>.</p>
 
-<h4 id="ti-my-tnh">Tại Máy tính</h4>
+<h4 id="tại-máy-tính">Tại Máy tính</h4>
 
 <p><img src="http://i.imgur.com/HW63g82.png" alt="Mô hình" /></p>
 
-<h5 id="ti-lp-application">Tại Lớp Application</h5>
+<h5 id="tại-lớp-application">Tại Lớp Application</h5>
 
 <p>Lớp Application là lớp gần nhất với người dùng, từ đây, dữ liệu, yêu cầu từ người dùng sẽ được sử dụng để tạo thành một khối Data lớn theo khuôn dạng nhất định.</p>
 
 <p>Ví dụ khi nhập địa chỉ một trang web vào trình duyệt, thì một yêu cầu HTTP GET sẽ được tạo ra, dựa trên những thông tin mà người dùng nhập.</p>
 
-<h5 id="ti-lp-transport">Tại Lớp Transport</h5>
+<h5 id="tại-lớp-transport">Tại Lớp Transport</h5>
 
 <p>Tại lớp Transport, dữ liệu sẽ được chia nhỏ thành các khối dữ liệu có kích thước phù hợp, sau đó được đóng gói lại, một Header được thêm vào nhằm theo dõi luồng dữ liệu và tập hợp dữ liệu tại máy đích. Những gói tin nhỏ này gọi là các Segment.</p>
 
@@ -79,7 +79,7 @@
   <li>UDP: là giao thức đơn giản, không cung cấp bất kỳ sự tin cậy nào.</li>
 </ul>
 
-<h5 id="ti-lp-network">Tại lớp Network</h5>
+<h5 id="tại-lớp-network">Tại lớp Network</h5>
 
 <p>Tại đây, các Segment sẽ được gắn thêm một header gọi là IP Header, bao gồm hai thông tin chính là địa chỉ Source IP và Destination IP. Các gói tin bây giờ được gọi là Datagram.</p>
 
@@ -91,7 +91,7 @@
 
 <p>Nếu không tìm thấy IP tương ứng với tên miền cần tìm, một DNS Request sẽ được gửi tới DNS server để xử lý. DNS server sẽ phản hồi những thông tin cần thiết để máy tính sử dụng, những thông tin sẽ được lưu ngược lại vào DNS cache để sử dụng vào lần sau.</p>
 
-<h5 id="ti-lp-data-link-v-physical">Tại lớp Data link và Physical</h5>
+<h5 id="tại-lớp-data-link-và-physical">Tại lớp Data link và Physical</h5>
 
 <p>Để một gói tin có thể gửi tới đích, chúng ta cần thêm một loại địa chỉ nữa đó là địa chỉ MAC hay địa chỉ vật lý. Địa chỉ này là độc nhất cho mọi thiết bị. Một header lại được thêm vào Datagram, hai thông tin chính là Source MAC và Destination MAC. Các gói tin bây giờ được gọi là Frame.</p>
 
@@ -117,9 +117,9 @@
 
 <p>==Các lệnh tương ứng trên Linux là gì?==</p>
 
-<h4 id="khi-ra-khi-my-tnh">Khi ra khỏi máy tính</h4>
+<h4 id="khi-ra-khỏi-máy-tính">Khi ra khỏi máy tính</h4>
 
-<h5 id="ti-switch">Tại Switch</h5>
+<h5 id="tại-switch">Tại Switch</h5>
 
 <p>Các máy tính trong cùng một mạng thường sẽ được tập hợp lại thông qua Switch. Vậy nên điểm đến tiếp theo của frame sẽ là một port Switch, tại đây, frame được đặt trong một hàng đợi, mỗi frame có mức ưu tiên khác nhau và switch dựa vào điều này để xử lý các frame quan trọng trước.</p>
 
@@ -136,7 +136,7 @@ Ví dụ bảng Mac Address Table của một Switch.</p>
 
 <p>Như vậy, nếu máy nhận nằm trong cùng một mạng với máy gửi, thì chỉ cần thông qua switch, frame đã có thể được chuyển tới đích. Trường hợp máy nhận nằm khác mạng với máy gửi. Frame sẽ được chuyển tiếp tới Router để xử lý.</p>
 
-<h5 id="ti-router">Tại Router</h5>
+<h5 id="tại-router">Tại Router</h5>
 
 <p>Đầu tiên, Router sẽ gỡ bỏ header của lớp Data Link (bao gồm Source MAC và Destination MAC). Tiếp theo, Router đọc thông tin lớp Network (Bao gồm Source IP và Destination IP).</p>
 

@@ -47,13 +47,13 @@
 
       <p>IP là một loại địa chỉ logic thuộc lớp Network của mô hình OSI (và là một thành phần quan trọng trong bộ giao thức <a href="http://notes.viphat.work/tong-quan-ve-tcp-ip-va-http"><strong>TCP/IP</strong></a>), cung cấp cho chúng ta một cách đánh địa chỉ linh hoạt, tiện dụng để sử dụng trong các giao thức định tuyến sau này. Hầu hết máy tính và thiết bị mạng hiện nay đang sử dụng phiên bản IPv4, nên trong phạm vi bài viết này chúng ta chỉ đề cập tới IPv4.</p>
 
-<h4 id="a-ch-ip-l-g">Địa chỉ IP là gì?</h4>
+<h4 id="Địa-chỉ-ip-là-gì">Địa chỉ IP là gì?</h4>
 
 <p>Để gửi thư cho nhau, ta bắt buộc phải biết địa chỉ của đối phương, các gói tin cũng vậy, luôn phải có một loại địa chỉ để xác định vị trí, từ đó trao đổi thông tin chính xác giữa máy nguồn và máy đích. Vậy nên, trong Internet các địa chỉ IP là duy nhất.</p>
 
 <p>Xem thêm bài <a href="http://notes.viphat.work/hanh-trinh-cua-mot-goi-tin/"><strong>Hành trình của một gói tin</strong></a></p>
 
-<h4 id="cu-trc-ca-a-ch-ip">Cấu trúc của địa chỉ IP</h4>
+<h4 id="cấu-trúc-của-địa-chỉ-ip">Cấu trúc của địa chỉ IP</h4>
 
 <p>Địa chỉ IP là một dải nhị phân dài 32 bit và chia thành 4 bộ 8 bit gọi là các Octet, gồm phần net-id dùng để xác định mạng mà thiết bị kết nối vào và phần host-id để xác định thiết bị của mạng đó.</p>
 
@@ -81,11 +81,11 @@
 
 <p>Ví dụ: 192.168.1.3 AND 255.255.255.0 = 192.168.1.0 vậy địa chỉ 192.168.1.3/24 thuộc mạng 192.168.1.0/24</p>
 
-<h4 id="phn-lp-a-ch-ip">Phân lớp địa chỉ IP</h4>
+<h4 id="phân-lớp-địa-chỉ-ip">Phân lớp địa chỉ IP</h4>
 
 <p>Số lượng địa chỉ IP là rất lớn, nên để tiện cho việc quản lý, người ta phân hoạch toàn bộ địa chỉ IP ra thành 5 lớp khác nhau.</p>
 
-<h5 id="lp-a">Lớp A</h5>
+<h5 id="lớp-a">Lớp A</h5>
 
 <p>Địa chỉ lớp A sử dụng 1 Octet đầu tiên làm net-id, phần còn lại làm host-id. Bit đầu tiên của địa chỉ lớp A luôn là 0 nên</p>
 
@@ -97,7 +97,7 @@
 
 <p>Tuy nhiên giá trị 0 (giá trị nhỏ nhất của Octet) không được sử dụng và giá trị 127 (giá trị lớn nhất của Octet) được dành ch Loopback và chẩn đoán, kiểm tra lỗi, nên dải địa chỉ lớp A sẽ từ 1.x.x.x đến 126.x.x.x</p>
 
-<h5 id="lp-b">Lớp B</h5>
+<h5 id="lớp-b">Lớp B</h5>
 
 <p>Địa chỉ lớp B sử dụng 2 Octet đầu tiên để làm net-id, 2 Octet còn lại làm host-id. 2 bits đầu tiên của địa chỉ lớp B luôn là 10 nên</p>
 
@@ -107,7 +107,7 @@ Default subnet mask: 255.255.0.0</p>
 
 <p>Vậy dải địa chỉ lớp B sẽ là từ 128.x.x.x đến 191.x.x.x</p>
 
-<h5 id="lp-c">Lớp C</h5>
+<h5 id="lớp-c">Lớp C</h5>
 
 <p>Địa chỉ lớp C sử dụng 3 Octet đầu tiên để làm net-id,  Octet 4  làm host-id. 3 bits đầu tiên của địa chỉ lớp C luôn là 110 nên:</p>
 
@@ -121,25 +121,25 @@ Default subnet mask: 255.255.0.0</p>
 
 <p>Ngoài ra còn có địa chỉ <strong>lớp D</strong> (224.x.x.x – 239.x.x.x) sẽ nói tới ở phần sau và <strong>lớp E</strong> (240.x.x.x – 254.x.x.x) dùng để thí nghiệm và nghiên cứu.</p>
 
-<h4 id="cc-loi-a-ch-ip">Các loại địa chỉ IP</h4>
+<h4 id="các-loại-địa-chỉ-ip">Các loại địa chỉ IP</h4>
 
-<h5 id="a-ch-unicast">Địa chỉ Unicast</h5>
+<h5 id="Địa-chỉ-unicast">Địa chỉ Unicast</h5>
 
 <p>Khi bạn muốn gửi gói tin đến một máy tính cụ thể, khi đó địa chỉ để bạn gửi tới sẽ là một địa chỉ unicast. Đây đơn giản chỉ là địa chỉ IP của một thiết bị nào đó trong cùng hoặc mạng cục bộ khác.</p>
 
-<h5 id="a-ch-multicast">Địa chỉ Multicast</h5>
+<h5 id="Địa-chỉ-multicast">Địa chỉ Multicast</h5>
 
 <p>Trường hợp muốn gửi gói tin đến nhiều máy tính, ta không thể gửi lần lượt đến tất cả các máy được. Vì thế, địa chỉ bạn cần gửi tới trong trường hợp này sẽ là một địa chỉ Multicast, địa chỉ này đại diện cho một nhóm các thiết bị.</p>
 
 <p>Địa chỉ multicast này chính là các địa chỉ trong dải địa chỉ <strong>lớp D</strong>.</p>
 
-<h5 id="a-ch-broadcast">Địa chỉ Broadcast</h5>
+<h5 id="Địa-chỉ-broadcast">Địa chỉ Broadcast</h5>
 
 <p>Khi muốn gửi thông điệp đến tất cả các máy trong mạng nội bộ, đó là lúc ta cần sử dụng đến địa chỉ Broadcast. Địa chỉ Broadcast là địa chỉ có toàn bộ các bits phần host-id là 1. Khi gói tin được gửi đến địa chỉ Broadcast, thì nó sẽ được gửi tới tất cả các máy cùng mạng, tức là cùng phần net-id. Vì đại diện cho toàn bộ thiết bị trong mạng nên địa chỉ Broadcast không thể đặt được cho bất kỳ thiết bị nào.</p>
 
 <p>Ví dụ: 192.168.1.255/24 là địa chỉ Broadcast của mạng 192.168.1.0/24.</p>
 
-<h5 id="a-ch-mng">Địa chỉ mạng</h5>
+<h5 id="Địa-chỉ-mạng">Địa chỉ mạng</h5>
 
 <p>Không chỉ các thiết bị mới có địa chỉ IP, mà các mạng thành phần của Internet hay mạng cục bộ cũng có một địa chỉ để xác định chính xác mạng đó. Khi tất cả các bits phần Host của một địa chỉ IP là 0, thì địa chỉ đó được gọi là địa chỉ mạng của mạng đó. Vì đại diện cho mạng nên địa chỉ mạng cũng không thể đặt được cho bất kỳ thiết bị nào.</p>
 
@@ -153,14 +153,14 @@ Default subnet mask: 255.255.0.0</p>
 
 <p>Ví dụ: Default gateway của mạng 192.168.1.0/24 là 192.168.1.1/24.</p>
 
-<h4 id="s-gii-hn-ca-ia-ch-ip">Sự giới hạn của đia chỉ IP</h4>
+<h4 id="sự-giới-hạn-của-đia-chỉ-ip">Sự giới hạn của đia chỉ IP</h4>
 
 <p>Số lượng địa chỉ IP là rất lớn, nhưng không phải là vô hạn. Vì vậy để bảo tồn địa chỉ IP, người ta chia địa chỉ IP ra làm 2 loại là địa chỉ public và địa chỉ private.</p>
 
-<h5 id="a-ch-public">Địa chỉ public</h5>
+<h5 id="Địa-chỉ-public">Địa chỉ public</h5>
 <p>Là các địa chỉ độc nhất, sử dụng được trong môi trường Internet.</p>
 
-<h5 id="a-ch-private">Địa chỉ private</h5>
+<h5 id="Địa-chỉ-private">Địa chỉ private</h5>
 
 <p>Chỉ sử dụng được trong mạng cục bộ, có thể tái sử dụng lại ở mạng cục bộ khác, nhưng trong một mạng thì vẫn phải mang giá trị duy nhất.</p>
 
@@ -172,7 +172,7 @@ Lớp C: Từ 192.168.0.0 đến 192.168.255.255, subnet mask 255.255.0.0</p>
 
 <p>Khi các thiết bị sử dụng địa chỉ IP private trong mạng cục bộ muốn truy cập được Internet – môi trường không sử dụng địa chỉ private, công nghệ <strong>NAT</strong> (<strong>Network Address Translation</strong>) được cài đặt trên các thiết bị router(đã được gán 1 địa chỉ IP Public) được sử dụng để chuyển IP private thành IP public và ngược lại, giúp cho các thiết bị trong mạng cục bộ vẫn có thể truy cập được Internet.</p>
 
-<h4 id="phng-php-chia-ip-v-subnet-mask">Phương pháp chia IP và Subnet mask</h4>
+<h4 id="phương-pháp-chia-ip-và-subnet-mask">Phương pháp chia IP và Subnet mask</h4>
 
 <blockquote>
   <p>Cho địa chỉ 192.168.155.245/27. Xác định địa chỉ mạng, địa chỉ broadcast, dải địa chỉ có thể dùng cho host?</p>

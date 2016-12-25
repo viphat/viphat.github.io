@@ -47,7 +47,7 @@
 
       <p>Mục đích của mình là trở thành Full-Stack Web Developer. Do đang tập trung vào mảng Server nên mình tìm hiểu luôn một số khái niệm hay ứng dụng cơ bản liên quan đến mảng Network hay TCP/IP. Nếu đã đọc về <a href="http://notes.viphat.work/tong-quan-ve-tcp-ip-va-http/"><strong>Tổng quan về TCP/IP</strong></a>, <a href="http://notes.viphat.work/so-luoc-ve-dia-chi-ip/"><strong>Sơ lược về Địa chỉ IP</strong></a> hay <a href="http://notes.viphat.work/hanh-trinh-cua-mot-goi-tin/"><strong>Hành trình của một gói tin</strong></a>, bạn đã được biết tầm quan trọng của IP trong hệ thống mạng là như thế nào, bạn cũng phân biệt được Public IP và Private IP, bạn cũng biết cách chia lớp mạng, chia lớp mạng con như thế nào… Vậy ai là người gán IP cho từng máy con trong mạng. Bạn có thể làm một cách thủ công, tự gán IP cho từng máy hoặc nhờ một dịch vụ cấp phát IP như là <strong>DHCP</strong>. Bài này mình chỉ đi qua để biết DHCP là gì, nó sẽ không đề cập đến việc cài đặt hay cấu hình DHCP Server như thế nào, bạn có thể tìm đọc thêm trên Internet nếu muốn.</p>
 
-<h4 id="dhcp-l-g">DHCP là gì?</h4>
+<h4 id="dhcp-là-gì">DHCP là gì?</h4>
 
 <p>Giao thức Cấu hình Host Động DHCP được thiết kế làm giảm thời gian chỉnh cấu hình cho mạng TCP/IP bằng cách tự động gán các địa chỉ IP cho máy khách khi họ vào mạng.</p>
 
@@ -75,7 +75,7 @@
 
 <p><strong>Bước 4</strong>: Cuối cùng, máy chủ DHCP khẳng định toàn bộ sự việc với máy trạm. Để ý rằng lúc đầu máy trạm phát tán yêu cầu về địa chỉ IP lên mạng, nghĩa là mọi máy chủ DHCP đều có thể nhận thông điệp này. Do đó, có thể có nhiều hơn một máy chủ DHCP tìm cách cho thuê địa chỉ IP bằng cách gởi thông điệp chào hàng. Máy trạm chỉ chấp nhận một thông điệp chào hàng, sau đó phát tán thông điệp khẳng định lên mạng. Vì thông điệp này được phát tán (broadcast), tất cả máy chủ DHCP có thể nhận được nó. Thông điệp chứa địa chỉ IP của máy chủ DHCP vừa cho thuê, vì thế các máy chủ DHCP khác rút lại thông điệp chào hàng của mình và hoàn trả địa chỉ IP vào vùng địa chỉ, để dành cho khách hàng khác.</p>
 
-<h4 id="cc-thut-ng-trong-dhcp">Các thuật ngữ trong DHCP</h4>
+<h4 id="các-thuật-ngữ-trong-dhcp">Các thuật ngữ trong DHCP</h4>
 
 <ul>
   <li><strong>DHCP Server</strong>: máy quản lý việc cấu hình và cấp phát địa chỉ IP cho Client</li>
@@ -86,7 +86,7 @@
   <li><strong>Scope Options</strong>: các thông số được cấu hình thêm khi cấp phát IP động cho Clients như DNS Server, Router…</li>
 </ul>
 
-<h4 id="cc-thng-ip-trong-dhcp">Các thông điệp trong DHCP</h4>
+<h4 id="các-thông-điệp-trong-dhcp">Các thông điệp trong DHCP</h4>
 
 <ul>
   <li>

@@ -53,7 +53,7 @@
 
 <p>Các dịch vụ này đều được cung cấp bởi $provide và bạn có thể dễ dàng inject chúng để sử dụng vào các Controller, Directive. (<strong>Dependency Injection</strong> là một trong những điểm mạnh của AngularJS - Nếu chưa biết DI là gì, bạn có thể tự tìm hiểu thêm, Mình cũng có dự định sẽ viết một bài về vấn đề này trong Loạt bài tìm hiểu về AngularJS.)</p>
 
-<h5 id="constant-hng-s">Constant (Hằng số)</h5>
+<h5 id="constant-hằng-số">Constant (Hằng số)</h5>
 
 <p>Hằng số có thể được inject vào bất cứ đâu. Một Hằng số không thể thay đổi giá trị sau khi nó đã được khởi tạo</p>
 
@@ -173,7 +173,7 @@ app.controller('ctrl', function (movie) {
 });
 </code></pre>
 </div>
-<p>##### Provider</p>
+<h5 id="provider">Provider</h5>
 
 <p>Provider là trường hợp phức tạp nhất (và cũng mạnh mẽ nhất) trong số các Provider, Nó giống Factory nhưng cho phép bạn cấu hình bằng các configuration option (Nói nôm na Provider là một Configurable Factory).</p>
 
@@ -204,7 +204,7 @@ app.controller('ctrl', function (movie) {
 });
 </code></pre>
 </div>
-<p>##### Service vs Factory vs Provider</p>
+<h5 id="service-vs-factory-vs-provider">Service vs Factory vs Provider</h5>
 
 <p>Một ví dụ hoàn chỉnh để thấy được sự khác nhau giữa Service - Factory - Provider:</p>
 
@@ -329,7 +329,7 @@ function Controller(greeter2) {
 </code></pre>
 </div>
 
-<h4 id="tm-tt">Tóm tắt</h4>
+<h4 id="tóm-tắt">Tóm tắt</h4>
 
 <ul>
   <li>All the providers are instantiated only once. That means that they are all singletons.</li>

@@ -45,11 +45,11 @@
 
     <section class="main-content">
 
-      <h4 id="cu-hnh-ssh-ch-ng-nhp-bng-public-keys-trn-centos-6">Cấu hình SSH chỉ đăng nhập bằng Public Keys trên CentOS 6</h4>
+      <h4 id="cấu-hình-ssh-chỉ-đăng-nhập-bằng-public-keys-trên-centos-6">Cấu hình SSH chỉ đăng nhập bằng Public Keys trên CentOS 6</h4>
 
 <p>Bởi vì User Root có quyền tối cao trên hệ thống nên sẽ rất nguy hiểm nếu sử dụng thường xuyên tài khoản root, do đó, ta nên add thêm một User khác và đăng nhập SSH vào User này, thay cho root. Để an toàn hơn, chúng ta sẽ bỏ luôn việc đăng nhập SSH bằng mật khẩu mà chỉ cho đăng nhập bằng ssh public key của máy.</p>
 
-<h5 id="bc-1---ng-nhp-vo-ti-khon-root-thm-mt-user-mi">Bước 1 - Đăng nhập vào tài khoản root, Thêm một User mới</h5>
+<h5 id="bước-1---Đăng-nhập-vào-tài-khoản-root-thêm-một-user-mới">Bước 1 - Đăng nhập vào tài khoản root, Thêm một User mới</h5>
 
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code>ssh root@ip_address
 useradd viphat
@@ -112,7 +112,7 @@ việc mượn quyền bằng lệnh sudo giúp hạn chế bớt các sai lầm
 
 <p><img src="http://i.imgur.com/8zSG5Zp.png" alt="i1" /></p>
 
-<h5 id="bc-4---cu-hnh-ssh-ch-xc-thc-bng-public-keys-khng-xc-thc-bng-mt-khu">Bước 4 - Cấu hình SSH chỉ xác thực bằng Public Keys, không xác thực bằng mật khẩu</h5>
+<h5 id="bước-4---cấu-hình-ssh-chỉ-xác-thực-bằng-public-keys-không-xác-thực-bằng-mật-khẩu">Bước 4 - Cấu hình SSH chỉ xác thực bằng Public Keys, không xác thực bằng mật khẩu</h5>
 
 <p>Việc đăng nhập bằng Keys giúp bạn tránh việc bị lộ mật khẩu hoặc tránh bị tấn công dò ra mật khẩu bằng kỹ thuật brute-force password guessing attack.</p>
 

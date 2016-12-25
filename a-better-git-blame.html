@@ -51,7 +51,7 @@
 
 <p>TL;DR <code class="highlighter-rouge">git blame</code> hiếm khi cho bạn kết quả hữu ích. Thay vào đó có thể sử dụng các options trên <code class="highlighter-rouge">git log</code> để tìm đúng tác giả, người chịu trách nhiệm cho sự thay đổi không mong đợi.</p>
 
-<h3 id="git-blame-hot-ng-nh-th-no"><code class="highlighter-rouge">git blame</code> hoạt động như thế nào</h3>
+<h3 id="git-blame-hoạt-động-như-thế-nào"><code class="highlighter-rouge">git blame</code> hoạt động như thế nào</h3>
 
 <p><code class="highlighter-rouge">git blame</code> tìm kiếm lịch sử commit để tìm người cuối cùng chỉnh sửa dòng code. Một số Editors có tích hợp chức năng này vào công cụ của họ, cũng như Github, Gitlab hay Bitbucket… cũng đều có <code class="highlighter-rouge">git blame</code> ngay trong giao diện (rất dễ để theo dõi và truy vết). Tuy vậy, bạn cũng có thể dùng command line:</p>
 
@@ -80,7 +80,7 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
 </code></pre>
 </div>
 
-<h3 id="vy-c-g-khng-n-vi-git-blame">Vậy có gì không ổn với <code class="highlighter-rouge">git blame</code></h3>
+<h3 id="vậy-có-gì-không-ổn-với-git-blame">Vậy có gì không ổn với <code class="highlighter-rouge">git blame</code></h3>
 
 <p>Vấn đề là <code class="highlighter-rouge">git blame</code> chỉ thể hiện người cuối cùng chỉnh sửa dòng code. Và điều này không chắc là thứ bạn muốn xác định, <code class="highlighter-rouge">git blame</code> không hẳn chỉ ra đúng người chủ thực sự của dòng đó bởi vì rơi vào những trường hợp sau, <code class="highlighter-rouge">git blame</code> vẫn xem đó là author của dòng code đó:</p>
 
@@ -92,7 +92,7 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
   <li>Di chuyển file.</li>
 </ul>
 
-<h3 id="gii-php---s-dng-git-log">Giải pháp - sử dụng <code class="highlighter-rouge">git log</code></h3>
+<h3 id="giải-pháp---sử-dụng-git-log">Giải pháp - sử dụng <code class="highlighter-rouge">git log</code></h3>
 
 <p><code class="highlighter-rouge">git log</code> là công cụ rất đa năng, trong trường hợp này, bạn có thể tận dụng <code class="highlighter-rouge">git log</code> để chỉ ra original author của dòng code bạn muốn tìm:</p>
 

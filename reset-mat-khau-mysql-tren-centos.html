@@ -49,7 +49,7 @@
 
 <p>Đọc requirements, mình thấy rằng có 2 việc cần phải làm trước, đó là upgrade JDK từ 1.7 lên 1.8 và sau đó là reset mật khẩu root của mysql (mình không nắm pass root của mysql, do một chú đồng nghiệp set nhưng không viết lại cho Core Team.)</p>
 
-<h3 id="nng-cp-jdk">Nâng cấp JDK</h3>
+<h3 id="nâng-cấp-jdk">Nâng cấp JDK</h3>
 
 <p>Xem phiên bản JDK hiện tại</p>
 
@@ -90,12 +90,12 @@ alternatives --set javac /opt/jdk1.8.0_72/bin/javac
 </code></pre>
 </div>
 
-<p>Export các biến môi trường của Java
-<code class="highlighter-rouge">
-export JAVA_HOME=/opt/jdk1.8.0_72
+<p>Export các biến môi trường của Java</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>export JAVA_HOME=/opt/jdk1.8.0_72
 export JRE_HOME=/opt/jdk1.8.0_72/jre
 export PATH=$PATH:/opt/jdk1.8.0_72/bin:/opt/jdk1.8.0_72/jre/bin
-</code></p>
+</code></pre>
+</div>
 
 <p>Kiểm tra</p>
 
@@ -105,7 +105,7 @@ export PATH=$PATH:/opt/jdk1.8.0_72/bin:/opt/jdk1.8.0_72/jre/bin
 
 <hr />
 
-<h3 id="reset-mt-khu-root-ca-mysql">Reset Mật khẩu Root của MySQL</h3>
+<h3 id="reset-mật-khẩu-root-của-mysql">Reset Mật khẩu Root của MySQL</h3>
 
 <p>Stop dịch vụ mysqld</p>
 

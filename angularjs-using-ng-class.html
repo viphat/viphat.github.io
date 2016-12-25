@@ -88,7 +88,7 @@
 </code></pre>
 </div>
 
-<h5 id="s-dng-ngclass-trong-biu-thc-iu-kin">Sử dụng ngClass trong biểu thức điều kiện</h5>
+<h5 id="sử-dụng-ngclass-trong-biểu-thức-điều-kiện">Sử dụng ngClass trong biểu thức điều kiện</h5>
 
 <p>Một cách advanced hơn khi sử dụng <code class="highlighter-rouge">ng-class</code> trong AngularJS là sử dụng các biểu thức điều kiện, khi biểu thức này true, class sẽ được apply.</p>
 
@@ -104,7 +104,7 @@
 
 <p>Để sử dụng biểu thức trong <code class="highlighter-rouge">ng-class</code> thì bạn phải đặt trong cặp dấu <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="p">}</span></code>, bên trái của biểu thức (phân cách nhau bởi dấu :) là class định apply (bạn nên đặt chúng trong dấu ‘’ để chứa các ký tự đặc biệt, dấu - và khoảng trắng). Bên phải của biểu thức là biến hoặc điều kiện.</p>
 
-<h5 id="s-dng-ngclass-vi-biu-thc-ternary-operator">Sử dụng ngClass với biểu thức Ternary Operator</h5>
+<h5 id="sử-dụng-ngclass-với-biểu-thức-ternary-operator">Sử dụng ngClass với biểu thức Ternary Operator</h5>
 
 <p><code class="highlighter-rouge">ng-class</code> cũng hỗ trợ biểu thức dưới dạng ternary operator</p>
 
@@ -117,7 +117,7 @@
 </div>
 <p>ternary operator được dùng nhiều trong trường hợp bạn quy định các class khác nhau dựa vào giá trị true/false của một biến.</p>
 
-<h5 id="dng-ngcass-kt-hp-vi-first-last-index-even-odd">Dùng ngCass kết hợp với $first, $last, $index, $even, $odd</h5>
+<h5 id="dùng-ngcass-kết-hợp-với-first-last-index-even-odd">Dùng ngCass kết hợp với $first, $last, $index, $even, $odd</h5>
 
 <p><code class="highlighter-rouge">ng-class</code> có thể dùng trong biểu thức điều kiện cùng với các biến của ng-repeat như $first, $last, $index, $even, $odd</p>
 
@@ -138,11 +138,11 @@
 </code></pre>
 </div>
 
-<h4 id="cc-cch-s-dng-ngclass">Các cách sử dụng ngClass</h4>
+<h4 id="các-cách-sử-dụng-ngclass">Các cách sử dụng ngClass</h4>
 
 <p>Directive <code class="highlighter-rouge">ng-class</code> có 2 cách sử dụng: như là một class và như là một attribute (tương ứng với <code class="highlighter-rouge">restrict: "AC"</code>). Bản thân mình thì quen dùng <code class="highlighter-rouge">ng-class</code> dưới dạng một attribute hơn, bởi vì nó sẽ rất rõ ràng trong việc phân biệt các class động và các class tĩnh được định nghĩa sẵn.</p>
 
-<h5 id="s-dng-ngclass-nh-mt-thnh-phn-ca-thuc-tnh-class">Sử dụng ngClass như một thành phần của thuộc tính Class</h5>
+<h5 id="sử-dụng-ngclass-như-một-thành-phần-của-thuộc-tính-class">Sử dụng ngClass như một thành phần của thuộc tính Class</h5>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>&lt;!-- example with string syntax --&gt;
 &lt;!-- use the type variable as a class --&gt;
@@ -158,28 +158,28 @@
 </code></pre>
 </div>
 
-<h5 id="s-dng-ngclass-nh-mt-thuc-tnh">Sử dụng ngClass như một thuộc tính</h5>
-<p>github
-```
-<!-- example with string syntax -->
-<!-- use the type variable as a class --></p>
-<div class="item" ng-class="type">Stuff Goes Here</div>
+<h5 id="sử-dụng-ngclass-như-một-thuộc-tính">Sử dụng ngClass như một thuộc tính</h5>
+<p>github</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;!-- example with string syntax --&gt;
+&lt;!-- use the type variable as a class --&gt;
+&lt;div class="item" ng-class="type"&gt;Stuff Goes Here&lt;/div&gt;
 
-<!-- example with string syntax -->
-<!-- use the styleOne and styleTwo variables as classes -->
-<div class="item" ng-class="[styleOne, styleTwo]">Stuff Goes Here</div>
+&lt;!-- example with string syntax --&gt;
+&lt;!-- use the styleOne and styleTwo variables as classes --&gt;
+&lt;div class="item" ng-class="[styleOne, styleTwo]"&gt;Stuff Goes Here&lt;/div&gt;
 
-<!-- example with evaluated data -->
-<!-- add the text-error class if wrong is true -->
-<div class="item" ng-class="{ 'text-error': wrong }">Stuff Goes Here</div>
-<p>```</p>
+&lt;!-- example with evaluated data --&gt;
+&lt;!-- add the text-error class if wrong is true --&gt;
+&lt;div class="item" ng-class="{ 'text-error': wrong }"&gt;Stuff Goes Here&lt;/div&gt;
+</code></pre>
+</div>
 
 <p><strong>Kết luận</strong></p>
 
 <p>Trên đây, mình đã liệt kê công dụng và các cách apply <code class="highlighter-rouge">ng-class</code> trong AngularJS 1.x, hy vọng chúng hữu ích cho bạn bởi <code class="highlighter-rouge">ng-class</code> sẽ đóng góp rất nhiều trong việc tạo một trang web sinh động trong AngularJs.</p>
 
 <ul>
-  <li>Link gốc của bài viết tại <a href="http://viphat.me/1P74DRJ"><strong>Scotch.io</strong></a></li>
+  <li>Link gốc của bài viết tại <a href="https://scotch.io/tutorials/the-many-ways-to-use-ngclass"><strong>Scotch.io</strong></a></li>
 </ul>
 
 
