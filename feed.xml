@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>notes.viphat.work</title>
-    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+    <description>Dương Vì Phát's personal blog. I wrote about Coding, Ruby, Rails, AngularJs, Agile or Programming Fundamentals. I also wrote about Life, Motivation and Books.
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 25 Dec 2016 16:02:38 +0700</pubDate>
-    <lastBuildDate>Sun, 25 Dec 2016 16:02:38 +0700</lastBuildDate>
-    <generator>Jekyll v3.3.1</generator>
+    <pubDate>Sun, 02 Apr 2017 08:11:16 +0700</pubDate>
+    <lastBuildDate>Sun, 02 Apr 2017 08:11:16 +0700</lastBuildDate>
+    <generator>Jekyll v3.4.3</generator>
     
       <item>
         <title>My Project Infrastucture</title>

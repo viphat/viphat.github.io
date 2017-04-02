@@ -35,11 +35,13 @@
 
   <body>
     <section class="page-header">
-  <a id='blog-logo' href='http://notes.viphat.work'>
+  <a id='blog-logo' href='/'>
     <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
   </a>
-  <h1 class="project-name">notes.viphat.work</h1>
-  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+  <h1 class="project-name">
+    <a href='/' style='text-decoration: none; color: #fff;'>notes.viphat.work</a>
+  </h1>
+  <h2 class="project-tagline">On the way to become a senior Ruby developer</h2>
 </section>
 
 
@@ -126,7 +128,7 @@ Nếu bạn không thể làm mọi thứ trở nên rõ ràng, hiển nhiên, r
 Chú ý về cỡ chữ, khoảng cách giữa từng paragraph, từng dòng, giữa các từ với nhau, giữa Heading với Section liền kề. Các Heading (H1, H2, H3) phải khác nhau rõ rệt để tránh User nhầm lẫn, Heading nên margin-top nhiều hơn margin-bottom (không nên canh đều theo kiểu middle), Keep Paragraph short, sử dụng Bullted Lists và để ý margin giữa các li cho hợp lý. Highlight Key Terms.</li>
 </ol>
 
-<p><strong>Shouting</strong>: Là khi trang có quá nhiều thứ mà bạn cho là quan trọng (và bạn cố gắng thu hút sự chú ý của User bằng nhiều kiểu cùng lúc - Bright Color, Lots of invitations to buy! Lots of exclamation points, different typefaces, Automated Slideshows, Animation, Pop-ups ….) thì sẽ bị tác dụng ngược. Nên nhớ - Everything can’t be important. 
+<p><strong>Shouting</strong>: Là khi trang có quá nhiều thứ mà bạn cho là quan trọng (và bạn cố gắng thu hút sự chú ý của User bằng nhiều kiểu cùng lúc - Bright Color, Lots of invitations to buy! Lots of exclamation points, different typefaces, Automated Slideshows, Animation, Pop-ups ….) thì sẽ bị tác dụng ngược. Nên nhớ - Everything can’t be important.
 <strong>Disorganization</strong> - Layouts Web vô tổ chức.
 <strong>Clutter</strong> - Page with too much Stuffs.</p>
 
@@ -147,7 +149,7 @@ Chú ý về cỡ chữ, khoảng cách giữa từng paragraph, từng dòng, g
 <h4 id="chapter-5---omit-needless-words">Chapter 5 - Omit needless words</h4>
 
 <p>Happy Talks must die
-Instructions must die 
+Instructions must die
 Nguyên tắc Half of Half</p>
 
 <h4 id="chapter-6---street-signs-and-breadcumbs">Chapter 6 - Street signs and Breadcumbs</h4>
@@ -192,8 +194,8 @@ Nên có Home Button/Link trong Navigations - Để Users dù có lang thang và
 Vấn đề với Website có Navigation quá nhiều level (lớn hơn 2 level) là họ không dành cho các level thấp một sự chú ý mà lẽ ra nó phải có.</p>
 
 <p><strong>Page Names</strong>
-Every Page needs a name. Just as every corner should have a street sign. 
-Highlighted the Page name in the navigation is not good enough. 
+Every Page needs a name. Just as every corner should have a street sign.
+Highlighted the Page name in the navigation is not good enough.
 The name needs to be in the right place.
 The name needs to be prominent.
 The name needs to match what I clicked.</p>
@@ -309,9 +311,9 @@ Why should I be here and not somewhere else?</p>
 
 <p>(Mắt người scan theo chữ Z từ trái sang phải, từ trên xuống dưới nên Top Left &gt; Middle Center &gt; Bottom Right là 3 vị trí bắt mắt)</p>
 
-<p><strong>“The Learn More”</strong> - Short Video</p>
+<p><strong>The Learn More</strong> - Short Video</p>
 
-<p>**“Use as much space as necessary” **</p>
+<p><strong>Use as much space as necessary</strong></p>
 
 <p><strong>But don’t use any more space than necessary</strong></p>
 
@@ -346,7 +348,7 @@ Why should I be here and not somewhere else?</p>
   <li>It’s very hard to do it well</li>
 </ul>
 
-<p>Một số giải pháp tạm thời nếu bạn không đủ thời gian để làm 2 version khác nhau cho Version và Desktop (vốn sẽ 
+<p>Một số giải pháp tạm thời nếu bạn không đủ thời gian để làm 2 version khác nhau cho Version và Desktop (vốn sẽ
 tốn gấp đôi công sức)</p>
 
 <ul>
@@ -376,13 +378,15 @@ tốn gấp đôi công sức)</p>
 
 <p><strong>Các nguyên tắc của một Website hay một Mobile App có UX tốt:</strong></p>
 
-<p>Useful
-Learnable
-Memorable
-Effective
-Efficient
-Desirable
-Delightful (Stack làm rất tốt vụ Delightful này)</p>
+<ul>
+  <li>Useful</li>
+  <li>Learnable</li>
+  <li>Memorable</li>
+  <li>Effective</li>
+  <li>Efficient</li>
+  <li>Desirable</li>
+  <li>Delightful (StackOverflow làm rất tốt vụ Delightful này)</li>
+</ul>
 
 <p>A person of average (or even below average) ability and experience can figure out how to use the thing (It’s learnable) to accomplish something (Effective) without it being more trouble than it’s worth (Efficient)</p>
 
@@ -454,7 +458,7 @@ Delightful (Stack làm rất tốt vụ Delightful này)</p>
 
 <p>Provide me with creature comforts like printer-friendly pages</p>
 
-<p>Make it easy to recover from errors 
+<p>Make it easy to recover from errors
 (Nếu phát sinh lỗi, dẫn đến trang 404/500 đã được thiết kế tốt, trong đó phải chỉ cho họ chỗ để họ tìm thứ mình muốn hoặc ít nhất là Links để Quay trở lại trang Home / Quay trở lại Trang trước đó)</p>
 
 <p>When in doubt, Apologize</p>
@@ -484,7 +488,7 @@ Delightful (Stack làm rất tốt vụ Delightful này)</p>
 
 
       <footer class="site-footer">
-  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is published by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
   <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
 </footer>
 

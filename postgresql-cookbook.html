@@ -35,11 +35,13 @@
 
   <body>
     <section class="page-header">
-  <a id='blog-logo' href='http://notes.viphat.work'>
+  <a id='blog-logo' href='/'>
     <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
   </a>
-  <h1 class="project-name">notes.viphat.work</h1>
-  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+  <h1 class="project-name">
+    <a href='/' style='text-decoration: none; color: #fff;'>notes.viphat.work</a>
+  </h1>
+  <h2 class="project-tagline">On the way to become a senior Ruby developer</h2>
 </section>
 
 
@@ -90,7 +92,7 @@ CREATE SCHEMA university AUTHORIZATION bob; (A schema named univerisy and is own
 <h5 id="create-groups">Create Groups</h5>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>CREATE GROUP dept;
-ALTER GROUP dept ADD USER agovi1, nchabbra; 
+ALTER GROUP dept ADD USER agovi1, nchabbra;
 SELECT * FROM pg_group;
 </code></pre>
 </div>
@@ -137,7 +139,7 @@ ALTER INDEX emp_idx SET TABLESPACE hrms;
 </code></pre>
 </div>
 
-<p>Also useful in free memory from idle postgress processes 
+<p>Also useful in free memory from idle postgress processes
 (pg_cancel_backend(pid) dùng để cancel running queries and not to terminate existing sessions)</p>
 
 <h4 id="chương-2---controlling-security">Chương 2 - Controlling Security</h4>
@@ -150,7 +152,7 @@ ALTER INDEX emp_idx SET TABLESPACE hrms;
 Grant - Cấp quyền</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>REVOKE ALL on testusers from testdb1;
-REVOKE insert, update, delete, truncate on testusers from testdb1; 
+REVOKE insert, update, delete, truncate on testusers from testdb1;
 </code></pre>
 </div>
 
@@ -266,8 +268,8 @@ wal_level must be set to archive</p>
 
 <p>wal_level = hot_standby
 archive_mode = on
-archive_command = ‘test ! -f 
-/home/abcd/pgsql/backup_in_progress || (test ! -f 
+archive_command = ‘test ! -f
+/home/abcd/pgsql/backup_in_progress || (test ! -f
 /home/abcd/pgsql/archive/%f &amp;&amp; cp %p
 /home/abcd/pgsql/archive/%f)
 ‘</p>
@@ -284,7 +286,7 @@ Thông qua <strong>pg_restore</strong> Utility</p>
 
 <p><strong>pg_dump / pg_restore</strong></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pg_dump -U username -f backup.dump database_name -Fc 
+<div class="highlighter-rouge"><pre class="highlight"><code>pg_dump -U username -f backup.dump database_name -Fc
 </code></pre>
 </div>
 
@@ -334,22 +336,25 @@ t for TAR archive (bigger than custom format)</p>
 
 <p><strong>Chương 6 - Monitoring Database Activity and Investigating Performance Issues</strong> (Theo dõi hoạt động của Database và điều tra các vấn đề về Performance)</p>
 
-<p><strong>Chương 7 - High Availability and Replication</strong> (Nhân bản Database để mang lại độ sẵn sàng cao cho các ứng dụng Database lớn và nhiều người sử dụng)</p>
+<p><strong>Chương 7 - High Availability and Replication</strong></p>
 
-<p>Chương 8 - Connection Pooling</p>
+<p>(Nhân bản Database để mang lại độ sẵn sàng cao cho các ứng dụng Database lớn và nhiều người sử dụng)</p>
+
+<p><strong>Chương 8 - Connection Pooling</strong></p>
 
 <p><strong>Chương 9 - Table Partioning</strong> (Phân vùng các Table, tách riêng và chia nhỏ Table nếu Table quá lớn, chứa nhiều dữ liệu)</p>
 
-<p>Chương 10 - Accessing PostgreSQL from Perl</p>
+<p><strong>Chương 10 - Accessing PostgreSQL from Perl</strong></p>
 
-<p>Chương 11 - Accessing PostgreSQL from Python 
-(Nếu có thời gian và có dịp, mình sẽ học thêm về Python. Hiện mình chủ yếu làm việc với Rails, còn Ruby thực ra còn nhiều cái chưa rành lắm… chẳng hạn, block_given? là gì?)</p>
+<p><strong>Chương 11 - Accessing PostgreSQL from Python</strong></p>
 
-<p>Chương 12 - <strong>Data Migration from Other Databases and Upgrading PostgreSQL Cluster</strong></p>
+<p>(Nếu có thời gian và có dịp, mình sẽ học thêm về Python. Hiện mình chủ yếu làm việc với Rails, còn Ruby thực ra còn nhiều cái chưa rành lắm… chẳng hạn, block_given? là gì?)</p>
+
+<p><strong>Chương 12 - Data Migration from Other Databases and Upgrading PostgreSQL Cluster</strong></p>
 
 
       <footer class="site-footer">
-  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is published by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
   <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
 </footer>
 

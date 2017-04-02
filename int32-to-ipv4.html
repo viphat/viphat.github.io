@@ -35,11 +35,13 @@
 
   <body>
     <section class="page-header">
-  <a id='blog-logo' href='http://notes.viphat.work'>
+  <a id='blog-logo' href='/'>
     <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
   </a>
-  <h1 class="project-name">notes.viphat.work</h1>
-  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+  <h1 class="project-name">
+    <a href='/' style='text-decoration: none; color: #fff;'>notes.viphat.work</a>
+  </h1>
+  <h2 class="project-tagline">On the way to become a senior Ruby developer</h2>
 </section>
 
 
@@ -54,10 +56,10 @@
 
   <p>This address has 4 octets where each octet is a single byte (or 8 bits).</p>
 
-  <p>1st octet 128 has the binary representation: 10000000 <br />
- 2nd octet 32 has the binary representation: 00100000 <br />
- 3rd octet 10 has the binary representation: 00001010 <br />
- 4th octet 1 has the binary representation: 00000001 <br />
+  <p>1st octet 128 has the binary representation: 10000000
+ 2nd octet 32 has the binary representation: 00100000
+ 3rd octet 10 has the binary representation: 00001010
+ 4th octet 1 has the binary representation: 00000001
  So 128.32.10.1 == 10000000.00100000.00001010.00000001</p>
 
   <p>Because the above IP address has 32 bits, we can represent it as the 32 bit number: 2149583361</p>
@@ -65,76 +67,90 @@
   <p>Write a function int32_to_ip(int32) that takes a 32 bit number and returns a string representation of its IPv4 address.</p>
 </blockquote>
 
-<p>int32_to_ip(2149583361) =&gt; “128.32.10.1”</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>int32_to_ip(2149583361) =&gt; “128.32.10.1”
+</code></pre>
+</div>
 
 <p>Đây là bài mình làm (sau khi Google những method cần thiết)</p>
 
-<p>def int32_to_ip(int32) str_binary = int32.to_s(2) str_binary.rjust(32,’0’) str_array = [] 4.times do str_array.push str_binary.slice!(0..7).to_i(2) end str_array.join(“.”) end</p>
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">int32_to_ip</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>
+  <span class="n">str_binary</span> <span class="o">=</span> <span class="n">int32</span><span class="p">.</span><span class="nf">to_s</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+  <span class="n">str_binary</span><span class="p">.</span><span class="nf">rjust</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="s1">'0'</span><span class="p">)</span>
+  <span class="n">str_array</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="mi">4</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span>
+    <span class="n">str_array</span><span class="p">.</span><span class="nf">push</span> <span class="n">str_binary</span><span class="p">.</span><span class="nf">slice!</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="nf">.</span><span class="mi">7</span><span class="p">).</span><span class="nf">to_i</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="n">str_array</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
 
 <p>Nhận xét là nó dùng các lệnh khá cơ bản, dễ hiểu nhưng chưa catch trường hợp lớn hơn 255.</p>
 
-<p>Và cùng một hướng ấy, lại có nhiều cách giải khác nhau, có những cách mà mình khi đọc Solutions của những người khác cũng phải há hốc vì những kiến thức (methods) này lạ quá, người mới học Ruby được 1~2 tháng như mình, chưa hề biết tới, hic &gt;.&lt;</p>
+<p>Và cùng một hướng ấy, lại có nhiều cách giải khác nhau, có những cách mà mình khi đọc solutions của những người khác cũng phải há hốc vì những kiến thức (methods) này lạ quá, người mới học Ruby được 1~2 tháng như mình, chưa hề biết tới, hic &gt;.&lt;.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>def int32_to_ip(int32) [24, 16, 8, 0].collect {</td>
-      <td>b</td>
-      <td>(int32 » b) &amp; 255}.join(‘.’) end</td>
-    </tr>
-  </tbody>
-</table>
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">int32_to_ip</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>
+  <span class="p">[</span><span class="mi">24</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">].</span><span class="nf">collect</span> <span class="p">{</span><span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="p">(</span><span class="n">int32</span> <span class="o">&gt;&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">255</span><span class="p">}.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
 
-<p>def int32_to_ip(int32) [int32].pack(‘N’).unpack(‘C*’) * ‘.’ end</p>
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">int32_to_ip</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>
+  <span class="p">[</span><span class="n">int32</span><span class="p">].</span><span class="nf">pack</span><span class="p">(</span><span class="s1">'N'</span><span class="p">).</span><span class="nf">unpack</span><span class="p">(</span><span class="s1">'C*'</span><span class="p">)</span> <span class="o">*</span> <span class="s1">'.'</span>
+<span class="k">end</span>
+</code></pre>
+</div>
 
-<table>
-  <tbody>
-    <tr>
-      <td>def int32_to_ip(int32) int32.to_s(2).rjust(32, ‘0’).scan(/w{8}/).collect {</td>
-      <td>oct</td>
-      <td>oct.to_i(2) }.join(‘.’) end</td>
-    </tr>
-  </tbody>
-</table>
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">int32_to_ip</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>
+  <span class="n">int32</span><span class="p">.</span><span class="nf">to_s</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nf">rjust</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="s1">'0'</span><span class="p">).</span><span class="nf">scan</span><span class="p">(</span><span class="sr">/w{8}/</span><span class="p">).</span><span class="nf">collect</span> <span class="p">{</span> <span class="o">|</span><span class="n">oct</span><span class="o">|</span> <span class="n">oct</span><span class="p">.</span><span class="nf">to_i</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">}.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
 
-<p>def int32_to_ip(int32) first = (int32 &amp; 0xFF000000) » 24 second = (int32 &amp; 0x00FF0000) » 16 third = (int32 &amp; 0x0000FF00) » 8 fourth = (int32 &amp; 0xFF) return “#{first}.#{second}.#{third}.#{fourth}” end</p>
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">int32_to_ip</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>
+  <span class="n">first</span> <span class="o">=</span> <span class="p">(</span><span class="n">int32</span> <span class="o">&amp;</span> <span class="mh">0xFF000000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">24</span> <span class="n">second</span> <span class="o">=</span> <span class="p">(</span><span class="n">int32</span> <span class="o">&amp;</span> <span class="mh">0x00FF0000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span> <span class="n">third</span> <span class="o">=</span> <span class="p">(</span><span class="n">int32</span> <span class="o">&amp;</span> <span class="mh">0x0000FF00</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span> <span class="n">fourth</span> <span class="o">=</span> <span class="p">(</span><span class="n">int32</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">)</span>
+  <span class="k">return</span> <span class="s2">"</span><span class="si">#{</span><span class="n">first</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="n">second</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="n">third</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="n">fourth</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+</code></pre>
+</div>
 
-<table>
-  <tbody>
-    <tr>
-      <td>def int32_to_ip int32 int32 == 0 ? “0.0.0.0” : int32.to_s(2).scan(/.{1,8}/).map {</td>
-      <td>i</td>
-      <td>i.to_i(2) }.join(‘.’) end</td>
-    </tr>
-  </tbody>
-</table>
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">int32_to_ip</span> <span class="n">int32</span>
+  <span class="n">int32</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">?</span> <span class="s2">"0.0.0.0"</span> <span class="p">:</span> <span class="n">int32</span><span class="p">.</span><span class="nf">to_s</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nf">scan</span><span class="p">(</span><span class="sr">/.{1,8}/</span><span class="p">).</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="p">.</span><span class="nf">to_i</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">}.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
 
-<table>
-  <tbody>
-    <tr>
-      <td>def int32_to_ip(int32) 4.times.collect do</td>
-      <td>i</td>
-      <td>int32. to_s(2). rjust(32, ‘0’)[i*8..-1]. chars. take(8). join. to_i(2). to_s end.join(‘.’) end</td>
-    </tr>
-  </tbody>
-</table>
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">int32_to_ip</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>
+  <span class="mi">4</span><span class="p">.</span><span class="nf">times</span><span class="p">.</span><span class="nf">collect</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">int32</span><span class="p">.</span><span class="nf">to_s</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nf">rjust</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="s1">'0'</span><span class="p">)[</span><span class="n">i</span><span class="o">*</span><span class="mi">8</span><span class="p">.</span><span class="nf">.</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="nf">chars</span><span class="p">.</span><span class="nf">take</span><span class="p">(</span><span class="mi">8</span><span class="p">).</span><span class="nf">join</span><span class="p">.</span><span class="nf">to_i</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nf">to_s</span> <span class="k">end</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
 
-<p>def int32_to_ip(int32) # your solution str = [] 4.times do str.unshift((int32.to_i &amp; 255)) int32 = int32.to_i() » 8 end return str.join(‘.’) end</p>
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">int32_to_ip</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>
+  <span class="c1"># your solution</span>
+  <span class="n">str</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="mi">4</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span>
+      <span class="n">str</span><span class="p">.</span><span class="nf">unshift</span><span class="p">((</span><span class="n">int32</span><span class="p">.</span><span class="nf">to_i</span> <span class="o">&amp;</span> <span class="mi">255</span><span class="p">))</span> <span class="n">int32</span> <span class="o">=</span> <span class="n">int32</span><span class="p">.</span><span class="nf">to_i</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span>
+  <span class="k">end</span>
+  <span class="n">str</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
 
-<p>…</p>
+<hr />
 
-<p>và còn Nhiều nhiều nữa. <a href="http://www.codewars.com/kata/int32-to-ipv4/solutions/ruby">More</a></p>
+<p>Và còn nhiều nhiều nữa - <a href="http://www.codewars.com/kata/int32-to-ipv4/solutions/ruby">Xem thêm</a></p>
 
 <p>Mình Post bài này để lưu lại những đoạn Code này là chủ yếu, và cũng cho các bạn thấy, Ruby thiên biến vạn hóa như thế nào, nó có quá nhiều methods viết sẵn, mà bản thân người lập trình viên, muốn nắm rõ và tường tận những methods của nó thật không đơn giản.</p>
 
 <blockquote>
-  <p>Làm bài “Int32 to Ipv4″ này trong lúc ngồi chờ Data của bạn Xuân Trang, hỗ trợ bạn ấy cắt dán bằng Macro của VBA – Haizz, nói đến chuyện này thì tội Xuân Trang quá, Công việc thì chồng chất và khó khăn, Sếp thì thiếu trách nhiệm nên bỏ mặc, hậu quả là cháy gần đến đít… đến cả người ở bộ phận không liên quan như mình phải nhảy vào giúp sức – Cũng là vì cái tình đồng nghiệp. (Bạn Xuân Trang tính tình khá dễ thương, hay giúp đỡ người khác nên bây giờ khi bạn ấy cần, nhiều người sẵn sàng giúp lại)</p>
+  <p>Làm bài <strong>Int32 to Ipv4</strong> này trong lúc ngồi chờ Data của bạn Xuân Trang, hỗ trợ bạn ấy cắt dán bằng Macro của VBA – Haizz, nói đến chuyện này thì tội Xuân Trang quá, Công việc thì chồng chất và khó khăn, Sếp thì thiếu trách nhiệm nên bỏ mặc, hậu quả là cháy gần đến đít… đến cả người ở bộ phận không liên quan như mình phải nhảy vào giúp sức – Cũng là vì cái tình đồng nghiệp. (Bạn Xuân Trang tính tình khá dễ thương, hay giúp đỡ người khác nên bây giờ khi bạn ấy cần, nhiều người sẵn sàng giúp lại)</p>
 </blockquote>
 
 
 
       <footer class="site-footer">
-  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is published by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
   <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
 </footer>
 

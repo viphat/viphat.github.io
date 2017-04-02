@@ -4,7 +4,7 @@
   <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Tìm hiểu về Meteor Framework (Phần 1)</title>
+  <title>Tìm hiểu về Meteor Framework</title>
   <meta name="description" content="Đây là những ghi chép nhanh trong quá trình tìm hiểu về Meteor Framework, nếu có thời gian mình sẽ hệ thống và biên tập lại kỹ hơn. Mục đích mình muốn học nh...">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#157878">
@@ -28,18 +28,20 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/css/cayman.css">
   <link rel="stylesheet" href="/css/cayman.css">
-  <link rel="canonical" href="http://notes.viphat.work/tim-hieu-ve-meteor-framework-1">
+  <link rel="canonical" href="http://notes.viphat.work/tim-hieu-ve-meteor-framework">
   <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
 </head>
 
 
   <body>
     <section class="page-header">
-  <a id='blog-logo' href='http://notes.viphat.work'>
+  <a id='blog-logo' href='/'>
     <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
   </a>
-  <h1 class="project-name">notes.viphat.work</h1>
-  <h2 class="project-tagline">On the way to become a respectful full-stack developer</h2>
+  <h1 class="project-name">
+    <a href='/' style='text-decoration: none; color: #fff;'>notes.viphat.work</a>
+  </h1>
+  <h2 class="project-tagline">On the way to become a senior Ruby developer</h2>
 </section>
 
 
@@ -83,7 +85,7 @@ https://github.com/awatson1978/meteor-cookbook/blob/master/cookbook/development-
 <h5 id="tại-sao-nên-sử-dụng-meteor">Tại sao nên sử dụng Meteor?</h5>
 
 <ul>
-  <li>==Easy to Learn==</li>
+  <li><strong>Easy to Learn</strong></li>
 </ul>
 
 <h5 id="7-nguyên-tắc-nền-tảng-của-meteor-hay-các-Ưu-điểm-của-meteor">7 nguyên tắc nền tảng của Meteor (Hay các Ưu điểm của Meteor)</h5>
@@ -183,11 +185,15 @@ What this means is that a newly created task actually appears on the screen befo
 </code></pre>
 </div>
 
-<p>==Vậy hỏi, chúng ta sẽ tìm các Package cho Meteor ở đâu? - http://atmosphere.meteor.com/==</p>
+<blockquote>
+  <p>Vậy hỏi, chúng ta sẽ tìm các Package cho Meteor ở đâu? - http://atmosphere.meteor.com/</p>
+</blockquote>
 
 <p>Meteor có thể sử dụng các Package của NodeJS (Không sử dụng trực tiếp, chỉ có thể sử dụng gián tiếp thông qua các Meteor Package)</p>
 
-<p>==Câu hỏi bài tập là Có bao nhiêu loại Package trong Meteor, hãy nhớ lại loạt bài Tutorial của Meteor.com đã hướng dẫn bạn sử dụng những Package nào?==</p>
+<blockquote>
+  <p>Câu hỏi bài tập là Có bao nhiêu loại Package trong Meteor, hãy nhớ lại loạt bài Tutorial của Meteor.com đã hướng dẫn bạn sử dụng những Package nào?</p>
+</blockquote>
 
 <h5 id="file-structure-trong-một-Ứng-dụng-meteor">File Structure trong một Ứng dụng Meteor</h5>
 
@@ -251,8 +257,8 @@ mobile-config.js          # define icons and metadata for Android/iOS
 <p>Chúng ta nên đề cập đến việc một số thư mục này là đặc biệt. Khi nói đến mã chạy, Meteor có một vài quy tắc:</p>
 
 <ul>
-  <li>Mã trong thư mục /server chỉ chạy trên máy chủ.</li>
-  <li>Mã trong thư mục /client chỉ chạy trên máy khách.</li>
+  <li>Mã trong thư mục <code class="highlighter-rouge">/server</code> chỉ chạy trên máy chủ.</li>
+  <li>Mã trong thư mục <code class="highlighter-rouge">/client</code> chỉ chạy trên máy khách.</li>
   <li>Mọi thứ khác chạy trên cả máy khách và máy chủ.</li>
   <li>Tài nguyên tĩnh của bạn (font chữ, hình ảnh, vv) nằm trong thư mục /public.</li>
 </ul>
@@ -260,18 +266,19 @@ mobile-config.js          # define icons and metadata for Android/iOS
 <p>Và cũng sẽ hữu ích nếu biết làm thế nào Meteor quyết định thứ tự nạp các file:</p>
 
 <ul>
-  <li>Các tập tin trong /lib được nạp trước bất cứ điều gì khác.</li>
-  <li>Bất kỳ tập tin main.* nào cũng được nạp sau tất cả mọi thứ khác.</li>
+  <li>Các tập tin trong <code class="highlighter-rouge">/lib</code> được nạp trước bất cứ điều gì khác.</li>
+  <li>Bất kỳ tập tin <code class="highlighter-rouge">main.*</code> nào cũng được nạp sau tất cả mọi thứ khác.</li>
   <li>Mọi thứ khác tải trong thứ tự chữ cái dựa trên tên file.</li>
 </ul>
 
 <hr />
 
-<p>Mình tạm kết thúc phần một ở đây.</p>
+<p>Mình tạm kết thúc phần tìm hiểu ở đây.</p>
+
 
 
       <footer class="site-footer">
-  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is maintained by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is published by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
   <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
 </footer>
 
