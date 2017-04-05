@@ -4,11 +4,109 @@
     <title>notes.viphat.work</title>
     <description>Dương Vì Phát's personal blog. I wrote about Coding, Ruby, Rails, AngularJs, Agile or Programming Fundamentals. I also wrote about Life, Motivation and Books.
 </description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 02 Apr 2017 08:27:05 +0700</pubDate>
-    <lastBuildDate>Sun, 02 Apr 2017 08:27:05 +0700</lastBuildDate>
+    <link>http://notes.viphat.work/</link>
+    <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 06 Apr 2017 00:01:08 +0700</pubDate>
+    <lastBuildDate>Thu, 06 Apr 2017 00:01:08 +0700</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
+    
+      <item>
+        <title>Tóm tắt sách Agile Y - Phần 1</title>
+        <description>&lt;h1 id=&quot;agile-y&quot;&gt;Agile Y&lt;/h1&gt;
+&lt;p&gt;Tóm lược Sách &lt;strong&gt;Agile Y&lt;/strong&gt; - Tác giả &lt;strong&gt;Nguyễn Văn Hiển&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://gurunh.com/agiley-ve-agile-y/&quot;&gt;Về Agile Y – GURUnH&lt;/a&gt; - Mời mọi người đặt mua sách tại đây. Sách tiếng Việt cung cấp cho bạn những kiến thức cơ bản về Agile. Và là nền tảng tốt để bắt đầu tìm hiểu về Agile và các kỹ thuật liên quan.&lt;/p&gt;
+
+&lt;h2 id=&quot;chương-1---phát-triển-phần-mềm-cần-linh-hoạt&quot;&gt;Chương 1 - Phát triển phần mềm cần linh hoạt&lt;/h2&gt;
+&lt;p&gt;Phương pháp phát triển phần mềm truyền thống (Waterfall và các biến thể) phân chia quá trình phát triển phần mềm thành những giai đoạn độc lập, do đó phát sinh những vấn đề lãng phí, phản ứng kém với những thay đổi trong yêu cầu bởi khối lượng phản hồi lớn tại thời điểm trễ. Việc bắt đầu lại từ đỉnh thác luôn chứa đựng nhiều bất ổn hiến tỉ lệ dự án thành công không cao.&lt;/p&gt;
+
+&lt;p&gt;Về cơ bản, thế giới cần một phương pháp phát triển phần mềm mới, giải quyết bài toán theo cách khác, thay vì chỉ tối ưu cục bộ trong một giai đoạn nhất định.&lt;/p&gt;
+
+&lt;h2 id=&quot;chương-2---agile-là-giải-pháp&quot;&gt;Chương 2 - Agile là giải pháp&lt;/h2&gt;
+&lt;p&gt;Agile là phương pháp phát triển phần mềm hiện đại, nhằm giải quyết tận gốc những vấn đề tồn tại của phương pháp phát triển phần mềm truyền thống. &lt;strong&gt;Agile tập trung vào cá nhân và sự tương tác hơn là quy trình và công cụ&lt;/strong&gt;. &lt;strong&gt;Phần mềm chạy tốt hơn là tài liệu đầy đủ&lt;/strong&gt;. &lt;strong&gt;Cộng tác với khách hàng hơn là đàm phán hợp đồng&lt;/strong&gt;. &lt;strong&gt;Phản hồi với các thay đổi hơn là bám sát kế hoạch&lt;/strong&gt;. Những vấn đề bên phải vẫn có giá trị nhưng Agile tập trung vào những điều bên trái hơn. Có hàng chục phương pháp nằm trong chiếc ô Agile đều chia sẻ tầm nhìn chung trong Tuyên ngôn Agile với 12 nguyên lý.&lt;/p&gt;
+
+&lt;p&gt;Scrum là phương pháp được sử dụng nhiều nhất, và thường là điểm bắt đầu của những nhóm mới thực hành Agile bởi sự đơn giản nhưng hoàn thiện và dễ hiểu.&lt;/p&gt;
+
+&lt;p&gt;Kanban là phương pháp có sự tăng trưởng nhanh nhất hiện nay.&lt;/p&gt;
+
+&lt;p&gt;eXtream Programming (XP)  chứa đựng những practice được sử dụng nhiều nhất trong những nhóm thực hành Agile.&lt;/p&gt;
+
+&lt;h2 id=&quot;chương-3---scrum&quot;&gt;Chương 3 - Scrum&lt;/h2&gt;
+&lt;p&gt;Scrum là phương pháp phát triển phần mềm theo nhóm nhằm cung cấp giá trị cho việc phát triển phần mềm. Các thành viên trong nhóm làm việc cùng nhau để đạt được một mục tiêu chung với quy trình và cách làm cụ thể bởi từng công cụ do chính những thành viên trong nhóm thiết lập với sự đồng thuận tối đa, nhằm tạo ra giá trị cao nhất.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;3 trụ cột của Scrum: &lt;strong&gt;Minh bạch&lt;/strong&gt;, &lt;strong&gt;Thanh tra&lt;/strong&gt;, &lt;strong&gt;Thích nghi&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;5 giá trị của Scrum: &lt;strong&gt;Dũng cảm&lt;/strong&gt;, &lt;strong&gt;Cởi mở&lt;/strong&gt;, &lt;strong&gt;Cam kết&lt;/strong&gt;, &lt;strong&gt;Tập trung&lt;/strong&gt;, &lt;strong&gt;Tôn trọng&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;3 vai trò: &lt;strong&gt;Product Owner&lt;/strong&gt;, &lt;strong&gt;Scrum Master&lt;/strong&gt;, &lt;strong&gt;Nhóm phát triển&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Artifact: Product Backlog, Sprint Backlog, Release Burn-down chart, Sprint Burn-down chart, Definition of Done.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;chương-4---kanban--scrumban&quot;&gt;Chương 4 - Kanban &amp;amp; Scrumban&lt;/h2&gt;
+&lt;p&gt;Kanban là phương pháp theo tư tưởng Lean nhằm trực quan hóa workflow, giúp linh hoạt trong việc lên kế hoạch, được điều hướng bởi lead time.&lt;/p&gt;
+
+&lt;p&gt;Scrumban là phương pháp kết hợp những điểm mạnh của Scrum và Kanban giúp nhóm phát triển phần mềm được điều hướng bởi giá trị và sự kiện.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Scrum + Kanban = Scrumban&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Scrumban là cách mở rộng Scrum cho những nhóm lớn. Vì Scrum tập trung vào nhóm nhỏ, khuyến nghị với 2-9 thành viên.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;chương-5---các-kỹ-thuật-và-công-cụ-hữu-ích-trong-agile&quot;&gt;Chương 5 - Các kỹ thuật và công cụ hữu ích trong Agile&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Bảng&lt;/strong&gt; là công cụ tối quan trọng với những nhóm thực hành Agile. Dù là bảng vật lý hay bảng điện tử, mức độ chuyển động và sự tập trung của nhóm vào bảng cho thấy một phần độ trưởng thành của nhóm thực hành Agile.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Continuous Integration&lt;/strong&gt; về mặt source code được hiểu là việc tích hợp liên tục với nhau để tránh việc tích hợp trễ gây ra lỗi tích hợp giữa các thành viên, modules. Continuous Integration về mặt quy trình được hiểu là việc đồng bộ công việc giữa những thành viên trong nhóm nhằm đảm bảo mọi thành viên đều nắm được tình trạng công việc hiện tại.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Continuos Delivery&lt;/strong&gt; được hiểu là khả năng nhanh chóng và đều đặn triển khai những thay đổi từ bug fix tới những chức năng mới tới môi trường được sử dụng bởi người dùng một cách an toàn và hiệu quả.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Trong dự án Agile, &lt;strong&gt;database&lt;/strong&gt; không phải là thành phần bất biến, việc thay đổi có thể được liên tục diễn ra. Để đảm bảo việc thay đổi được diễn ra an toàn và hiệu quả, database cũng nên coi là một phần tài nguyên như source code và cũng cần giải pháp versioning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Bất kỳ nhóm thực hành Agile nào cũng cần một &lt;strong&gt;Branching Strategy&lt;/strong&gt; cụ thể và phù hợp. Bởi thông thường, do cách thiết kế phần mềm kiểu Agile, rất nhiều xung đột có thể xảy ra, branching strategy và continuous integration chính là công cụ giải quyết những xung đột này. Branching Strategy hiệu quả còn giúp việc release trở nên an toàn và đảm bảo chất lượng.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Code refactoring&lt;/strong&gt; là hoạt động không thể thiếu, giúp nhóm thực hành Agile liên tục cải tiến chất lượng source code, hay chính là chất lượng phần mềm. Hãy cố gắng thực hiện code refactoring bất cứ khi nào có thể nhưng chỉ khi các test đã sẵn sàng.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Chất lượng source code được bảo đảm theo nhiều cách. Ở mức cơ bản là những quy chuẩn về ngôn ngữ, phong cách lập trình (&lt;strong&gt;Coding Conventions &amp;amp; Styles&lt;/strong&gt;). Ở mức cao hơn, là giải pháp cho một vấn đề cụ thể (&lt;strong&gt;Design Patterns&lt;/strong&gt;). &lt;strong&gt;Peer Review&lt;/strong&gt; là một cách làm tốt, ngoài việc nâng cao chất lượng source code, còn giúp những thành viên trong nhóm học hỏi lẫn nhau.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;TDD&lt;/strong&gt; (Test Driven Development) là một kỹ thuật tuyệt vời của Agile nhằm thu về một mối vấn đề không đồng nhất giữa tài liệu, source code và testing. Test được coi là tài liệu, là thiết kế bảo đảm sự đúng đắn của source code từ mức function (method - unit) tới một chức năng cụ thể về mặt người dùng.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Lập trình cặp&lt;/strong&gt; (Pair programming) luôn là vấn đề hoài nghi và gây nhiều tranh cãi trong Agile. Nhóm thực hành Agile nên thực hành lập trình cặp bất cứ khi nào có thể (nếu đủ nguồn lực). Nếu không, nên dành không gian cho việc lập trình cặp với những vấn đề phức tạp. Lập trình cặp ít khi cho hiệu quả nhìn thấy trực tiếp nhưng chất lượng phần mềm được cải thiện đáng kể.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Retrospective&lt;/strong&gt; là điều tuyệt vời mà Agile mang lại về mặt quy trình, giúp nhóm thực hành Agile rà soát lại và nhìn ra những vấn đề đã thực hiện tốt và những vấn đề cần giải quyết nhằm tìm ra những hành động đúng đắn, cũng như tìm ra quy trình của riêng nhóm.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Còn tiếp&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 05 Apr 2017 07:00:00 +0700</pubDate>
+        <link>http://notes.viphat.work/agile-y-part-1</link>
+        <guid isPermaLink="true">http://notes.viphat.work/agile-y-part-1</guid>
+        
+        <category>agile</category>
+        
+        <category>scrum</category>
+        
+        <category>kanban</category>
+        
+        
+      </item>
     
       <item>
         <title>My Project Infrastucture</title>
@@ -222,8 +320,8 @@
 Cập nhật gần đây nhất: 02/12/2016&lt;/p&gt;
 </description>
         <pubDate>Sun, 25 Dec 2016 07:00:00 +0700</pubDate>
-        <link>http://localhost:4000/my-project-infrastructure</link>
-        <guid isPermaLink="true">http://localhost:4000/my-project-infrastructure</guid>
+        <link>http://notes.viphat.work/my-project-infrastructure</link>
+        <guid isPermaLink="true">http://notes.viphat.work/my-project-infrastructure</guid>
         
         <category>server</category>
         
@@ -294,8 +392,8 @@ Cập nhật gần đây nhất: 02/12/2016&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
         <pubDate>Thu, 07 Jul 2016 07:00:00 +0700</pubDate>
-        <link>http://localhost:4000/scrum-primer-part-1</link>
-        <guid isPermaLink="true">http://localhost:4000/scrum-primer-part-1</guid>
+        <link>http://notes.viphat.work/scrum-primer-part-1</link>
+        <guid isPermaLink="true">http://notes.viphat.work/scrum-primer-part-1</guid>
         
         <category>scrum</category>
         
@@ -356,8 +454,8 @@ Cập nhật gần đây nhất: 02/12/2016&lt;/p&gt;
 &lt;p&gt;Dương Vì Phát&lt;/p&gt;
 </description>
         <pubDate>Tue, 05 Jul 2016 07:00:00 +0700</pubDate>
-        <link>http://localhost:4000/git-rebase-interactive</link>
-        <guid isPermaLink="true">http://localhost:4000/git-rebase-interactive</guid>
+        <link>http://notes.viphat.work/git-rebase-interactive</link>
+        <guid isPermaLink="true">http://notes.viphat.work/git-rebase-interactive</guid>
         
         <category>git</category>
         
@@ -425,8 +523,8 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 &lt;p&gt;&lt;a href=&quot;http://kipalog.com/posts/Toi-da-tu-bo-su-dung-Vagrant&quot;&gt;&lt;strong&gt;Tôi đã từ bỏ sử dụng Vagrant&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 23 Jun 2016 07:00:00 +0700</pubDate>
-        <link>http://localhost:4000/voc-thu-vagrant</link>
-        <guid isPermaLink="true">http://localhost:4000/voc-thu-vagrant</guid>
+        <link>http://notes.viphat.work/voc-thu-vagrant</link>
+        <guid isPermaLink="true">http://notes.viphat.work/voc-thu-vagrant</guid>
         
         <category>vagrant</category>
         
@@ -510,8 +608,8 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 &lt;/ul&gt;
 </description>
         <pubDate>Mon, 20 Jun 2016 07:00:00 +0700</pubDate>
-        <link>http://localhost:4000/rescue-standard-error-not-exception</link>
-        <guid isPermaLink="true">http://localhost:4000/rescue-standard-error-not-exception</guid>
+        <link>http://notes.viphat.work/rescue-standard-error-not-exception</link>
+        <guid isPermaLink="true">http://notes.viphat.work/rescue-standard-error-not-exception</guid>
         
         <category>ruby</category>
         
@@ -601,8 +699,8 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 &lt;/ul&gt;
 </description>
         <pubDate>Wed, 15 Jun 2016 07:00:00 +0700</pubDate>
-        <link>http://localhost:4000/tong-hop-roda-web-toolkit</link>
-        <guid isPermaLink="true">http://localhost:4000/tong-hop-roda-web-toolkit</guid>
+        <link>http://notes.viphat.work/tong-hop-roda-web-toolkit</link>
+        <guid isPermaLink="true">http://notes.viphat.work/tong-hop-roda-web-toolkit</guid>
         
         <category>ruby</category>
         
@@ -660,8 +758,8 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 &lt;p&gt;Nguồn: &lt;a href=&quot;http://mattsencenbaugh.com/on-being-a-junior-developer/&quot;&gt;&lt;strong&gt;On being a Junior Developer&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 07 Jun 2016 07:00:00 +0700</pubDate>
-        <link>http://localhost:4000/on-being-a-junior-developer</link>
-        <guid isPermaLink="true">http://localhost:4000/on-being-a-junior-developer</guid>
+        <link>http://notes.viphat.work/on-being-a-junior-developer</link>
+        <guid isPermaLink="true">http://notes.viphat.work/on-being-a-junior-developer</guid>
         
         <category>lap-trinh</category>
         
@@ -885,8 +983,8 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
 &lt;/blockquote&gt;
 </description>
         <pubDate>Mon, 06 Jun 2016 07:00:00 +0700</pubDate>
-        <link>http://localhost:4000/life-is-a-game</link>
-        <guid isPermaLink="true">http://localhost:4000/life-is-a-game</guid>
+        <link>http://notes.viphat.work/life-is-a-game</link>
+        <guid isPermaLink="true">http://notes.viphat.work/life-is-a-game</guid>
         
         <category>bai-hoc-cuoc-song</category>
         
@@ -977,87 +1075,14 @@ e73ab4 (Michelle 2015-12-26) 3) public static func main(){
 &lt;p&gt;&lt;img src=&quot;http://i.imgur.com/NRAlPiJ.png&quot; alt=&quot;Git Log&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 02 Jun 2016 07:00:00 +0700</pubDate>
-        <link>http://localhost:4000/a-better-git-blame</link>
-        <guid isPermaLink="true">http://localhost:4000/a-better-git-blame</guid>
+        <link>http://notes.viphat.work/a-better-git-blame</link>
+        <guid isPermaLink="true">http://notes.viphat.work/a-better-git-blame</guid>
         
         <category>git</category>
         
         <category>lap-trinh</category>
         
         <category>til</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Phương pháp học tích cực</title>
-        <description>&lt;h3 id=&quot;phương-pháp-học-tích-cực-là-gì&quot;&gt;Phương pháp học tích cực là gì?&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;Phương pháp học tích cực&lt;/strong&gt; - “&lt;a href=&quot;http://notes.viphat.work/hoc-lap-trinh-tu-sai-lam&quot;&gt;&lt;strong&gt;học qua hành&lt;/strong&gt;&lt;/a&gt;” - nhấn mạnh quá trình học tập và tiếp thu chứ không chú trọng vào kết quả, giúp cho người học phát triển khả năng tư duy độc lập, kỹ năng tự học và kỹ năng giải quyết vấn đề. Phương pháp này tập trung vào việc khuyến khích và động viên người học tự giác tìm kiếm từ nhiều nguồn thông tin, học bằng cách đọc, tự mình tổ chức, xử lý và tổng hợp thông tin thay vì lệ thuộc vào các bài giảng của giáo viên. Phương pháp học tích cực đòi hỏi người học phải có thái độ “tích cực”, tham gia vào các hoạt động như giải thích điều đã học dựa trên quan điểm riêng của người học, chia sẻ ý kiến cá nhân, trao đổi, tranh luận, phân tích, suy luận và ứng dụng thực tế nhằm tích lũy thêm nhiều tri thức cũng như kỹ năng cần thiết để nâng cao năng lực giải quyết vấn đề…&lt;/p&gt;
-
-&lt;h3 id=&quot;một-số-phương-pháp-học-tích-cực&quot;&gt;Một số phương pháp học tích cực&lt;/h3&gt;
-
-&lt;p&gt;Phương pháp học tích cực đòi hỏi người học &lt;strong&gt;chịu trách nhiệm về việc học của chính mình&lt;/strong&gt;. Vì vậy, việc xây dựng thói quen học tốt và biết cách quản lý thời gian hiệu quả sẽ giúp bạn thích nghi tốt với phương pháp học tích cực (&lt;strong&gt;Active Learning&lt;/strong&gt;) này. Một số phương pháp có thể áp dụng:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Học bằng cách đọc&lt;/strong&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Học bằng cách viết tay&lt;/strong&gt; - Việc ghi chú bằng tay giúp cải thiện khả năng tiếp thu. (Đối với việc ghi chú bằng máy tính / máy tính bảng thì ghi chú bằng viết tay cũng hiệu quả hơn - &lt;a href=&quot;http://www.scientificamerican.com/article/a-learning-secret-don-t-take-notes-with-a-laptop/&quot;&gt;&lt;strong&gt;Don’t take notes with a laptop&lt;/strong&gt;&lt;/a&gt;)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Học theo nhóm&lt;/strong&gt;: Thảo luận giúp người học rèn luyện tư duy phản biện và học cách trao đổi, trình bày quan điểm của bản thân trước nhiều người. Đồng thời tạo thêm hứng thú và giúp người học tham gia tích cực hơn, học được nhiều hơn thay vì thụ động ngồi nghe giảng hay đọc sách.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Đôi bạn cùng tiến&lt;/strong&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Tranh luận&lt;/strong&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Học bằng cách đặt câu hỏi&lt;/strong&gt;: 5W 1H - (Who, What, Where, When, Why), (How)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Làm bài tập&lt;/strong&gt;  - Học cách giải quyết vấn đề, áp dụng lý thuyết vào thực tế.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Học từ thất bại&lt;/strong&gt; - Để cảm giác thất bại hủy hoại bản thân hay biến chúng thành động lực vượt qua thử thách chính là chọn lựa của riêng bạn.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;hình-thành-các-thói-quen-học-tập-tốt&quot;&gt;Hình thành các thói quen học tập tốt&lt;/h3&gt;
-
-&lt;p&gt;Rũ bỏ suy nghĩ “&lt;strong&gt;Học nghĩa là mở sách/tài liệu ra rồi đọc, sau đó cố gắng ghi nhớ nội dung&lt;/strong&gt;” - Một số người đọc sách nhưng tâm trí không tập trung vào nội dung quyển sách mình đang đọc, số khác lại chịu ảnh hưởng của các vật dụng công nghệ cao. Nhiều người chỉ đọc vài phút liền rơi vào giấc ngủ. Để có thể cải thiện kỹ năng đọc và hiệu quả học, bạn cần loại bỏ mọi thứ có thể khiến bạn xao nhãng và ngắt quãng quá trình học của mình. Đây là vài lời khuyên ngắm giúp bạn học tốt hơn:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Có khu vực dành riêng cho học tập&lt;/strong&gt; - Nếu không có không gian riêng tại nhà, hãy tìm đến thư viện hoặc những nơi vắng vẻ, yên tĩnh. Đừng cho phép bản thân mình chú ý tới bất kỳ cái gì khác ngoài việc học.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Lên kế hoạch và đặt mục tiêu cho từng lần học&lt;/strong&gt; - Việc đề ra các mục tiêu và gạch bỏ chúng sau khi hoàn thành sẽ giúp bạn cảm nhận được kết quả của sự nỗ lực.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Ghi chú những điều quan trọng cần phải nhớ&lt;/strong&gt; vào một quyển sổ và thường xuyên mang sổ theo bên người. Bởi vì cố gắng ghi nhớ không phải là một lựa chọn khôn ngoan.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Nghỉ ngơi đều đặn để giữ cho tâm trí luôn minh mẫn và tỉnh táo&lt;/strong&gt; - Bạn không cần phải học mọi lúc, bạn cần học hiệu quả. Vì vậy hãy dành ra khoảng thời gian nghỉ ngơi chất lượng, giúp thư giãn và điều tiết mắt.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;kỹ-năng-đọc&quot;&gt;Kỹ năng đọc&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;Kỹ năng đọc&lt;/strong&gt; rất quan trọng đối với sự học. Bạn cần ý thức và chủ động phát triển thói quen đọc tốt mới có thể tiến xa trên con đường tự học. Trước khi đọc một chương trong sách, bạn cần xem kỹ mục lục để nắm bắt ý tưởng và kết cấu của cuốn sách. Sau khi đọc xong mỗi đoạn, hãy tạm ngừng một chút và tự hỏi bản thân ý chính của đoạn văn này là gì, tóm tắt ý chính rồi ghi chú vào sổ tay riêng (sổ thông thái). Với những quyển sách có các sơ đồ và biểu đồ, bạn cần đảm bảo rằng bạn hiểu rõ chúng. Khi đọc, đừng cố dịch từng từ vì nếu bạn là như vậy thì bạn sẽ bỏ lỡ ý chính của cả đoạn văn. Ban đầu, bạn nên đọc lướt cả đoạn để nắm lấy ý chung. Sau đó, hãy đọc lại một lần nữa. Nghĩa văn bản sẽ trở nên rõ ràng hơn khi bạn đã nắm được ý chính. Nếu lúc này bạn vẫn không hiểu thì hãy dùng từ điển để kiểm tra nghĩa của một số từ quan trọng.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Học mà không hiểu, không biết cách thực hành điều bạn đã học. Không phải là học. Ghi nhớ không phải là học.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;Bài tập&lt;/strong&gt; (tuy có vẻ không liên quan đến chủ đề của bài viết lắm nhưng bài tập này là để trả lời cho câu hỏi - &lt;strong&gt;mục đích của sự học&lt;/strong&gt; (của bạn) là gì?)&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Mục tiêu nghề nghiệp của bạn là gì? Ngắn hạn, dài hạn? 2 năm tới, 5 năm tới, 10 năm tới? Cụ thể?&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;– Trích từ quyển &lt;strong&gt;Khởi hành - Lời khuyên sinh viên Việt Nam&lt;/strong&gt; - &lt;strong&gt;Giáo sư John Vũ&lt;/strong&gt;&lt;/p&gt;
-</description>
-        <pubDate>Wed, 01 Jun 2016 07:00:00 +0700</pubDate>
-        <link>http://localhost:4000/active-learning</link>
-        <guid isPermaLink="true">http://localhost:4000/active-learning</guid>
-        
-        <category>active-learning</category>
         
         
       </item>
