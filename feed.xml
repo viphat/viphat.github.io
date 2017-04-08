@@ -6,12 +6,12 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 06 Apr 2017 00:16:54 +0700</pubDate>
-    <lastBuildDate>Thu, 06 Apr 2017 00:16:54 +0700</lastBuildDate>
+    <pubDate>Sat, 08 Apr 2017 13:56:29 +0700</pubDate>
+    <lastBuildDate>Sat, 08 Apr 2017 13:56:29 +0700</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
-        <title>Tóm tắt sách Agile Y - Phần 1</title>
+        <title>Tóm tắt sách Agile Y</title>
         <description>&lt;h1 id=&quot;agile-y&quot;&gt;Agile Y&lt;/h1&gt;
 &lt;p&gt;Tóm lược Sách &lt;strong&gt;Agile Y&lt;/strong&gt; - Tác giả &lt;strong&gt;Nguyễn Văn Hiển&lt;/strong&gt;&lt;/p&gt;
 
@@ -92,12 +92,63 @@
 
 &lt;hr /&gt;
 
-&lt;p&gt;Còn tiếp&lt;/p&gt;
+&lt;p&gt;Chương 6 - Nhóm tự tổ chức liên chức năng
+Nhóm tự tổ chức liên chức năng (Cross-Functional and Self-Organized Team) là nhóm tập hợp những cá nhân có đầy đủ kiến thức, kỹ năng cần thiết để cam kết và thực hiện một mục tiêu đề ra. Nhóm liên chức năng hoạt động như một đơn vị, những thành viên thường xuyên trao đổi, cộng tác và hỗ trợ nhau trong những hoạt động, công việc cần thiết nhằm đạt được mục tiêu chung.&lt;/p&gt;
+
+&lt;p&gt;Nhóm tự tổ chức là nhóm không tập trung quyền hạn vào một thành viên cụ thể; tự định nghĩa và thực hành cách thức thực hiện, cộng tác để đạt được mục tiêu đề ra, có thể tự đưa ra quyết định mà không phụ thuộc vào hệ thống bên ngoài nhóm.&lt;/p&gt;
+
+&lt;p&gt;Nhóm tự tổ chức liên chức năng là nhóm được hình thành bởi những cá nhân có đầy đủ kiến thức, kỹ năng cần thiết để hướng tới mục tiêu được đặt ra, thông qua việc thường xuyên trao đổi, cộng tác, hỗ trợ lẫn nhau, nhóm tự đưa ra quy trình, cách thức cũng như quyết định để đạt được mục tiêu chung và hông chịu tác động của bất kỳ hệ thống nào ngoài nhóm.&lt;/p&gt;
+
+&lt;p&gt;Nhóm tự tổ chức liên chức năng luôn yêu cầu sự dũng cảm, cam kết và kỹ năng cộng tác. Nhóm tự tổ chức liên chức năng luôn trải qua những trạng thái &lt;strong&gt;Forming&lt;/strong&gt;, &lt;strong&gt;Storming&lt;/strong&gt;, &lt;strong&gt;Norming&lt;/strong&gt; và &lt;strong&gt;Performing&lt;/strong&gt; với những đặc trưng khác nhau. Vai trò của tổ chức và những người quản lý dành cho nhóm tự tổ chức liên chức năng vẫn rất lớn, giúp nhóm nhanh chóng đạt được và duy trì trạng thái Performing.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;chương-7---mở-rộng-agile&quot;&gt;Chương 7 - Mở rộng Agile&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Scrum of Scrums&lt;/strong&gt; là một phương pháp mở rộng rất tự nhiên của Scrum. Thay vì mở rộng nhóm Scrum thành một nhóm lớn hơn. Tổ chức duy trì nhóm Scrum vật lý như một thành phần đơn vị và tạo ra sự liên kết giữa những thành phần này thông qua một nhóm Scrum logic.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SAFe&lt;/strong&gt; hướng trọng tâm vào sự cộng tác, điều chỉnh và chuyển giao với nhiều nhóm thực hành Agile trong một tổ chức lớn, thường phù hợp với 8 nhóm thực hành Agile với khoảng 100 nhân sự. Tư tưởng chính của SAFe là phân chia thành nhiều mức (level) khác nhau, bao gồm: &lt;strong&gt;Team&lt;/strong&gt;, &lt;strong&gt;Program&lt;/strong&gt;, &lt;strong&gt;Portfolio&lt;/strong&gt;, &lt;strong&gt;value Stream&lt;/strong&gt;. Cộng tác với nhau thông qua Agile Release Train.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;LeSS&lt;/strong&gt; hoạt động gần như chính xác theo cách Scrum được định nghĩa, chỉ giải quyết bài toàn hàng chục nhân sự bằng cách cấu trúc thành những nhóm Scrum, phân tách những hoạt động như Sprint Planning, Sprint Retrospective thành hai mức khác nhau, cho nhóm Scrum và nhóm LeSS.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Đối với Nexus&lt;/strong&gt;, tư tưởng chung là tạo thêm một thành phần nữa để kết nối và tích hợp giữa những nhóm thực hành Scrum, biểu hiện ở Artifact với Nexus Sprint Backlog, Nexus Sprint Goal hay sự kiện với Nexus Daily Scrum, Nexus Sprint Review… được thực hành bởi một nhóm cố định là Nexus Integration Team.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;chương-8---tổ-chức-agile&quot;&gt;Chương 8 - Tổ chức Agile&lt;/h2&gt;
+&lt;p&gt;Xây dựng tổ chức Agile không thực sự là điều khó khắn, nhưng thực hiện sớm nhất có thể sẽ giúp tổ chức tiết kiệm công sức và chi phí chuyển đổi. Cấu trúc tổ chức xoay quanh khách hàng và sản phẩm hơn là quy tắc quản lý và kiểm soát là điều quan trọng nhất. Khi đã lựa chọn Agile, hãy thực hiện đúng ngay từ ban đầu, đánh giá trước khi đưa ra những thay đổi. Khả năng thực hiện đúng Agile chính là lợi thế lớn nhất của những tổ chức vừa và nhỏ. Hãy cổ vũ cho việc thay đổi hành vi của tổ chức thông qua học tập, thử nghiệm sớm là việc quan trọng để duy trì tính bền vững của tổ chức.&lt;/p&gt;
+
+&lt;p&gt;Chuyển đổi tổ chức sang mô hình Agile là thử thách lớn hơn rất nhiều, và không có công thức thành công chung.  Thực sự Agile không phải là mục tiêu của tổ chức , đó là công cụ để sản sinh giá trị cho khách hàng, cho tổ chức. Song thực sự Agile thường là công cụ cho ra giá trị bước ngoặt so với thực hành Agile. Các tổ chức thường tiếp cận việc chuyển đổi thông qua chuyển dịch từng bước; song chuyển dịch bước ngoặt cũng là một lựa chọn khả thi.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;chương-9---quản-lý-cá-nhân&quot;&gt;Chương 9 - Quản lý cá nhân&lt;/h2&gt;
+
+&lt;p&gt;Thời gian là yếu tố cố định duy nhất trong thế giới ngày nay. Bất kể chúng ta có kỹ năng quản lý thời gian tốt đến đâu, vẫn là chưa đủ. Chúng ta cần nhìn nhận về giá trị công việc nhiều hơn là số lượng công việc được làm trong khoảng thời gian hữu hạn. Quản lý năng lượng là cách tốt nhất để thực hiện những công việc tập trung vào giá trị.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;chương-10---trợ-giúp-của-kanban&quot;&gt;Chương 10 - Trợ giúp của Kanban&lt;/h2&gt;
+&lt;p&gt;Kanban cá nhân cung cấp một cách quản lý (công việc) cá nhân tập trung vào luồng công việc nhằm tối đa hóa giá trị.&lt;/p&gt;
+
+&lt;p&gt;Trực quan hóa là nguyên lý nổi bật nhất. Tập trung là nguyên lý quan trọng nhất. Ưu tiên tạo ra hiệu quả. Luồng công việc tạo ra kiểm soát. Trạng thái công việc tạo ra động lực. Hãy luôn đặt ra giới hạn WIP và cam kết thực hiện cho tới khi bạn tìm thấy lý do chính đáng để điều chỉnh.&lt;/p&gt;
+
+&lt;p&gt;Một bảng Kanban cá nhân thường bao gồm 2 cột cố định là TO-DO và DONE; Xen giữa là những cột khác thể hiện luồng công việc; song không nên có quá nhiều cột. Việc chụp lại tình trạng mọi công việc trong 15 giây là quan trọng nhất.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;chương-11---tối-ưu-hiệu-quả&quot;&gt;Chương 11 - Tối ưu hiệu quả&lt;/h2&gt;
+&lt;p&gt;Hãy luôn có định nghĩa hoàn thành công việc trước khi bắt đầu lên kế hoạch cho bất cứ công việc nào, điều này giúp chúng ta xác định rõ kỳ vọng, tiến độ công việc vào bất cứ thời điểm nào.&lt;/p&gt;
+
+&lt;p&gt;Luôn tập trung, hãy làm những công việc giá trị nhất hơn là làm nhiều việc.&lt;/p&gt;
+
+&lt;p&gt;Cố gắng ủy quyền với những công việc không mang lại nhiều giá trị cho bản thân, đặc biệt không giúp ích trong việc phát triển cá nhân. Hãy cố gắng ủy quyền dựa trên công nghệ và tiền bạc với những dịch vụ tốt nhất có thể. Sau đó là ủy quyền dựa trên quan hệ và quyền hạn.&lt;/p&gt;
+
+&lt;p&gt;Sống theo Sprint. Luôn nhìn lại và đánh giá cách làm của những công việc đã qua theo một chu kỳ đều đặn. Lựa chọn một số ít cải tiến song hãy có cam kết chặt chẽ.&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 05 Apr 2017 07:00:00 +0700</pubDate>
-        <link>http://notes.viphat.work/agile-y-part-1</link>
-        <guid isPermaLink="true">http://notes.viphat.work/agile-y-part-1</guid>
+        <link>http://notes.viphat.work/agile-y</link>
+        <guid isPermaLink="true">http://notes.viphat.work/agile-y</guid>
         
         <category>agile</category>
         
