@@ -6,13 +6,15 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 20 Apr 2017 09:03:37 +0700</pubDate>
-    <lastBuildDate>Thu, 20 Apr 2017 09:03:37 +0700</lastBuildDate>
+    <pubDate>Thu, 20 Apr 2017 09:41:34 +0700</pubDate>
+    <lastBuildDate>Thu, 20 Apr 2017 09:41:34 +0700</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
         <title>[til] - The Art Of Naming</title>
-        <description>&lt;p&gt;Some Notes from &lt;a href=&quot;https://hackernoon.com/software-complexity-naming-6e02e7e6c8cb&quot;&gt;Software Complexity: The Art of Naming - Hackernoon&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;hr /&gt;
+
+&lt;p&gt;Some Notes from &lt;a href=&quot;https://hackernoon.com/software-complexity-naming-6e02e7e6c8cb&quot;&gt;Software Complexity: The Art of Naming - Hackernoon&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;First, Naming things is hard. No, Naming things is simple, but Conveying meaning may be hard, but this is a learned skill by practice. Read a bunch, the more you expand your vocabulary the more you’ll gain understanding in conveying meaning.&lt;/p&gt;
 
@@ -168,7 +170,7 @@ I collapsed all those tables into one called &lt;code class=&quot;highlighter-ro
 &lt;p&gt;Words can mean different things depending on context, and when we leverage context, we can choose simpler words for components.&lt;/p&gt;
 
 </description>
-        <pubDate>Wed, 05 Apr 2017 07:00:00 +0700</pubDate>
+        <pubDate>Thu, 20 Apr 2017 07:00:00 +0700</pubDate>
         <link>http://notes.viphat.work/til-the-art-of-naming</link>
         <guid isPermaLink="true">http://notes.viphat.work/til-the-art-of-naming</guid>
         
