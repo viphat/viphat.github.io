@@ -6,9 +6,178 @@
 </description>
     <link>http://notes.viphat.work/</link>
     <atom:link href="http://notes.viphat.work/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 08 Apr 2017 13:56:29 +0700</pubDate>
-    <lastBuildDate>Sat, 08 Apr 2017 13:56:29 +0700</lastBuildDate>
+    <pubDate>Thu, 20 Apr 2017 09:03:37 +0700</pubDate>
+    <lastBuildDate>Thu, 20 Apr 2017 09:03:37 +0700</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
+    
+      <item>
+        <title>[til] - The Art Of Naming</title>
+        <description>&lt;p&gt;Some Notes from &lt;a href=&quot;https://hackernoon.com/software-complexity-naming-6e02e7e6c8cb&quot;&gt;Software Complexity: The Art of Naming - Hackernoon&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;First, Naming things is hard. No, Naming things is simple, but Conveying meaning may be hard, but this is a learned skill by practice. Read a bunch, the more you expand your vocabulary the more you’ll gain understanding in conveying meaning.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/HQiwe9w.png&quot; alt=&quot;Restroom&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;corollary-1-container-name-is-a-function-of-its-elements&quot;&gt;Corollary 1: Container name is a function of its elements&lt;/h3&gt;
+
+&lt;p&gt;Does it have a bed? Then it’s a bedroom.&lt;/p&gt;
+
+&lt;p&gt;Now, the opposite is also true: based on the container name we can infer its components. If we were talking about a bedroom it would very likely that it had a bed.&lt;/p&gt;
+
+&lt;h3 id=&quot;corollary-2-we-can-infer-components-based-on-the-container-name&quot;&gt;Corollary 2: we can infer components based on the container name.&lt;/h3&gt;
+
+&lt;h3 id=&quot;corollary-3-the-clarity-with-which-a-container-is-defined-is-proportional-to-how-closely-related-its-components-are&quot;&gt;Corollary 3: the clarity with which a container is defined is proportional to how closely related its components are.&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/P7EZbOt.png&quot; alt=&quot;Monster&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The problem here lies not in the amount of objects in the same room, but that completely unrelated things are being treated as if they had the same functions. At home, we put together things that have the same concern, purpose and intent and that makes organizing easier, whereas by messing with these responsibilities we cannot be sure what the architects wanted or how these objects are meant to be used. By messing, we block flow.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/MKvxiaq.png&quot; alt=&quot;Clarity &amp;amp; Relation&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;When components are related, it’s easier to find a good name&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;When things are unrelated, it becomes increasingly difficult&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Our understanding is correlative to our perception.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;example-http-domain-and-a-car&quot;&gt;Example: HTTP domain and a car&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public interface WhatIsAGoodNameForThis {
+  /* methods for a car */
+  public void gas();
+  public void brake();
+  /* methods for an HTTP client */
+  public Response makeGetRequest(String param);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;example-names-guiding-design&quot;&gt;Example: names guiding design&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class PostAlerter
+ def notify\_post\_users
+ def notify\_group\_summary
+ def notify\_non\_pm\_users
+ def create_notification
+ def unread_posts
+ def unread_count
+ def group_stats
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The name PostAlerter suggests functionalities that alert someone about a post. However, unread_posts, unread_count and group_stats clearly deal with something else, making this class name not ideal for what it does. Moving those three methods to a class called PostsStatistics would make matters clearer and more predictable for newcomers.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class PostAlerter
+ def notify_post_users
+ def notify_group_summary
+ def notify_non_pm_users
+ def create_notification
+end
+
+class PostsStatistics
+ def unread_posts
+ def unread_count
+ def group_stats
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;method-1-break-apart&quot;&gt;Method 1: Break Apart&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/zqnCgVB.png&quot; alt=&quot;Divide and... name&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;When to use&lt;/strong&gt;: You cannot find a good name for a class or component, but you already have isolated concepts and want to find good names for their groupings.&lt;/p&gt;
+
+&lt;p&gt;It consists in two steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;identify the concepts we have&lt;/li&gt;
+  &lt;li&gt;break them apart&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In the toilet + bed scenario, we pull apart each different thing we can identify by pushing bed to the left, toilet to the right. Ok, now we have two separate things that we can finally reason about in a natural way.&lt;/p&gt;
+
+&lt;p&gt;When you cannot find a good name for something, you probably have more than one thing in front of you. And, as you know by now, naming multiple things is hard. When in trouble, try to identify what pieces and actions compose what you have.&lt;/p&gt;
+
+&lt;h4 id=&quot;example&quot;&gt;Example&lt;/h4&gt;
+
+&lt;p&gt;We have an unnamed class containing a &lt;code class=&quot;highlighter-rouge&quot;&gt;request&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;response&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;headers&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;URLs&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;body&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;caching&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;timeout&lt;/code&gt;. Pulling all those apart from this main class, we’re left with the components &lt;code class=&quot;highlighter-rouge&quot;&gt;Request&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Response&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Headers&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;URLs&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ResponseBody&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Cache&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Timeout&lt;/code&gt; and so on. If all we had was the name of these classes, we could fairly sure assume we were dealing with a web request. A good candidate for a web request component is &lt;code class=&quot;highlighter-rouge&quot;&gt;HTTPClient&lt;/code&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;When the code is hard, don’t think about the whole first. Don’t. Think about the parts.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;method-2-discover-new-concepts&quot;&gt;Method 2: Discover New Concepts&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/Z6gNKwJ.png&quot; alt=&quot;New Concept&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;When to apply&lt;/strong&gt;: when a class is not simple or coherent.&lt;/p&gt;
+
+&lt;p&gt;Discovering new concepts requires knowledge of the business domain. When software applies the same nomenclatures as the business, an ubiquitous language is established. one that allows professionals from different areas of expertise to speak the same idioms.&lt;/p&gt;
+
+&lt;h4 id=&quot;example-encapsulating-components-into-one-new-concept&quot;&gt;Example: Encapsulating components into one new concept&lt;/h4&gt;
+
+&lt;p&gt;This marketplace ecommerce charged students with different rules in different countries with multiple payment gateways. Requirements were fairly complex. When I saw the charge code, &lt;code class=&quot;highlighter-rouge&quot;&gt;PaymentGateway&lt;/code&gt;, I was shocked at how complicated it was, with several dependencies, including: &lt;code class=&quot;highlighter-rouge&quot;&gt;User&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;UserAddress&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;CreditCard&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;BillingAddress&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;SellerAddress&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;LineItems&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Discounts&lt;/code&gt;, and more. Its constructor was gigantic and this complexity made it hard to add new rules, as touching one thing broke others, as well as requiring us to change all gateway adapters.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Here I am, with these details about things I need you (the PaymentGateway) to charge for me. If this was a desk, I’d have these papers organized and I’d probably call them Invoices. So what if I created one class called Invoice, which is nothing more than the aggregation of all these other details, such that the gateway doesn’t need to know how those rules are done because Invoice will? Instead of injecting a million objects, I just hand one over to you?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The Invoice term wasn’t used anywhere. We spent a month refactoring on the side and once we were done, we were able to change the software much more swiftly.&lt;/p&gt;
+
+&lt;p&gt;Invoice is a good example of concept that is but an aggregation of data from many sources and the majority knows what it is. The final solution added the Invoice class which alone was injected into the gateways, serving as a facade pattern and hiding other classes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Good naming is not just about writing beautiful words, but also writing precisely what needs to be expressed that wasn’t before&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;example-pivoting-names-based-on-the-business-domain&quot;&gt;Example: Pivoting names based on the business domain&lt;/h4&gt;
+
+&lt;h4 id=&quot;example-generalization&quot;&gt;Example: Generalization&lt;/h4&gt;
+
+&lt;p&gt;A long ago, a CMS had database tables &lt;code class=&quot;highlighter-rouge&quot;&gt;news&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;history&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;videos&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;articles&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;pages&lt;/code&gt; and other. Most of them had the same columns, &lt;code class=&quot;highlighter-rouge&quot;&gt;title&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;summary&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;text&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;videos&lt;/code&gt; table had extra attributes such as &lt;code class=&quot;highlighter-rouge&quot;&gt;url&lt;/code&gt; (to embed YouTube) and &lt;code class=&quot;highlighter-rouge&quot;&gt;history&lt;/code&gt; had a &lt;code class=&quot;highlighter-rouge&quot;&gt;date&lt;/code&gt; attribute so the page would show a list of historic events by year. All these tables looked like copies, with a few differences here and there, and adding new functionality required rewriting a lot of boilerplate all over again.
+I collapsed all those tables into one called &lt;code class=&quot;highlighter-rouge&quot;&gt;contents&lt;/code&gt; with a foreign key pointing to a table called &lt;code class=&quot;highlighter-rouge&quot;&gt;sections&lt;/code&gt;, which had the list of sections such as news, history, videos and others. Now, one code for contents was enough. Once the forms for managing content were done, it took 1/N of the time it would normally take to implement anything because for every new section of the same type, it was already done.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Generalizing&lt;/strong&gt; by giving it another name enables great productivity. News is a Content. Article is a Content. History is a Content. Can all of these share the same attributes? Yes. Survey? No, not a Content.&lt;/p&gt;
+
+&lt;h3 id=&quot;method-3-criteria-for-grouping&quot;&gt;Method 3: Criteria For Grouping&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;When to use&lt;/strong&gt;: when names are good but they don’t fit well with each other.&lt;/p&gt;
+
+&lt;p&gt;Components can be grouped by a variety of criteria, including physical nature, economic, emotional, social and, the most used in software, functional.&lt;/p&gt;
+
+&lt;p&gt;Example: Couch and TV stay in the same room, grouped together based on a functional criteria, as they both have the same function or purpose, to provide leisure.&lt;/p&gt;
+
+&lt;p&gt;In software, we tend to group components by function. List your project files and you will probably see something like &lt;code class=&quot;highlighter-rouge&quot;&gt;controllers/&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;models/&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;adapters/&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;templates/&lt;/code&gt; and so on. However, some times these groups will not feel comfortable and that will be the perfect time to reevaluate the structure of your modules.&lt;/p&gt;
+
+&lt;h3 id=&quot;leveraging-contexts&quot;&gt;Leveraging Contexts&lt;/h3&gt;
+
+&lt;p&gt;Every app has a different context, and every module within it, every class within them, down to every function. The word &lt;em&gt;User&lt;/em&gt; alone could mean user of the system, but also perhaps a database table, or a 3rd-party service credential. &lt;code class=&quot;highlighter-rouge&quot;&gt;lib/billing/user&lt;/code&gt; differs from &lt;code class=&quot;highlighter-rouge&quot;&gt;lib/booking/user&lt;/code&gt;, but they’re still user.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/xjbvBDN.png&quot; alt=&quot;User&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine that every container, such as a module, is a bucket. Within them, components are insulated from the outer world. You’re free to name those classes whatever you want. It frees the mind from having to find esoteric names for common things.&lt;/p&gt;
+
+&lt;h4 id=&quot;example-namespaces&quot;&gt;Example: Namespaces&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Adwords::Ad&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Facebook::Ad&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Bing::Ad&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;RemoteAdService::Ad&lt;/code&gt; - Interface between those classes.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Database::Ad&lt;/code&gt; - this is the ORM for the ads table.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;GUI::Ad&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;API::Ad&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Words can mean different things depending on context, and when we leverage context, we can choose simpler words for components.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 05 Apr 2017 07:00:00 +0700</pubDate>
+        <link>http://notes.viphat.work/til-the-art-of-naming</link>
+        <guid isPermaLink="true">http://notes.viphat.work/til-the-art-of-naming</guid>
+        
+        <category>software development</category>
+        
+        <category>programming</category>
+        
+        
+      </item>
     
       <item>
         <title>Tóm tắt sách Agile Y</title>
@@ -1038,102 +1207,6 @@ config.vm.network &quot;forwarded_port&quot;, guest: 6379, host: 6379
         <guid isPermaLink="true">http://notes.viphat.work/life-is-a-game</guid>
         
         <category>bai-hoc-cuoc-song</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Sử dụng Git blame hiệu quả hơn</title>
-        <description>&lt;p&gt;#TIL - Đây là bài học học được hôm nay: Đồng nghiệp phát hiện một bug nghiêm trọng làm lộ thông tin cá nhân của Users, mình phải sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; để xác định ai là người gây ra lỗi, tuy nhiên trong trường hợp này, &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; đã không chính xác vì nghĩ là bạn H là author của dòng code này, nhưng thực sự thì bạn H chỉ xóa bớt khoảng trắng, thêm dấu phẩy mà thôi. Sau khi trace tiếp thì phát hiện original author của dòng code đó là mình (vào khoảng 6 tháng trước).&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;TL;DR &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; hiếm khi cho bạn kết quả hữu ích. Thay vào đó có thể sử dụng các options trên &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; để tìm đúng tác giả, người chịu trách nhiệm cho sự thay đổi không mong đợi.&lt;/p&gt;
-
-&lt;h3 id=&quot;git-blame-hoạt-động-như-thế-nào&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; hoạt động như thế nào&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; tìm kiếm lịch sử commit để tìm người cuối cùng chỉnh sửa dòng code. Một số Editors có tích hợp chức năng này vào công cụ của họ, cũng như Github, Gitlab hay Bitbucket… cũng đều có &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; ngay trong giao diện (rất dễ để theo dõi và truy vết). Tuy vậy, bạn cũng có thể dùng command line:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-git blame path/to/file
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;Output của &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; trên command-line&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;e45ad3 (Tim 2016-01-01)      1) import x from y;
-8890d2 (Jeremy 2016-01-13)   2) import z from h;
-e73ab4 (Michelle 2015-12-26) 3) public static func main(){
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Output của &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; trên &lt;strong&gt;Bitbucket&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/7DUGSmo.png&quot; alt=&quot;Bitbucket Git Blame&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;(Cá nhân mình thì cảm thấy nhìn trên GUI sẽ trực quan  và dễ dàng hơn.)&lt;/p&gt;
-
-&lt;p&gt;Ngoài ra, Bạn có thể cải thiện &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; bằng cách truyền options nhắc &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; ignore whitespaces cũng như detect moved code bằng:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git blame -w -M
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;vậy-có-gì-không-ổn-với-git-blame&quot;&gt;Vậy có gì không ổn với &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;Vấn đề là &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; chỉ thể hiện người cuối cùng chỉnh sửa dòng code. Và điều này không chắc là thứ bạn muốn xác định, &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; không hẳn chỉ ra đúng người chủ thực sự của dòng đó bởi vì rơi vào những trường hợp sau, &lt;code class=&quot;highlighter-rouge&quot;&gt;git blame&lt;/code&gt; vẫn xem đó là author của dòng code đó:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Thay đổi identing và formatting của dòng code.&lt;/li&gt;
-  &lt;li&gt;Di chuyển code bên trong file.&lt;/li&gt;
-  &lt;li&gt;Đổi tên file.&lt;/li&gt;
-  &lt;li&gt;Nhưng thay đổi không đáng kể như thêm/bớt khoảng trắng…&lt;/li&gt;
-  &lt;li&gt;Di chuyển file.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;giải-pháp---sử-dụng-git-log&quot;&gt;Giải pháp - sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; là công cụ rất đa năng, trong trường hợp này, bạn có thể tận dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; để chỉ ra original author của dòng code bạn muốn tìm:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git log -p -M --follow --stat -- path/to/your/file
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;: General command to show multiple commits&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt;: Show patches, as in show what actually changed for each commit.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-M&lt;/code&gt;: Show file renames in a readable way. Ví dụ:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;path/to/{oldName.css =&amp;gt; newName.css}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--follow&lt;/code&gt;: If file is renamed, this will keep following changes through the old file.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--stat&lt;/code&gt;:&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-- path/to/file&lt;/code&gt;: specify a single file&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Kết quả:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/NRAlPiJ.png&quot; alt=&quot;Git Log&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 02 Jun 2016 07:00:00 +0700</pubDate>
-        <link>http://notes.viphat.work/a-better-git-blame</link>
-        <guid isPermaLink="true">http://notes.viphat.work/a-better-git-blame</guid>
-        
-        <category>git</category>
-        
-        <category>lap-trinh</category>
-        
-        <category>til</category>
         
         
       </item>

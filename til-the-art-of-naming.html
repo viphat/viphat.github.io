@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>[til] - The Art Of Naming</title>
+  <meta name="description" content="Some Notes from Software Complexity: The Art of Naming - Hackernoon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes.viphat.work">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Notes.viphat.work">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <link rel="shortcut icon" type="image/ico" href="https://s3-ap-southeast-1.amazonaws.com/tusach.viphat.work/favicon.ico" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="stylesheet" href="/css/cayman.css">
+  <link rel="canonical" href="http://notes.viphat.work/til-the-art-of-naming">
+  <link rel="alternate" type="application/rss+xml" title="notes.viphat.work" href="http://notes.viphat.work/feed.xml">
+</head>
+
+
+  <body>
+    <section class="page-header">
+  <a id='blog-logo' href='/'>
+    <img src="https://s3-ap-southeast-1.amazonaws.com/viphat.work/blog/avatar-ninja.png" alt="viphat's notes"/>
+  </a>
+  <h1 class="project-name">
+    <a href='/' style='text-decoration: none; color: #fff;'>notes.viphat.work</a>
+  </h1>
+  <h2 class="project-tagline">On the way to become a senior Ruby developer</h2>
+</section>
+
+
+    <section class="main-content">
+      
+        
+          software development
+        
+          programming
+        
+        -
+        
+        
+          It costs 7 mins to read
+        
+      
+
+      <p>Some Notes from <a href="https://hackernoon.com/software-complexity-naming-6e02e7e6c8cb">Software Complexity: The Art of Naming - Hackernoon</a></p>
+
+<p>First, Naming things is hard. No, Naming things is simple, but Conveying meaning may be hard, but this is a learned skill by practice. Read a bunch, the more you expand your vocabulary the more you’ll gain understanding in conveying meaning.</p>
+
+<p><img src="http://i.imgur.com/HQiwe9w.png" alt="Restroom" /></p>
+
+<h3 id="corollary-1-container-name-is-a-function-of-its-elements">Corollary 1: Container name is a function of its elements</h3>
+
+<p>Does it have a bed? Then it’s a bedroom.</p>
+
+<p>Now, the opposite is also true: based on the container name we can infer its components. If we were talking about a bedroom it would very likely that it had a bed.</p>
+
+<h3 id="corollary-2-we-can-infer-components-based-on-the-container-name">Corollary 2: we can infer components based on the container name.</h3>
+
+<h3 id="corollary-3-the-clarity-with-which-a-container-is-defined-is-proportional-to-how-closely-related-its-components-are">Corollary 3: the clarity with which a container is defined is proportional to how closely related its components are.</h3>
+
+<p><img src="http://i.imgur.com/P7EZbOt.png" alt="Monster" /></p>
+
+<p>The problem here lies not in the amount of objects in the same room, but that completely unrelated things are being treated as if they had the same functions. At home, we put together things that have the same concern, purpose and intent and that makes organizing easier, whereas by messing with these responsibilities we cannot be sure what the architects wanted or how these objects are meant to be used. By messing, we block flow.</p>
+
+<p><img src="http://i.imgur.com/MKvxiaq.png" alt="Clarity &amp; Relation" /></p>
+
+<p><strong>When components are related, it’s easier to find a good name</strong>.</p>
+
+<p><strong>When things are unrelated, it becomes increasingly difficult</strong>.</p>
+
+<blockquote>
+  <p>Our understanding is correlative to our perception.</p>
+</blockquote>
+
+<h4 id="example-http-domain-and-a-car">Example: HTTP domain and a car</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public interface WhatIsAGoodNameForThis {
+  /* methods for a car */
+  public void gas();
+  public void brake();
+  /* methods for an HTTP client */
+  public Response makeGetRequest(String param);
+}
+</code></pre>
+</div>
+
+<h4 id="example-names-guiding-design">Example: names guiding design</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class PostAlerter
+ def notify\_post\_users
+ def notify\_group\_summary
+ def notify\_non\_pm\_users
+ def create_notification
+ def unread_posts
+ def unread_count
+ def group_stats
+end
+</code></pre>
+</div>
+
+<p>The name PostAlerter suggests functionalities that alert someone about a post. However, unread_posts, unread_count and group_stats clearly deal with something else, making this class name not ideal for what it does. Moving those three methods to a class called PostsStatistics would make matters clearer and more predictable for newcomers.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class PostAlerter
+ def notify_post_users
+ def notify_group_summary
+ def notify_non_pm_users
+ def create_notification
+end
+
+class PostsStatistics
+ def unread_posts
+ def unread_count
+ def group_stats
+end
+</code></pre>
+</div>
+
+<h3 id="method-1-break-apart">Method 1: Break Apart</h3>
+
+<p><img src="http://i.imgur.com/zqnCgVB.png" alt="Divide and... name" /></p>
+
+<p><strong>When to use</strong>: You cannot find a good name for a class or component, but you already have isolated concepts and want to find good names for their groupings.</p>
+
+<p>It consists in two steps:</p>
+
+<ol>
+  <li>identify the concepts we have</li>
+  <li>break them apart</li>
+</ol>
+
+<p>In the toilet + bed scenario, we pull apart each different thing we can identify by pushing bed to the left, toilet to the right. Ok, now we have two separate things that we can finally reason about in a natural way.</p>
+
+<p>When you cannot find a good name for something, you probably have more than one thing in front of you. And, as you know by now, naming multiple things is hard. When in trouble, try to identify what pieces and actions compose what you have.</p>
+
+<h4 id="example">Example</h4>
+
+<p>We have an unnamed class containing a <code class="highlighter-rouge">request</code>, <code class="highlighter-rouge">response</code>, <code class="highlighter-rouge">headers</code>, <code class="highlighter-rouge">URLs</code>, <code class="highlighter-rouge">body</code>, <code class="highlighter-rouge">caching</code> and <code class="highlighter-rouge">timeout</code>. Pulling all those apart from this main class, we’re left with the components <code class="highlighter-rouge">Request</code>, <code class="highlighter-rouge">Response</code>, <code class="highlighter-rouge">Headers</code>, <code class="highlighter-rouge">URLs</code>, <code class="highlighter-rouge">ResponseBody</code>, <code class="highlighter-rouge">Cache</code>, <code class="highlighter-rouge">Timeout</code> and so on. If all we had was the name of these classes, we could fairly sure assume we were dealing with a web request. A good candidate for a web request component is <code class="highlighter-rouge">HTTPClient</code>.</p>
+
+<blockquote>
+  <p>When the code is hard, don’t think about the whole first. Don’t. Think about the parts.</p>
+</blockquote>
+
+<h3 id="method-2-discover-new-concepts">Method 2: Discover New Concepts</h3>
+
+<p><img src="http://i.imgur.com/Z6gNKwJ.png" alt="New Concept" /></p>
+
+<p><strong>When to apply</strong>: when a class is not simple or coherent.</p>
+
+<p>Discovering new concepts requires knowledge of the business domain. When software applies the same nomenclatures as the business, an ubiquitous language is established. one that allows professionals from different areas of expertise to speak the same idioms.</p>
+
+<h4 id="example-encapsulating-components-into-one-new-concept">Example: Encapsulating components into one new concept</h4>
+
+<p>This marketplace ecommerce charged students with different rules in different countries with multiple payment gateways. Requirements were fairly complex. When I saw the charge code, <code class="highlighter-rouge">PaymentGateway</code>, I was shocked at how complicated it was, with several dependencies, including: <code class="highlighter-rouge">User</code>, <code class="highlighter-rouge">UserAddress</code>, <code class="highlighter-rouge">CreditCard</code>, <code class="highlighter-rouge">BillingAddress</code>, <code class="highlighter-rouge">SellerAddress</code>, <code class="highlighter-rouge">LineItems</code>, <code class="highlighter-rouge">Discounts</code>, and more. Its constructor was gigantic and this complexity made it hard to add new rules, as touching one thing broke others, as well as requiring us to change all gateway adapters.</p>
+
+<blockquote>
+  <p>Here I am, with these details about things I need you (the PaymentGateway) to charge for me. If this was a desk, I’d have these papers organized and I’d probably call them Invoices. So what if I created one class called Invoice, which is nothing more than the aggregation of all these other details, such that the gateway doesn’t need to know how those rules are done because Invoice will? Instead of injecting a million objects, I just hand one over to you?</p>
+</blockquote>
+
+<p>The Invoice term wasn’t used anywhere. We spent a month refactoring on the side and once we were done, we were able to change the software much more swiftly.</p>
+
+<p>Invoice is a good example of concept that is but an aggregation of data from many sources and the majority knows what it is. The final solution added the Invoice class which alone was injected into the gateways, serving as a facade pattern and hiding other classes.</p>
+
+<p><strong>Good naming is not just about writing beautiful words, but also writing precisely what needs to be expressed that wasn’t before</strong>.</p>
+
+<h4 id="example-pivoting-names-based-on-the-business-domain">Example: Pivoting names based on the business domain</h4>
+
+<h4 id="example-generalization">Example: Generalization</h4>
+
+<p>A long ago, a CMS had database tables <code class="highlighter-rouge">news</code>, <code class="highlighter-rouge">history</code>, <code class="highlighter-rouge">videos</code>, <code class="highlighter-rouge">articles</code>, <code class="highlighter-rouge">pages</code> and other. Most of them had the same columns, <code class="highlighter-rouge">title</code>, <code class="highlighter-rouge">summary</code>, <code class="highlighter-rouge">text</code>. <code class="highlighter-rouge">videos</code> table had extra attributes such as <code class="highlighter-rouge">url</code> (to embed YouTube) and <code class="highlighter-rouge">history</code> had a <code class="highlighter-rouge">date</code> attribute so the page would show a list of historic events by year. All these tables looked like copies, with a few differences here and there, and adding new functionality required rewriting a lot of boilerplate all over again.
+I collapsed all those tables into one called <code class="highlighter-rouge">contents</code> with a foreign key pointing to a table called <code class="highlighter-rouge">sections</code>, which had the list of sections such as news, history, videos and others. Now, one code for contents was enough. Once the forms for managing content were done, it took 1/N of the time it would normally take to implement anything because for every new section of the same type, it was already done.</p>
+
+<p><strong>Generalizing</strong> by giving it another name enables great productivity. News is a Content. Article is a Content. History is a Content. Can all of these share the same attributes? Yes. Survey? No, not a Content.</p>
+
+<h3 id="method-3-criteria-for-grouping">Method 3: Criteria For Grouping</h3>
+
+<p><strong>When to use</strong>: when names are good but they don’t fit well with each other.</p>
+
+<p>Components can be grouped by a variety of criteria, including physical nature, economic, emotional, social and, the most used in software, functional.</p>
+
+<p>Example: Couch and TV stay in the same room, grouped together based on a functional criteria, as they both have the same function or purpose, to provide leisure.</p>
+
+<p>In software, we tend to group components by function. List your project files and you will probably see something like <code class="highlighter-rouge">controllers/</code>, <code class="highlighter-rouge">models/</code>, <code class="highlighter-rouge">adapters/</code>, <code class="highlighter-rouge">templates/</code> and so on. However, some times these groups will not feel comfortable and that will be the perfect time to reevaluate the structure of your modules.</p>
+
+<h3 id="leveraging-contexts">Leveraging Contexts</h3>
+
+<p>Every app has a different context, and every module within it, every class within them, down to every function. The word <em>User</em> alone could mean user of the system, but also perhaps a database table, or a 3rd-party service credential. <code class="highlighter-rouge">lib/billing/user</code> differs from <code class="highlighter-rouge">lib/booking/user</code>, but they’re still user.</p>
+
+<p><img src="http://i.imgur.com/xjbvBDN.png" alt="User" /></p>
+
+<p>Imagine that every container, such as a module, is a bucket. Within them, components are insulated from the outer world. You’re free to name those classes whatever you want. It frees the mind from having to find esoteric names for common things.</p>
+
+<h4 id="example-namespaces">Example: Namespaces</h4>
+
+<p><code class="highlighter-rouge">Adwords::Ad</code>, <code class="highlighter-rouge">Facebook::Ad</code>, <code class="highlighter-rouge">Bing::Ad</code>, <code class="highlighter-rouge">RemoteAdService::Ad</code> - Interface between those classes.
+<code class="highlighter-rouge">Database::Ad</code> - this is the ORM for the ads table.
+<code class="highlighter-rouge">GUI::Ad</code>, <code class="highlighter-rouge">API::Ad</code></p>
+
+<p>Words can mean different things depending on context, and when we leverage context, we can choose simpler words for components.</p>
+
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://notes.viphat.work">notes.viphat.work</a> is published by <a href="http://notes.viphat.work">Dương Vì Phát</a>.</span>
+  <span class="site-footer-credits">Using <strong>Jekyll</strong> and <a href="http://github.com/jasonlong">Cayman theme</a>.</span>
+</footer>
+
+
+    </section>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-53685619-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>
